@@ -365,7 +365,7 @@ Transform:
   m_PrefabInternal: {fileID: 1013816691}
   m_GameObject: {fileID: 738659268}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 805.407227, y: 276.259521, z: 1113.49414}
+  m_LocalPosition: {x: 805.407227, y: 151.191711, z: 1113.49414}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 191009943}
@@ -561,9 +561,9 @@ MonoBehaviour:
   hillsIcon: {fileID: 2800000, guid: 5e5a7853f82e54ab6912e5c20342dd73, type: 3}
   plateausIcon: {fileID: 2800000, guid: d56a2918dbaab45ae899828d981d8dff, type: 3}
   defaultTexture: {fileID: 2800000, guid: 07ec441dca83743ee8e1b259837acbd2, type: 3}
-  toolModeInt: 2
+  toolModeInt: 0
   erosionTypeInt: 1
-  generatorTypeInt: 2
+  generatorTypeInt: 4
   isBrushOn: 0
   isBrushHidden: 0
   isBrushPainting: 0
@@ -616,18 +616,18 @@ MonoBehaviour:
   gradientStyles: []
   voronoiTypeInt: 1
   voronoiType: 1
-  voronoiCells: 32
+  voronoiCells: 18
   voronoiFeatures: 1
-  voronoiScale: .5
+  voronoiScale: .204999998
   voronoiBlend: 1
   diamondSquareDelta: .5
   diamondSquareBlend: 1
-  perlinFrequency: 4
-  perlinAmplitude: 1
-  perlinOctaves: 8
-  perlinBlend: .596000016
+  perlinFrequency: 5
+  perlinAmplitude: .75
+  perlinOctaves: 3
+  perlinBlend: 1
   smoothBlend: 1
-  smoothIterations: 0
+  smoothIterations: 2
   normaliseMin: 0
   normaliseMax: 1
   normaliseBlend: 1
@@ -644,7 +644,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 20052c14a6e13479a94cf32f39b2c72d, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 276.259521
+      value: 151.191711
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 20052c14a6e13479a94cf32f39b2c72d, type: 2}
       propertyPath: m_LocalPosition.z
