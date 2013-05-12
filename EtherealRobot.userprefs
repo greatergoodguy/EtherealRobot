@@ -1,15 +1,6 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/BB Assets/Scripts/OVR_BB/OVRCrosshair_BB.cs">
-    <Files>
-      <File FileName="Assets/BB Assets/Scripts/OVR_BB/OVRPlayerController_BB.cs" Line="89" Column="3" />
-      <File FileName="Assets/OVR/Scripts/OVRGamepadController.cs" Line="1" Column="1" />
-      <File FileName="Assets/OVR/Scripts/OVRCameraController.cs" Line="1" Column="1" />
-      <File FileName="Assets/OVR/Scripts/OVRPlayerController.cs" Line="244" Column="43" />
-      <File FileName="Assets/OVR/Scripts/OVRCrosshair.cs" Line="31" Column="19" />
-      <File FileName="Assets/BB Assets/Scripts/OVR_BB/OVRCrosshair_BB.cs" Line="125" Column="29" />
-    </Files>
-  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

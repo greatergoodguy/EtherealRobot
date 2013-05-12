@@ -37,8 +37,8 @@ using System.Collections.Generic;
 //
 public class OVRPlayerController_BB : OVRComponent
 {
-	protected CharacterController 	Controller 		 = null;
-	protected OVRCameraController 	CameraController = null;
+	protected CharacterController 	characterController = null;
+	protected OVRCameraController 	CameraController 	= null;
 
 	public float Acceleration 	 = 0.1f;
 	public float Damping 		 = 0.15f;
@@ -77,11 +77,9 @@ public class OVRPlayerController_BB : OVRComponent
 		base.Awake();
 		
 		// We use Controller to move player around
-		Controller = gameObject.GetComponent<CharacterController>();
-		Controller.detectCollisions = false;
-		print (Controller.detectCollisions);
+		characterController = gameObject.GetComponent<CharacterController>();
 		
-		if(Controller == null)
+		if(characterController == null)
 			Debug.LogWarning("OVRPlayerController: No CharacterController attached.");
 					
 		// We use OVRCameraController to set rotations to cameras, 
@@ -141,7 +139,7 @@ public class OVRPlayerController_BB : OVRComponent
 		moveDirection += MoveThrottle * DeltaTime;
 		
 		// Gravity
-		if (Controller.isGrounded && FallSpeed <= 0)
+		if (characterController.isGrounded && FallSpeed <= 0)
 			FallSpeed = ((Physics.gravity.y * (GravityModifier * 0.002f)));	
 		else
 			FallSpeed += ((Physics.gravity.y * (GravityModifier * 0.002f)) * DeltaTime);	
@@ -151,20 +149,20 @@ public class OVRPlayerController_BB : OVRComponent
 		// Offset correction for uneven ground
 		float bumpUpOffset = 0.0f;
 		
-		if (Controller.isGrounded && MoveThrottle.y <= 0.001f)
+		if (characterController.isGrounded && MoveThrottle.y <= 0.001f)
 		{
-			bumpUpOffset = Mathf.Max(Controller.stepOffset, 
+			bumpUpOffset = Mathf.Max(characterController.stepOffset, 
 									 new Vector3(moveDirection.x, 0, moveDirection.z).magnitude); 
 			moveDirection -= bumpUpOffset * Vector3.up;
 		}			
 	 
-		Vector3 predictedXZ = Vector3.Scale((Controller.transform.localPosition + moveDirection), 
+		Vector3 predictedXZ = Vector3.Scale((characterController.transform.localPosition + moveDirection), 
 											 new Vector3(1, 0, 1));	
 		
 		// Move contoller
-		Controller.Move(moveDirection);
+		characterController.Move(moveDirection);
 		
-		Vector3 actualXZ = Vector3.Scale(Controller.transform.localPosition, new Vector3(1, 0, 1));
+		Vector3 actualXZ = Vector3.Scale(characterController.transform.localPosition, new Vector3(1, 0, 1));
 		
 		if (predictedXZ != actualXZ)
 			MoveThrottle += (actualXZ - predictedXZ) / DeltaTime; 
@@ -212,7 +210,7 @@ public class OVRPlayerController_BB : OVRComponent
 				MoveScale = 0.70710678f;
 			
 			// No positional movement if we are in the air
-			if (!Controller.isGrounded)	
+			if (!characterController.isGrounded)	
 				MoveScale = 0.0f;
 			
 			MoveScale *= DeltaTime;
@@ -317,7 +315,7 @@ public class OVRPlayerController_BB : OVRComponent
 	// Jump
 	public bool Jump()
 	{
-		if (!Controller.isGrounded)
+		if (!characterController.isGrounded)
 			return false;
 
 		MoveThrottle += new Vector3(0, JumpForce, 0);
@@ -328,7 +326,7 @@ public class OVRPlayerController_BB : OVRComponent
 	// Stop
 	public void Stop()
 	{
-		Controller.Move(Vector3.zero);
+		characterController.Move(Vector3.zero);
 		MoveThrottle = Vector3.zero;
 		FallSpeed = 0.0f;
 	}	
