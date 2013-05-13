@@ -131,7 +131,11 @@ public class BallPC : OVRComponent {
 			forwardForce = forward * tmpSpeed * 1f * moveSpeed;
 		}
 		else{
-			forwardForce = forward * Input.GetAxis("Vertical") * moveSpeed;
+			//float verticalInput = Input.GetAxis("Vertical");
+			//if(verticalInput)
+				//forwardForce = forward * Input.GetAxis("Vertical") * moveSpeed;
+			if(Input.GetKey(KeyCode.Space))
+				forwardForce = forward * moveSpeed;
 		}
 		rigidbody.AddForce(forwardForce);
 		
@@ -145,11 +149,12 @@ public class BallPC : OVRComponent {
 			rightForce = right * tmpSpeed * 0.8f * moveSpeed;
 		}
 		else{
-			rightForce= right * Input.GetAxis("Horizontal") * moveSpeed;
+			//rightForce = right * Input.GetAxis("Horizontal") * moveSpeed;
+			rightForce = Vector3.zero;
 		}		
 		rigidbody.AddForce(rightForce);
 				
-		if (canJump && Input.GetKeyDown(KeyCode.Space)){
+		if (canJump && Input.GetKeyDown(KeyCode.LeftShift)){
 			rigidbody.AddForce(Vector3.up * jumpSpeed * 100);
 			canJump = false;
 		}
