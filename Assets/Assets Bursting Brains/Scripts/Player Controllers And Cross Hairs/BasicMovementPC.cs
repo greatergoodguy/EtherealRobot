@@ -299,7 +299,10 @@ public class BasicMovementPC : OVRComponent
 		
 		// Update cameras direction and rotation
 		SetCameras();
-
+		
+		
+		if (Input.GetKey(KeyCode.LeftShift)) 
+			Jump();
 	}
 
 	// UpdatePlayerControllerRotation
