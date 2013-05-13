@@ -1,6 +1,10 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Assets Bursting Brains/Scripts/Player Controllers And Cross Hairs/BallPC.cs">
+    <Files>
+      <File FileName="Assets/Assets Bursting Brains/Scripts/Player Controllers And Cross Hairs/BallPC.cs" Line="40" Column="28" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
