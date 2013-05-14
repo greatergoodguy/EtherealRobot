@@ -15,9 +15,16 @@ public class DebugGui : MonoBehaviour {
 	
 	private bool 	isGuiOn			= false;
 	
+	private string controllerName   = "Name has not been initialized";
+	
 	// Use this for initialization
 	void Start () {
-	
+		GameObject[] players = GameObject.FindGameObjectsWithTag("Player");;
+		
+		//foreach(GameObject player in players){
+		//	PlayerController qwe = player.GetComponent<PlayerController>();	
+		//	controllerName = qwe.GetControllerName();
+		//}
 	}
 	
 	// Update is called once per frame
@@ -33,8 +40,7 @@ public class DebugGui : MonoBehaviour {
 		}
 		
 		//GUI.Button (new Rect (10,10,150,100), "I am a button");				
-		string loading = "LOADING...";
-		GUIStereoBox (StartX, StartY, WidthX, WidthY, ref loading, Color.yellow);
+		GUIStereoBox (StartX, StartY, WidthX, WidthY, ref controllerName, Color.yellow);
 	}
 	
 	// GUIStereoBox - Values based on pixels in DK1 resolution of W: (1280 / 2) H: 800

@@ -1,8 +1,12 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Assets Bursting Brains/Scripts/Player Controllers And Cross Hairs/BallPC.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Assets Bursting Brains/Scripts/Managers/PlayerManager.cs">
     <Files>
-      <File FileName="Assets/Assets Bursting Brains/Scripts/Player Controllers And Cross Hairs/BallPC.cs" Line="40" Column="28" />
+      <File FileName="Assets/Assets Bursting Brains/Scripts/Managers/GameManager.cs" Line="4" Column="43" />
+      <File FileName="Assets/Assets Bursting Brains/Scripts/Managers/PlayerManager.cs" Line="1" Column="1621" />
+      <File FileName="Assets/Assets Bursting Brains/Scripts/Player Controllers/BallPC.cs" Line="217" Column="45" />
+      <File FileName="Assets/Assets Bursting Brains/Scripts/DebugGui.cs" Line="1" Column="1" />
+      <File FileName="Assets/Assets Bursting Brains/Scripts/qwe.cs" Line="18" Column="43" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

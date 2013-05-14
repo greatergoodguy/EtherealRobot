@@ -1,4 +1,4 @@
-﻿/************************************************************************************
+/************************************************************************************
 
 Filename    :   OVRComponent.cs
 Content     :   Base component OVR class
@@ -25,32 +25,29 @@ using System.Collections.Generic;
 // NOTE: It is important that any overloaded functions in derived classes call 
 // base.<NAME OF FUNCTION (i.e. Awake)> to allow for base functionality.
 // 
-public class OVRComponent : MonoBehaviour
-{
+public abstract class PlayerController : MonoBehaviour{
 	protected float DeltaTime = 1.0f;
 
 	// Awake
-	public virtual void Awake()
-	{
+	public virtual void Awake(){
 	}
 
 	// Start
-	public virtual void Start()
-	{
+	public virtual void Start(){
 	}
 
 	// Update
-	public virtual void Update()
-	{
+	public virtual void Update(){
 		// If we are running at 60fps, DeltaTime will be set to 1.0 
 		DeltaTime = (Time.deltaTime * 60.0f);
 	}
 	
 	// LateUpdate
-	public virtual void LateUpdate()
-	{
+	public virtual void LateUpdate(){
 	}
-
+	
+	public abstract string GetControllerName();
 }
+
 
 

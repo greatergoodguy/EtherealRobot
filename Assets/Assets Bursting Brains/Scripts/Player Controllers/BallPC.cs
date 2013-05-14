@@ -33,7 +33,7 @@ using System.Collections.Generic;
 // direction on. This game object should also house the body geometry which will be seen
 // by the player.
 //
-public class BallPC : OVRComponent {
+public class BallPC : PlayerController {
 	
 	public Vector3 movement;
 	public float moveSpeed = 6.0f;
@@ -215,9 +215,12 @@ public class BallPC : OVRComponent {
 	}
 	
 	void OnCollisionEnter(Collision collision){
-		print ("OnCollisionEnter");
 		if (!canJump){
 			canJump = true;
 		}
     }
+	
+	public override string GetControllerName() {
+    	return "Ball PC";
+   	}  
 }

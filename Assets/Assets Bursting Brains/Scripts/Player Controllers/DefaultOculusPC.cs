@@ -35,10 +35,10 @@ using System.Collections.Generic;
 // direction on. This game object should also house the body geometry which will be seen
 // by the player.
 //
-public class BasicMovementPC : OVRComponent
+public class DefaultOculusPC : PlayerController
 {
-	protected CharacterController 	Controller 		 = null;
-	protected OVRCameraController 	CameraController = null;
+	protected CharacterController 	characterController = null;
+	protected OVRCameraController 	CameraController 	= null;
 
 	public float Acceleration 	 = 0.1f;
 	public float Damping 		 = 0.15f;
@@ -72,16 +72,13 @@ public class BasicMovementPC : OVRComponent
 	// * * * * * * * * * * * * *
 	
 	// Awake
-	new public virtual void Awake()
-	{
+	new public virtual void Awake(){
 		base.Awake();
 		
 		// We use Controller to move player around
-		Controller = gameObject.GetComponent<CharacterController>();
-		Controller.detectCollisions = false;
-		print (Controller.detectCollisions);
+		characterController = gameObject.GetComponent<CharacterController>();
 		
-		if(Controller == null)
+		if(characterController == null)
 			Debug.LogWarning("OVRPlayerController: No CharacterController attached.");
 					
 		// We use OVRCameraController to set rotations to cameras, 
@@ -116,8 +113,7 @@ public class BasicMovementPC : OVRComponent
 	}
 
 	// Start
-	new public virtual void Start()
-	{
+	new public virtual void Start(){
 		base.Start();
 		
 		InitializeInputs();	
@@ -125,8 +121,7 @@ public class BasicMovementPC : OVRComponent
 	}
 		
 	// Update 
-	new public virtual void Update()
-	{
+	new public virtual void Update(){
 		base.Update();
 		
 		UpdateMovement();
@@ -141,7 +136,7 @@ public class BasicMovementPC : OVRComponent
 		moveDirection += MoveThrottle * DeltaTime;
 		
 		// Gravity
-		if (Controller.isGrounded && FallSpeed <= 0)
+		if (characterController.isGrounded && FallSpeed <= 0)
 			FallSpeed = ((Physics.gravity.y * (GravityModifier * 0.002f)));	
 		else
 			FallSpeed += ((Physics.gravity.y * (GravityModifier * 0.002f)) * DeltaTime);	
@@ -151,20 +146,20 @@ public class BasicMovementPC : OVRComponent
 		// Offset correction for uneven ground
 		float bumpUpOffset = 0.0f;
 		
-		if (Controller.isGrounded && MoveThrottle.y <= 0.001f)
+		if (characterController.isGrounded && MoveThrottle.y <= 0.001f)
 		{
-			bumpUpOffset = Mathf.Max(Controller.stepOffset, 
+			bumpUpOffset = Mathf.Max(characterController.stepOffset, 
 									 new Vector3(moveDirection.x, 0, moveDirection.z).magnitude); 
 			moveDirection -= bumpUpOffset * Vector3.up;
 		}			
 	 
-		Vector3 predictedXZ = Vector3.Scale((Controller.transform.localPosition + moveDirection), 
+		Vector3 predictedXZ = Vector3.Scale((characterController.transform.localPosition + moveDirection), 
 											 new Vector3(1, 0, 1));	
 		
 		// Move contoller
-		Controller.Move(moveDirection);
+		characterController.Move(moveDirection);
 		
-		Vector3 actualXZ = Vector3.Scale(Controller.transform.localPosition, new Vector3(1, 0, 1));
+		Vector3 actualXZ = Vector3.Scale(characterController.transform.localPosition, new Vector3(1, 0, 1));
 		
 		if (predictedXZ != actualXZ)
 			MoveThrottle += (actualXZ - predictedXZ) / DeltaTime; 
@@ -179,8 +174,7 @@ public class BasicMovementPC : OVRComponent
 	// COnsolidate all movement code here
 	//
 	static float sDeltaRotationOld = 0.0f;
-	public virtual void UpdateMovement()
-	{
+	public virtual void UpdateMovement(){
 		// Do not apply input if we are showing a level selection display
 		if(OVRMainMenu.sShowLevels == false)
 		{
@@ -195,10 +189,8 @@ public class BasicMovementPC : OVRComponent
 			// Keyboard input
 			
 			// Move
-			if (Input.GetKey(KeyCode.Space)) moveForward = true;
 			
 			// WASD
-			/*
 			if (Input.GetKey(KeyCode.W)) moveForward = true;
 			if (Input.GetKey(KeyCode.A)) moveLeft	 = true;
 			if (Input.GetKey(KeyCode.S)) moveBack 	 = true; 
@@ -208,14 +200,13 @@ public class BasicMovementPC : OVRComponent
 			if (Input.GetKey(KeyCode.LeftArrow))  moveLeft 	  = true;
 			if (Input.GetKey(KeyCode.DownArrow))  moveBack 	  = true; 
 			if (Input.GetKey(KeyCode.RightArrow)) moveRight   = true; 
-			*/
 			
 			if ( (moveForward && moveLeft) || (moveForward && moveRight) ||
 				 (moveBack && moveLeft)    || (moveBack && moveRight) )
 				MoveScale = 0.70710678f;
 			
 			// No positional movement if we are in the air
-			if (!Controller.isGrounded)	
+			if (!characterController.isGrounded)	
 				MoveScale = 0.0f;
 			
 			MoveScale *= DeltaTime;
@@ -299,10 +290,7 @@ public class BasicMovementPC : OVRComponent
 		
 		// Update cameras direction and rotation
 		SetCameras();
-		
-		
-		if (Input.GetKey(KeyCode.LeftShift)) 
-			Jump();
+
 	}
 
 	// UpdatePlayerControllerRotation
@@ -310,8 +298,7 @@ public class BasicMovementPC : OVRComponent
 	// CameraController. For now, we are simply copying the CameraController rotation into 
 	// PlayerController, so that the PlayerController always faces the direction of the 
 	// CameraController. When we add a body, this will change a bit..
-	public virtual void UpdatePlayerForwardDirTransform()
-	{
+	public virtual void UpdatePlayerForwardDirTransform(){
 		if ((DirXform != null) && (CameraController != null))
 			DirXform.rotation = CameraController.transform.rotation;
 	}
@@ -321,9 +308,8 @@ public class BasicMovementPC : OVRComponent
 	///////////////////////////////////////////////////////////
 	
 	// Jump
-	public bool Jump()
-	{
-		if (!Controller.isGrounded)
+	public bool Jump(){
+		if (!characterController.isGrounded)
 			return false;
 
 		MoveThrottle += new Vector3(0, JumpForce, 0);
@@ -332,16 +318,14 @@ public class BasicMovementPC : OVRComponent
 	}
 
 	// Stop
-	public void Stop()
-	{
-		Controller.Move(Vector3.zero);
+	public void Stop(){
+		characterController.Move(Vector3.zero);
 		MoveThrottle = Vector3.zero;
 		FallSpeed = 0.0f;
 	}	
 	
 	// InitializeInputs
-	public void InitializeInputs()
-	{
+	public void InitializeInputs(){
 		// Get our start direction
 		OrientationOffset = transform.rotation;
 		// Make sure to set y rotation to 0 degrees
@@ -349,8 +333,7 @@ public class BasicMovementPC : OVRComponent
 	}
 	
 	// SetCameras
-	public void SetCameras()
-	{
+	public void SetCameras(){
 		if(CameraController != null)
 		{
 			// Make sure to set the initial direction of the camera 
@@ -361,22 +344,24 @@ public class BasicMovementPC : OVRComponent
 	}
 	
 	// Get/SetMoveScaleMultiplier
-	public void GetMoveScaleMultiplier(ref float moveScaleMultiplier)
-	{
+	public void GetMoveScaleMultiplier(ref float moveScaleMultiplier){
 		moveScaleMultiplier = MoveScaleMultiplier;
 	}
-	public void SetMoveScaleMultiplier(float moveScaleMultiplier)
-	{
+	
+	public void SetMoveScaleMultiplier(float moveScaleMultiplier){
 		MoveScaleMultiplier = moveScaleMultiplier;
 	}
 	
 	// Get/SetRotationScaleMultiplier
-	public void GetRotationScaleMultiplier(ref float rotationScaleMultiplier)
-	{
+	public void GetRotationScaleMultiplier(ref float rotationScaleMultiplier){
 		rotationScaleMultiplier = RotationScaleMultiplier;
 	}
-	public void SetRotationScaleMultiplier(float rotationScaleMultiplier)
-	{
+	
+	public void SetRotationScaleMultiplier(float rotationScaleMultiplier){
 		RotationScaleMultiplier = rotationScaleMultiplier;
 	}
+
+	public override string GetControllerName() {
+    	return "Default Oculus PC";
+   	}  
 }
