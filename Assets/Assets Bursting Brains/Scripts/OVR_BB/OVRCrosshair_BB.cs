@@ -46,6 +46,8 @@ public class OVRCrosshair_BB : MonoBehaviour
 	private float XL = 0.0f;
 	private float YL = 0.0f;
 	
+	PlayerController playerController;
+	
 	// Start
 	void Start()
 	{
@@ -60,6 +62,8 @@ public class OVRCrosshair_BB : MonoBehaviour
 		
 		// Get the values for both IPD and lens distortion correction shift
 		OVRDevice.GetPhysicalLensOffsets(ref LensOffsetLeft, ref LensOffsetRight);
+		
+		PlayerController playerController = GetComponent<PlayerController>();
 	}
 	
 	// Update

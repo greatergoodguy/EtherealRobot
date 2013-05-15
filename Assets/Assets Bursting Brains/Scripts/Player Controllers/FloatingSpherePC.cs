@@ -126,8 +126,6 @@ public class FloatingSpherePC : PlayerController {
 		Vector3 forward = Camera.main.transform.TransformDirection(Vector3.forward);
 		forward = forward.normalized;
 		
-		print(forward);
-		
 		Vector3 forwardForce = new Vector3();
 		if (Application.platform == RuntimePlatform.Android){
 			float tmpSpeed = 0; //moveJoy.GetComponent<Joystick>().position.y;
