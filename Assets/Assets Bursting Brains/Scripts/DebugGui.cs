@@ -19,12 +19,7 @@ public class DebugGui : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		GameObject[] players = GameObject.FindGameObjectsWithTag("Player");;
-		
-		//foreach(GameObject player in players){
-		//	PlayerController qwe = player.GetComponent<PlayerController>();	
-		//	controllerName = qwe.GetControllerName();
-		//}
+		GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 	}
 	
 	// Update is called once per frame

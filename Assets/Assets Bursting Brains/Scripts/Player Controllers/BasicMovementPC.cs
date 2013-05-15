@@ -77,8 +77,6 @@ public class BasicMovementPC : OVRComponent{
 		
 		// We use Controller to move player around
 		Controller = gameObject.GetComponent<CharacterController>();
-		Controller.detectCollisions = false;
-		print (Controller.detectCollisions);
 		
 		if(Controller == null)
 			Debug.LogWarning("OVRPlayerController: No CharacterController attached.");

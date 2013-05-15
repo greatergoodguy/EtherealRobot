@@ -6,7 +6,7 @@
 
 
 public enum PlayerType {
-	Ball,
-	Basic,
-	DefaultOculus
+	Ball
+	,Basic
+//	,DefaultOculus
 };
