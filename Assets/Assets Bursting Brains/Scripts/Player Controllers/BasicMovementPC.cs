@@ -211,10 +211,6 @@ public class BasicMovementPC : OVRComponent{
 				 (moveBack && moveLeft)    || (moveBack && moveRight) )
 				MoveScale = 0.70710678f;
 			
-			// No positional movement if we are in the air
-			if (!Controller.isGrounded)	
-				MoveScale = 0.0f;
-			
 			MoveScale *= DeltaTime;
 			
 			// Compute this for key movement
@@ -318,8 +314,7 @@ public class BasicMovementPC : OVRComponent{
 	///////////////////////////////////////////////////////////
 	
 	// Jump
-	public bool Jump()
-	{
+	public bool Jump(){
 		if (!Controller.isGrounded)
 			return false;
 

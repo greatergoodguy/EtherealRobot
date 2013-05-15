@@ -33,7 +33,7 @@ using System.Collections.Generic;
 // direction on. This game object should also house the body geometry which will be seen
 // by the player.
 //
-public class BallPC : PlayerController {
+public class FloatingSpherePC : PlayerController {
 	
 	public Vector3 movement;
 	public float moveSpeed = 6.0f;
@@ -102,6 +102,8 @@ public class BallPC : PlayerController {
 		
 		InitializeInputs();	
 		SetCameras();
+		
+		rigidbody.useGravity = false;
 	}
 		
 	// Update 
@@ -122,8 +124,9 @@ public class BallPC : PlayerController {
 		
 		// Controls the Ball's movement
 		Vector3 forward = Camera.main.transform.TransformDirection(Vector3.forward);
-		forward.y = 0;
 		forward = forward.normalized;
+		
+		print(forward);
 		
 		Vector3 forwardForce = new Vector3();
 		if (Application.platform == RuntimePlatform.Android){
@@ -216,12 +219,12 @@ public class BallPC : PlayerController {
 	}
 	
 	void OnCollisionEnter(Collision collision){
-		if (!canJump){
-			canJump = true;
-		}
+//		if (!canJump){
+//			canJump = true;
+//		}
     }
 	
 	public override string GetControllerName() {
-    	return "Ball PC";
+    	return "FloatingSphere PC";
    	}  
 }

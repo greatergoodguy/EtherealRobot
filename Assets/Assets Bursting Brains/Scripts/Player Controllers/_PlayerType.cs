@@ -8,5 +8,6 @@
 public enum PlayerType {
 	Ball
 	,Basic
+	,FloatingSphere
 //	,DefaultOculus
 };
