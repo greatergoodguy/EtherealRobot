@@ -1,9 +1,0 @@
-fileFormatVersion: 2
-guid: a4f1981c7f4cf40eea7bc000bedfef52
-MonoImporter:
-  serializedVersion: 2
-  defaultReferences:
-  - ImageCrosshair: {fileID: 2800000, guid: bba6ea5a7ad294330921879cad275b79, type: 3}
-  executionOrder: 0
-  icon: {instanceID: 0}
-  userData: 

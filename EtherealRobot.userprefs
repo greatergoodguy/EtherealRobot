@@ -1,12 +1,12 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Assets Bursting Brains/Scripts/Player Controllers/BasicMovementPC.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Assets Bursting Brains/Scripts/Player Controllers OVR/NoFrictionPC.cs">
     <Files>
-      <File FileName="Assets/Assets Bursting Brains/Scripts/Managers/GameManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/Assets Bursting Brains/Scripts/OVR_BB/OVRCrosshair_BB.cs" Line="1" Column="1" />
       <File FileName="Assets/Assets Bursting Brains/Scripts/Managers/PlayerManager.cs" Line="1" Column="1" />
-      <File FileName="Assets/Assets Bursting Brains/Scripts/Player Controllers/BallPC.cs" Line="1" Column="1" />
-      <File FileName="Assets/Assets Bursting Brains/Scripts/DebugGui.cs" Line="1" Column="1" />
-      <File FileName="Assets/Assets Bursting Brains/Scripts/Player Controllers/BasicMovementPC.cs" Line="212" Column="29" />
+      <File FileName="Assets/Assets Bursting Brains/Scripts Global/Player Controllers FPS/PhysicsFPSWalker.cs" Line="63" Column="1" />
+      <File FileName="Assets/Assets Bursting Brains/Scripts/Player Controllers OVR/BallPC.cs" Line="225" Column="18" />
+      <File FileName="Assets/Assets Bursting Brains/Scripts/Player Controllers OVR/NoFrictionPC.cs" Line="225" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
