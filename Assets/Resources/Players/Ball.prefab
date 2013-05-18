@@ -505,7 +505,8 @@ MonoBehaviour:
   moveSpeed: 6
   jumpSpeed: 2
   drag: 2
-  RotationAmount: 1.5
+  RotationAmount: 19.3999996
+  driftFactor: 20
 --- !u!124 &12400000
 Behaviour:
   m_ObjectHideFlags: 1

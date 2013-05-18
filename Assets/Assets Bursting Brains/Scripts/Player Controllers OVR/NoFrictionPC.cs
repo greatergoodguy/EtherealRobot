@@ -224,8 +224,11 @@ public class NoFrictionPC : PlayerController {
 	// This is called every physics frame
 	void FixedUpdate (){
  
-		if(Input.GetKey(KeyCode.Space))
-			rigidbody.AddForce (CameraController.transform.rotation * Vector3.forward);
+		if(Input.GetKey(KeyCode.Space)){
+			Vector3 forceVector = CameraController.transform.rotation * Vector3.forward * 5;
+			print(forceVector);
+			rigidbody.AddForce (forceVector);
+		}
 		
 		// If the object is grounded and isn't moving at the max speed or higher apply force to move it
 		/*

@@ -56,7 +56,10 @@ public class BallPC : PlayerController {
 	// STATIC VARIABLES
 	//
 	public static bool  AllowMouseRotation      = true;
- 	
+	
+	private Queue<Vector3> forwardDirHistory = new Queue<Vector3>();
+	public int driftFactor = 20;
+	
 	// * * * * * * * * * * * * *
 	
 	// Awake
@@ -93,6 +96,16 @@ public class BallPC : PlayerController {
 		
 		if(DirXform == null)
 			Debug.LogWarning("OVRPlayerController: ForwardDirection game object not found. Do not use.");
+		
+		Vector3 currForward = Camera.main.transform.TransformDirection(Vector3.forward);		
+		currForward.y = 0;
+		currForward = currForward.normalized;
+		for(int i=0; i<driftFactor; i++){
+			forwardDirHistory.Enqueue(currForward);
+		}
+		
+		
+		getVariance();
 	}
 
 	// Start
@@ -117,13 +130,22 @@ public class BallPC : PlayerController {
 	//
 	// COnsolidate all movement code here
 	//
+	
+	private Vector3 currForward;
+	private Vector3 driftForward;
+	private Vector3 forward;
+		
 	static float sDeltaRotationOld = 0.0f;
 	public virtual void UpdateMovement() {
 		
 		// Controls the Ball's movement
-		Vector3 forward = Camera.main.transform.TransformDirection(Vector3.forward);
-		forward.y = 0;
-		forward = forward.normalized;
+		currForward = Camera.main.transform.TransformDirection(Vector3.forward);		
+		currForward.y = 0;
+		currForward = currForward.normalized;
+		forwardDirHistory.Enqueue(currForward);
+		
+		driftForward = forwardDirHistory.Dequeue();
+		forward = driftForward;
 		
 		Vector3 forwardForce = new Vector3();
 		if (Application.platform == RuntimePlatform.Android){
@@ -139,7 +161,7 @@ public class BallPC : PlayerController {
 		}
 		rigidbody.AddForce(forwardForce);
 		
-		Vector3 right= Camera.main.transform.TransformDirection(Vector3.right);
+		Vector3 right = Camera.main.transform.TransformDirection(Vector3.right);
 		right.y = 0;
 		right = right.normalized;
 		
@@ -177,6 +199,8 @@ public class BallPC : PlayerController {
 		
 		// Update cameras direction and rotation
 		SetCameras();
+		
+		print(getVariance());
 	}
 
 	// UpdatePlayerControllerRotation
@@ -224,4 +248,28 @@ public class BallPC : PlayerController {
 	public override string GetControllerName() {
     	return "Ball";
    	}  
+	
+	private Vector3 getVariance(){
+		
+		Vector3 result = Vector3.zero;
+		Vector3 average = getAverage();
+		
+		foreach(Vector3 vector in forwardDirHistory){
+			result += Vector3.Scale(vector - average, vector - average);
+		}
+		
+		result = result / (forwardDirHistory.Count - 1);
+		
+		return result;
+	}
+	
+	private Vector3 getAverage(){
+		Vector3 sum = Vector3.zero;
+		foreach(Vector3 vector in forwardDirHistory){
+			sum += vector;
+		}
+		
+		Vector3 average = sum / forwardDirHistory.Count;
+		return average;
+	}
 }

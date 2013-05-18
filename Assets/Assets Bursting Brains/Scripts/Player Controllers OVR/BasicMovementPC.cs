@@ -68,6 +68,9 @@ public class BasicMovementPC : OVRComponent{
 	//
 	public static bool  AllowMouseRotation      = true;
  	
+	private Queue<Vector3> forwardDirHistory = new Queue<Vector3>();
+	private int driftFactor = 80;
+	
 	// * * * * * * * * * * * * *
 	
 	// Awake
@@ -110,6 +113,13 @@ public class BasicMovementPC : OVRComponent{
 		
 		if(DirXform == null)
 			Debug.LogWarning("OVRPlayerController: ForwardDirection game object not found. Do not use.");
+		
+		Vector3 currForward = Camera.main.transform.TransformDirection(Vector3.forward);		
+		currForward.y = 0;
+		currForward = currForward.normalized;
+		for(int i=0; i<driftFactor; i++){
+			forwardDirHistory.Enqueue(currForward);
+		}
 	}
 
 	// Start
@@ -176,6 +186,11 @@ public class BasicMovementPC : OVRComponent{
 	// COnsolidate all movement code here
 	//
 	static float sDeltaRotationOld = 0.0f;
+	
+	private Vector3 currForward;
+	private Vector3 driftForward;
+	private Vector3 forward;
+	
 	public virtual void UpdateMovement()
 	{
 		// Do not apply input if we are showing a level selection display
@@ -218,7 +233,8 @@ public class BasicMovementPC : OVRComponent{
 			
 			// Run!
 			if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
-				moveInfluence *= 2.0f;
+				Jump();
+			
 			
 			if(DirXform != null)
 			{
@@ -267,11 +283,18 @@ public class BasicMovementPC : OVRComponent{
 			moveInfluence *= 1.0f + OVRGamepadController.GetTriggerLeft();
 			
 			// Move
+			
+			currForward = DirXform.TransformDirection(Vector3.forward * moveInfluence);
+			//forwardDirHistory.Enqueue(currForward);
+			//driftForward = forwardDirHistory.Dequeue();
+			forward = currForward;
+		
+			
 			if(DirXform != null)
 			{
 				if(OVRGamepadController.GetAxisLeftY() > 0.0f)
 		    		MoveThrottle += OVRGamepadController.GetAxisLeftY() *
-					DirXform.TransformDirection(Vector3.forward * moveInfluence);
+						DirXform.TransformDirection(Vector3.forward * moveInfluence);
 				
 				if(OVRGamepadController.GetAxisLeftY() < 0.0f)
 		    		MoveThrottle += Mathf.Abs(OVRGamepadController.GetAxisLeftY()) *		
@@ -286,16 +309,14 @@ public class BasicMovementPC : OVRComponent{
 					DirXform.TransformDirection(Vector3.right * moveInfluence);
 			}
 			
+			
+			
 			// Rotate
 			YRotation += OVRGamepadController.GetAxisRightX() * rotateInfluence;    
 		}
 		
 		// Update cameras direction and rotation
 		SetCameras();
-		
-		
-		if (Input.GetKey(KeyCode.LeftShift)) 
-			Jump();
 	}
 
 	// UpdatePlayerControllerRotation
