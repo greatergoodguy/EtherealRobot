@@ -22,8 +22,7 @@ using UnityEngine;
 // is no distortion correction on it.
 // 
 // 
-public class NoFrictionWithDraftCH : MonoBehaviour
-{
+public class NoFrictionWithDriftCH : MonoBehaviour{
 	// crosshair texture
 	public Texture ImageCrosshair 	  = null;
 	public float   StereoSpread  	  = 0.0f;
@@ -81,14 +80,14 @@ public class NoFrictionWithDraftCH : MonoBehaviour
 		FadeVal = Mathf.Clamp(FadeVal, 0.0f, 1.0f);
 		
 		// Check to see if crosshair influences mouse rotation
-		NoFrictionWithDraftPC.AllowMouseRotation = false;
+		NoFrictionWithDriftPC.AllowMouseRotation = false;
 		
 		if ((ImageCrosshair != null) && (FadeVal != 0.0f))
 		{
 			// Assume cursor is on-screen (unless it goes into the dead-zone)
 			// Other systems will check this to see if it is false for example 
 			// allowing rotation to take place
-			NoFrictionWithDraftPC.AllowMouseRotation = true;
+			NoFrictionWithDriftPC.AllowMouseRotation = true;
 
 			GUI.color = new Color(1, 1, 1, FadeVal * FadeScale);
 			
@@ -99,12 +98,12 @@ public class NoFrictionWithDraftCH : MonoBehaviour
 			XL += Input.GetAxis("Mouse X") * 0.5f * ScaleSpeedX;
 			if(XL < DeadZoneX) 
 			{
-				NoFrictionWithDraftPC.AllowMouseRotation = false;
+				NoFrictionWithDriftPC.AllowMouseRotation = false;
 				XL = DeadZoneX - 0.001f;	
 			}
 			else if (XL > (Screen.width * 0.5f) - DeadZoneX)
 			{
-				NoFrictionWithDraftPC.AllowMouseRotation = false;
+				NoFrictionWithDriftPC.AllowMouseRotation = false;
 				XL = Screen.width * 0.5f - DeadZoneX + 0.001f;
 			}
 			
@@ -122,7 +121,7 @@ public class NoFrictionWithDraftCH : MonoBehaviour
 			}
 			
 			// Finally draw cursor
-			if(NoFrictionWithDraftPC.AllowMouseRotation == true)
+			if(NoFrictionWithDriftPC.AllowMouseRotation == true)
 			{
 				// Left
 				GUI.DrawTexture(new Rect(	XL - (ImageCrosshair.width * 0.5f) - ah ,

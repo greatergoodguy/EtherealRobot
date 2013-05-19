@@ -33,7 +33,7 @@ using System.Collections.Generic;
 // direction on. This game object should also house the body geometry which will be seen
 // by the player.
 //
-public class NoFrictionWithDraftPC : PlayerController {
+public class NoFrictionWithDriftPC : PlayerController {
 	// These variables are for adjusting in the inspector how the object behaves 
 	public float maxSpeed  = 7;
 	public float moveSpeed = 6.0f;
@@ -199,7 +199,7 @@ public class NoFrictionWithDraftPC : PlayerController {
 		// Update cameras direction and rotation
 		SetCameras();
 		
-		print(getVariance().magnitude);
+		//print(getVariance().magnitude);
 	}
 
 	// UpdatePlayerControllerRotation
