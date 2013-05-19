@@ -275,7 +275,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &114364187
 Transform:
   m_ObjectHideFlags: 0
@@ -3643,15 +3643,15 @@ GameObject:
   - 114: {fileID: 1944211168}
   - 54: {fileID: 1944211167}
   - 65: {fileID: 1944211164}
-  - 114: {fileID: 1944211166}
-  - 114: {fileID: 1944211165}
+  - 114: {fileID: 1944211170}
+  - 114: {fileID: 1944211171}
   m_Layer: 0
   m_Name: NoFrictionWithDrift
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &1944211164
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3665,43 +3665,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1944211165
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400018, guid: 40d175401c5a0e24fb3a678cacad0b71,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1944211163}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 060b24cab49720d4b930d6fdfc0ccc46, type: 3}
-  m_Name: 
-  ImageCrosshair: {fileID: 0}
-  StereoSpread: 0
-  FadeTime: 1
-  FadeScale: .800000012
-  CrosshairDistance: 0
-  DeadZoneX: 75
-  DeadZoneY: 75
-  ScaleSpeedX: 7
-  ScaleSpeedY: 7
---- !u!114 &1944211166
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400020, guid: 40d175401c5a0e24fb3a678cacad0b71,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1944211163}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e18f2943a7b52b2478b435d822ac4e3c, type: 3}
-  m_Name: 
-  maxSpeed: 7
-  moveSpeed: 6
-  force: 8
-  jumpSpeed: 5
-  RotationAmount: 1.5
-  driftFactor: 20
 --- !u!54 &1944211167
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3743,6 +3706,41 @@ Transform:
   - {fileID: 96211042}
   - {fileID: 1254742716}
   m_Father: {fileID: 0}
+--- !u!114 &1944211170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1944211163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ad158e9a7c3b4bf4a6a3c9a69822c9d, type: 3}
+  m_Name: 
+  maxSpeed: 7
+  moveSpeed: 6
+  force: 8
+  jumpSpeed: 5
+  RotationAmount: 1.5
+  driftFactor: 15
+--- !u!114 &1944211171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1944211163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83a8a79759b364e8ba6d241a324c4885, type: 3}
+  m_Name: 
+  ImageCrosshair: {fileID: 0}
+  StereoSpread: 0
+  FadeTime: 1
+  FadeScale: .800000012
+  CrosshairDistance: 0
+  DeadZoneX: 75
+  DeadZoneY: 75
+  ScaleSpeedX: 7
+  ScaleSpeedY: 7
 --- !u!1 &2080029317
 GameObject:
   m_ObjectHideFlags: 0
