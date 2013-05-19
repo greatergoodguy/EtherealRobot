@@ -309,7 +309,7 @@ public class NoFrictionWithDraftPC : PlayerController {
  	}
 	
 	public override string GetControllerName() {
-    	return "No Friction";
+    	return "No Friction With Drift";
    	}  
 	
 	private Vector3 getVariance(){

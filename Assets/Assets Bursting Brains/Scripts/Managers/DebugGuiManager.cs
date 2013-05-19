@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class DebugGui : MonoBehaviour {
+public class DebugGuiManager : MonoBehaviour {
 	
 	public Font 	FontReplaceSmall	= null;
 	public Font 	FontReplaceLarge	= null;
@@ -17,9 +17,17 @@ public class DebugGui : MonoBehaviour {
 	
 	private string controllerName   = "Name has not been initialized";
 	
+	private PlayerManager playerManager;
+	private PlayerController activeController;
+	
+	
 	// Use this for initialization
 	void Start () {
-		GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+		playerManager = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
+		
+		activeController = playerManager.GetActivePlayer().GetComponent<PlayerController>();
+		controllerName = activeController.GetControllerName();
+		
 	}
 	
 	// Update is called once per frame
@@ -66,5 +74,11 @@ public class DebugGui : MonoBehaviour {
 		
 		GUI.Box(new Rect(xL, y, sWX, sWY), text);
 		GUI.Box(new Rect(xR, y, sWX, sWY), text);			
+	}
+	
+	public void SetNewActivePlayer(GameObject activePlayerGO){
+		activeController = activePlayerGO.GetComponent<PlayerController>();
+		controllerName = activeController.GetControllerName();
+		print(controllerName);
 	}
 }

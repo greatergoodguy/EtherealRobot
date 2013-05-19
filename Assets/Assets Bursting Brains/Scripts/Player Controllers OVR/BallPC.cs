@@ -200,7 +200,7 @@ public class BallPC : PlayerController {
 		// Update cameras direction and rotation
 		SetCameras();
 		
-		print(getVariance());
+		//print(getVariance());
 	}
 
 	// UpdatePlayerControllerRotation

@@ -10,6 +10,6 @@ public enum PlayerType {
 	,Basic
 	,FloatingSphere
 	,NoFriction
-	,NoFrictionWithDraft
+	,NoFrictionWithDrift
 //	,DefaultOculus
 };

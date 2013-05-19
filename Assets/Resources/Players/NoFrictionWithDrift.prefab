@@ -104,7 +104,7 @@ GameObject:
   - 114: {fileID: 11400018}
   - 114: {fileID: 11400020}
   m_Layer: 0
-  m_Name: NoFrictionWithDraft
+  m_Name: NoFrictionWithDrift
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

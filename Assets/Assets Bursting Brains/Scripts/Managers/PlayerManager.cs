@@ -10,8 +10,7 @@ public class PlayerManager : MonoBehaviour {
 	private int activePlayerIndex = 0;
 	private GameObject activePlayer;
 	
-	// Use this for initialization
-	void Start () {
+	void Awake(){
 		foreach(Transform child in transform)
 			Destroy(child.gameObject);
 		
@@ -28,6 +27,10 @@ public class PlayerManager : MonoBehaviour {
 		transform.parent = activePlayer.transform;
 	}
 	
+	// Use this for initialization
+	void Start () {		
+	}
+	
 	private void AddNewPlayerAsChildAndDisable(PlayerType type){
 		GameObject player = (GameObject) Instantiate(Resources.Load("Players" + "/" + type.ToString()));
 		player.transform.parent = transform;
@@ -39,12 +42,9 @@ public class PlayerManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(Input.GetKeyDown(KeyCode.X)){
-			IncrementActivePlayer();
-		}	
 	}
 	
-	private void IncrementActivePlayer(){
+	public void IncrementActivePlayer(){
 		const float HEIGHT_DEPLACEMENT = 2;
 		
 		transform.parent = null;
@@ -67,5 +67,25 @@ public class PlayerManager : MonoBehaviour {
 		Vector3 tempPos = activePlayer.transform.position;
 		tempPos.y += HEIGHT_DEPLACEMENT;
 		activePlayer.transform.position = tempPos;
+	}
+	
+	public void FreezePlayer(){
+		activePlayer.rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+	}
+	
+	public void UnfreezePlayer(){
+		activePlayer.rigidbody.constraints = RigidbodyConstraints.None;
+	}
+	
+	public bool isPlayerFrozen(){
+		return activePlayer.rigidbody.constraints == RigidbodyConstraints.FreezeAll;
+	}
+	
+	public GameObject GetCamera(){
+		return activePlayer.transform.FindChild("OVRCameraController").gameObject;
+	}
+	
+	public GameObject GetActivePlayer(){
+		return activePlayer;	
 	}
 }

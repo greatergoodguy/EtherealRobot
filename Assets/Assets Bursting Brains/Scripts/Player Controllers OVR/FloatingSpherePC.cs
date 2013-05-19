@@ -223,6 +223,6 @@ public class FloatingSpherePC : PlayerController {
     }
 	
 	public override string GetControllerName() {
-    	return "FloatingSphere PC";
+    	return "Floating Sphere";
    	}  
 }
