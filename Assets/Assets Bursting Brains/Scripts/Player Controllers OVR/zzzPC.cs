@@ -33,7 +33,7 @@ using System.Collections.Generic;
 // direction on. This game object should also house the body geometry which will be seen
 // by the player.
 //
-public class NoFrictionWithDraftPC : PlayerController {
+public class zzzPC : PlayerController {
 	// These variables are for adjusting in the inspector how the object behaves 
 	public float maxSpeed  = 7;
 	public float moveSpeed = 6.0f;
@@ -45,7 +45,7 @@ public class NoFrictionWithDraftPC : PlayerController {
 	private bool grounded = false;
 	private float jumpLimit = 0;
 	
-	protected OVRCameraController 	CameraController 	= null;
+	protected OVRCameraController_BB 	CameraController 	= null;
 
 	public float RotationAmount  = 1.5f;
 	private Quaternion OrientationOffset = Quaternion.identity;			// Initial direction of controller (passed down into CameraController)
@@ -82,8 +82,8 @@ public class NoFrictionWithDraftPC : PlayerController {
 					
 		// We use OVRCameraController to set rotations to cameras, 
 		// and to be influenced by rotation
-		OVRCameraController[] CameraControllers;
-		CameraControllers = gameObject.GetComponentsInChildren<OVRCameraController>();
+		OVRCameraController_BB[] CameraControllers;
+		CameraControllers = gameObject.GetComponentsInChildren<OVRCameraController_BB>();
 		
 		if(CameraControllers.Length == 0)
 			Debug.LogWarning("OVRPlayerController: No OVRCameraController attached.");
@@ -199,7 +199,7 @@ public class NoFrictionWithDraftPC : PlayerController {
 		// Update cameras direction and rotation
 		SetCameras();
 		
-		print(getVariance().magnitude);
+		//print(getVariance().magnitude);
 	}
 
 	// UpdatePlayerControllerRotation
