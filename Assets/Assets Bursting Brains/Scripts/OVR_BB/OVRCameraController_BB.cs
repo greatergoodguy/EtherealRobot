@@ -120,8 +120,7 @@ public class OVRCameraController_BB : CameraController_BB {
 	}
 		
 	// Update 
-	new void LateUpdate()
-	{
+	new void LateUpdate(){
 		base.Update();		
 		UpdateCameras();
 	}
@@ -332,48 +331,43 @@ public class OVRCameraController_BB : CameraController_BB {
 	}
 	
 	// Get/SetOrientationOffset
-	public void GetOrientationOffset(ref Quaternion orientationOffset)
-	{
+	public override void GetOrientationOffset(ref Quaternion orientationOffset){
 		orientationOffset = OrientationOffset;
 	}
-	public void SetOrientationOffset(Quaternion orientationOffset)
-	{
+	
+	public override void SetOrientationOffset(Quaternion orientationOffset){
 		OrientationOffset = orientationOffset;
 	}
 	
 	// Get/SetYRotation
-	public void GetYRotation(ref float yRotation)
-	{
+	public override void GetYRotation(ref float yRotation){
 		yRotation = YRotation;
 	}
-	public void SetYRotation(float yRotation)
-	{
+	
+	public override void SetYRotation(float yRotation){
 		YRotation = yRotation;
 	}
 	
 	// Get/SetSharedOrientation
-	public void GetSharedOrientation(ref Quaternion sharedOrientation)
-	{
+	public void GetSharedOrientation(ref Quaternion sharedOrientation){
 		sharedOrientation = SharedOrientation;
 	}
-	public void SetSharedOrientation(Quaternion sharedOrientation)
-	{
+	
+	public void SetSharedOrientation(Quaternion sharedOrientation){
 		SharedOrientation = sharedOrientation;
 	}
 	
 	// Get/SetTrackerRotatesY
-	public void GetTrackerRotatesY(ref bool trackerRotatesY)
-	{
+	public void GetTrackerRotatesY(ref bool trackerRotatesY){
 		trackerRotatesY = TrackerRotatesY;
 	}
-	public void SetTrackerRotatesY(bool trackerRotatesY)
-	{
+	
+	public void SetTrackerRotatesY(bool trackerRotatesY){
 		TrackerRotatesY = trackerRotatesY;
 	}
 	
 	// GetCameraOrientationEulerAngles
-	public bool GetCameraOrientationEulerAngles(ref Vector3 angles)
-	{
+	public bool GetCameraOrientationEulerAngles(ref Vector3 angles){
 		if(CameraLeft == null)
 			return false;
 		
@@ -382,8 +376,7 @@ public class OVRCameraController_BB : CameraController_BB {
 	}
 	
 	// GetCameraOrientation
-	public bool GetCameraOrientation(ref Quaternion quaternion)
-	{
+	public bool GetCameraOrientation(ref Quaternion quaternion){
 		if(CameraLeft == null)
 			return false;
 		
@@ -392,8 +385,7 @@ public class OVRCameraController_BB : CameraController_BB {
 	}
 	
 	// SetMaximumVisualQuality
-	public void SetMaximumVisualQuality()
-	{
+	public void SetMaximumVisualQuality(){
 		QualitySettings.softVegetation  = 		true;
 		QualitySettings.maxQueuedFrames = 		0;
 		QualitySettings.anisotropicFiltering = 	AnisotropicFiltering.ForceEnable;

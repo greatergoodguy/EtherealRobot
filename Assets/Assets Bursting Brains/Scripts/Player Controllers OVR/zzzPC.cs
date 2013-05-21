@@ -45,7 +45,7 @@ public class zzzPC : PlayerController {
 	private bool grounded = false;
 	private float jumpLimit = 0;
 	
-	protected OVRCameraController_BB 	CameraController 	= null;
+	protected CameraController_BB 	CameraController 	= null;
 
 	public float RotationAmount  = 1.5f;
 	private Quaternion OrientationOffset = Quaternion.identity;			// Initial direction of controller (passed down into CameraController)
@@ -82,8 +82,8 @@ public class zzzPC : PlayerController {
 					
 		// We use OVRCameraController to set rotations to cameras, 
 		// and to be influenced by rotation
-		OVRCameraController_BB[] CameraControllers;
-		CameraControllers = gameObject.GetComponentsInChildren<OVRCameraController_BB>();
+		CameraController_BB[] CameraControllers;
+		CameraControllers = gameObject.GetComponentsInChildren<CameraController_BB>();
 		
 		if(CameraControllers.Length == 0)
 			Debug.LogWarning("OVRPlayerController: No OVRCameraController attached.");
@@ -227,10 +227,8 @@ public class zzzPC : PlayerController {
 	}
 	
 	// SetCameras
-	public void SetCameras()
-	{
-		if(CameraController != null)
-		{
+	public void SetCameras(){
+		if(CameraController != null){
 			// Make sure to set the initial direction of the camera 
 			// to match the game player direction
 			CameraController.SetOrientationOffset(OrientationOffset);

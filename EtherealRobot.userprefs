@@ -1,18 +1,6 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Assets Bursting Brains/Scripts/Player Controllers OVR/NoFrictionWithDriftPC.cs">
-    <Files>
-      <File FileName="Assets/Assets Bursting Brains/Scripts/Player Controllers OVR/NoFrictionWithDriftPC.cs" Line="280" Column="1" />
-      <File FileName="Assets/Assets Bursting Brains/Scripts/OVR_BB/OVRCameraController_BB.cs" Line="208" Column="35" />
-      <File FileName="Assets/OVR/Scripts/OVRCameraController.cs" Line="1" Column="1" />
-      <File FileName="Assets/OVR/Scripts/OVRCamera.cs" Line="1" Column="1" />
-      <File FileName="Assets/Assets Bursting Brains/Scripts/OVR_BB/OVRCamera_BB.cs" Line="46" Column="32" />
-      <File FileName="Assets/Assets Bursting Brains/Scripts/Managers/DebugGuiManager.cs" Line="1" Column="1" />
-      <File FileName="Assets/Assets Bursting Brains/Scripts/Player Controllers OVR/NoFrictionWithDriftCH.cs" Line="124" Column="28" />
-      <File FileName="Assets/OVR/Editor/OVRCameraControllerEditor.cs" Line="1" Column="1" />
-      <File FileName="Assets/Editor/OVRCameraControllerEditor_BB.cs" Line="20" Column="47" />
-    </Files>
-  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

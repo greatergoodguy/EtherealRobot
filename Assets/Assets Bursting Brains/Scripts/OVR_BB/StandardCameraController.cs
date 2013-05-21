@@ -1,15 +1,34 @@
 using UnityEngine;
 using System.Collections;
 
-public class StandardCameraController : OVRCameraController_BB {
-
-	// Use this for initialization
-	void Start () {
+public class StandardCameraController : CameraController_BB {
 	
+	private Quaternion OrientationOffset = Quaternion.identity;	
+	private float YRotation = 0.0f;
+	
+	// Update 
+	new void LateUpdate(){
+		base.Update();		
+		UpdateCameras();
 	}
 	
-	// Update is called once per frame
-	void Update () {
+	// InitCameras
+	void UpdateCameras(){
+	}
 	
+	public override void GetOrientationOffset(ref Quaternion orientationOffset){
+		orientationOffset = OrientationOffset;
+	}
+	
+	public override void SetOrientationOffset(Quaternion orientationOffset){
+		OrientationOffset = orientationOffset;
+	}
+	
+	public override void GetYRotation(ref float yRotation){
+		yRotation = YRotation;
+	}
+	
+	public override void SetYRotation(float yRotation){
+		YRotation = yRotation;
 	}
 }

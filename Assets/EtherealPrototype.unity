@@ -130,7 +130,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &96211042
 Transform:
   m_ObjectHideFlags: 0
@@ -310,6 +310,7 @@ GameObject:
   - 124: {fileID: 165152442}
   - 92: {fileID: 165152441}
   - 81: {fileID: 165152440}
+  - 114: {fileID: 165152444}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -377,6 +378,16 @@ Camera:
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_HDR: 0
+--- !u!114 &165152444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 165152438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b7e824196f0a4236914c0e8db467859, type: 3}
+  m_Name: 
 --- !u!1001 &177159077
 Prefab:
   m_ObjectHideFlags: 0
@@ -390,7 +401,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 1ff7aa867be3e424eb77bad769a9df20, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -2.59490204
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 1ff7aa867be3e424eb77bad769a9df20, type: 3}
       propertyPath: m_LocalPosition.z
@@ -411,6 +422,18 @@ Prefab:
     - target: {fileID: 400000, guid: 1ff7aa867be3e424eb77bad769a9df20, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 1ff7aa867be3e424eb77bad769a9df20, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 1ff7aa867be3e424eb77bad769a9df20, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 1ff7aa867be3e424eb77bad769a9df20, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1ff7aa867be3e424eb77bad769a9df20, type: 3}
@@ -685,8 +708,8 @@ Transform:
   m_PrefabInternal: {fileID: 177159077}
   m_GameObject: {fileID: 325810298}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: -2.59490204, z: 0}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children:
   - {fileID: 1321626251}
   - {fileID: 1030169317}
@@ -2545,15 +2568,14 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1254742716}
-  - 114: {fileID: 1254742718}
-  - 114: {fileID: 1254742717}
+  - 114: {fileID: 1254742719}
   m_Layer: 8
   m_Name: StandardCameraController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1254742716
 Transform:
   m_ObjectHideFlags: 0
@@ -2561,47 +2583,21 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1254742715}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.43725586, y: .769897461, z: -25.9106445}
+  m_LocalPosition: {x: 0, y: .668930054, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 165152439}
   m_Father: {fileID: 1944211169}
---- !u!114 &1254742717
+--- !u!114 &1254742719
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400008, guid: 86f0ebe5bf0ab466098246bb369514e0,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1254742715}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e933e81d3c20c74ea6fdc708a67e3a5, type: 3}
+  m_Script: {fileID: 11500000, guid: 863f26fd4fa9e40d5aa29e3adf5d1ce6, type: 3}
   m_Name: 
-  InitialPredictionTime: .0299999993
-  InitialAccelGain: .0500000007
---- !u!114 &1254742718
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400010, guid: 86f0ebe5bf0ab466098246bb369514e0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1254742715}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df9f338034892c44ebb62d97894772f1, type: 3}
-  m_Name: 
-  NeckPosition: {x: 0, y: 0, z: 0}
-  EyeCenterPosition: {x: 0, y: .150000006, z: .0900000036}
-  FollowOrientation: {fileID: 0}
-  TrackerRotatesY: 0
-  PredictionOn: 1
-  CallInPreRender: 0
-  WireMode: 0
-  LensCorrection: 1
-  Chromatic: 1
-  BackgroundColor: {r: .192000002, g: .301999986, b: .474999994, a: 1}
-  NearClipPlane: .150000006
-  FarClipPlane: 1000
 --- !u!1 &1313509429
 GameObject:
   m_ObjectHideFlags: 0

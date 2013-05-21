@@ -234,9 +234,12 @@ public class OVRCamera_BB : OVRComponent_BB{
 		
 	}
 	
+	int i=0;
 	// SetCameraOrientation
-	void SetCameraOrientation()
-	{
+	void SetCameraOrientation() {
+			print ("HI: " + i);
+		++i;
+		
 		Quaternion q   = Quaternion.identity;
 		Vector3    dir = Vector3.forward;		
 		
