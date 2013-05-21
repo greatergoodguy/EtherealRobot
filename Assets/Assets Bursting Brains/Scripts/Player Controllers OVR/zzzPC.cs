@@ -46,6 +46,7 @@ public class zzzPC : PlayerController {
 	private float jumpLimit = 0;
 	
 	protected CameraController_BB 	CameraController 	= null;
+	protected CameraController_BB 	BackupCameraController 	= null;
 
 	public float RotationAmount  = 1.5f;
 	private Quaternion OrientationOffset = Quaternion.identity;			// Initial direction of controller (passed down into CameraController)
@@ -85,6 +86,7 @@ public class zzzPC : PlayerController {
 		CameraController_BB[] CameraControllers;
 		CameraControllers = gameObject.GetComponentsInChildren<CameraController_BB>();
 		
+		
 		if(CameraControllers.Length == 0)
 			Debug.LogWarning("OVRPlayerController: No OVRCameraController attached.");
 		else if (CameraControllers.Length > 1)
@@ -118,6 +120,12 @@ public class zzzPC : PlayerController {
 		}
 		
 		getVariance();
+		
+		GameObject backupCameraControllerGO = (GameObject) Instantiate(Resources.Load("StandardCameraController"));
+		BackupCameraController = backupCameraControllerGO.GetComponentInChildren<CameraController_BB>();
+		backupCameraControllerGO.transform.parent = transform;
+		backupCameraControllerGO.transform.localPosition = Vector3.zero;
+		backupCameraControllerGO.SetActive(false);
 	}
 
 	// Start
@@ -200,6 +208,15 @@ public class zzzPC : PlayerController {
 		SetCameras();
 		
 		//print(getVariance().magnitude);
+		
+		if(Input.GetKeyDown(KeyCode.V)){			
+			CameraController_BB temp = CameraController;
+			CameraController = BackupCameraController;
+			BackupCameraController = temp;
+			
+			CameraController.gameObject.SetActive(!CameraController.gameObject.activeSelf);
+			BackupCameraController.gameObject.SetActive(!BackupCameraController.gameObject.activeSelf);
+		}
 	}
 
 	// UpdatePlayerControllerRotation
