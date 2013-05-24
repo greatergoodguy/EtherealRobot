@@ -38,7 +38,7 @@ public class StandardCamera : OVRComponent_BB{
 		base.Start ();		
 		
 		// Get the OVRCameraController
-		CameraController = gameObject.transform.parent.GetComponent<StandardCameraController>();
+		CameraController = transform.GetComponent<StandardCameraController>();
 		
 		if(CameraController == null)
 			Debug.LogWarning("WARNING: OVRCameraController not found!");

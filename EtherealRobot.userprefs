@@ -1,10 +1,33 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+<<<<<<< HEAD
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\zSandbox Newman\TankProtoScript.cs">
     <Files>
       <File FileName="Assets\zSandbox Newman\TankProtoScript.cs" Line="25" Column="3" />
+=======
+<<<<<<< HEAD
+  <MonoDevelop.Ide.Workbench />
+=======
+<<<<<<< HEAD
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\zSandbox Chad\Scripts\Movement.cs">
+    <Files>
+      <File FileName="Assets\zSandbox Chad\Scripts\ChadBallCH.cs" Line="1" Column="1" />
+      <File FileName="Assets\zSandbox Chad\Scripts\ChadBallPC.cs" Line="64" Column="66" />
+      <File FileName="Assets\Assets Bursting Brains\Scripts\Player Controllers OVR\zzzCH.cs" Line="1" Column="1" />
+      <File FileName="Assets\Assets Bursting Brains\Scripts\Player Controllers OVR\zzzPC.cs" Line="1" Column="1" />
+      <File FileName="Assets\Assets Bursting Brains\Scripts\OVR_BB\CameraController_BB.cs" Line="1" Column="1" />
+      <File FileName="Assets\Assets Bursting Brains\Scripts\OVR_BB\OVRCameraController_BB.cs" Line="1" Column="1" />
+      <File FileName="Assets\zSandbox Chad\Scripts\Movement.cs" Line="39" Column="15" />
+=======
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Assets Bursting Brains/Scripts/Player Controllers OVR/zzzPC.cs">
+    <Files>
+      <File FileName="Assets/Assets Bursting Brains/Scripts/Player Controllers OVR/zzzPC.cs" Line="218" Column="49" />
+      <File FileName="Assets/Assets Bursting Brains/Scripts/Managers/PlayerManager.cs" Line="1" Column="1" />
+>>>>>>> 09f4a3bf7a46e8a1722b28dc6ca2ade105e15b04
+>>>>>>> bd904c9ec153747c748dc5e4a72f084ea7644eb3
     </Files>
   </MonoDevelop.Ide.Workbench>
+>>>>>>> c257ada9baf6d3631916ac980c9aae06d52554ba
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
