@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class DebugGuiManager : MonoBehaviour {
+public class DebugGui : MonoBehaviour {
 	
 	public Font 	FontReplaceSmall	= null;
 	public Font 	FontReplaceLarge	= null;

@@ -6,19 +6,24 @@ public class GameManager : MonoBehaviour {
 	private GameObject pauseMenuManagerGO;
 	private GameObject playerManagerGO;
 	
-	private DebugGuiManager debugGuiManager;
 	private PauseMenuManager pauseMenuManager;
 	private PlayerManager playerManager;
+	private GuiManager guiManager;
+	
+	//private DebugGui debugGui;
 	
 	// Use this for initialization
 	void Start () {
 		pauseMenuManagerGO = GameObject.Find("PauseMenuManager");
 		playerManagerGO = GameObject.Find("PlayerManager");
-		GameObject debugGuiManagerGO = GameObject.Find("DebugGuiManager");
+		GameObject guiManagerGO = GameObject.Find("GuiManager");
 		
-		debugGuiManager = debugGuiManagerGO.GetComponent<DebugGuiManager>();
+		//GameObject debugGuiGO = GameObject.Find("DebugGui");
+		
+		//debugGui = debugGuiGO.GetComponent<DebugGui>();
 		pauseMenuManager = pauseMenuManagerGO.GetComponent<PauseMenuManager>();
 		playerManager = playerManagerGO.GetComponent<PlayerManager>();
+		guiManager = guiManagerGO.GetComponent<GuiManager>();
 	}
 	
 	// Update is called once per frame
@@ -38,7 +43,9 @@ public class GameManager : MonoBehaviour {
 		
 		if(Input.GetKeyDown(KeyCode.X)){
 			playerManager.IncrementActivePlayer();
-			debugGuiManager.SetNewActivePlayer(playerManager.GetActivePlayer());
+			//debugGui.SetNewActivePlayer(playerManager.GetActivePlayer());
+			
+			guiManager.SetDebugGui(playerManager.GetActivePlayer());
 		}	
 	}
 }
