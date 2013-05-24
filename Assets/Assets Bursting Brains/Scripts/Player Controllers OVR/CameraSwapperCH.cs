@@ -22,7 +22,7 @@ using UnityEngine;
 // is no distortion correction on it.
 // 
 // 
-public class zzzCH : MonoBehaviour{
+public class CameraSwapperCH : MonoBehaviour{
 	// crosshair texture
 	public Texture ImageCrosshair 	  = null;
 	public float   StereoSpread  	  = 0.0f;
@@ -80,14 +80,14 @@ public class zzzCH : MonoBehaviour{
 		FadeVal = Mathf.Clamp(FadeVal, 0.0f, 1.0f);
 		
 		// Check to see if crosshair influences mouse rotation
-		zzzPC.AllowMouseRotation = false;
+		CameraSwapperPC.AllowMouseRotation = false;
 		
 		if ((ImageCrosshair != null) && (FadeVal != 0.0f))
 		{
 			// Assume cursor is on-screen (unless it goes into the dead-zone)
 			// Other systems will check this to see if it is false for example 
 			// allowing rotation to take place
-			zzzPC.AllowMouseRotation = true;
+			CameraSwapperPC.AllowMouseRotation = true;
 
 			GUI.color = new Color(1, 1, 1, FadeVal * FadeScale);
 			
@@ -98,12 +98,12 @@ public class zzzCH : MonoBehaviour{
 			XL += Input.GetAxis("Mouse X") * 0.5f * ScaleSpeedX;
 			if(XL < DeadZoneX) 
 			{
-				zzzPC.AllowMouseRotation = false;
+				CameraSwapperPC.AllowMouseRotation = false;
 				XL = DeadZoneX - 0.001f;	
 			}
 			else if (XL > (Screen.width * 0.5f) - DeadZoneX)
 			{
-				zzzPC.AllowMouseRotation = false;
+				CameraSwapperPC.AllowMouseRotation = false;
 				XL = Screen.width * 0.5f - DeadZoneX + 0.001f;
 			}
 			
@@ -121,7 +121,7 @@ public class zzzCH : MonoBehaviour{
 			}
 			
 			// Finally draw cursor
-			if(zzzPC.AllowMouseRotation == true)
+			if(CameraSwapperPC.AllowMouseRotation == true)
 			{
 				// Left
 				GUI.DrawTexture(new Rect(	XL - (ImageCrosshair.width * 0.5f) - ah ,
