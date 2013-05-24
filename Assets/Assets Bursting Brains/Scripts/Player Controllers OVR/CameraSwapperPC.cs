@@ -122,7 +122,7 @@ public class CameraSwapperPC : PlayerController {
 		getVariance();
 		
 		GameObject backupCameraControllerGO = (GameObject) Instantiate(Resources.Load("StandardCameraController"));
-		BackupCameraController = backupCameraControllerGO.GetComponentInChildren<CameraController_BB>();
+		BackupCameraController = backupCameraControllerGO.GetComponent<CameraController_BB>();
 		backupCameraControllerGO.transform.parent = transform;
 		backupCameraControllerGO.transform.localPosition = Vector3.zero;
 		backupCameraControllerGO.SetActive(false);
@@ -187,6 +187,13 @@ public class CameraSwapperPC : PlayerController {
 				}
 			}
 		}
+		
+		
+		if(Input.GetKey(KeyCode.M)){
+			print ("forward: " + forward
+				+ "\n" + "forwardForce: " + forwardForce);	
+		}
+		
 		rigidbody.AddForce(forwardForce);
 		
 		// Controls the Camera rotation
