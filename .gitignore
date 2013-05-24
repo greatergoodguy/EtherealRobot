@@ -6,3 +6,9 @@
 *.csproj
 *.unityproj
 *.sln
+
+# Added by Tom Yu
+Assembly-UnityScript-Editor.pidb
+Assembly-CSharp.pidb
+Assembly-CSharp-Editor.pidb
+*.userprefs
