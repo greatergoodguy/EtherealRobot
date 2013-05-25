@@ -334,6 +334,8 @@ MonoBehaviour:
   moveSpeed: 6
   jumpSpeed: 2
   drag: 2
+  whatever: {fileID: 0}
+  moveAmt: .00999999978
   RotationAmount: 1.5
   driftFactor: 20
 --- !u!114 &11400002
