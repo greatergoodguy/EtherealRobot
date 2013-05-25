@@ -15,6 +15,9 @@ public class DualButtonGUI : MonoBehaviour {
 	
 	private bool 	isGuiOn			= true;
 	
+	// Indicates what key is currently selected by Keyboard
+	private int selectedIndex = 0;
+	
 	private string start_s = "Start";
 	
 	// Use this for initialization
@@ -23,6 +26,7 @@ public class DualButtonGUI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		KeyboardMenuSelection();
 	}
 	
 	void OnGUI(){
@@ -31,11 +35,12 @@ public class DualButtonGUI : MonoBehaviour {
 		}
 		
 		
-		GUIStereoButton (new Rect (10,30,50,30), "Start");			
+		GUIStereoButton (new Rect (10,30,50,30), "Start", 0);		
+		GUIStereoButton (new Rect (10,60,50,30), "Exit", 1);
 		//GUIStereoBox (StartX, StartY, WidthX, WidthY, ref start_s, Color.yellow);
 	}
 	
-	void GUIStereoButton(Rect rect, string text){
+	void GUIStereoButton(Rect rect, string text, int index){
 		int X = (int) rect.x;
 		int Y = (int) rect.y;
 		int wX = (int) rect.width; 
@@ -64,8 +69,14 @@ public class DualButtonGUI : MonoBehaviour {
 		else
 			GUI.skin.font = FontReplaceSmall;
 		
+		// Change color if selected by keyboard
+		if(selectedIndex == index){
+			GUI.color = Color.yellow;	
+		}
 		GUI.Button(new Rect(xL, y, sWX, sWY), text);
 		GUI.Button(new Rect(xR, y, sWX, sWY), text);		
+		
+		GUI.color = Color.white;
 		
 		//print("xL: " + xL + "       xR: " + xR);
 	}
@@ -101,5 +112,22 @@ public class DualButtonGUI : MonoBehaviour {
 		GUI.Box(new Rect(xR, y, sWX, sWY), text);		
 		
 		//print("xL: " + xL + "       xR: " + xR);
+	}
+	
+	void KeyboardMenuSelection() {
+		if(Input.GetKeyDown(KeyCode.Return)){
+			if (selectedIndex == 0){
+				Application.LoadLevel(0);	
+			}
+			if(selectedIndex == 1){
+				// Exit game	
+			}	
+		}
+		if(Input.GetKeyDown(KeyCode.DownArrow) && selectedIndex < 1){
+			selectedIndex++;
+		}
+		if(Input.GetKeyDown(KeyCode.UpArrow) && selectedIndex > 0){
+			selectedIndex--;
+		}
 	}
 }
