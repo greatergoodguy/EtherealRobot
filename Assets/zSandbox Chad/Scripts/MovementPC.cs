@@ -13,6 +13,7 @@ public class MovementPC : PlayerController {
 	private Vector3 sphereForward;
 	private Vector3 angMove;
 	private Transform head;
+	private Transform movingCam;
 	
 	private Vector3 forward;
 	protected CameraController_BB 	CameraController 	= null;
@@ -47,6 +48,7 @@ public class MovementPC : PlayerController {
 		cube = transform.position;
 		sphereForward = transform.position;
 		head = transform.FindChild("Head");
+		movingCam = transform.FindChild("StandardCameraController");
 		SetCameras();
 		
 		AllowMouseRotation = false;
@@ -54,6 +56,8 @@ public class MovementPC : PlayerController {
 	
 	// Update is called once per frame
 	void Update () {
+		
+		head.transform.rotation = CameraController.transform.rotation;
 		
 		//Gets forward Vector
 		cubeForward = transform.forward;
@@ -67,9 +71,10 @@ public class MovementPC : PlayerController {
 			Vector3 tempAngMove = transform.position;
 			tempPos += cubeForward * moveSpeed;
 			if (0 < angle && angle < 90 && sphereForward.x < 0){
-				degreePerSecond = -40;
+				degreePerSecond = -80;
 				tempAngMove = Vector3.up * degreePerSecond * Time.deltaTime;
 				transform.Rotate(tempAngMove);
+				
 			}
 			transform.position = tempPos;
 		}
