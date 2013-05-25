@@ -124,9 +124,6 @@ public class MechProtoPC : PlayerController {
 		SetCameras();
 		
 		mechGO = transform.FindChild("Mech").gameObject;
-		print("rotation: " + mechGO.transform.rotation);
-		
-		print("CameraController: " + CameraController.gameObject.transform.rotation);
 	}
 		
 	// Update 
@@ -141,7 +138,8 @@ public class MechProtoPC : PlayerController {
 		MoveThrottle.x /= motorDamp;
 		MoveThrottle.y = (MoveThrottle.y > 0.0f) ? (MoveThrottle.y / motorDamp) : MoveThrottle.y;
 		MoveThrottle.z /= motorDamp;
-
+		
+		
 		moveDirection += MoveThrottle * DeltaTime;
 		
 		// Gravity
@@ -166,6 +164,7 @@ public class MechProtoPC : PlayerController {
 											 new Vector3(1, 0, 1));	
 		
 		// Move contoller
+		
 		characterController.Move(moveDirection);
 		
 		Vector3 actualXZ = Vector3.Scale(characterController.transform.localPosition, new Vector3(1, 0, 1));
@@ -231,9 +230,7 @@ public class MechProtoPC : PlayerController {
 			if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
 				moveInfluence *= 2.0f;
 			
-			if(DirXform != null)
-			{
-				/*
+			if(DirXform != null) {
 				if (moveForward)
 					MoveThrottle += DirXform.TransformDirection(Vector3.forward * moveInfluence);
 				if (moveBack)
@@ -242,18 +239,6 @@ public class MechProtoPC : PlayerController {
 					MoveThrottle += DirXform.TransformDirection(Vector3.left * moveInfluence);
 				if (moveRight)
 					MoveThrottle += DirXform.TransformDirection(Vector3.right * moveInfluence);
-				*/
-				
-				if (moveForward)
-					MoveThrottle += DirXform.TransformDirection(mechGO.transform.InverseTransformDirection(Vector3.forward) * moveInfluence);
-				/*
-				if (moveBack)
-					MoveThrottle += DirXform.TransformDirection(mechGO.transform.back * moveInfluence);
-				if (moveLeft)
-					MoveThrottle += DirXform.TransformDirection(mechGO.transform.left * moveInfluence);
-				if (moveRight)
-					MoveThrottle += DirXform.TransformDirection(mechGO.transform.right * moveInfluence);
-				*/
 			}
 			
 			// Rotate
@@ -278,8 +263,7 @@ public class MechProtoPC : PlayerController {
 				mechGO.transform.Rotate(rotationAmount);
 				
 				YRotation += rotationAmount.y;
-			}		
-			
+			}
 			if (Input.GetKeyDown(KeyCode.R)){
 				//Quaternion tempRotation = CameraController.transform.rotation;
 				//tempRotation.y = mechGO.transform.rotation.y;
@@ -310,26 +294,6 @@ public class MechProtoPC : PlayerController {
 			// Run!
 			moveInfluence *= 1.0f + OVRGamepadController.GetTriggerLeft();
 			
-			// Move
-			if(DirXform != null)
-			{
-				if(OVRGamepadController.GetAxisLeftY() > 0.0f)
-		    		MoveThrottle += OVRGamepadController.GetAxisLeftY() *
-					DirXform.TransformDirection(Vector3.forward * moveInfluence);
-				
-				if(OVRGamepadController.GetAxisLeftY() < 0.0f)
-		    		MoveThrottle += Mathf.Abs(OVRGamepadController.GetAxisLeftY()) *		
-					DirXform.TransformDirection(Vector3.back * moveInfluence);
-				
-				if(OVRGamepadController.GetAxisLeftX() < 0.0f)
-		    		MoveThrottle += Mathf.Abs(OVRGamepadController.GetAxisLeftX()) *
-					DirXform.TransformDirection(Vector3.left * moveInfluence);
-				
-				if(OVRGamepadController.GetAxisLeftX() > 0.0f)
-					MoveThrottle += OVRGamepadController.GetAxisLeftX() *
-					DirXform.TransformDirection(Vector3.right * moveInfluence);
-			}
-			
 			// Rotate
 			YRotation += OVRGamepadController.GetAxisRightX() * rotateInfluence;    
 		}
@@ -344,8 +308,13 @@ public class MechProtoPC : PlayerController {
 	// PlayerController, so that the PlayerController always faces the direction of the 
 	// CameraController. When we add a body, this will change a bit..
 	public virtual void UpdatePlayerForwardDirTransform(){
+		/*
 		if ((DirXform != null) && (CameraController != null))
 			DirXform.rotation = CameraController.transform.rotation;
+		*/
+		
+		if ((DirXform != null) && (mechGO != null))
+			DirXform.rotation = mechGO.transform.rotation;
 	}
 	
 	///////////////////////////////////////////////////////////
@@ -407,6 +376,6 @@ public class MechProtoPC : PlayerController {
 	}
 
 	public override string GetControllerName() {
-    	return "Default Oculus PC";
+    	return "Mech Proto PC";
    	}  
 }
