@@ -85,6 +85,7 @@ GameObject:
   - 33: {fileID: 7634792}
   - 135: {fileID: 7634791}
   - 23: {fileID: 7634790}
+  - 114: {fileID: 7634794}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -140,6 +141,16 @@ Transform:
   m_LocalScale: {x: 4, y: 4, z: 4}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!114 &7634794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 7634789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c39bd551120f51428ccaa5234b7e863, type: 3}
+  m_Name: 
 --- !u!1 &118922128
 GameObject:
   m_ObjectHideFlags: 0
@@ -324,7 +335,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &387148185
 Transform:
   m_ObjectHideFlags: 0
@@ -435,13 +446,14 @@ GameObject:
   - 114: {fileID: 686535709}
   - 114: {fileID: 686535708}
   - 114: {fileID: 686535707}
+  - 114: {fileID: 686535711}
   m_Layer: 0
   m_Name: First Person Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &686535706
 Transform:
   m_ObjectHideFlags: 0
@@ -554,6 +566,16 @@ CharacterController:
   m_SkinWidth: .0500000007
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &686535711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 686535705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c39bd551120f51428ccaa5234b7e863, type: 3}
+  m_Name: 
 --- !u!1 &956649937
 GameObject:
   m_ObjectHideFlags: 0
@@ -926,6 +948,7 @@ GameObject:
   - 92: {fileID: 1635629348}
   - 124: {fileID: 1635629347}
   - 81: {fileID: 1635629346}
+  - 114: {fileID: 1635629351}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -993,6 +1016,16 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!114 &1635629351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1635629345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c39bd551120f51428ccaa5234b7e863, type: 3}
+  m_Name: 
 --- !u!1 &1859587112
 GameObject:
   m_ObjectHideFlags: 0
