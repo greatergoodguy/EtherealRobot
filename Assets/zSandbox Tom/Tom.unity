@@ -1292,6 +1292,7 @@ GameObject:
   - 114: {fileID: 980466148}
   - 114: {fileID: 980466149}
   - 114: {fileID: 980466143}
+  - 114: {fileID: 980466144}
   m_Layer: 0
   m_Name: InputTesterPlayer
   m_TagString: Player
@@ -1321,6 +1322,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a84e95ea7b4e544d6ab9f93b9c0c2d07, type: 3}
+  m_Name: 
+--- !u!114 &980466144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 980466141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99a6f869762524b0786573cb9eeff574, type: 3}
   m_Name: 
 --- !u!65 &980466145
 BoxCollider:
