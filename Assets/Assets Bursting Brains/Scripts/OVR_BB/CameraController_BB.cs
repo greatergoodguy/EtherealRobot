@@ -1,18 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public abstract class CameraController_BB : OVRComponent_BB {
-
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-	
+public abstract class CameraController_BB : OVRComponent_BB {	
 	public abstract void GetOrientationOffset(ref Quaternion orientationOffset);
 	public abstract void SetOrientationOffset(Quaternion orientationOffset);
 	public abstract void SetYRotation(float yRotation);
