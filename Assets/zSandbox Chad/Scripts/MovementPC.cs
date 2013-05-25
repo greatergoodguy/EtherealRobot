@@ -46,7 +46,7 @@ public class MovementPC : PlayerController {
 		
 		cube = transform.position;
 		sphereForward = transform.position;
-		head = transform.FindChild("Sphere");
+		head = transform.FindChild("Head");
 		SetCameras();
 		
 		AllowMouseRotation = false;
@@ -70,7 +70,6 @@ public class MovementPC : PlayerController {
 				degreePerSecond = -40;
 				tempAngMove = Vector3.up * degreePerSecond * Time.deltaTime;
 				transform.Rotate(tempAngMove);
-				CameraController.transform.Rotate(tempAngMove);
 			}
 			transform.position = tempPos;
 		}
