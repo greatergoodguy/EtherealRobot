@@ -20,6 +20,10 @@ public class KeyboardInput : Input_BB {
     	return Input.GetKey(KeyCode.LeftControl);
    	}  
 	
+	public override bool GetButtonDown_Pause() {
+    	return Input.GetKey(KeyCode.P);
+   	}  
+	
 	public override float GetAxis_MouseX() {
 		return Input.GetAxis("Mouse X");
 	}

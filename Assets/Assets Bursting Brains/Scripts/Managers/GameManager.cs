@@ -2,28 +2,21 @@ using UnityEngine;
 using System.Collections;
 
 public class GameManager : MonoBehaviour {
+	private PauseMenuManager 	pauseMenuManager;
+	private PlayerManager 		playerManager;
+	private GuiManager 			guiManager;
+	private InputManager 		inputManager;
 	
-	private GameObject pauseMenuManagerGO;
-	private GameObject playerManagerGO;
-	
-	private PauseMenuManager pauseMenuManager;
-	private PlayerManager playerManager;
-	private GuiManager guiManager;
-	
-	//private DebugGui debugGui;
+	private Input_BB			activeInput;
 	
 	// Use this for initialization
-	void Start () {
-		pauseMenuManagerGO = GameObject.Find("PauseMenuManager");
-		playerManagerGO = GameObject.Find("PlayerManager");
-		GameObject guiManagerGO = GameObject.Find("GuiManager");
+	void Start () {	
+		pauseMenuManager 	= GameObject.Find("PauseMenuManager").GetComponent<PauseMenuManager>();
+		playerManager 		= GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
+		guiManager 			= GameObject.Find("GuiManager").GetComponent<GuiManager>();
+		inputManager 		= GameObject.Find("InputManager").GetComponentInChildren<InputManager>();
 		
-		//GameObject debugGuiGO = GameObject.Find("DebugGui");
-		
-		//debugGui = debugGuiGO.GetComponent<DebugGui>();
-		pauseMenuManager = pauseMenuManagerGO.GetComponent<PauseMenuManager>();
-		playerManager = playerManagerGO.GetComponent<PlayerManager>();
-		guiManager = guiManagerGO.GetComponent<GuiManager>();
+		activeInput = inputManager.GetActiveInput();
 	}
 	
 	// Update is called once per frame
@@ -42,9 +35,7 @@ public class GameManager : MonoBehaviour {
 		}
 		
 		if(Input.GetKeyDown(KeyCode.X)){
-			playerManager.IncrementActivePlayer();
-			//debugGui.SetNewActivePlayer(playerManager.GetActivePlayer());
-			
+			playerManager.IncrementActivePlayer();			
 			guiManager.SetDebugGui(playerManager.GetActivePlayer());
 		}	
 	}
