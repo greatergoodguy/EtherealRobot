@@ -45,7 +45,7 @@ public class DebugGui : MonoBehaviour {
 		//GUI.Button (new Rect (10,10,150,100), "I am a button");				
 		GUIStereoBox (StartX, StartY, WidthX, WidthY, ref controllerName, Color.yellow);
 	}
-	
+		
 	// GUIStereoBox - Values based on pixels in DK1 resolution of W: (1280 / 2) H: 800
 	void GUIStereoBox(int X, int Y, int wX, int wY, ref string text, Color color)
 	{

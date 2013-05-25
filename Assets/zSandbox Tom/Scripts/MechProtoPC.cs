@@ -35,8 +35,7 @@ using System.Collections.Generic;
 // direction on. This game object should also house the body geometry which will be seen
 // by the player.
 //
-public class MechProtoPC : PlayerController
-{
+public class MechProtoPC : PlayerController {
 	protected CharacterController 	characterController = null;
 	protected OVRCameraController 	CameraController 	= null;
 
@@ -70,6 +69,9 @@ public class MechProtoPC : PlayerController
 	public static bool  AllowMouseRotation      = true;
 	
 	private GameObject mechGO = null;
+	
+	private Vector3 headForward = Vector3.zero;
+	private Vector3 bodyForward = Vector3.zero;
  	
 	// * * * * * * * * * * * * *
 	
@@ -184,9 +186,8 @@ public class MechProtoPC : PlayerController
 	public virtual void UpdateMovement(){
 		
 		//print("CameraController: " + CameraController.gameObject.transform.rotation);
-		mechGO.transform.rotation = CameraController.gameObject.transform.rotation;
-		
-		
+		//mechGO.transform.rotation = CameraController.gameObject.transform.rotation;
+				
 		// Do not apply input if we are showing a level selection display
 		if(OVRMainMenu.sShowLevels == false)
 		{
@@ -232,6 +233,7 @@ public class MechProtoPC : PlayerController
 			
 			if(DirXform != null)
 			{
+				/*
 				if (moveForward)
 					MoveThrottle += DirXform.TransformDirection(Vector3.forward * moveInfluence);
 				if (moveBack)
@@ -240,18 +242,50 @@ public class MechProtoPC : PlayerController
 					MoveThrottle += DirXform.TransformDirection(Vector3.left * moveInfluence);
 				if (moveRight)
 					MoveThrottle += DirXform.TransformDirection(Vector3.right * moveInfluence);
+				*/
+				
+				if (moveForward)
+					MoveThrottle += DirXform.TransformDirection(mechGO.transform.InverseTransformDirection(Vector3.forward) * moveInfluence);
+				/*
+				if (moveBack)
+					MoveThrottle += DirXform.TransformDirection(mechGO.transform.back * moveInfluence);
+				if (moveLeft)
+					MoveThrottle += DirXform.TransformDirection(mechGO.transform.left * moveInfluence);
+				if (moveRight)
+					MoveThrottle += DirXform.TransformDirection(mechGO.transform.right * moveInfluence);
+				*/
 			}
 			
 			// Rotate
 			
 			// compute for key rotation
 			float rotateInfluence = DeltaTime * RotationAmount * RotationScaleMultiplier;
+	
+			
 			
 			//reduce by half to avoid getting ill
-			if (Input.GetKey(KeyCode.Q)) 
-				YRotation -= rotateInfluence * 0.5f;  
-			if (Input.GetKey(KeyCode.E)) 
-				YRotation += rotateInfluence * 0.5f; 
+			if (Input.GetKey(KeyCode.Q)){
+				
+				float degreesPerSecond = -40;
+				Vector3 rotationAmount = Vector3.up * Time.deltaTime * degreesPerSecond;
+				mechGO.transform.Rotate(rotationAmount);
+				
+				YRotation += rotationAmount.y;
+			}
+			if (Input.GetKey(KeyCode.E)){
+				float degreesPerSecond = 40;
+				Vector3 rotationAmount = Vector3.up * Time.deltaTime * degreesPerSecond;
+				mechGO.transform.Rotate(rotationAmount);
+				
+				YRotation += rotationAmount.y;
+			}		
+			
+			if (Input.GetKeyDown(KeyCode.R)){
+				//Quaternion tempRotation = CameraController.transform.rotation;
+				//tempRotation.y = mechGO.transform.rotation.y;
+				//CameraController.transform.rotation = tempRotation;
+				YRotation = 0;
+			}
 		
 			// * * * * * * * * * * *
 			// Mouse input
@@ -302,7 +336,6 @@ public class MechProtoPC : PlayerController
 		
 		// Update cameras direction and rotation
 		SetCameras();
-
 	}
 
 	// UpdatePlayerControllerRotation
