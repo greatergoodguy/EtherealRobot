@@ -129,7 +129,7 @@ public class InputTesterPlayerPC : PlayerController {
 		InitializeInputs();	
 		SetCameras();
 		
-		input = GetComponent<Input_BB>();
+		input = GetComponent<XboxInput>();
 	}
 		
 	// Update 

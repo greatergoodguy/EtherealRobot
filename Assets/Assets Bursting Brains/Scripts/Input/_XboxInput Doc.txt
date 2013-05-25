@@ -1,0 +1,21 @@
+joystick button 0 = A
+joystick button 1 = B
+joystick button 2 = x
+joystick button 3 = Y
+joystick button 4 = LB
+joystick button 5 = RB
+joystick button 6 = back button
+joystick button 7 = start button
+joystick button 8 = left analogue stick click
+joystick button 9 = right analogue stick click
+
+Set type to "Key/Mouse Button" and axis to "X axis"
+for all of these
+
+For the next few set type to "Joystick Axis"
+then 
+axis to 3rd axis for left/right trigger buttons
+axis to 4th axis for right analogue stick left/right
+5th axis is right analogue stick up/down
+6th axis is dpad right/left
+7th axis is dpad up/down
