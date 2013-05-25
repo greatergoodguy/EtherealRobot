@@ -5,11 +5,13 @@ public class MovementPC : PlayerController {
 	
 	public float moveSpeed = 0.25f;
 	private float angle;
+	private float degreePerSecond;
 	
 	private Vector3 cube;
 	private Vector3 sphere;
 	private Vector3 cubeForward;
 	private Vector3 sphereForward;
+	private Vector3 angMove;
 	private Transform head;
 	
 	private Vector3 forward;
@@ -44,7 +46,7 @@ public class MovementPC : PlayerController {
 		
 		cube = transform.position;
 		sphereForward = transform.position;
-		head = transform.FindChild("Sphere");
+		head = transform.FindChild("Head");
 		SetCameras();
 		
 		AllowMouseRotation = false;
@@ -59,9 +61,16 @@ public class MovementPC : PlayerController {
 		float angle = Vector3.Angle (cubeForward,sphereForward);
 		
 		//Basic Movement
+		//use vector.up for rotating and float degreePerSecond and Time.deltaTime
 		if(Input.GetKey(KeyCode.W)){
 			Vector3 tempPos = transform.position;
+			Vector3 tempAngMove = transform.position;
 			tempPos += cubeForward * moveSpeed;
+			if (0 < angle && angle < 90 && sphereForward.x < 0){
+				degreePerSecond = -40;
+				tempAngMove = Vector3.up * degreePerSecond * Time.deltaTime;
+				transform.Rotate(tempAngMove);
+			}
 			transform.position = tempPos;
 		}
 		if(Input.GetKey(KeyCode.S)){
@@ -69,7 +78,7 @@ public class MovementPC : PlayerController {
 			tempPos -= cubeForward * moveSpeed;
 			transform.position = tempPos;
 		}
-		print (angle);
+		print (sphereForward);
 		
 		// Controls the Camera rotation
 		float rotateInfluence = DeltaTime * RotationAmount * RotationScaleMultiplier;
