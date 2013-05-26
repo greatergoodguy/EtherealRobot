@@ -635,6 +635,7 @@ GameObject:
   - 114: {fileID: 674428506}
   - 114: {fileID: 674428505}
   - 114: {fileID: 674428504}
+  - 114: {fileID: 674428512}
   m_Layer: 0
   m_Name: TestMovementActor
   m_TagString: Untagged
@@ -649,7 +650,7 @@ Transform:
   m_PrefabInternal: {fileID: 1319562869}
   m_GameObject: {fileID: 674428502}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 670.716858, y: 284.882172, z: 42.5549316}
+  m_LocalPosition: {x: 737.960327, y: 252.051727, z: 114.118301}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 642193405}
@@ -705,7 +706,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 153bbe812d14e8241904126ca59d6ba8, type: 3}
   m_Name: 
-  moveSpeed: 3
+  moveSpeed: 1
   degreePerSecond: 0
   RotationAmount: 1.5
 --- !u!54 &674428508
@@ -764,6 +765,19 @@ MeshFilter:
   m_PrefabInternal: {fileID: 1319562869}
   m_GameObject: {fileID: 674428502}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &674428512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 674428502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d933074b62d53f4d9cce18d7166767a, type: 3}
+  m_Name: 
+  color1: {r: 1, g: 0, b: 0, a: 1}
+  color2: {r: 1, g: 0, b: 0, a: 1}
+  lineRenderer: {fileID: 0}
 --- !u!1 &835874747
 GameObject:
   m_ObjectHideFlags: 0
@@ -987,15 +1001,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400004, guid: 13b6031e05c87224da55ca479e529540, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 670.716858
+      value: 737.960327
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 13b6031e05c87224da55ca479e529540, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 284.882172
+      value: 252.051727
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 13b6031e05c87224da55ca479e529540, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 42.5549316
+      value: 114.118301
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 13b6031e05c87224da55ca479e529540, type: 2}
       propertyPath: m_LocalRotation.x
@@ -1019,7 +1033,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400006, guid: 13b6031e05c87224da55ca479e529540, type: 2}
       propertyPath: moveSpeed
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5400000, guid: 13b6031e05c87224da55ca479e529540, type: 2}
       propertyPath: m_UseGravity
