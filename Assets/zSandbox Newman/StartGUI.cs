@@ -1,27 +1,29 @@
 using UnityEngine;
 using System.Collections;
 
-public class DualButtonGUI : MonoBehaviour {
+public class StartGUI : MonoBehaviour {
 	
 	public Font 	FontReplaceSmall	= null;
 	public Font 	FontReplaceLarge	= null;
 	private int    	StereoSpreadX 	= -40;
 	
 	// Spacing for scenes menu
-	private int    	StartX			= 200;
-	private int    	StartY			= 200;
-	private int    	WidthX			= 300;
-	private int    	WidthY			= 50;
+	private int    	StartX			= 300;
+	private int    	StartY			= 170;
+	private int    	WidthX			= 50;
+	private int    	WidthY			= 30;
+	private int 	ButtonOffsetY 	= 30;	// Distance each new button is created from previous
 	
 	private bool 	isGuiOn			= true;
 	
-	// Indicates what key is currently selected by Keyboard
-	private int selectedIndex = 0;
+	private int SelectedIndex = 1;	// Indicates what key is currently selected by Keyboard
+	private int NumButtons = 0;		// Total # of buttons. Gets updated in 'AddButton' inefficiently
 	
 	private string start_s = "Start";
 	
 	// Use this for initialization
 	void Start () {
+
 	}
 	
 	// Update is called once per frame
@@ -34,9 +36,11 @@ public class DualButtonGUI : MonoBehaviour {
 			return;	
 		}
 		
-		
-		GUIStereoButton (new Rect (10,30,50,30), "Start", 0);		
-		GUIStereoButton (new Rect (10,60,50,30), "Exit", 1);
+		/* ADD NEW BUTTONS HERE (The int determines where each button is placed) */
+		AddButton ("Start", 1);
+		AddButton ("Exit", 2);
+		AddButton ("Extra" , 3);
+
 		//GUIStereoBox (StartX, StartY, WidthX, WidthY, ref start_s, Color.yellow);
 	}
 	
@@ -70,7 +74,7 @@ public class DualButtonGUI : MonoBehaviour {
 			GUI.skin.font = FontReplaceSmall;
 		
 		// Change color if selected by keyboard
-		if(selectedIndex == index){
+		if(SelectedIndex == index){
 			GUI.color = Color.yellow;	
 		}
 		GUI.Button(new Rect(xL, y, sWX, sWY), text);
@@ -114,20 +118,31 @@ public class DualButtonGUI : MonoBehaviour {
 		//print("xL: " + xL + "       xR: " + xR);
 	}
 	
+	// Determines what each button does when pressed
 	void KeyboardMenuSelection() {
 		if(Input.GetKeyDown(KeyCode.Return)){
-			if (selectedIndex == 0){
+			if (SelectedIndex == 1){
 				Application.LoadLevel(0);	
 			}
-			if(selectedIndex == 1){
+			if(SelectedIndex == 2){
 				// Exit game	
 			}	
 		}
-		if(Input.GetKeyDown(KeyCode.DownArrow) && selectedIndex < 1){
-			selectedIndex++;
+		
+		// Moves between buttons with arrows keys
+		if(Input.GetKeyDown(KeyCode.DownArrow) && SelectedIndex < NumButtons){
+			SelectedIndex++;
 		}
-		if(Input.GetKeyDown(KeyCode.UpArrow) && selectedIndex > 0){
-			selectedIndex--;
+		if(Input.GetKeyDown(KeyCode.UpArrow) && SelectedIndex > 1){
+			SelectedIndex--;
 		}
+	}
+	
+	void AddButton(string text, int index){
+		// Should change this. (Makes it easier to add new butttons, but adds unneeded computations
+		if(index > NumButtons)
+			NumButtons = index;
+		
+		GUIStereoButton(new Rect(StartX, StartY + (index * ButtonOffsetY), WidthX, WidthY), text, index);
 	}
 }
