@@ -60,7 +60,7 @@ public class MechProtoPC : PlayerController {
 	protected Transform DirXform = null;
 	
 	// We can adjust these to influence speed and rotation of player controller
-	private float MoveScaleMultiplier     = 6.0f; 
+	private float MoveScaleMultiplier     = 2.0f; 
 	private float RotationScaleMultiplier = 1.0f; 
 	
 	//
