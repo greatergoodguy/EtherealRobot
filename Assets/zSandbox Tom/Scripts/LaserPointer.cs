@@ -3,16 +3,18 @@ using System.Collections;
 
 public class LaserPointer : MonoBehaviour {
 	
-	private Color color1 = Color.red;
-	private Color color2 = Color.red;
+	private const float LINE_WIDTH = 0.02f;
 	
-	private LineRenderer lineRenderer;
+	public Color color1 = Color.red;
+	public Color color2 = Color.red;
+	
+	public LineRenderer lineRenderer;
 	
 	void Start () {
 		lineRenderer = (LineRenderer) gameObject.AddComponent("LineRenderer");
 		lineRenderer.material = new Material(Shader.Find("Particles/Additive"));
 		lineRenderer.SetColors(color1, color2);
-		lineRenderer.SetWidth(1, 1);
+		lineRenderer.SetWidth(LINE_WIDTH, LINE_WIDTH);
 		lineRenderer.SetVertexCount(2);
 	}
 	
@@ -20,18 +22,21 @@ public class LaserPointer : MonoBehaviour {
 	void Update () {
 		Vector3 origin = transform.position;
 		Vector3 forwardDirection = transform.forward;
+		
+		print(forwardDirection);
+		
 		Vector3 endPoint = origin + forwardDirection * 10000;
 		
-		/*
-		RaycastHit hit = null;
 		
-		lineRenderer.SetPosition(0, endPoint);
+		RaycastHit hit = new RaycastHit();
 		
-		if(Physics.Raycast(origin, forwardDirection, hit)){
+		lineRenderer.SetPosition(0, origin);
+		
+		if(Physics.Raycast(origin, forwardDirection, out hit)){
 			endPoint = hit.point;
-			lineRenderer.SetPosition(1, endPoint);
 		}
-		*/
+		
+		lineRenderer.SetPosition(1, endPoint);
 	
 	}
 }
