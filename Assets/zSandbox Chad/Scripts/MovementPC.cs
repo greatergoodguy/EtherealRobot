@@ -3,10 +3,9 @@ using System.Collections;
 
 public class MovementPC : PlayerController {
 	
-	public float moveSpeed = 0.25f;
-	private float cubeXVal;
-	private float sphereXVal;
-	public float degreePerSecond;
+	public float moveSpeed = 6.0f;
+	public float degreePerSecond = 4.0f;
+	public float force = 8.0f;
 	
 	private Vector3 cube;
 	private Vector3 sphere;
@@ -36,6 +35,15 @@ public class MovementPC : PlayerController {
 	
 	// Use this for initialization
 	void Start () {
+		
+		//Friction Fixes
+		rigidbody.freezeRotation = true;
+		
+		collider.material.dynamicFriction = .2f;
+		collider.material.dynamicFriction2 = .2f;
+		collider.material.staticFriction = .2f;
+		collider.material.staticFriction2 = .2f;
+		collider.material.frictionCombine = PhysicMaterialCombine.Minimum;
 		
 		CameraController_BB[] CameraControllers;
 		CameraControllers = gameObject.GetComponentsInChildren<CameraController_BB>();
@@ -71,17 +79,19 @@ public class MovementPC : PlayerController {
 		//Gets forward Vector
 		cubeForward = transform.forward;
 		sphereForward = head.forward;
-		float degreePerSecond = 2.0f;
-		//cubeXVal = cubeForward.x;
-		//sphereXVal = sphereForward.x;
+		
 		float angle = Vector3.Angle (cubeForward,sphereForward);
 		crossProd = Vector3.Cross(cubeForward, sphereForward);
+		
+		//Force Vectors
+		Vector3 forwardForce = new Vector3();
+		
 		//Basic Movement
 		//use vector.up for rotating and float degreePerSecond and Time.deltaTime
 		if(Input.GetKey(KeyCode.W)){
-			Vector3 tempPos = transform.position;
+			//Vector3 tempPos = transform.position;
 			Vector3 tempAngMove = transform.position;
-			tempPos += cubeForward * moveSpeed;
+			//tempPos += cubeForward * moveSpeed;
 			/*if (angle < 46 && angle > 10 && crossProd.y < 0){
 				degreePerSecond = -80;
 				tempAngMove = Vector3.up * degreePerSecond * Time.deltaTime;
@@ -92,6 +102,7 @@ public class MovementPC : PlayerController {
 				tempAngMove = Vector3.up * degreePerSecond * Time.deltaTime;
 				transform.Rotate(tempAngMove);
 			}*/
+			forwardForce = cubeForward * moveSpeed * force;
 			if (crossProd.y < 0){
 				tempAngMove = GetAngularDirection(angle);
 				tempAngMove = -tempAngMove;
@@ -101,25 +112,26 @@ public class MovementPC : PlayerController {
 				tempAngMove = GetAngularDirection(angle);
 				transform.Rotate(tempAngMove);
 			}
-			transform.position = tempPos;
 		}
-		if(Input.GetKey(KeyCode.S)){
-			Vector3 tempPos = transform.position;
-			Vector3 tempAngMove = transform.position;
-			tempPos -= cubeForward * moveSpeed;
-			/*if (angle < 46 && angle > 10 && crossProd.y < 0){
-				degreePerSecond = 80;
-				tempAngMove = Vector3.up * degreePerSecond * Time.deltaTime;
-				transform.Rotate(tempAngMove);				
-			}
-			else if (angle < 46 && angle > 10 && crossProd.y > 0){
-				degreePerSecond = -80;
-				tempAngMove = Vector3.up * degreePerSecond * Time.deltaTime;
-				transform.Rotate(tempAngMove);
-			}*/
-			transform.position = tempPos;
-		}
+		//if(Input.GetKey(KeyCode.S)){
+			//Vector3 tempPos = transform.position;
+			//Vector3 tempAngMove = transform.position;
+			//tempPos -= cubeForward * moveSpeed;
+			//if (angle < 46 && angle > 10 && crossProd.y < 0){
+				//degreePerSecond = 80;
+				//tempAngMove = Vector3.up * degreePerSecond * Time.deltaTime;
+				//transform.Rotate(tempAngMove);				
+			//}
+			//else if (angle < 46 && angle > 10 && crossProd.y > 0){
+				//degreePerSecond = -80;
+				//tempAngMove = Vector3.up * degreePerSecond * Time.deltaTime;
+				//transform.Rotate(tempAngMove);
+			//}
+			//tempPos = -cubeForward * moveSpeed * force;
+			//rigidbody.AddForce(tempPos);
+		//}
 		angDirection = GetAngularDirection(angle);
+		rigidbody.AddForce(forwardForce);
 		print(degreePerSecond);
 		//print (angle);
 		
@@ -166,8 +178,8 @@ public class MovementPC : PlayerController {
 	
 	private Vector3 GetAngularDirection(float angle){
 		Vector3 result = Vector3.zero;
-		angle /= 135;
-		result = Vector3.up * angle;
+		angle /= 90;
+		result = Vector3.up * angle * degreePerSecond;
 		return result;
 	}
 }
