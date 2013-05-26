@@ -2,10 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 public class StartGUI : MonoBehaviour {
-	
-	public Font 	FontReplaceSmall	= null;
-	public Font 	FontReplaceLarge	= null;
-	private int    	StereoSpreadX 	= -40;
+
 	
 	// Spacing for scenes menu
 	private int    	StartX			= 300;
@@ -44,48 +41,7 @@ public class StartGUI : MonoBehaviour {
 		//GUIStereoBox (StartX, StartY, WidthX, WidthY, ref start_s, Color.yellow);
 	}
 	
-	void GUIStereoButton(Rect rect, string text, int index){
-		int X = (int) rect.x;
-		int Y = (int) rect.y;
-		int wX = (int) rect.width; 
-		int wY = (int) rect.height;
-		
-		float ploLeft = 0, ploRight = 0;
-		float sSX = (float)Screen.width / 1280.0f;
-		
-		float sSY = ((float)Screen.height / 800.0f);
-		OVRDevice.GetPhysicalLensOffsets(ref ploLeft, ref ploRight); 
-		int xL = (int)((float)X * sSX);
-		int sSpreadX = (int)((float)StereoSpreadX * sSX);
-		int xR = (Screen.width / 2) + xL + sSpreadX
-			      // required to adjust for physical lens shift
-			      - (int)(ploLeft * (float)Screen.width / 2);
-		int y = (int)((float)Y * sSY);
-		
-		//GUI.contentColor = color;
-		
-		int sWX = (int)((float)wX * sSX);
-		int sWY = (int)((float)wY * sSY);
-		
-		// Change font size based on screen scale
-		if(Screen.height > 800)
-			GUI.skin.font = FontReplaceLarge;
-		else
-			GUI.skin.font = FontReplaceSmall;
-		
-		// Change color if selected by keyboard
-		if(SelectedIndex == index){
-			GUI.color = Color.yellow;	
-		}
-		GUI.Button(new Rect(xL, y, sWX, sWY), text);
-		GUI.Button(new Rect(xR, y, sWX, sWY), text);		
-		
-		GUI.color = Color.white;
-		
-		//print("xL: " + xL + "       xR: " + xR);
-	}
-	
-	
+	/*
 	// GUIStereoBox - Values based on pixels in DK1 resolution of W: (1280 / 2) H: 800
 	void GUIStereoBox(int X, int Y, int wX, int wY, ref string text, Color color)
 	{
@@ -116,7 +72,7 @@ public class StartGUI : MonoBehaviour {
 		GUI.Box(new Rect(xR, y, sWX, sWY), text);		
 		
 		//print("xL: " + xL + "       xR: " + xR);
-	}
+	}*/
 	
 	// Determines what each button does when pressed
 	void KeyboardMenuSelection() {
@@ -140,9 +96,16 @@ public class StartGUI : MonoBehaviour {
 	
 	void AddButton(string text, int index){
 		// Should change this. (Makes it easier to add new butttons, but adds unneeded computations
-		if(index > NumButtons)
+		if(index > NumButtons){
 			NumButtons = index;
+		}
+		//GUIStereoButton(new Rect(StartX, StartY + (index * ButtonOffsetY), WidthX, WidthY), text, index);
+		bool curButton = false;
+		if (SelectedIndex == index){
+			curButton = true;	
+		}
 		
-		GUIStereoButton(new Rect(StartX, StartY + (index * ButtonOffsetY), WidthX, WidthY), text, index);
+		GuiUtils.GUIStereoButton(new Rect(StartX, StartY + (index * ButtonOffsetY), WidthX, WidthY), text, curButton);
 	}
+
 }
