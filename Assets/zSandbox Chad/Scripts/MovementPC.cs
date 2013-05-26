@@ -4,19 +4,21 @@ using System.Collections;
 public class MovementPC : PlayerController {
 	
 	public float moveSpeed = 0.25f;
-	private float angle;
-	private float degreePerSecond;
+	private float cubeXVal;
+	private float sphereXVal;
+	public float degreePerSecond;
 	
 	private Vector3 cube;
 	private Vector3 sphere;
 	private Vector3 cubeForward;
 	private Vector3 sphereForward;
-	private Vector3 angMove;
+	private Vector3 crossProd;
+	private Vector3 angDirection;
 	private Transform head;
-	private Transform movingCam;
 	
 	private Vector3 forward;
 	protected CameraController_BB 	CameraController 	= null;
+	//protected OVRCameraController 	CameraController 	= null;
 	public float RotationAmount  = 1.5f;
 	private Quaternion OrientationOffset = Quaternion.identity;			// Initial direction of controller (passed down into CameraController)
 	private float 	YRotation 	 = 0.0f;								// Rotation amount from inputs (passed down into CameraController)
@@ -44,11 +46,19 @@ public class MovementPC : PlayerController {
 			Debug.LogWarning("OVRPlayerController: More then 1 OVRCameraController attached.");
 		else
 			CameraController = CameraControllers[0];
+		/*OVRCameraController[] CameraControllers;
+		CameraControllers = gameObject.GetComponentsInChildren<OVRCameraController>();
+		
+		if(CameraControllers.Length == 0)
+			Debug.LogWarning("OVRPlayerController: No OVRCameraController attached.");
+		else if (CameraControllers.Length > 1)
+			Debug.LogWarning("OVRPlayerController: More then 1 OVRCameraController attached.");
+		else
+			CameraController = CameraControllers[0];*/
 		
 		cube = transform.position;
 		sphereForward = transform.position;
 		head = transform.FindChild("Head");
-		movingCam = transform.FindChild("StandardCameraController");
 		SetCameras();
 		
 		AllowMouseRotation = false;
@@ -56,34 +66,62 @@ public class MovementPC : PlayerController {
 	
 	// Update is called once per frame
 	void Update () {
-		
-		head.transform.rotation = CameraController.transform.rotation;
+		//head.transform.rotation = CameraController.transform.rotation;
 		
 		//Gets forward Vector
 		cubeForward = transform.forward;
 		sphereForward = head.forward;
+		float degreePerSecond = 2.0f;
+		//cubeXVal = cubeForward.x;
+		//sphereXVal = sphereForward.x;
 		float angle = Vector3.Angle (cubeForward,sphereForward);
-		
+		crossProd = Vector3.Cross(cubeForward, sphereForward);
 		//Basic Movement
 		//use vector.up for rotating and float degreePerSecond and Time.deltaTime
 		if(Input.GetKey(KeyCode.W)){
 			Vector3 tempPos = transform.position;
 			Vector3 tempAngMove = transform.position;
 			tempPos += cubeForward * moveSpeed;
-			if (0 < angle && angle < 90 && sphereForward.x < 0){
+			/*if (angle < 46 && angle > 10 && crossProd.y < 0){
 				degreePerSecond = -80;
 				tempAngMove = Vector3.up * degreePerSecond * Time.deltaTime;
+				transform.Rotate(tempAngMove);				
+			}
+			else if (angle < 46 && angle > 10 && crossProd.y > 0){
+				degreePerSecond = 80;
+				tempAngMove = Vector3.up * degreePerSecond * Time.deltaTime;
 				transform.Rotate(tempAngMove);
-				
+			}*/
+			if (crossProd.y < 0){
+				tempAngMove = GetAngularDirection(angle);
+				tempAngMove = -tempAngMove;
+				transform.Rotate(tempAngMove);				
+			}
+			else if (crossProd.y > 0){
+				tempAngMove = GetAngularDirection(angle);
+				transform.Rotate(tempAngMove);
 			}
 			transform.position = tempPos;
 		}
 		if(Input.GetKey(KeyCode.S)){
 			Vector3 tempPos = transform.position;
+			Vector3 tempAngMove = transform.position;
 			tempPos -= cubeForward * moveSpeed;
+			/*if (angle < 46 && angle > 10 && crossProd.y < 0){
+				degreePerSecond = 80;
+				tempAngMove = Vector3.up * degreePerSecond * Time.deltaTime;
+				transform.Rotate(tempAngMove);				
+			}
+			else if (angle < 46 && angle > 10 && crossProd.y > 0){
+				degreePerSecond = -80;
+				tempAngMove = Vector3.up * degreePerSecond * Time.deltaTime;
+				transform.Rotate(tempAngMove);
+			}*/
 			transform.position = tempPos;
 		}
-		print (sphereForward);
+		angDirection = GetAngularDirection(angle);
+		print(degreePerSecond);
+		//print (angle);
 		
 		// Controls the Camera rotation
 		float rotateInfluence = DeltaTime * RotationAmount * RotationScaleMultiplier;
@@ -125,4 +163,11 @@ public class MovementPC : PlayerController {
 	public override string GetControllerName() {
     	return "Ball";
    	}
+	
+	private Vector3 GetAngularDirection(float angle){
+		Vector3 result = Vector3.zero;
+		angle /= 135;
+		result = Vector3.up * angle;
+		return result;
+	}
 }
