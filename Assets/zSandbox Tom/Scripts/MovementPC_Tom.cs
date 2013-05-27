@@ -72,15 +72,21 @@ public class MovementPC_Tom : PlayerController {
 		AllowMouseRotation = false;
 	}
 	
+	
+	float contAngle = 0;
 	// Update is called once per frame
 	void Update () {
 		//head.transform.rotation = CameraController.transform.rotation;
 		
 		//Gets forward Vector
+		
 		cubeForward = transform.forward;
 		sphereForward = head.forward;
 		
-		float angle = Vector3.Angle (cubeForward,sphereForward);
+		float absoluteAngle = Vector3.Angle (cubeForward,sphereForward);
+		
+		contAngle = absoluteAngle * AngleDir(transform.forward, sphereForward, transform.up);
+		//print("cubeForward: " + cubeForward.x + "       sphereForward: " + sphereForward.x);
 		crossProd = Vector3.Cross(cubeForward, sphereForward);
 		
 		//Force Vectors
@@ -104,12 +110,12 @@ public class MovementPC_Tom : PlayerController {
 			}*/
 			forwardForce = cubeForward * moveSpeed * force;
 			if (crossProd.y < 0){
-				tempAngMove = GetAngularDirection(angle);
+				tempAngMove = GetAngularDirection(absoluteAngle);
 				tempAngMove = -tempAngMove;
 				transform.Rotate(tempAngMove);				
 			}
 			else if (crossProd.y > 0){
-				tempAngMove = GetAngularDirection(angle);
+				tempAngMove = GetAngularDirection(absoluteAngle);
 				transform.Rotate(tempAngMove);
 			}
 		}
@@ -130,10 +136,8 @@ public class MovementPC_Tom : PlayerController {
 			//tempPos = -cubeForward * moveSpeed * force;
 			//rigidbody.AddForce(tempPos);
 		//}
-		angDirection = GetAngularDirection(angle);
+		angDirection = GetAngularDirection(absoluteAngle);
 		rigidbody.AddForce(forwardForce);
-		//print(degreePerSecond);
-		//print (angle);
 		
 		// Controls the Camera rotation
 		float rotateInfluence = DeltaTime * RotationAmount * RotationScaleMultiplier;
@@ -182,4 +186,24 @@ public class MovementPC_Tom : PlayerController {
 		result = Vector3.up * angle * degreePerSecond;
 		return result;
 	}
+	
+	public float GetAngle(){
+		return contAngle;
+	}
+	
+	private float AngleDir(Vector3 fwd, Vector3 targetDir, Vector3 up){
+        Vector3 perp = Vector3.Cross(fwd, targetDir);
+        float dir = Vector3.Dot(perp, up);
+
+        if (dir > 0.0f) {
+            return 1.0f;
+
+        } else if (dir < 0.0f) {
+            return -1.0f;
+
+        } else {
+            return 0.0f;
+        }
+
+    }
 }
