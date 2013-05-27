@@ -12,10 +12,11 @@ public class MovementPC : PlayerController {
 	private Vector3 cubeForward;
 	private Vector3 sphereForward;
 	private Vector3 crossProd;
+	private Vector3 forward;
 	private Vector3 angDirection;
 	private Transform head;
 	
-	private Vector3 forward;
+	//Camera Variable
 	protected CameraController_BB 	CameraController 	= null;
 	//protected OVRCameraController 	CameraController 	= null;
 	public float RotationAmount  = 1.5f;
@@ -39,10 +40,10 @@ public class MovementPC : PlayerController {
 		//Friction Fixes
 		rigidbody.freezeRotation = true;
 		
-		collider.material.dynamicFriction = .2f;
-		collider.material.dynamicFriction2 = .2f;
-		collider.material.staticFriction = .2f;
-		collider.material.staticFriction2 = .2f;
+		collider.material.dynamicFriction = .4f;
+		collider.material.dynamicFriction2 = .4f;
+		collider.material.staticFriction = .4f;
+		collider.material.staticFriction2 = .4f;
 		collider.material.frictionCombine = PhysicMaterialCombine.Minimum;
 		
 		CameraController_BB[] CameraControllers;
@@ -74,7 +75,6 @@ public class MovementPC : PlayerController {
 	
 	// Update is called once per frame
 	void Update () {
-		//head.transform.rotation = CameraController.transform.rotation;
 		
 		//Gets forward Vector
 		cubeForward = transform.forward;
@@ -89,20 +89,11 @@ public class MovementPC : PlayerController {
 		//Basic Movement
 		//use vector.up for rotating and float degreePerSecond and Time.deltaTime
 		if(Input.GetKey(KeyCode.W)){
-			//Vector3 tempPos = transform.position;
+			
 			Vector3 tempAngMove = transform.position;
-			//tempPos += cubeForward * moveSpeed;
-			/*if (angle < 46 && angle > 10 && crossProd.y < 0){
-				degreePerSecond = -80;
-				tempAngMove = Vector3.up * degreePerSecond * Time.deltaTime;
-				transform.Rotate(tempAngMove);				
-			}
-			else if (angle < 46 && angle > 10 && crossProd.y > 0){
-				degreePerSecond = 80;
-				tempAngMove = Vector3.up * degreePerSecond * Time.deltaTime;
-				transform.Rotate(tempAngMove);
-			}*/
+			
 			forwardForce = cubeForward * moveSpeed * force;
+			/*
 			if (crossProd.y < 0){
 				tempAngMove = GetAngularDirection(angle);
 				tempAngMove = -tempAngMove;
@@ -112,28 +103,36 @@ public class MovementPC : PlayerController {
 				tempAngMove = GetAngularDirection(angle);
 				transform.Rotate(tempAngMove);
 			}
+			*/
 		}
-		//if(Input.GetKey(KeyCode.S)){
-			//Vector3 tempPos = transform.position;
-			//Vector3 tempAngMove = transform.position;
-			//tempPos -= cubeForward * moveSpeed;
-			//if (angle < 46 && angle > 10 && crossProd.y < 0){
-				//degreePerSecond = 80;
-				//tempAngMove = Vector3.up * degreePerSecond * Time.deltaTime;
-				//transform.Rotate(tempAngMove);				
-			//}
-			//else if (angle < 46 && angle > 10 && crossProd.y > 0){
-				//degreePerSecond = -80;
-				//tempAngMove = Vector3.up * degreePerSecond * Time.deltaTime;
-				//transform.Rotate(tempAngMove);
-			//}
-			//tempPos = -cubeForward * moveSpeed * force;
-			//rigidbody.AddForce(tempPos);
-		//}
-		angDirection = GetAngularDirection(angle);
+		/*if(Input.GetKey(KeyCode.S)){
+			Vector3 tempPos = transform.position;
+			Vector3 tempAngMove = transform.position;
+			tempPos -= cubeForward * moveSpeed;
+			if (angle < 46 && angle > 10 && crossProd.y < 0){
+				degreePerSecond = 80;
+				tempAngMove = Vector3.up * degreePerSecond * Time.deltaTime;
+				transform.Rotate(tempAngMove);				
+			}
+			else if (angle < 46 && angle > 10 && crossProd.y > 0){
+				degreePerSecond = -80;
+				tempAngMove = Vector3.up * degreePerSecond * Time.deltaTime;
+				transform.Rotate(tempAngMove);
+			}
+			tempPos = -cubeForward * moveSpeed * force;
+			rigidbody.AddForce(tempPos);
+		}*/
+		Vector3 angMove = transform.position;
+		if (crossProd.y < 0){
+			angMove = GetAngularDirection(angle);
+			angMove = -angMove;
+			transform.Rotate(angMove);				
+		}
+		else if (crossProd.y > 0){
+			angMove = GetAngularDirection(angle);
+			transform.Rotate(angMove);
+		}
 		rigidbody.AddForce(forwardForce);
-		print(degreePerSecond);
-		//print (angle);
 		
 		// Controls the Camera rotation
 		float rotateInfluence = DeltaTime * RotationAmount * RotationScaleMultiplier;
@@ -178,7 +177,7 @@ public class MovementPC : PlayerController {
 	
 	private Vector3 GetAngularDirection(float angle){
 		Vector3 result = Vector3.zero;
-		angle /= 90;
+		angle /= 90;									//scaled for optimal head movement
 		result = Vector3.up * angle * degreePerSecond;
 		return result;
 	}

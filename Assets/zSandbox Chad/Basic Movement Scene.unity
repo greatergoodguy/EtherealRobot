@@ -636,8 +636,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 153bbe812d14e8241904126ca59d6ba8, type: 3}
   m_Name: 
   moveSpeed: 5
-  degreePerSecond: 4
-  force: 7
+  degreePerSecond: 2
+  force: 6
   RotationAmount: 1.5
 --- !u!54 &674428508
 Rigidbody:
@@ -743,6 +743,14 @@ Prefab:
     - target: {fileID: 400002, guid: e04d5b17e477b4b4f9f31285b87cae20, type: 2}
       propertyPath: m_LocalRotation.w
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400008, guid: e04d5b17e477b4b4f9f31285b87cae20, type: 2}
+      propertyPath: degreePerSecond
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400008, guid: e04d5b17e477b4b4f9f31285b87cae20, type: 2}
+      propertyPath: force
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e04d5b17e477b4b4f9f31285b87cae20, type: 2}
