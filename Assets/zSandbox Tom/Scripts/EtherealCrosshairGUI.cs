@@ -9,13 +9,15 @@ public class EtherealCrosshairGUI : MonoBehaviour {
 	private float posY = Screen.height/2;
 	
 	// Use this for initialization
-	void Start () {
+	void Start() {
 		DebugUtils.Assert(ImageCrosshair != null);
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		//GUI.DrawTexture(new Rect(posX, posY, ImageCrosshair.width, ImageCrosshair.height), ImageCrosshair);
-		GUI.DrawTexture(new Rect(posX, posY, 100, 100), ImageCrosshair);		
+	void Update() {
+	}
+	
+	void OnGui(){
+		GUI.DrawTexture(new Rect(posX, posY, ImageCrosshair.width, ImageCrosshair.height), ImageCrosshair);
 	}
 }
