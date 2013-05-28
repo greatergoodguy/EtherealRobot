@@ -13,6 +13,9 @@ public class InputManager : MonoBehaviour {
 		xboxInput = GetComponentInChildren<XboxInput>();
 		
 		activeInput = keyboardInput;
+		
+		DebugUtils.Assert(keyboardInput != null);
+		DebugUtils.Assert(xboxInput != null);
 	}
 	
 	void Start() {

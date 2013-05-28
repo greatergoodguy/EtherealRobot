@@ -28,7 +28,6 @@ public class EtherealCrosshairGUI : MonoBehaviour {
 	
 	void OnGUI(){
 		float cursorX = Screen.width * ((movementPC.GetAngle() + 180)/360);
-		print (cursorX);
 		
 		DrawTextureCenter(cursorX, centerY, ImageCrosshair);
 		

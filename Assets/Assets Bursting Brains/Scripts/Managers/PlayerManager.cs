@@ -44,7 +44,7 @@ public class PlayerManager : MonoBehaviour {
 	void Update () {
 	}
 	
-	public void IncrementActivePlayer(){
+	public void CycleActivePlayer(){
 		const float HEIGHT_DEPLACEMENT = 2;
 		
 		transform.parent = null;
@@ -83,6 +83,10 @@ public class PlayerManager : MonoBehaviour {
 	
 	public GameObject GetCamera(){
 		return activePlayer.transform.FindChild("OVRCameraController").gameObject;
+	}
+	
+	public void SetPosition(Vector3 pos){
+		activePlayer.transform.position = pos;	
 	}
 	
 	public GameObject GetActivePlayer(){
