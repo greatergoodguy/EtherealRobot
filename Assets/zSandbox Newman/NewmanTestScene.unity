@@ -87,6 +87,7 @@ GameObject:
   - 23: {fileID: 7634790}
   - 114: {fileID: 7634794}
   - 114: {fileID: 7634795}
+  - 114: {fileID: 7634796}
   m_Layer: 0
   m_Name: Main Menu
   m_TagString: Untagged
@@ -162,8 +163,16 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 82d3c80a907194aee8a172931f54f3ef, type: 3}
   m_Name: 
-  FontReplaceSmall: {fileID: 0}
-  FontReplaceLarge: {fileID: 0}
+--- !u!114 &7634796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 7634789}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc24c7f854b53734fbe9ff4f2937843f, type: 3}
+  m_Name: 
 --- !u!1 &118922128
 GameObject:
   m_ObjectHideFlags: 0
@@ -348,7 +357,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &387148185
 Transform:
   m_ObjectHideFlags: 0
@@ -465,7 +474,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &686535706
 Transform:
   m_ObjectHideFlags: 0
