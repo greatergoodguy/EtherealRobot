@@ -2,7 +2,6 @@ using UnityEngine;
 using System.Collections;
 
 public class GameManager : MonoBehaviour {
-	private PauseMenuManager 	pauseMenuManager;
 	private PlayerManager 		playerManager;
 	private GuiManager 			guiManager;
 	private InputManager 		inputManager;
@@ -12,7 +11,6 @@ public class GameManager : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {	
-		pauseMenuManager 	= GameObject.Find("PauseMenuManager").GetComponent<PauseMenuManager>();
 		playerManager 		= GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
 		guiManager 			= GameObject.Find("GuiManager").GetComponent<GuiManager>();
 		inputManager 		= GameObject.Find("InputManager").GetComponent<InputManager>();
@@ -20,7 +18,6 @@ public class GameManager : MonoBehaviour {
 		
 		activeInput = inputManager.GetActiveInput();
 		
-		DebugUtils.Assert(pauseMenuManager != null);
 		DebugUtils.Assert(playerManager != null);
 		DebugUtils.Assert(guiManager != null);
 		DebugUtils.Assert(inputManager != null);
@@ -35,11 +32,9 @@ public class GameManager : MonoBehaviour {
 			
 			if(playerManager.isPlayerFrozen()){
 				playerManager.UnfreezePlayer();	
-				pauseMenuManager.HideMenu();
 			}
 			else{
 				playerManager.FreezePlayer();
-				pauseMenuManager.DisplayMenu(camera);
 			}
 		}
 		

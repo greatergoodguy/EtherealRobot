@@ -2,27 +2,42 @@ using UnityEngine;
 using System.Collections;
 
 public class StartGui : MonoBehaviour {
-	
-	public Font 	FontReplaceSmall	= null;
-	public Font 	FontReplaceLarge	= null;
-	private int    	StereoSpreadX 	= -40;
+	// textures
+	public Texture startTexture;
 	
 	// Spacing for scenes menu
-	private int    	StartX			= 200;
-	private int    	StartY			= 200;
-	private int    	WidthX			= 300;
-	private int    	WidthY			= 50;
+	private int    	StartX			= 300;
+	private int    	StartY			= 170;
+	private int    	WidthX			= 50;
+	private int    	WidthY			= 30;
+	private int 	ButtonOffsetY 	= 30;	// Distance each new button is created from previous
 	
 	private bool 	isGuiOn			= true;
 	
-	private string start_s = "Start";
+	private int SelectedIndex = 0;	// Indicates what key is currently selected by Keyboard
+	
+	static private int NumButtons = 2;  //
+	private Color[] ButtonColors = new Color[NumButtons];
 	
 	// Use this for initialization
 	void Start () {
+		// Initializes GUI buttons to white, except for the selectedIndex
+		
+		
+		//GuiUtils.initializeGuiColors(
+		
+		ButtonColors[SelectedIndex] = Color.yellow;
+		for(int i = 1; i < ButtonColors.Length; i++)
+			ButtonColors[i] = Color.white;
+		
+		DebugUtils.Assert(startTexture != null);
+		
+		Time.timeScale = 0;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		KeyboardMenuSelection();
 	}
 	
 	void OnGUI(){
@@ -30,11 +45,17 @@ public class StartGui : MonoBehaviour {
 			return;	
 		}
 		
+		//Creates GUI textures
+		GuiUtils.GUIStereoTexture(200, 150, 500, 500, startTexture);		
 		
-		//GUI.Button (new Rect (10,10,150,100), "I am a button");				
-		GUIStereoBox (StartX, StartY, WidthX, WidthY, ref start_s, Color.yellow);
+		// Creates Buttons
+		// When adding new buttons, make sure to increase 'NumButtons' variable at top
+		GuiUtils.GUIStereoButton (StartX, StartY, WidthX, WidthY, "Start", ButtonColors[0]);
+		GuiUtils.GUIStereoButton (StartX, StartY + ButtonOffsetY, WidthX, WidthY, "Exit", ButtonColors[1]);
+		
 	}
 	
+	/*
 	// GUIStereoBox - Values based on pixels in DK1 resolution of W: (1280 / 2) H: 800
 	void GUIStereoBox(int X, int Y, int wX, int wY, ref string text, Color color)
 	{
@@ -65,5 +86,34 @@ public class StartGui : MonoBehaviour {
 		GUI.Box(new Rect(xR, y, sWX, sWY), text);		
 		
 		//print("xL: " + xL + "       xR: " + xR);
+	}*/
+	
+	// Determines what each button does when pressed
+	void KeyboardMenuSelection() {
+		if(Input.GetKeyDown(KeyCode.Return)){
+			if (SelectedIndex == 0){
+				gameObject.SetActive(false);
+				Time.timeScale = 1;
+			}
+			if(SelectedIndex == 1){
+				Application.Quit();	
+			}	
+		}
+		
+		// Moves between buttons with arrows keys
+		if(Input.GetKeyDown(KeyCode.DownArrow) && SelectedIndex < NumButtons - 1){
+			SelectedIndex++;
+			ChangeButtonColor(SelectedIndex - 1);
+		}
+		if(Input.GetKeyDown(KeyCode.UpArrow) && SelectedIndex > 0){
+			SelectedIndex--;
+			ChangeButtonColor(SelectedIndex + 1);
+		}
+	}
+	
+	// Changes the color of the GUI button if it is currently selected by the keyboard
+	void ChangeButtonColor(int prevIndex){
+		ButtonColors[prevIndex] = Color.white;
+		ButtonColors[SelectedIndex] = Color.yellow;
 	}
 }
