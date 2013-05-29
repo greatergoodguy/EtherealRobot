@@ -521,7 +521,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 10302, guid: 0000000000000000e000000000000000, type: 0}
+  - {fileID: 2100000, guid: 7d0dcf91e172b0848afc815d012f5124, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -565,6 +565,7 @@ GameObject:
   - 114: {fileID: 674428505}
   - 114: {fileID: 674428504}
   - 114: {fileID: 674428512}
+  - 114: {fileID: 674428513}
   m_Layer: 0
   m_Name: TestActorWithSteering
   m_TagString: Untagged
@@ -635,9 +636,10 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 153bbe812d14e8241904126ca59d6ba8, type: 3}
   m_Name: 
-  moveSpeed: 5
-  degreePerSecond: 2
-  force: 6
+  turnSensitivity: 2
+  acceleration: 1
+  brakeSpeed: 1
+  maxSpeed: 30
   RotationAmount: 1.5
 --- !u!54 &674428508
 Rigidbody:
@@ -709,6 +711,20 @@ MonoBehaviour:
   color1: {r: 1, g: 0, b: 0, a: 1}
   color2: {r: 1, g: 0, b: 0, a: 1}
   lineRenderer: {fileID: 0}
+--- !u!114 &674428513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 674428502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a614878bc9a88049b331ae1e6b73384, type: 3}
+  m_Name: 
+  ImageCrosshair: {fileID: 0}
+  tick1: {fileID: 0}
+  tick2: {fileID: 0}
+  tick3: {fileID: 0}
 --- !u!1001 &1182688550
 Prefab:
   m_ObjectHideFlags: 0
@@ -752,6 +768,10 @@ Prefab:
       propertyPath: force
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 2300002, guid: e04d5b17e477b4b4f9f31285b87cae20, type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7d0dcf91e172b0848afc815d012f5124, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e04d5b17e477b4b4f9f31285b87cae20, type: 2}
   m_RootGameObject: {fileID: 674428502}
@@ -859,9 +879,10 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 153bbe812d14e8241904126ca59d6ba8, type: 3}
   m_Name: 
-  moveSpeed: .25
-  degreePerSecond: 0
-  force: 8
+  turnSensitivity: 2
+  acceleration: 1
+  brakeSpeed: 1
+  maxSpeed: 30
   RotationAmount: 1.5
 --- !u!114 &1257577864
 MonoBehaviour:

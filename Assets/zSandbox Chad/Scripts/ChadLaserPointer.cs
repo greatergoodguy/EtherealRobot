@@ -23,7 +23,7 @@ public class ChadLaserPointer : MonoBehaviour {
 		Vector3 origin = transform.position;
 		Vector3 forwardDirection = transform.forward;
 		
-		print(forwardDirection);
+		//print(forwardDirection);
 		
 		Vector3 endPoint = origin + forwardDirection * 10000;
 		

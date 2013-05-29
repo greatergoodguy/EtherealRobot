@@ -3,9 +3,14 @@ using System.Collections;
 
 public class MovementPC : PlayerController {
 	
-	public float moveSpeed = 6.0f;
-	public float degreePerSecond = 4.0f;
-	public float force = 8.0f;
+	//private float force = 6.0f;
+	//private float moveSpeed = 5.0f;
+	
+	public float turnSensitivity = 2.0f;
+	public float acceleration = 1.0f;
+	public float brakeSpeed = 1.0f;			//dont make larger than max speed
+	public float maxSpeed = 30.0f;
+	private float currSpeed = 0.0f;
 	
 	private Vector3 cube;
 	private Vector3 sphere;
@@ -40,10 +45,10 @@ public class MovementPC : PlayerController {
 		//Friction Fixes
 		rigidbody.freezeRotation = true;
 		
-		collider.material.dynamicFriction = .4f;
-		collider.material.dynamicFriction2 = .4f;
-		collider.material.staticFriction = .4f;
-		collider.material.staticFriction2 = .4f;
+		collider.material.dynamicFriction = .2f;
+		collider.material.dynamicFriction2 = .2f;
+		collider.material.staticFriction = .2f;
+		collider.material.staticFriction2 = .2f;
 		collider.material.frictionCombine = PhysicMaterialCombine.Minimum;
 		
 		CameraController_BB[] CameraControllers;
@@ -73,6 +78,7 @@ public class MovementPC : PlayerController {
 		AllowMouseRotation = false;
 	}
 	
+	float contAngle = 0;
 	// Update is called once per frame
 	void Update () {
 		
@@ -80,30 +86,30 @@ public class MovementPC : PlayerController {
 		cubeForward = transform.forward;
 		sphereForward = head.forward;
 		
-		float angle = Vector3.Angle (cubeForward,sphereForward);
+		float absoluteAngle = Vector3.Angle (cubeForward,sphereForward);
+		
+		contAngle = absoluteAngle * AngleDir(transform.forward, sphereForward, transform.up);
+		//print("cubeForward: " + cubeForward.x + "       sphereForward: " + sphereForward.x);
 		crossProd = Vector3.Cross(cubeForward, sphereForward);
 		
 		//Force Vectors
 		Vector3 forwardForce = new Vector3();
+		//Vector3 brakeForce = new Vector3();
 		
-		//Basic Movement
-		//use vector.up for rotating and float degreePerSecond and Time.deltaTime
+		//Basic Movement Acceleration
 		if(Input.GetKey(KeyCode.W)){
 			
 			Vector3 tempAngMove = transform.position;
+			currSpeed += acceleration;
+			currSpeed = Mathf.Clamp(currSpeed, -maxSpeed, maxSpeed);
 			
-			forwardForce = cubeForward * moveSpeed * force;
-			/*
-			if (crossProd.y < 0){
-				tempAngMove = GetAngularDirection(angle);
-				tempAngMove = -tempAngMove;
-				transform.Rotate(tempAngMove);				
-			}
-			else if (crossProd.y > 0){
-				tempAngMove = GetAngularDirection(angle);
-				transform.Rotate(tempAngMove);
-			}
-			*/
+			forwardForce = cubeForward * currSpeed;
+			rigidbody.AddForce(forwardForce);
+		}
+		//Brake Mechanic
+		else{				
+			//brakeForce = -cubeForward * currSpeed;
+			rigidbody.AddForce(rigidbody.velocity * -brakeSpeed);
 		}
 		/*if(Input.GetKey(KeyCode.S)){
 			Vector3 tempPos = transform.position;
@@ -122,17 +128,18 @@ public class MovementPC : PlayerController {
 			tempPos = -cubeForward * moveSpeed * force;
 			rigidbody.AddForce(tempPos);
 		}*/
+		
+		//Steering Mechanics
 		Vector3 angMove = transform.position;
 		if (crossProd.y < 0){
-			angMove = GetAngularDirection(angle);
+			angMove = GetAngularDirection(absoluteAngle);
 			angMove = -angMove;
 			transform.Rotate(angMove);				
 		}
 		else if (crossProd.y > 0){
-			angMove = GetAngularDirection(angle);
+			angMove = GetAngularDirection(absoluteAngle);
 			transform.Rotate(angMove);
 		}
-		rigidbody.AddForce(forwardForce);
 		
 		// Controls the Camera rotation
 		float rotateInfluence = DeltaTime * RotationAmount * RotationScaleMultiplier;
@@ -178,7 +185,27 @@ public class MovementPC : PlayerController {
 	private Vector3 GetAngularDirection(float angle){
 		Vector3 result = Vector3.zero;
 		angle /= 90;									//scaled for optimal head movement
-		result = Vector3.up * angle * degreePerSecond;
+		result = Vector3.up * angle * turnSensitivity;
 		return result;
 	}
+	
+	public float GetAngle(){
+		return contAngle;
+	}
+	
+	private float AngleDir(Vector3 fwd, Vector3 targetDir, Vector3 up){
+        Vector3 perp = Vector3.Cross(fwd, targetDir);
+        float dir = Vector3.Dot(perp, up);
+
+        if (dir > 0.0f) {
+            return 1.0f;
+
+        } else if (dir < 0.0f) {
+            return -1.0f;
+
+        } else {
+            return 0.0f;
+        }
+
+    }
 }

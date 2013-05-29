@@ -17,7 +17,7 @@ using UnityEditor;
 using UnityEngine;
 using System.Collections.Generic;
 
-[CustomEditor(typeof(ChadBallPC))]
+[CustomEditor(typeof(BallPC))]
 
 //-------------------------------------------------------------------------------------
 // ***** OVRPlayerControllerEditor
@@ -28,14 +28,14 @@ using System.Collections.Generic;
 public class BallPCEditor : Editor
 {
 	// target component
-	private ChadBallPC m_Component;
+	private BallPC m_Component;
 	
     private SerializedObject m_object;
     private SerializedProperty m_propPosition;
 
 	// OnEnable
 	void OnEnable(){
-		m_Component = (ChadBallPC) target;
+		m_Component = (BallPC) target;
 	}
 
 	// OnDestroy
