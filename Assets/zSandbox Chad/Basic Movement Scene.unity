@@ -721,10 +721,10 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2a614878bc9a88049b331ae1e6b73384, type: 3}
   m_Name: 
-  ImageCrosshair: {fileID: 0}
-  tick1: {fileID: 0}
-  tick2: {fileID: 0}
-  tick3: {fileID: 0}
+  ImageCrosshair: {fileID: 2800000, guid: fba0bb52ccd3d43d2a0a316c690b8853, type: 3}
+  tick1: {fileID: 2800000, guid: 961370e83c58b47839ddf1747cda1680, type: 3}
+  tick2: {fileID: 2800000, guid: f2104ceca818444de961bfe71fdcca5c, type: 3}
+  tick3: {fileID: 2800000, guid: 51af190738bc442e0b192fdd855d4900, type: 3}
 --- !u!1001 &1182688550
 Prefab:
   m_ObjectHideFlags: 0

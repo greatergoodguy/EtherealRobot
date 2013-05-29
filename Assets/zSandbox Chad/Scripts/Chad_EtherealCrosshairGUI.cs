@@ -27,7 +27,6 @@ public class Chad_EtherealCrosshairGUI : MonoBehaviour {
 
 	void Update() {
 	}
-/*	
 	void OnGUI(){
 		float cursorX = Screen.width * ((movementPC.GetAngle() + 180)/360);
 		
@@ -45,5 +44,4 @@ public class Chad_EtherealCrosshairGUI : MonoBehaviour {
 	private void DrawTextureCenter(float posX, float posY, Texture texture){
 		GUI.DrawTexture(new Rect(posX - texture.width/2, posY - texture.height/2, texture.width, texture.height), texture);
 	}
-*/
 }
