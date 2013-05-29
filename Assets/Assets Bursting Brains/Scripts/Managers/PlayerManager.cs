@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlayerManager : MonoBehaviour {
 	
-	public PlayerType initialPlayerType = PlayerType.Basic;
+	public PlayerType initialPlayerType = PlayerType.TestActorWithSteering_Tom;
 	
 	private Hashtable playerHT = new Hashtable();
 	private ArrayList playerTypes = new ArrayList();

@@ -28,6 +28,10 @@ public class XboxInput : Input_BB {
     	return Input.GetKeyDown(KeyCode.V);
    	} 
 	
+	public override bool GetButtonDown_CycleActivePlayer() {
+    	return Input.GetKeyDown(KeyCode.B);
+   	}
+	
 	public override float GetAxis_MouseX() {
 		return Input.GetAxis("Mouse X");
 	}

@@ -6,10 +6,12 @@
 
 
 public enum PlayerType {
-	Ball
-	,Basic
-	,FloatingSphere
-	,NoFriction
-	,NoFrictionWithDrift
+	TestActorWithSteering_Tom
+	,MechProto
+//	Ball
+//	,Basic
+//	,FloatingSphere
+//	,NoFriction
+//	,NoFrictionWithDrift
 //	,DefaultOculus
 };

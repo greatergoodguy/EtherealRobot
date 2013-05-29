@@ -26,7 +26,11 @@ public class KeyboardInput : Input_BB {
 			
 	public override bool GetButtonDown_CycleActiveEnvironment() {
     	return Input.GetKeyDown(KeyCode.V);
-   	} 
+   	}
+	
+	public override bool GetButtonDown_CycleActivePlayer() {
+    	return Input.GetKeyDown(KeyCode.C);
+   	}
 	
 	public override float GetAxis_MouseX() {
 		return Input.GetAxis("Mouse X");

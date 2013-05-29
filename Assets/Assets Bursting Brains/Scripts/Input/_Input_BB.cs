@@ -9,6 +9,7 @@ public abstract class Input_BB : MonoBehaviour {
 	
 	public abstract bool GetButtonDown_Pause();
 	public abstract bool GetButtonDown_CycleActiveEnvironment();
+	public abstract bool GetButtonDown_CycleActivePlayer();
 	
 	public abstract float GetAxis_MouseX();
 }

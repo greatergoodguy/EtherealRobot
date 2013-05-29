@@ -177,7 +177,7 @@ public class MovementPC_Tom : PlayerController {
 	}
 	
 	public override string GetControllerName() {
-    	return "Ball";
+    	return "Ethereal";
    	}
 	
 	private Vector3 GetAngularDirection(float angle){

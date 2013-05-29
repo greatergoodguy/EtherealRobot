@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour {
 			}
 		}
 		
-		if(Input.GetKeyDown(KeyCode.X)){
+		if(activeInput.GetButtonDown_CycleActivePlayer()){
 			playerManager.CycleActivePlayer();			
 			guiManager.SetDebugGui(playerManager.GetActivePlayer());
 		}	

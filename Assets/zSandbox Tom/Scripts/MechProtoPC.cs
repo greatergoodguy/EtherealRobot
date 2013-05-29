@@ -376,6 +376,6 @@ public class MechProtoPC : PlayerController {
 	}
 
 	public override string GetControllerName() {
-    	return "Mech Proto PC";
+    	return "Mech";
    	}  
 }
