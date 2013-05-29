@@ -3,6 +3,9 @@ using System.Collections;
 
 public class StartMenuGui : MonoBehaviour {
 	
+	// textures
+	public Texture startTexture;
+	
 	// Spacing for scenes menu
 	private int    	StartX			= 300;
 	private int    	StartY			= 170;
@@ -23,6 +26,8 @@ public class StartMenuGui : MonoBehaviour {
 		ButtonColors[SelectedIndex] = Color.yellow;
 		for(int i = 1; i < ButtonColors.Length; i++)
 			ButtonColors[i] = Color.white;
+		
+		DebugUtils.Assert(startTexture != null);
 	}
 	
 	// Update is called once per frame
@@ -35,10 +40,14 @@ public class StartMenuGui : MonoBehaviour {
 			return;	
 		}
 		
+		//Creates GUI textures
+		GuiUtils.GUIStereoTexture(80, 80, 500, 500, startTexture);		
+		
 		// Creates Buttons
 		// When adding new buttons, make sure to increase 'NumButtons' variable at top
 		GuiUtils.GUIStereoButton (StartX, StartY, WidthX, WidthY, "Start", ButtonColors[0]);
 		GuiUtils.GUIStereoButton (StartX, StartY + ButtonOffsetY, WidthX, WidthY, "Exit", ButtonColors[1]);
+		
 	}
 	
 	/*
