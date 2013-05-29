@@ -1,8 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class StartGUI : MonoBehaviour {
-
+public class StartMenuGui : MonoBehaviour {
 	
 	// Spacing for scenes menu
 	private int    	StartX			= 300;
@@ -13,14 +12,17 @@ public class StartGUI : MonoBehaviour {
 	
 	private bool 	isGuiOn			= true;
 	
-	private int SelectedIndex = 1;	// Indicates what key is currently selected by Keyboard
-	private int NumButtons = 0;		// Total # of buttons. Gets updated in 'AddButton' inefficiently
+	private int SelectedIndex = 0;	// Indicates what key is currently selected by Keyboard
 	
-	private string start_s = "Start";
+	static private int NumButtons = 2;  //
+	private Color[] ButtonColors = new Color[NumButtons];
 	
 	// Use this for initialization
 	void Start () {
-
+		// Initializes GUI buttons to white, except for the selectedIndex
+		ButtonColors[SelectedIndex] = Color.yellow;
+		for(int i = 1; i < ButtonColors.Length; i++)
+			ButtonColors[i] = Color.white;
 	}
 	
 	// Update is called once per frame
@@ -33,12 +35,10 @@ public class StartGUI : MonoBehaviour {
 			return;	
 		}
 		
-		/* ADD NEW BUTTONS HERE (The int determines where each button is placed) */
-		AddButton ("Start", 1);
-		AddButton ("Exit", 2);
-		AddButton ("Extra" , 3);
-
-		//GUIStereoBox (StartX, StartY, WidthX, WidthY, ref start_s, Color.yellow);
+		// Creates Buttons
+		// When adding new buttons, make sure to increase 'NumButtons' variable at top
+		GuiUtils.GUIStereoButton (StartX, StartY, WidthX, WidthY, "Start", ButtonColors[0]);
+		GuiUtils.GUIStereoButton (StartX, StartY + ButtonOffsetY, WidthX, WidthY, "Exit", ButtonColors[1]);
 	}
 	
 	/*
@@ -77,35 +77,28 @@ public class StartGUI : MonoBehaviour {
 	// Determines what each button does when pressed
 	void KeyboardMenuSelection() {
 		if(Input.GetKeyDown(KeyCode.Return)){
-			if (SelectedIndex == 1){
+			if (SelectedIndex == 0){
 				Application.LoadLevel(0);	
 			}
-			if(SelectedIndex == 2){
+			if(SelectedIndex == 1){
 				// Exit game	
 			}	
 		}
 		
 		// Moves between buttons with arrows keys
-		if(Input.GetKeyDown(KeyCode.DownArrow) && SelectedIndex < NumButtons){
+		if(Input.GetKeyDown(KeyCode.DownArrow) && SelectedIndex < NumButtons - 1){
 			SelectedIndex++;
+			ChangeButtonColor(SelectedIndex - 1);
 		}
-		if(Input.GetKeyDown(KeyCode.UpArrow) && SelectedIndex > 1){
+		if(Input.GetKeyDown(KeyCode.UpArrow) && SelectedIndex > 0){
 			SelectedIndex--;
+			ChangeButtonColor(SelectedIndex + 1);
 		}
 	}
 	
-	void AddButton(string text, int index){
-		// Should change this. (Makes it easier to add new butttons, but adds unneeded computations
-		if(index > NumButtons){
-			NumButtons = index;
-		}
-		//GUIStereoButton(new Rect(StartX, StartY + (index * ButtonOffsetY), WidthX, WidthY), text, index);
-		bool curButton = false;
-		if (SelectedIndex == index){
-			curButton = true;	
-		}
-		
-		GuiUtils.GUIStereoButton(new Rect(StartX, StartY + (index * ButtonOffsetY), WidthX, WidthY), text, curButton);
+	// Changes the color of the GUI button if it is currently selected by the keyboard
+	void ChangeButtonColor(int prevIndex){
+		ButtonColors[prevIndex] = Color.white;
+		ButtonColors[SelectedIndex] = Color.yellow;
 	}
-
 }

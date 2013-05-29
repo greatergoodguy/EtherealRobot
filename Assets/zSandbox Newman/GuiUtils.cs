@@ -7,12 +7,17 @@ public class GuiUtils : MonoBehaviour {
 	static public Font 	FontReplaceLarge	= null;
 	static private int    	StereoSpreadX 	= -40;	
 	
-	// Create buttons that highlight when selected via keyboard
-	public static void GUIStereoButton(Rect rect, string text, bool curButton){
-		int X = (int) rect.x;
-		int Y = (int) rect.y;
-		int wX = (int) rect.width; 
-		int wY = (int) rect.height;
+	/*public static void GUITexture(int X, int Y, Texture texture){
+		texture.wi
+		
+	}*/
+	
+	// Creates GUI buttons
+	public static void GUIStereoButton(int X, int Y, int wX, int wY, string text, Color color){
+		//int X = (int) rect.x;
+		//int Y = (int) rect.y;
+		//int wX = (int) rect.width; 
+		//int wY = (int) rect.height;
 		
 		float ploLeft = 0, ploRight = 0;
 		float sSX = (float)Screen.width / 1280.0f;
@@ -38,25 +43,14 @@ public class GuiUtils : MonoBehaviour {
 			GUI.skin.font = FontReplaceSmall;
 		
 		// Change color if selected by keyboard
-		if(curButton){//SelectedIndex == index){
-			GUI.color = Color.yellow;	
-		}
+		//if(curButton){//SelectedIndex == index){
+		GUI.color = color;	
+		//}
 		GUI.Button(new Rect(xL, y, sWX, sWY), text);
 		GUI.Button(new Rect(xR, y, sWX, sWY), text);		
 		
-		GUI.color = Color.white;
+		//GUI.color = Color.white;
 		
 		//print("xL: " + xL + "       xR: " + xR);
 	}
-	
-	/*
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}*/
 }
