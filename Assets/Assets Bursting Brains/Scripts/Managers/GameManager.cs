@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour {
 			guiManager.SetDebugGui(playerManager.GetActivePlayer());
 		}	
 		
-		if(Input.GetKeyDown(KeyCode.V)){
+		if(activeInput.GetButtonDown_CycleActiveEnvironment()){
 			playerManager.SetPosition(new Vector3(813, 115, 1174));
 			environmentManager.CycleActiveEnvironment();
 		}

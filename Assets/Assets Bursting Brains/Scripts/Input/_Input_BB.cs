@@ -6,6 +6,7 @@ public abstract class Input_BB : MonoBehaviour {
 	public abstract bool GetButton_Jump();
 	public abstract bool GetButton_Debug();
 	public abstract bool GetButton_Brake();
+	
 	public abstract bool GetButtonDown_Pause();
 	public abstract bool GetButtonDown_CycleActiveEnvironment();
 	
