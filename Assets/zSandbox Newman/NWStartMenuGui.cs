@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class StartMenuGui : MonoBehaviour {
+public class NWStartMenuGui : MonoBehaviour {
 	
 	// textures
 	public Texture startTexture;
@@ -23,6 +23,10 @@ public class StartMenuGui : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		// Initializes GUI buttons to white, except for the selectedIndex
+		
+		
+		//GuiUtils.initializeGuiColors(
+		
 		ButtonColors[SelectedIndex] = Color.yellow;
 		for(int i = 1; i < ButtonColors.Length; i++)
 			ButtonColors[i] = Color.white;
@@ -41,12 +45,12 @@ public class StartMenuGui : MonoBehaviour {
 		}
 		
 		//Creates GUI textures
-		GuiUtils.GUIStereoTexture(80, 80, 500, 500, startTexture);		
+		NWGuiUtils.GUIStereoTexture(200, 150, 500, 500, startTexture);		
 		
 		// Creates Buttons
 		// When adding new buttons, make sure to increase 'NumButtons' variable at top
-		GuiUtils.GUIStereoButton (StartX, StartY, WidthX, WidthY, "Start", ButtonColors[0]);
-		GuiUtils.GUIStereoButton (StartX, StartY + ButtonOffsetY, WidthX, WidthY, "Exit", ButtonColors[1]);
+		NWGuiUtils.GUIStereoButton (StartX, StartY, WidthX, WidthY, "Start", ButtonColors[0]);
+		NWGuiUtils.GUIStereoButton (StartX, StartY + ButtonOffsetY, WidthX, WidthY, "Exit", ButtonColors[1]);
 		
 	}
 	

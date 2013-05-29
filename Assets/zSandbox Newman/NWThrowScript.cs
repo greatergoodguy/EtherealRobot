@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class ThrowScript : MonoBehaviour {
+public class NWThrowScript : MonoBehaviour {
 	
 	static public Font 	FontReplaceSmall	= null;
 	static public Font 	FontReplaceLarge	= null;

@@ -1,13 +1,15 @@
 using UnityEngine;
 using System.Collections;
 
-public class GuiUtils : MonoBehaviour {
+public class NWGuiUtils : MonoBehaviour {
 	
 	static public Font 	FontReplaceSmall	= null;
 	static public Font 	FontReplaceLarge	= null;
 	static private int    	StereoSpreadX 	= -40;	
 	
-	//public static initializeGuiColors();
+	//public static void initializeGuiColors(){
+	//	
+	//}
 	
 	// Creates GUI buttons
 	public static void GUIStereoButton(int X, int Y, int wX, int wY, string text, Color color){

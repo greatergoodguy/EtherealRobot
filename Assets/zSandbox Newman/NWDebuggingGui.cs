@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class DebuggingGui : MonoBehaviour {
+public class NWDebuggingGui : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
