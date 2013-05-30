@@ -39,6 +39,7 @@ GameObject:
   - 114: {fileID: 11400012}
   - 114: {fileID: 11400014}
   - 114: {fileID: 11400000}
+  - 114: {fileID: 11400018}
   m_Layer: 0
   m_Name: TestActorWithSteering
   m_TagString: Untagged
@@ -217,7 +218,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 10302, guid: 0000000000000000e000000000000000, type: 0}
+  - {fileID: 2100000, guid: 7d0dcf91e172b0848afc815d012f5124, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -352,9 +353,10 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 153bbe812d14e8241904126ca59d6ba8, type: 3}
   m_Name: 
-  moveSpeed: 5
-  degreePerSecond: 4
-  force: 7
+  turnSensitivity: 2
+  acceleration: 1
+  brakeSpeed: 1
+  maxSpeed: 30
   RotationAmount: 1.5
 --- !u!114 &11400010
 MonoBehaviour:
@@ -410,6 +412,20 @@ MonoBehaviour:
   maximumX: 360
   minimumY: -60
   maximumY: 60
+--- !u!114 &11400018
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a614878bc9a88049b331ae1e6b73384, type: 3}
+  m_Name: 
+  ImageCrosshair: {fileID: 2800000, guid: fba0bb52ccd3d43d2a0a316c690b8853, type: 3}
+  tick1: {fileID: 2800000, guid: 961370e83c58b47839ddf1747cda1680, type: 3}
+  tick2: {fileID: 2800000, guid: f2104ceca818444de961bfe71fdcca5c, type: 3}
+  tick3: {fileID: 2800000, guid: 51af190738bc442e0b192fdd855d4900, type: 3}
 --- !u!124 &12400000
 Behaviour:
   m_ObjectHideFlags: 1
