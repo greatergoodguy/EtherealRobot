@@ -12,10 +12,23 @@ public class Oculus_MovementPC : PlayerController {
 	public float maxSpeed = 30.0f;
 	public float jumpPower = 5.0f;
 	private float currSpeed = 0.0f;
+	private float distToGround;
+	
+	public static float minTurnSens = 1.0f;
+	public static float minAccel = 1.0f;
+	public static float minBrakeSpd = 1.0f;
+	public static float minMaxSpd = 10.0f;
+	public static float minJumpPow = 1.0f;
+	
+	public static float maxTurnSens = 8.0f;
+	public static float maxAccel = 10.0f;
+	public static float maxBrakeSpd = 30.0f;
+	public static float topMaxSpd = 30.0f;
+	public static float maxJumpPow = 10.0f;
 	
 	//jump variables
 	private int state = 0;
-	private bool grounded = false;
+	private bool canJump = true;
 	
 	private Vector3 cube;
 	private Vector3 sphere;
@@ -79,6 +92,7 @@ public class Oculus_MovementPC : PlayerController {
 		else
 			CameraController = CameraControllers[0];
 		
+		distToGround = collider.bounds.extents.y;
 		cube = transform.position;
 		sphereForward = transform.position;
 		head = transform.FindChild("Head");
@@ -164,8 +178,9 @@ public class Oculus_MovementPC : PlayerController {
 		}
 		
 		//Jump
-		if(grounded && Input.GetKeyDown(KeyCode.LeftShift)){
+		if(IsGrounded() && Input.GetKeyDown(KeyCode.LeftShift)){
 			rigidbody.AddForce(Vector3.up * jumpPower * 100);
+			//canJump = false;
 		}
 		
 		// Controls the Camera rotation
@@ -206,21 +221,11 @@ public class Oculus_MovementPC : PlayerController {
 		}
 	}
 	
-	void OnCollisionEnter (){
-		state ++;
-		if(state > 0){
-			grounded = true;
+	void OnCollisionEnter(Collision collision){
+		if (!canJump){
+			canJump = true;
 		}
-	}
-	
-	 
-	void OnCollisionExit (){
-		state --;
-		if(state < 1){
-			grounded = false;
-			state = 0;
-		}
-	}
+    }
 	
 	public override string GetControllerName() {
     	return "Ball";
@@ -235,6 +240,30 @@ public class Oculus_MovementPC : PlayerController {
 	
 	public float GetAngle(){
 		return contAngle;
+	}
+	
+	public float GetTurnSensitivity(){
+		return turnSensitivity;
+	}
+	
+	public float GetAcceleration(){
+		return acceleration;
+	}
+	
+	public float GetBrakeSpeed(){
+		return brakeSpeed;
+	}
+	
+	public float GetMaxSpeed(){
+		return maxSpeed;
+	}
+	
+	public float GetJumpPower(){
+		return jumpPower;
+	}
+	
+	public bool IsGrounded(){
+  		return Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.2f);
 	}
 	
 	private float AngleDir(Vector3 fwd, Vector3 targetDir, Vector3 up){

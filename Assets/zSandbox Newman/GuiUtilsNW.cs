@@ -18,6 +18,8 @@ public class GuiUtilsNW : MonoBehaviour {
 		//int wX = (int) rect.width; 
 		//int wY = (int) rect.height;
 		
+		// GUIHelper(X, Y, wX, wY);
+
 		float ploLeft = 0, ploRight = 0;
 		float sSX = (float)Screen.width / 1280.0f;
 		
@@ -56,19 +58,21 @@ public class GuiUtilsNW : MonoBehaviour {
 	// Creates GUI texture
 	public static void GUIStereoTexture(int X, int Y, int wX, int wY, Texture texture){
 		
+		// GUIHelper(X, Y, wX, wY);
+		
 		float ploLeft = 0, ploRight = 0;
 		float sSX = (float)Screen.width / 1280.0f;
 		
 		float sSY = ((float)Screen.height / 800.0f);
 		OVRDevice.GetPhysicalLensOffsets(ref ploLeft, ref ploRight); 
-		int xL = (int)((float)X * sSX);
+		int xL = (int)((float)X * sSX);									//*
 		int sSpreadX = (int)((float)StereoSpreadX * sSX);
-		int xR = (Screen.width / 2) + xL + sSpreadX
+		int xR = (Screen.width / 2) + xL + sSpreadX						//*
 			      // required to adjust for physical lens shift
 			      - (int)(ploLeft * (float)Screen.width / 2);
-		int y = (int)((float)Y * sSY);
+		int y = (int)((float)Y * sSY);									//*
 		
-		int sWX = (int)((float)wX * sSX);
+		int sWX = (int)((float)wX * sSX);								//*
 		int sWY = (int)((float)wY * sSY);
 		
 		// Change font size based on screen scale
@@ -82,6 +86,11 @@ public class GuiUtilsNW : MonoBehaviour {
 		GUI.DrawTexture(new Rect(xL, y, sWX, sWY), texture);
 		GUI.DrawTexture(new Rect(xR, y, sWX, sWY), texture);
 	}	
+	
+	// Helper function for GUIStereoButton and GUIStereoTexture
+	//public static void GUIHelper(int X, int Y, int wX, int wY){
+
+	//}
 	
 	/*public static void GUITexture(int X, int Y, Texture texture){
 		texture.wi

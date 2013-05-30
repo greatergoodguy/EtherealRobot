@@ -86,6 +86,8 @@ GameObject:
   - 135: {fileID: 7634791}
   - 23: {fileID: 7634790}
   - 114: {fileID: 7634795}
+  - 114: {fileID: 7634794}
+  - 114: {fileID: 7634796}
   m_Layer: 0
   m_Name: Main Menu
   m_TagString: Untagged
@@ -141,6 +143,16 @@ Transform:
   m_LocalScale: {x: 4, y: 4, z: 4}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!114 &7634794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 7634789}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82a04706fddebbd479e13b782d96ec67, type: 3}
+  m_Name: 
 --- !u!114 &7634795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,6 +164,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82d3c80a907194aee8a172931f54f3ef, type: 3}
   m_Name: 
   startTexture: {fileID: 2800000, guid: 686254db4b16c794baecb85d2880d5b6, type: 3}
+--- !u!114 &7634796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 7634789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4f2738267915b04982e10a5a3942155, type: 3}
+  m_Name: 
 --- !u!1 &118922128
 GameObject:
   m_ObjectHideFlags: 0
@@ -1090,7 +1112,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1859587112}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 82a04706fddebbd479e13b782d96ec67, type: 3}
   m_Name: 
