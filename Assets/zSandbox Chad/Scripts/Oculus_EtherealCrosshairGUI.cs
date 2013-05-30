@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class Occulus_EtherealCrosshairGUI : MonoBehaviour {
+public class Oculus_EtherealCrosshairGUI : MonoBehaviour {
 	
 	public Texture ImageCrosshair	= null;
 	public Texture tick1			= null;
@@ -12,7 +12,7 @@ public class Occulus_EtherealCrosshairGUI : MonoBehaviour {
 	private float centerY 		= Screen.height/2;
 	private float tickSpacing 	= Screen.width/8;
 	
-	private Occulus_MovementPC movementPC = null;
+	private Oculus_MovementPC movementPC = null;
 	
 	void Start() {
 		DebugUtils.Assert(ImageCrosshair != null);
@@ -20,7 +20,7 @@ public class Occulus_EtherealCrosshairGUI : MonoBehaviour {
 		DebugUtils.Assert(tick2 != null);
 		DebugUtils.Assert(tick3 != null);
 		
-		movementPC = GetComponent<Occulus_MovementPC>();
+		movementPC = GetComponent<Oculus_MovementPC>();
 		
 		DebugUtils.Assert(movementPC != null);
 	}

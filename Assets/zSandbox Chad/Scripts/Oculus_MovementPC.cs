@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class Occulus_MovementPC : PlayerController {
+public class Oculus_MovementPC : PlayerController {
 	
 	//private float force = 6.0f;
 	//private float moveSpeed = 5.0f;
@@ -85,7 +85,6 @@ public class Occulus_MovementPC : PlayerController {
 	// Update is called once per frame
 	void Update () {
 		
-		head.transform.rotation = Quaternion.Slerp(head.transform.rotation, CameraController.transform.rotation, 0.05f);
 		//Gets forward Vector
 		cubeForward = transform.forward;
 		sphereForward = head.forward;
@@ -145,6 +144,7 @@ public class Occulus_MovementPC : PlayerController {
 			angMove = GetAngularDirection(absoluteAngle);
 			transform.Rotate(angMove);
 		}
+		
 		// Controls the Camera rotation
 		float rotateInfluence = DeltaTime * RotationAmount * RotationScaleMultiplier;
 		
@@ -159,6 +159,7 @@ public class Occulus_MovementPC : PlayerController {
 			
 		// Rotate
 		YRotation += OVRGamepadController.GetAxisRightX() * rotateInfluence;
+
 		SetCameras();
 	}
 	

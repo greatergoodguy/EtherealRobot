@@ -65,8 +65,8 @@ public class Oculus_MovementCH : MonoBehaviour{
 	void Update()
 	{
 		// Do not do these tests within OnGUI since they will be called twice
-		ShouldDisplayCrosshair();
-		CollisionWithGeometryCheck();
+		//ShouldDisplayCrosshair();
+		//CollisionWithGeometryCheck();
 	}
 	
 	// OnGUI
@@ -80,14 +80,14 @@ public class Oculus_MovementCH : MonoBehaviour{
 		FadeVal = Mathf.Clamp(FadeVal, 0.0f, 1.0f);
 		
 		// Check to see if crosshair influences mouse rotation
-		Occulus_MovementPC.AllowMouseRotation = false;
+		Oculus_MovementPC.AllowMouseRotation = false;
 		
 		if ((ImageCrosshair != null) && (FadeVal != 0.0f))
 		{
 			// Assume cursor is on-screen (unless it goes into the dead-zone)
 			// Other systems will check this to see if it is false for example 
 			// allowing rotation to take place
-			Occulus_MovementPC.AllowMouseRotation = true;
+			Oculus_MovementPC.AllowMouseRotation = true;
 
 			GUI.color = new Color(1, 1, 1, FadeVal * FadeScale);
 			
@@ -98,12 +98,12 @@ public class Oculus_MovementCH : MonoBehaviour{
 			XL += Input.GetAxis("Mouse X") * 0.5f * ScaleSpeedX;
 			if(XL < DeadZoneX) 
 			{
-				Occulus_MovementPC.AllowMouseRotation = false;
+				Oculus_MovementPC.AllowMouseRotation = false;
 				XL = DeadZoneX - 0.001f;	
 			}
 			else if (XL > (Screen.width * 0.5f) - DeadZoneX)
 			{
-				Occulus_MovementPC.AllowMouseRotation = false;
+				Oculus_MovementPC.AllowMouseRotation = false;
 				XL = Screen.width * 0.5f - DeadZoneX + 0.001f;
 			}
 			
@@ -121,7 +121,7 @@ public class Oculus_MovementCH : MonoBehaviour{
 			}
 			
 			// Finally draw cursor
-			if(Occulus_MovementPC.AllowMouseRotation == true)
+			if(Oculus_MovementPC.AllowMouseRotation == true)
 			{
 				// Left
 				GUI.DrawTexture(new Rect(	XL - (ImageCrosshair.width * 0.5f) - ah ,
