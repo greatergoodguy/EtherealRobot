@@ -28,6 +28,10 @@ public class EtherealPC : PlayerController_Deprecated {
 	// We should attach objects to this if we want them to rotate 
 	// separately from the head (i.e. the body)
 	protected Transform DirXform = null;
+	
+	
+	private Input_BB activeInput;
+	
 	//
 	// STATIC VARIABLES
 	//
@@ -70,6 +74,8 @@ public class EtherealPC : PlayerController_Deprecated {
 		SetCameras();
 		
 		AllowMouseRotation = false;
+		
+		activeInput = GameObject.Find("InputManager").GetComponent<InputManager>().GetActiveInput();
 	}
 	
 	
@@ -94,7 +100,7 @@ public class EtherealPC : PlayerController_Deprecated {
 		
 		//Basic Movement
 		//use vector.up for rotating and float degreePerSecond and Time.deltaTime
-		if(Input.GetKey(KeyCode.W)){
+		if(activeInput.GetButton_Accel()){
 			//Vector3 tempPos = transform.position;
 			Vector3 tempAngMove = transform.position;
 			//tempPos += cubeForward * moveSpeed;
@@ -145,7 +151,7 @@ public class EtherealPC : PlayerController_Deprecated {
 		// Rotate
 		float deltaRotation = 0.0f;
 		if(AllowMouseRotation == false)
-			deltaRotation = Input.GetAxis("Mouse X") * rotateInfluence * 3.25f;
+			deltaRotation = activeInput.GetAxis_MouseX() * rotateInfluence * 3.25f;
 			
 		float filteredDeltaRotation = (sDeltaRotationOld * 0.0f) + (deltaRotation * 1.0f);
 		YRotation += filteredDeltaRotation;
