@@ -1,14 +1,14 @@
 using UnityEngine;
 using System.Collections;
 
-public class NWGuiUtils : MonoBehaviour {
+public class GuiUtilsNW : MonoBehaviour {
 	
 	static public Font 	FontReplaceSmall	= null;
 	static public Font 	FontReplaceLarge	= null;
 	static private int    	StereoSpreadX 	= -40;	
 	
-	//public static void initializeGuiColors(){
-	//	
+	//public static void initWhiteGui(){
+		
 	//}
 	
 	// Creates GUI buttons
@@ -45,8 +45,8 @@ public class NWGuiUtils : MonoBehaviour {
 		//if(curButton){//SelectedIndex == index){
 		GUI.color = color;	
 		//}
-		GUI.Button(new Rect(xL, y, sWX, sWY), text);
-		GUI.Button(new Rect(xR, y, sWX, sWY), text);		
+		GUI.Box(new Rect(xL, y, sWX, sWY), text);
+		GUI.Box(new Rect(xR, y, sWX, sWY), text);		
 		
 		//GUI.color = Color.white;
 		

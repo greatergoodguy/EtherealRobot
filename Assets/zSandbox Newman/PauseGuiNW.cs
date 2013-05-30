@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class NWPauseGui : MonoBehaviour {
+public class PauseGuiNW : MonoBehaviour {
 	
 	// Spacing for scenes menu
 	private int    	StartX			= 300;
@@ -38,8 +38,8 @@ public class NWPauseGui : MonoBehaviour {
 		
 		// Creates Buttons
 		// When adding new buttons, make sure to increase 'NumButtons' variable at top
-		NWGuiUtils.GUIStereoButton (StartX, StartY, WidthX, WidthY, "Resume", ButtonColors[0]);
-		NWGuiUtils.GUIStereoButton (StartX, StartY + ButtonOffsetY, WidthX, WidthY, "Quit", ButtonColors[1]);
+		GuiUtilsNW.GUIStereoButton (StartX, StartY, WidthX, WidthY, "Resume", ButtonColors[0]);
+		GuiUtilsNW.GUIStereoButton (StartX, StartY + ButtonOffsetY, WidthX, WidthY, "Quit", ButtonColors[1]);
 	}
 	
 	// Determines what each button does when pressed
