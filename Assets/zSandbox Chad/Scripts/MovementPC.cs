@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class MovementPC : PlayerController {
+public class MovementPC : PlayerController_Deprecated {
 	
 	//private float force = 6.0f;
 	//private float moveSpeed = 5.0f;

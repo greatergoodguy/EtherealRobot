@@ -6,7 +6,7 @@
 
 
 public enum PlayerType {
-	TestActorWithSteering_Tom
+	Ethereal
 	,MechProto
 //	Ball
 //	,Basic

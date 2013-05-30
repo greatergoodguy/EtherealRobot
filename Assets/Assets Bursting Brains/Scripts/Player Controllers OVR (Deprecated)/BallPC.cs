@@ -33,7 +33,7 @@ using System.Collections.Generic;
 // direction on. This game object should also house the body geometry which will be seen
 // by the player.
 //
-public class BallPC : PlayerController {
+public class BallPC : PlayerController_Deprecated {
 	
 	public Vector3 movement;
 	public float moveSpeed = 6.0f;

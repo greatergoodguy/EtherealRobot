@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: e4afe8e19b5524dcfb6957b2fa7b2e8e
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - ImageCrosshair: {fileID: 2800000, guid: a3e5fcc9131cf42dd90d1432016380bd, type: 3}
+  - tick1: {fileID: 2800000, guid: a52ee7fd498b6463d85316c5e628ea54, type: 3}
+  - tick2: {fileID: 2800000, guid: 947d6c39d5cb34b60b31edd6978cccdb, type: 3}
+  - tick3: {fileID: 2800000, guid: 39ef568516fda4377a0875a2d756eaa9, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 

@@ -33,7 +33,7 @@ using System.Collections.Generic;
 // direction on. This game object should also house the body geometry which will be seen
 // by the player.
 //
-public class InputTesterPlayerPC : PlayerController {
+public class InputTesterPlayerPC : PlayerController_Deprecated {
 	// These variables are for adjusting in the inspector how the object behaves 
 	public float maxSpeed  = 7;
 	public float moveSpeed = 6.0f;

@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public abstract class PlayerController : MonoBehaviour{
+public abstract class PlayerController_Deprecated : MonoBehaviour{
 	protected float DeltaTime = 1.0f;
 
 	// Awake

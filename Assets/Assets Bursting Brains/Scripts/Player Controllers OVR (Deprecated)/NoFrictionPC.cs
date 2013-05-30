@@ -33,13 +33,16 @@ using System.Collections.Generic;
 // direction on. This game object should also house the body geometry which will be seen
 // by the player.
 //
-public class FloatingSpherePC : PlayerController {
-	
-	public Vector3 movement;
-	public float moveSpeed = 6.0f;
-	public float jumpSpeed = 2.0f;
-	public float drag = 2;
-	private bool canJump = true;
+public class NoFrictionPC : PlayerController_Deprecated {
+	// These variables are for adjusting in the inspector how the object behaves 
+	public float maxSpeed  = 7;
+	public float force     = 8;
+	public float jumpSpeed = 5;
+ 
+	// These variables are there for use by the script and don't need to be edited
+	private int state = 0;
+	private bool grounded = false;
+	private float jumpLimit = 0;
 	
 	protected OVRCameraController 	CameraController 	= null;
 
@@ -63,6 +66,15 @@ public class FloatingSpherePC : PlayerController {
 	new public virtual void Awake()
 	{
 		base.Awake();
+		
+		// Don't let the Physics Engine rotate this physics object so it doesn't fall over when running
+		rigidbody.freezeRotation = true;
+		
+		collider.material.dynamicFriction = 0;
+		collider.material.dynamicFriction2 = 0;
+		collider.material.staticFriction = 0;
+		collider.material.staticFriction2 = 0;
+		collider.material.frictionCombine = PhysicMaterialCombine.Minimum;
 					
 		// We use OVRCameraController to set rotations to cameras, 
 		// and to be influenced by rotation
@@ -102,8 +114,6 @@ public class FloatingSpherePC : PlayerController {
 		
 		InitializeInputs();	
 		SetCameras();
-		
-		rigidbody.useGravity = false;
 	}
 		
 	// Update 
@@ -120,47 +130,7 @@ public class FloatingSpherePC : PlayerController {
 	// COnsolidate all movement code here
 	//
 	static float sDeltaRotationOld = 0.0f;
-	public virtual void UpdateMovement() {
-		
-		// Controls the Ball's movement
-		Vector3 forward = Camera.main.transform.TransformDirection(Vector3.forward);
-		forward = forward.normalized;
-		
-		Vector3 forwardForce = new Vector3();
-		if (Application.platform == RuntimePlatform.Android){
-			float tmpSpeed = 0; //moveJoy.GetComponent<Joystick>().position.y;
-			forwardForce = forward * tmpSpeed * 1f * moveSpeed;
-		}
-		else{
-			//float verticalInput = Input.GetAxis("Vertical");
-			//if(verticalInput)
-				//forwardForce = forward * Input.GetAxis("Vertical") * moveSpeed;
-			if(Input.GetKey(KeyCode.Space))
-				forwardForce = forward * moveSpeed;
-		}
-		rigidbody.AddForce(forwardForce);
-		
-		Vector3 right= Camera.main.transform.TransformDirection(Vector3.right);
-		right.y = 0;
-		right = right.normalized;
-		
-		Vector3 rightForce = new Vector3();
-		if (Application.platform == RuntimePlatform.Android){
-			float tmpSpeed = 0; //moveJoy.GetComponent<Joystick>().position.x;
-			rightForce = right * tmpSpeed * 0.8f * moveSpeed;
-		}
-		else{
-			//rightForce = right * Input.GetAxis("Horizontal") * moveSpeed;
-			rightForce = Vector3.zero;
-		}		
-		rigidbody.AddForce(rightForce);
-				
-		if (canJump && Input.GetKeyDown(KeyCode.LeftShift)){
-			rigidbody.AddForce(Vector3.up * jumpSpeed * 100);
-			//rigidbody.useGravity = false;
-			canJump = false;
-		}
-		
+	public virtual void UpdateMovement() {	
 		// Controls the Camera rotation
 		float rotateInfluence = DeltaTime * RotationAmount * RotationScaleMultiplier;
 		
@@ -216,13 +186,72 @@ public class FloatingSpherePC : PlayerController {
 		}
 	}
 	
-	void OnCollisionEnter(Collision collision){
-//		if (!canJump){
-//			canJump = true;
-//		}
-    }
+	// This part detects whether or not the object is grounded and stores it in a variable
+	void OnCollisionEnter (){
+		state ++;
+		if(state > 0){
+			grounded = true;
+		}
+	}
+	
+	 
+	void OnCollisionExit (){
+		state --;
+		if(state < 1){
+			grounded = false;
+			state = 0;
+		}
+	}
+ 
+ 	public virtual bool jump{
+		get {
+			return Input.GetButtonDown ("Jump");
+		}
+	}
+ 
+	public virtual float horizontal{
+		get{
+			return Input.GetAxis("Horizontal") * force;
+		} 
+	}
+	
+	public virtual float vertical{
+		get{
+			return Input.GetAxis("Vertical") * force;
+		} 
+	}
+	
+	// This is called every physics frame
+	void FixedUpdate (){
+ 
+		if(Input.GetKey(KeyCode.Space)){
+			Vector3 forceVector = CameraController.transform.rotation * Vector3.forward * 5;
+			print(forceVector);
+			rigidbody.AddForce (forceVector);
+		}
+		
+		// If the object is grounded and isn't moving at the max speed or higher apply force to move it
+		/*
+		if(rigidbody.velocity.magnitude < maxSpeed && grounded == true){
+			if(Input.GetKey(KeyCode.Space))
+				rigidbody.AddForce (CameraController.transform.rotation * Vector3.forward);
+			//rigidbody.AddForce (transform.rotation * Vector3.right * horizontal);
+		}
+		*/
+ 
+		// This part is for jumping. I only let jump force be applied every 10 physics frames so
+		// the player can't somehow get a huge velocity due to multiple jumps in a very short time
+		/*
+		if(jumpLimit < 10) jumpLimit ++;
+ 
+		if(jump && grounded  && jumpLimit >= 10){
+			rigidbody.velocity = rigidbody.velocity + (Vector3.up * jumpSpeed);
+			jumpLimit = 0;
+		}
+		*/
+ 	}
 	
 	public override string GetControllerName() {
-    	return "Floating Sphere";
+    	return "No Friction";
    	}  
 }

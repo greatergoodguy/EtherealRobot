@@ -35,7 +35,7 @@ using System.Collections.Generic;
 // direction on. This game object should also house the body geometry which will be seen
 // by the player.
 //
-public class MechProtoPC : PlayerController {
+public class MechProtoPC : PlayerController_Deprecated {
 	protected CharacterController 	characterController = null;
 	protected OVRCameraController 	CameraController 	= null;
 

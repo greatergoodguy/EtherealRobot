@@ -3,12 +3,14 @@ using System.Collections;
 
 public class PlayerManager : MonoBehaviour {
 	
-	public PlayerType initialPlayerType = PlayerType.TestActorWithSteering_Tom;
+	public PlayerType initialPlayerType = PlayerType.Ethereal;
 	
 	private Hashtable playerHT = new Hashtable();
 	private ArrayList playerTypes = new ArrayList();
 	private int activePlayerIndex = 0;
 	private GameObject activePlayer;
+	
+	private Input_BB activeInput;
 	
 	void Awake(){
 		foreach(Transform child in transform)
@@ -91,5 +93,12 @@ public class PlayerManager : MonoBehaviour {
 	
 	public GameObject GetActivePlayer(){
 		return activePlayer;	
+	}
+	
+	public void SetActiveInput(Input_BB newInput){
+		activeInput = newInput;	
+		foreach (DictionaryEntry pair in playerHT) {
+           	PlayerController_Deprecated currentPC = ((GameObject) pair.Value).GetComponent<PlayerController_Deprecated>();
+        }
 	}
 }

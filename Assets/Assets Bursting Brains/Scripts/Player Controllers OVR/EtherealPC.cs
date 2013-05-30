@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class MovementPC_Tom : PlayerController_Deprecated {
+public class EtherealPC : PlayerController_Deprecated {
 	
 	public float moveSpeed = 6.0f;
 	public float degreePerSecond = 4.0f;

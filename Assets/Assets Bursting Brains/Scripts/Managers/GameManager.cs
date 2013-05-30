@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour {
 		
 		activeInput = inputManager.GetActiveInput();
 		
+		playerManager.SetActiveInput(activeInput);
+		
 		DebugUtils.Assert(playerManager != null);
 		DebugUtils.Assert(guiManager != null);
 		DebugUtils.Assert(inputManager != null);
