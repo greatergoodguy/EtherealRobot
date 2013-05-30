@@ -10,7 +10,12 @@ public class Oculus_MovementPC : PlayerController {
 	public float acceleration = 1.0f;
 	public float brakeSpeed = 1.0f;			//dont make larger than max speed
 	public float maxSpeed = 30.0f;
+	public float jumpPower = 5.0f;
 	private float currSpeed = 0.0f;
+	
+	//jump variables
+	private int state = 0;
+	private bool grounded = false;
 	
 	private Vector3 cube;
 	private Vector3 sphere;
@@ -158,6 +163,11 @@ public class Oculus_MovementPC : PlayerController {
 			oculusCam.SetActive(!oculusCam.activeSelf);
 		}
 		
+		//Jump
+		if(grounded && Input.GetKeyDown(KeyCode.LeftShift)){
+			rigidbody.AddForce(Vector3.up * jumpPower * 100);
+		}
+		
 		// Controls the Camera rotation
 		float rotateInfluence = DeltaTime * RotationAmount * RotationScaleMultiplier;
 		
@@ -193,6 +203,22 @@ public class Oculus_MovementPC : PlayerController {
 			// to match the game player direction
 			CameraController.SetOrientationOffset(OrientationOffset);
 			CameraController.SetYRotation(YRotation);
+		}
+	}
+	
+	void OnCollisionEnter (){
+		state ++;
+		if(state > 0){
+			grounded = true;
+		}
+	}
+	
+	 
+	void OnCollisionExit (){
+		state --;
+		if(state < 1){
+			grounded = false;
+			state = 0;
 		}
 	}
 	
