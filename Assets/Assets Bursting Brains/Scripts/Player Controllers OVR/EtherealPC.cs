@@ -233,7 +233,7 @@ public class EtherealPC : PlayerController_Deprecated {
     }
 	
 	public override string GetControllerName() {
-    	return "Ball";
+    	return "Ethereal";
    	}
 	
 	private Vector3 GetAngularDirection(float angle){
