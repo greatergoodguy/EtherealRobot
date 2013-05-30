@@ -12,10 +12,26 @@ public class EtherealPC : PlayerController_Deprecated {
 	public float maxSpeed = 30.0f;
 	public float jumpPower = 5.0f;
 	private float currSpeed = 0.0f;
+	private float distToGround;
+	
+	public static float MIN_TURN_SENS = 1.0f;
+	public static float MAX_TURN_SENS = 8.0f;
+	
+	public static float MIN_ACCEL = 1.0f;
+	public static float MAX_ACCEL = 10.0f;
+	
+	public static float MIN_BRAKE_SPEED= 1.0f;
+	public static float MAX_BRAKE_SPEED = 30.0f;
+	
+	public static float MIN_TOP_SPEED = 10.0f;
+	public static float MAX_TOP_SPEED = 30.0f;
+	
+	public static float MIN_JUMP_POW = 1.0f;
+	public static float MAX_JUMP_POW = 10.0f;
 	
 	//jump variables
 	private int state = 0;
-	private bool grounded = false;
+	private bool canJump = true;
 	
 	private Vector3 cube;
 	private Vector3 sphere;
@@ -79,6 +95,7 @@ public class EtherealPC : PlayerController_Deprecated {
 		else
 			CameraController = CameraControllers[0];
 		
+		distToGround = collider.bounds.extents.y;
 		cube = transform.position;
 		sphereForward = transform.position;
 		head = transform.FindChild("Head");
@@ -158,14 +175,17 @@ public class EtherealPC : PlayerController_Deprecated {
 		}
 		
 		//Camera Switch
-		if(Input.GetKeyDown(KeyCode.B)){
+		/*
+		if(Input.GetKeyDown(KeyCode.V)){
 			standardCam.SetActive(!standardCam.activeSelf);
 			oculusCam.SetActive(!oculusCam.activeSelf);
 		}
+		*/
 		
 		//Jump
-		if(grounded && Input.GetKeyDown(KeyCode.LeftShift)){
+		if(IsGrounded() && Input.GetKeyDown(KeyCode.LeftShift)){
 			rigidbody.AddForce(Vector3.up * jumpPower * 100);
+			//canJump = false;
 		}
 		
 		// Controls the Camera rotation
@@ -206,24 +226,14 @@ public class EtherealPC : PlayerController_Deprecated {
 		}
 	}
 	
-	void OnCollisionEnter (){
-		state ++;
-		if(state > 0){
-			grounded = true;
+	void OnCollisionEnter(Collision collision){
+		if (!canJump){
+			canJump = true;
 		}
-	}
-	
-	 
-	void OnCollisionExit (){
-		state --;
-		if(state < 1){
-			grounded = false;
-			state = 0;
-		}
-	}
+    }
 	
 	public override string GetControllerName() {
-    	return "Ethereal";
+    	return "Ball";
    	}
 	
 	private Vector3 GetAngularDirection(float angle){
@@ -235,6 +245,30 @@ public class EtherealPC : PlayerController_Deprecated {
 	
 	public float GetAngle(){
 		return contAngle;
+	}
+	
+	public float GetTurnSensitivity(){
+		return turnSensitivity;
+	}
+	
+	public float GetAcceleration(){
+		return acceleration;
+	}
+	
+	public float GetBrakeSpeed(){
+		return brakeSpeed;
+	}
+	
+	public float GetMaxSpeed(){
+		return maxSpeed;
+	}
+	
+	public float GetJumpPower(){
+		return jumpPower;
+	}
+	
+	public bool IsGrounded(){
+  		return Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.2f);
 	}
 	
 	private float AngleDir(Vector3 fwd, Vector3 targetDir, Vector3 up){
