@@ -158,7 +158,7 @@ public class EtherealPC : PlayerController_Deprecated {
 		}
 		
 		//Camera Switch
-		if(Input.GetKeyDown(KeyCode.V)){
+		if(Input.GetKeyDown(KeyCode.B)){
 			standardCam.SetActive(!standardCam.activeSelf);
 			oculusCam.SetActive(!oculusCam.activeSelf);
 		}
@@ -223,7 +223,7 @@ public class EtherealPC : PlayerController_Deprecated {
 	}
 	
 	public override string GetControllerName() {
-    	return "Ball";
+    	return "Ethereal";
    	}
 	
 	private Vector3 GetAngularDirection(float angle){
