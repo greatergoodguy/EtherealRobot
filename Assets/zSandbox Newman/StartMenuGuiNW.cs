@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class NWStartMenuGui : MonoBehaviour {
+public class StartMenuGuiNW : MonoBehaviour {
 	
 	// textures
 	public Texture startTexture;
@@ -45,12 +45,12 @@ public class NWStartMenuGui : MonoBehaviour {
 		}
 		
 		//Creates GUI textures
-		NWGuiUtils.GUIStereoTexture(200, 150, 500, 500, startTexture);		
+		GuiUtilsNW.GUIStereoTexture(200, 150, 500, 500, startTexture);		
 		
 		// Creates Buttons
 		// When adding new buttons, make sure to increase 'NumButtons' variable at top
-		NWGuiUtils.GUIStereoButton (StartX, StartY, WidthX, WidthY, "Start", ButtonColors[0]);
-		NWGuiUtils.GUIStereoButton (StartX, StartY + ButtonOffsetY, WidthX, WidthY, "Exit", ButtonColors[1]);
+		GuiUtilsNW.GUIStereoButton (StartX, StartY, WidthX, WidthY, "Start", ButtonColors[0]);
+		GuiUtilsNW.GUIStereoButton (StartX, StartY + ButtonOffsetY, WidthX, WidthY, "Exit", ButtonColors[1]);
 		
 	}
 	
