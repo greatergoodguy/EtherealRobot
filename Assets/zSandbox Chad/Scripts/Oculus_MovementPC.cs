@@ -20,7 +20,8 @@ public class Oculus_MovementPC : PlayerController {
 	private Vector3 forward;
 	private Vector3 angDirection;
 	private Transform head;
-	private Transform oculusCam;
+	private GameObject standardCam;
+	private GameObject oculusCam;
 	
 	//Camera Variable
 	//protected CameraController_BB 	CameraController 	= null;
@@ -76,6 +77,12 @@ public class Oculus_MovementPC : PlayerController {
 		cube = transform.position;
 		sphereForward = transform.position;
 		head = transform.FindChild("Head");
+		standardCam = head.FindChild("Camera").gameObject;
+		oculusCam = head.FindChild("OVRCameraController").gameObject;
+		
+		standardCam.SetActive(true);
+		oculusCam.SetActive(false);
+		
 		SetCameras();
 		
 		AllowMouseRotation = false;
@@ -143,6 +150,12 @@ public class Oculus_MovementPC : PlayerController {
 		else if (crossProd.y > 0){
 			angMove = GetAngularDirection(absoluteAngle);
 			transform.Rotate(angMove);
+		}
+		
+		//Camera Switch
+		if(Input.GetKeyDown(KeyCode.V)){
+			standardCam.SetActive(!standardCam.activeSelf);
+			oculusCam.SetActive(!oculusCam.activeSelf);
 		}
 		
 		// Controls the Camera rotation
