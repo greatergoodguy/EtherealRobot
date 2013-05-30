@@ -8,10 +8,11 @@ public class ButtonsNW : MonoBehaviour {
 	private int xWidth;
 	private int yWidth;
 	private string origText;
-	private Color buttColor;
+	private string totalText;  // for dynamic GUI
+	private Color buttonColor;
+	private Color buttonColorOrig;
 	
-	private string totalText;
-	
+
 	public ButtonsNW(int X, int Y, int wX, int wY, string textInfo, Color color){
 		xPos = X;
 		yPos = Y;
@@ -19,18 +20,26 @@ public class ButtonsNW : MonoBehaviour {
 		yWidth = wY;
 		origText = textInfo;
 		totalText = textInfo;
-		buttColor = color;
+		buttonColorOrig = color;
+		buttonColor = color;
 	}
 	
 	public void Display(){
-		GuiUtilsNW.GUIStereoButton(xPos, yPos, xWidth, yWidth, totalText, buttColor);
-	}
-		
-	public void ChangeColor(Color color){
-		buttColor = color;
+		GuiUtilsNW.GUIStereoButton(xPos, yPos, xWidth, yWidth, origText, buttonColor);
 	}
 	
-	public void UpdateText(float num){
+	public void DynamicDisplay(float num){
 		totalText = origText + num;
+		GuiUtilsNW.GUIStereoButton(xPos, yPos, xWidth, yWidth, totalText, buttonColor);
 	}
+	
+	public void ButtonSelected(){
+		buttonColor = Color.yellow;		
+	}
+	
+	public void ButtonDeselected(){
+		buttonColor = buttonColorOrig;
+	}
+
+	
 }
