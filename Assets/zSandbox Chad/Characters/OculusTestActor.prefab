@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &100002
 GameObject:
   m_ObjectHideFlags: 0
@@ -31,13 +31,13 @@ GameObject:
   - 65: {fileID: 6500000}
   - 23: {fileID: 2300000}
   - 54: {fileID: 5400000}
-  - 114: {fileID: 11400008}
+  - 114: {fileID: 11400000}
   - 114: {fileID: 11400006}
   - 114: {fileID: 11400004}
   - 114: {fileID: 11400002}
   - 114: {fileID: 11400010}
   - 114: {fileID: 11400012}
-  - 114: {fileID: 11400000}
+  - 114: {fileID: 11400008}
   m_Layer: 0
   m_Name: OculusTestActor
   m_TagString: Untagged
@@ -156,7 +156,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100002}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: .561730385, z: 0}
+  m_LocalPosition: {x: 666.054382, y: 222.330307, z: 210.267105}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400006}
@@ -555,10 +555,14 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100002}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88ded8838848acf4fb2645496f305374, type: 3}
+  m_Script: {fileID: 11500000, guid: adb26b219d94b2b478c7ecdf967c0ce2, type: 3}
   m_Name: 
+  ImageCrosshair: {fileID: 2800000, guid: fba0bb52ccd3d43d2a0a316c690b8853, type: 3}
+  tick1: {fileID: 2800000, guid: 961370e83c58b47839ddf1747cda1680, type: 3}
+  tick2: {fileID: 2800000, guid: f2104ceca818444de961bfe71fdcca5c, type: 3}
+  tick3: {fileID: 2800000, guid: 51af190738bc442e0b192fdd855d4900, type: 3}
 --- !u!114 &11400010
 MonoBehaviour:
   m_ObjectHideFlags: 1
