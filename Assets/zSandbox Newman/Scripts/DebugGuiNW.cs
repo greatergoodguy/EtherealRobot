@@ -135,7 +135,7 @@ public class DebugGuiNW : MonoBehaviour {
 		
 		// Moves between buttons with arrows keys
 		if(Input.GetKeyDown(KeyCode.DownArrow) && SelectedIndex < ButtonsList.Count - 1){
-			Color col = Color.white;
+			//Color col = Color.white;
 			((ButtonsNW)ButtonsList[SelectedIndex]).ButtonDeselected();
 			//((ButtonsNW)ButtonsList[SelectedIndex]).ChangeColor(col);
 			SelectedIndex++;

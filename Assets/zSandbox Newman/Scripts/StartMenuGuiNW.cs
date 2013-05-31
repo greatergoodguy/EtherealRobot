@@ -17,21 +17,18 @@ public class StartMenuGuiNW : MonoBehaviour {
 	
 	private int SelectedIndex = 0;	// Indicates what key is currently selected by Keyboard
 	
-	static private int NumButtons = 2;  //
-	private Color[] ButtonColors = new Color[NumButtons];
+	private ArrayList ButtonsList = new ArrayList();
 	
 	// Use this for initialization
 	void Start () {
-		// Initializes GUI buttons to white, except for the selectedIndex
-		
-		
-		//GuiUtils.initializeGuiColors(
-		
-		ButtonColors[SelectedIndex] = Color.yellow;
-		for(int i = 1; i < ButtonColors.Length; i++)
-			ButtonColors[i] = Color.white;
 		
 		DebugUtils.Assert(startTexture != null);
+		
+		AddButton (StartX, StartY, WidthX, WidthY, "Start", Color.white);
+		AddButton (StartX, StartY + ButtonOffsetY, WidthX, WidthY, "Exit", Color.white);
+	
+		// Makes first button appear yellow by default
+		((ButtonsNW)ButtonsList[0]).ButtonSelected();
 	}
 	
 	// Update is called once per frame
@@ -44,48 +41,15 @@ public class StartMenuGuiNW : MonoBehaviour {
 			return;	
 		}
 		
-		//Creates GUI textures
+		// Renders GUI textures
 		GuiUtilsNW.GUIStereoTexture(200, 150, 500, 500, startTexture);		
 		
-		// Creates Buttons
-		// When adding new buttons, make sure to increase 'NumButtons' variable at top
-		GuiUtilsNW.GUIStereoButton (StartX, StartY, WidthX, WidthY, "Start", ButtonColors[0]);
-		GuiUtilsNW.GUIStereoButton (StartX, StartY + ButtonOffsetY, WidthX, WidthY, "Exit", ButtonColors[1]);
+		// Renders Buttons
+		for(int i = 0; i < ButtonsList.Count; i++){
+			((ButtonsNW)(ButtonsList[i])).Display();	
+		}
 		
 	}
-	
-	/*
-	// GUIStereoBox - Values based on pixels in DK1 resolution of W: (1280 / 2) H: 800
-	void GUIStereoBox(int X, int Y, int wX, int wY, ref string text, Color color)
-	{
-		float ploLeft = 0, ploRight = 0;
-		float sSX = (float)Screen.width / 1280.0f;
-		
-		float sSY = ((float)Screen.height / 800.0f);
-		OVRDevice.GetPhysicalLensOffsets(ref ploLeft, ref ploRight); 
-		int xL = (int)((float)X * sSX);
-		int sSpreadX = (int)((float)StereoSpreadX * sSX);
-		int xR = (Screen.width / 2) + xL + sSpreadX
-			      // required to adjust for physical lens shift
-			      - (int)(ploLeft * (float)Screen.width / 2);
-		int y = (int)((float)Y * sSY);
-		
-		GUI.contentColor = color;
-		
-		int sWX = (int)((float)wX * sSX);
-		int sWY = (int)((float)wY * sSY);
-		
-		// Change font size based on screen scale
-		if(Screen.height > 800)
-			GUI.skin.font = FontReplaceLarge;
-		else
-			GUI.skin.font = FontReplaceSmall;
-		
-		GUI.Box(new Rect(xL, y, sWX, sWY), text);
-		GUI.Box(new Rect(xR, y, sWX, sWY), text);		
-		
-		//print("xL: " + xL + "       xR: " + xR);
-	}*/
 	
 	// Determines what each button does when pressed
 	void KeyboardMenuSelection() {
@@ -99,19 +63,19 @@ public class StartMenuGuiNW : MonoBehaviour {
 		}
 		
 		// Moves between buttons with arrows keys
-		if(Input.GetKeyDown(KeyCode.DownArrow) && SelectedIndex < NumButtons - 1){
+		if(Input.GetKeyDown(KeyCode.DownArrow) && SelectedIndex < ButtonsList.Count - 1){
+			((ButtonsNW)ButtonsList[SelectedIndex]).ButtonDeselected();
 			SelectedIndex++;
-			ChangeButtonColor(SelectedIndex - 1);
+			((ButtonsNW)ButtonsList[SelectedIndex]).ButtonSelected();
 		}
 		if(Input.GetKeyDown(KeyCode.UpArrow) && SelectedIndex > 0){
+			((ButtonsNW)ButtonsList[SelectedIndex]).ButtonDeselected();
 			SelectedIndex--;
-			ChangeButtonColor(SelectedIndex + 1);
+			((ButtonsNW)ButtonsList[SelectedIndex]).ButtonSelected();
 		}
 	}
 	
-	// Changes the color of the GUI button if it is currently selected by the keyboard
-	void ChangeButtonColor(int prevIndex){
-		ButtonColors[prevIndex] = Color.white;
-		ButtonColors[SelectedIndex] = Color.yellow;
-	}
+	void AddButton(int X, int Y, int wX, int wY, string text, Color color){
+		ButtonsList.Add (new ButtonsNW(X, Y, wX, wY, text, color));
+	}	
 }

@@ -12,6 +12,8 @@ public class EtherealDualCHGUI : MonoBehaviour {
 	private float centerY 		= Screen.height/2;
 	private float tickSpacing 	= Screen.width/24;
 	
+	private int oculScreenAdjust = 60;
+	
 	private EtherealPC etherealPC = null;
 	
 	void Start() {
@@ -28,39 +30,22 @@ public class EtherealDualCHGUI : MonoBehaviour {
 	
 	void OnGUI(){
 		
+		// This code currently breaks when using the Oculus
+		/* float cursorX = Screen.width * ((etherealPC.GetAngle() + 180)/360);
+		   DrawTextureCenter(cursorX, centerY, ImageCrosshair);*/
 		
-		GuiUtilsNW.GUIStereoTexture((int)((centerX/2 + 60 + 1 * tickSpacing) - tick1.width/2), (int)(centerY - tick1.height/2), tick1.width, tick1.height, tick1);	
-		GuiUtilsNW.GUIStereoTexture((int)((centerX/2 + 60 - 1 * tickSpacing) - tick1.width/2), (int)(centerY - tick1.height/2), tick1.width, tick1.height, tick1);	
-		GuiUtilsNW.GUIStereoTexture((int)((centerX/2 + 60 + 2 * tickSpacing) - tick2.width/2), (int)(centerY - tick2.height/2), tick2.width, tick2.height, tick2);
-		GuiUtilsNW.GUIStereoTexture((int)((centerX/2 + 60 - 2 * tickSpacing) - tick2.width/2), (int)(centerY - tick2.height/2), tick2.width, tick2.height, tick2);
-		GuiUtilsNW.GUIStereoTexture((int)((centerX/2 + 60 + 3 * tickSpacing) - tick3.width/2), (int)(centerY - tick3.height/2), tick3.width, tick3.height, tick3);
-		GuiUtilsNW.GUIStereoTexture((int)((centerX/2 + 60 - 3 * tickSpacing) - tick3.width/2), (int)(centerY - tick3.height/2), tick3.width, tick3.height, tick3);
-		/*
-		GuiUtilsNW.GUIStereoTexture((int)(centerX + 1 * tickSpacing), (int)(centerY), tick1.width, tick1.height, tick1);
-		GuiUtilsNW.GUIStereoTexture((int)(centerX - 1 * tickSpacing), (int)(centerY), tick1.width, tick1.height, tick1);
-		GuiUtilsNW.GUIStereoTexture((int)(centerX + 2 * tickSpacing), (int)(centerY), tick2.width, tick2.height, tick2);
-		GuiUtilsNW.GUIStereoTexture((int)(centerX - 2 * tickSpacing), (int)(centerY), tick2.width, tick2.height, tick2);
-		GuiUtilsNW.GUIStereoTexture((int)(centerX + 3 * tickSpacing), (int)(centerY), tick3.width, tick3.height, tick3);
-		GuiUtilsNW.GUIStereoTexture((int)(centerX - 3 * tickSpacing), (int)(centerY), tick3.width, tick3.height, tick3);
-		*/
-		
-		
-		//float cursorX = Screen.width * ((etherealPC.GetAngle() + 180)/360);
-		
-		//DrawTextureCenter(cursorX, centerY, ImageCrosshair);
-		
-		/*
-		DrawTextureCenter(centerX + 1 * tickSpacing, centerY, tick1);
-		DrawTextureCenter(centerX + 2 * tickSpacing, centerY, tick2);
-		DrawTextureCenter(centerX + 3 * tickSpacing, centerY, tick3);
-		
-		DrawTextureCenter(centerX - 1 * tickSpacing, centerY, tick1);
-		DrawTextureCenter(centerX - 2 * tickSpacing, centerY, tick2);
-		DrawTextureCenter(centerX - 3 * tickSpacing, centerY, tick3);
-		*/
+		DrawTextureCenter(centerX/2 + oculScreenAdjust + 1 * tickSpacing, centerY, tick1);
+		DrawTextureCenter(centerX/2 + oculScreenAdjust - 1 * tickSpacing, centerY, tick1);
+		DrawTextureCenter(centerX/2 + oculScreenAdjust + 2 * tickSpacing, centerY, tick2);
+		DrawTextureCenter(centerX/2 + oculScreenAdjust - 2 * tickSpacing, centerY, tick2);
+		DrawTextureCenter(centerX/2 + oculScreenAdjust + 3 * tickSpacing, centerY, tick3);
+		DrawTextureCenter(centerX/2 + oculScreenAdjust - 3 * tickSpacing, centerY, tick3);
 	}
 	
 	private void DrawTextureCenter(float posX, float posY, Texture texture){
-		GUI.DrawTexture(new Rect(posX - texture.width/2, posY - texture.height/2, texture.width, texture.height), texture);
+		
+		// Changed for Oculus View
+		GuiUtilsNW.GUIStereoTexture((int)(posX - texture.width/2), (int)(posY - texture.height/2), texture.width, texture.height, texture);
+		//GUI.DrawTexture(new Rect(posX - texture.width/2, posY - texture.height/2, texture.width, texture.height), texture);
 	}
 }
