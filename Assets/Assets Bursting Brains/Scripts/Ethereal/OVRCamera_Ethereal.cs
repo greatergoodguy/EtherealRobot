@@ -210,13 +210,12 @@ public class OVRCamera_Ethereal : OVRComponent {
 	// SetCameraOrientation
 	void SetCameraOrientation() {
 		
-		/*
+		
 		Quaternion q   = Quaternion.identity;
 		Vector3    dir = Vector3.forward;		
 		
 		// Main camera has a depth of 0, so it will be rendered first
-		if(gameObject.camera.depth == 0.0f)
-		{			
+		if(gameObject.camera.depth == 0.0f) {			
 			// If desired, update parent transform y rotation here
 			// This is useful if we want to track the current location of
 			// of the head.
@@ -229,8 +228,7 @@ public class OVRCamera_Ethereal : OVRComponent {
 			}
 				
 			// Read shared data from CameraController	
-			if(CameraController != null)
-			{
+			if(CameraController != null) {
 				Quaternion DirQ = Quaternion.identity;
 				
 				// Read sensor here (prediction on or off)
@@ -260,18 +258,26 @@ public class OVRCamera_Ethereal : OVRComponent {
 		q = orientationOffset * q;
 		
 		// Multiply in the current HeadQuat (q is now the latest best rotation)
-		if(CameraController != null)
-		{
+		if(CameraController != null) {
 			Quaternion DirQ = Quaternion.identity;
 			CameraController.GetSharedOrientation(ref DirQ);
 			q = q * DirQ;
 		}
 		
-		// * * *
+		//============================
+		// Insertion by Tom
+		//============================
+		
+		float yAngle = CameraController.GetAngleFromAnchor();
+		
+		//Vector3 forward = q * Vector3.forward;
+		//q = Quaternion.AngleAxis(-yAngle, forward);
+		
+		//============================
+		
 		// Update camera rotation
 		gameObject.camera.transform.rotation = q;
 		
-		// * * *
 		// Update camera position (first add Offset to parent transform)
 		gameObject.camera.transform.position = 
 		gameObject.camera.transform.parent.transform.position + NeckPosition;
@@ -279,7 +285,7 @@ public class OVRCamera_Ethereal : OVRComponent {
 		// Adjust neck by taking eye position and transforming through q
 		gameObject.camera.transform.position += q * EyePosition;		
 		
-		*/
+		
 	}
 	
 	// CreatePerspectiveMatrix

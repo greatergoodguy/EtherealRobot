@@ -21,8 +21,8 @@ public class MouseLook_Ethereal : MonoBehaviour {
 	
 	private HeadMotion activeHeadMotion;
 	
-	private Quaternion initialOVRHeadMotionQuaternion;
-	
+	private Quaternion initialQuaternion;
+	private Vector3 initialForward;
 	
 	void Start () {
 		mouseHeadMotion = transform.FindChild("Camera").GetComponent<HeadMotion>();
@@ -33,9 +33,12 @@ public class MouseLook_Ethereal : MonoBehaviour {
 		DebugUtils.Assert(mouseHeadMotion != null);
 		DebugUtils.Assert(ovrHeadMotion != null);
 		
+		initialQuaternion = transform.localRotation;
+		initialForward = transform.forward;
 		
-		initialOVRHeadMotionQuaternion = transform.rotation;
-		print (initialOVRHeadMotionQuaternion);
+		print (initialQuaternion);
+		print (initialForward);
+		
     }
 	
     void Update ()
@@ -72,5 +75,10 @@ public class MouseLook_Ethereal : MonoBehaviour {
 			activeHeadMotion = ovrHeadMotion;
 		else
 			activeHeadMotion = mouseHeadMotion;
+	}
+	
+	public float GetAngleFromAnchor(){
+		float result = AngleUtils.GetSignedAngle(transform.parent.forward, transform.forward, transform.up);
+		return result;
 	}
 }

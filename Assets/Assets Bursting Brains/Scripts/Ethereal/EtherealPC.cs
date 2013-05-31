@@ -37,6 +37,7 @@ public class EtherealPC : PlayerController_Deprecated {
 	private Vector3 sphere;
 	private Vector3 cubeForward;
 	private Vector3 sphereForward;
+	private Vector3 sphereAng;
 	private Vector3 crossProd;
 	private Vector3 forward;
 	private Vector3 angDirection;
@@ -124,12 +125,13 @@ public class EtherealPC : PlayerController_Deprecated {
 		//Gets forward Vector
 		cubeForward = transform.forward;
 		sphereForward = head.forward;
+		Vector3 sphereAng = new Vector3 (sphereForward.x, cubeForward.y, sphereForward.z);
 		
-		float absoluteAngle = Vector3.Angle (cubeForward,sphereForward);
+		float absoluteAngle = Vector3.Angle (cubeForward,sphereAng);
 		
-		contAngle = absoluteAngle * AngleDir(transform.forward, sphereForward, transform.up);
+		contAngle = absoluteAngle * AngleDir(transform.forward, sphereAng, transform.up);
 		//print("cubeForward: " + cubeForward.x + "       sphereForward: " + sphereForward.x);
-		crossProd = Vector3.Cross(cubeForward, sphereForward);
+		crossProd = Vector3.Cross(cubeForward, sphereAng);
 		
 		//Force Vectors
 		Vector3 forwardForce = new Vector3();

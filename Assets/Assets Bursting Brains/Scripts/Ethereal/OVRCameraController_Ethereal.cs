@@ -67,10 +67,13 @@ public class OVRCameraController_Ethereal : CameraController_BB {
 	
 	// * * * * * * * * * * * * *
 		
+	private MouseLook_Ethereal mouseLook;
+	
 	// Awake
-	new void Awake()
-	{
+	new void Awake(){
 		base.Awake();
+		
+		mouseLook = transform.parent.GetComponent<MouseLook_Ethereal>();
 	}
 
 	// Start
@@ -377,4 +380,7 @@ public class OVRCameraController_Ethereal : CameraController_BB {
 		QualitySettings.vSyncCount = 			1;
 	}
 	
+	public float GetAngleFromAnchor(){
+		return mouseLook.GetAngleFromAnchor();
+	}
 }
