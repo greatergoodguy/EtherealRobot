@@ -10,7 +10,7 @@ public class EtherealDualCHGUI : MonoBehaviour {
 	
 	private float centerX 		= Screen.width/2;
 	private float centerY 		= Screen.height/2;
-	private float tickSpacing 	= Screen.width/8;
+	private float tickSpacing 	= Screen.width/24;
 	
 	private EtherealPC etherealPC = null;
 	
@@ -29,12 +29,12 @@ public class EtherealDualCHGUI : MonoBehaviour {
 	void OnGUI(){
 		
 		
-		GuiUtilsNW.GUIStereoTexture((int)((centerX + 1 * tickSpacing) - tick1.width/2), (int)(centerY - tick1.height/2), tick1.width, tick1.height, tick1);	
-		GuiUtilsNW.GUIStereoTexture((int)((centerX - 1 * tickSpacing) - tick1.width/2), (int)(centerY - tick1.height/2), tick1.width, tick1.height, tick1);	
-		GuiUtilsNW.GUIStereoTexture((int)((centerX + 2 * tickSpacing) - tick2.width/2), (int)(centerY - tick2.height/2), tick2.width, tick2.height, tick2);
-		GuiUtilsNW.GUIStereoTexture((int)((centerX - 2 * tickSpacing) - tick2.width/2), (int)(centerY - tick2.height/2), tick2.width, tick2.height, tick2);
-		GuiUtilsNW.GUIStereoTexture((int)((centerX + 3 * tickSpacing) - tick3.width/2), (int)(centerY - tick3.height/2), tick3.width, tick3.height, tick3);
-		GuiUtilsNW.GUIStereoTexture((int)((centerX - 3 * tickSpacing) - tick3.width/2), (int)(centerY - tick3.height/2), tick3.width, tick3.height, tick3);
+		GuiUtilsNW.GUIStereoTexture((int)((centerX/2 + 60 + 1 * tickSpacing) - tick1.width/2), (int)(centerY - tick1.height/2), tick1.width, tick1.height, tick1);	
+		GuiUtilsNW.GUIStereoTexture((int)((centerX/2 + 60 - 1 * tickSpacing) - tick1.width/2), (int)(centerY - tick1.height/2), tick1.width, tick1.height, tick1);	
+		GuiUtilsNW.GUIStereoTexture((int)((centerX/2 + 60 + 2 * tickSpacing) - tick2.width/2), (int)(centerY - tick2.height/2), tick2.width, tick2.height, tick2);
+		GuiUtilsNW.GUIStereoTexture((int)((centerX/2 + 60 - 2 * tickSpacing) - tick2.width/2), (int)(centerY - tick2.height/2), tick2.width, tick2.height, tick2);
+		GuiUtilsNW.GUIStereoTexture((int)((centerX/2 + 60 + 3 * tickSpacing) - tick3.width/2), (int)(centerY - tick3.height/2), tick3.width, tick3.height, tick3);
+		GuiUtilsNW.GUIStereoTexture((int)((centerX/2 + 60 - 3 * tickSpacing) - tick3.width/2), (int)(centerY - tick3.height/2), tick3.width, tick3.height, tick3);
 		/*
 		GuiUtilsNW.GUIStereoTexture((int)(centerX + 1 * tickSpacing), (int)(centerY), tick1.width, tick1.height, tick1);
 		GuiUtilsNW.GUIStereoTexture((int)(centerX - 1 * tickSpacing), (int)(centerY), tick1.width, tick1.height, tick1);
