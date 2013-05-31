@@ -120,8 +120,7 @@ public class OVRCamera_Ethereal : OVRComponent {
 	}
 	
 	// OnPreRender
-	void OnPreRender()
-	{
+	void OnPreRender() {
 		// NOTE: Better latency performance here, but messes up water rendering and other
 		// systems that rely on the camera to be set before PreCull takes place.
 		if(CameraController.CallInPreRender == true)
@@ -210,6 +209,7 @@ public class OVRCamera_Ethereal : OVRComponent {
 	
 	// SetCameraOrientation
 	void SetCameraOrientation() {
+		
 		/*
 		Quaternion q   = Quaternion.identity;
 		Vector3    dir = Vector3.forward;		
@@ -221,8 +221,7 @@ public class OVRCamera_Ethereal : OVRComponent {
 			// This is useful if we want to track the current location of
 			// of the head.
 			// TODO: Future support for x and z, and possibly change to a quaternion
-			if(CameraController.TrackerRotatesY == true)
-			{
+			if(CameraController.TrackerRotatesY == true){
 				Vector3 a = gameObject.camera.transform.rotation.eulerAngles;
 				a.x = 0; 
 				a.z = 0;

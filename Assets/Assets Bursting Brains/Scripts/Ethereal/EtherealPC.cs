@@ -62,6 +62,13 @@ public class EtherealPC : PlayerController_Deprecated {
 	//
 	public static bool  AllowMouseRotation      = true;
 	
+	public MouseLook_Ethereal mouseLook;
+	
+	void Awake () {
+		mouseLook = GetComponentInChildren<MouseLook_Ethereal>();
+		DebugUtils.Assert(mouseLook != null);
+	}
+	
 	// Use this for initialization
 	void Start () {
 		
@@ -175,12 +182,10 @@ public class EtherealPC : PlayerController_Deprecated {
 		}
 		
 		//Camera Switch
-		/*
-		if(Input.GetKeyDown(KeyCode.V)){
-			standardCam.SetActive(!standardCam.activeSelf);
-			oculusCam.SetActive(!oculusCam.activeSelf);
+		if(Input.GetKeyDown(KeyCode.B)){
+			SwitchCameraController();
 		}
-		*/
+		
 		
 		//Jump
 		if(IsGrounded() && Input.GetKeyDown(KeyCode.LeftShift)){
@@ -193,8 +198,11 @@ public class EtherealPC : PlayerController_Deprecated {
 		
 		// Rotate
 		float deltaRotation = 0.0f;
-		if(AllowMouseRotation == false)
+		if(AllowMouseRotation == false){
+			/*
 			deltaRotation = Input.GetAxis("Mouse X") * rotateInfluence * 3.25f;
+			*/
+		}
 			
 		float filteredDeltaRotation = (sDeltaRotationOld * 0.0f) + (deltaRotation * 1.0f);
 		YRotation += filteredDeltaRotation;
@@ -286,4 +294,11 @@ public class EtherealPC : PlayerController_Deprecated {
         }
 
     }
+	
+	public void SwitchCameraController(){
+		standardCam.SetActive(!standardCam.activeSelf);
+		oculusCam.SetActive(!oculusCam.activeSelf);	
+		
+		mouseLook.SwitchHeadMotion();
+	}
 }

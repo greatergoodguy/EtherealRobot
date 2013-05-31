@@ -1223,6 +1223,7 @@ GameObject:
   - 114: {fileID: 893307673}
   - 114: {fileID: 893307675}
   - 114: {fileID: 893307672}
+  - 81: {fileID: 893307676}
   m_Layer: 0
   m_Name: TestActorWithSteering_Tom
   m_TagString: Untagged
@@ -1300,6 +1301,14 @@ MonoBehaviour:
   color1: {r: 1, g: 0, b: 0, a: 1}
   color2: {r: 1, g: 0, b: 0, a: 1}
   lineRenderer: {fileID: 0}
+--- !u!81 &893307676
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 8100004, guid: 96e96da567702466ba8363d9e906f00b,
+    type: 2}
+  m_PrefabInternal: {fileID: 1639241498}
+  m_GameObject: {fileID: 893307670}
+  m_Enabled: 1
 --- !u!54 &893307677
 Rigidbody:
   m_ObjectHideFlags: 0
