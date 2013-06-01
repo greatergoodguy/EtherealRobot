@@ -34,18 +34,26 @@ public class EtherealDualCHGUI : MonoBehaviour {
 		/* float cursorX = Screen.width * ((etherealPC.GetAngle() + 180)/360);
 		   DrawTextureCenter(cursorX, centerY, ImageCrosshair);*/
 		
-		DrawTextureCenter(centerX/2 + oculScreenAdjust + 1 * tickSpacing, centerY, tick1);
+		//DrawTextureCenter(centerX/2 + oculScreenAdjust + 1 * tickSpacing, centerY, tick1);
+		/*
 		DrawTextureCenter(centerX/2 + oculScreenAdjust - 1 * tickSpacing, centerY, tick1);
 		DrawTextureCenter(centerX/2 + oculScreenAdjust + 2 * tickSpacing, centerY, tick2);
 		DrawTextureCenter(centerX/2 + oculScreenAdjust - 2 * tickSpacing, centerY, tick2);
 		DrawTextureCenter(centerX/2 + oculScreenAdjust + 3 * tickSpacing, centerY, tick3);
-		DrawTextureCenter(centerX/2 + oculScreenAdjust - 3 * tickSpacing, centerY, tick3);
+		DrawTextureCenter(centerX/2 + oculScreenAdjust - 3 * tickSpacing, centerY, tick3);*/
+		
+		GuiUtilsNW.GUIStereoTextureCentered(1 * tickSpacing, 0, tick1);
+		GuiUtilsNW.GUIStereoTextureCentered(-1 * tickSpacing, 0, tick1);
+		GuiUtilsNW.GUIStereoTextureCentered(2 * tickSpacing, 0, tick2);
+		GuiUtilsNW.GUIStereoTextureCentered(-2 * tickSpacing, 0, tick2);
+		GuiUtilsNW.GUIStereoTextureCentered(3 * tickSpacing, 0, tick3);
+		GuiUtilsNW.GUIStereoTextureCentered(-3 * tickSpacing, 0, tick3);
 	}
 	
-	private void DrawTextureCenter(float posX, float posY, Texture texture){
+	/*private void DrawTextureCenter(float posX, float posY, Texture texture){
 		
 		// Changed for Oculus View
 		GuiUtilsNW.GUIStereoTexture((int)(posX - texture.width/2), (int)(posY - texture.height/2), texture.width, texture.height, texture);
 		//GUI.DrawTexture(new Rect(posX - texture.width/2, posY - texture.height/2, texture.width, texture.height), texture);
-	}
+	}*/
 }

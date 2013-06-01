@@ -26,25 +26,15 @@ public class DebugGuiNW : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		// Initializes GUI buttons to white, except for the selectedIndex
-		//ButtonColors[SelectedIndex] = Color.yellow;
-		//for(int i = 1; i < ButtonColors.Length; i++)
-		//	ButtonColors[i] = Color.white;
-		      
-		//ButtonsNW butt1 = new ButtonsNW(StartX, StartY, WidthX, WidthY, "Acceleration: ", Color.yellow);
-		//ButtonsList.Add(butt1);
-		//butt1.Display();
 		
-		//ButtonsList.Add(new ButtonsNW(StartX, StartY, WidthX, WidthY, "Acceleration: ", Color.yellow));
-		//ButtonsList.Add(new ButtonsNW(StartX, StartY + ButtonOffsetY, WidthX, WidthY, "Max Speed: ", Color.white));
-		//ButtonsList.Add(new ButtonsNW(StartX, StartY + ButtonOffsetY * 2, WidthX, WidthY, "Sensitivity: ", Color.white));		
-		//ButtonsList.Add(new ButtonsNW(StartX, StartY + ButtonOffsetY * 3, WidthX, WidthY, "Brake: ", Color.white));
-		
+		// Add Buttons Here
 		AddButton (StartX, StartY, WidthX, WidthY, "Acceleration: ", Color.white);
 		AddButton (StartX, StartY + ButtonOffsetY, WidthX, WidthY, "Max Speed: ", Color.white);
 		AddButton (StartX, StartY + ButtonOffsetY * 2, WidthX, WidthY, "Sensitivity: ", Color.white);
 		AddButton (StartX, StartY + ButtonOffsetY * 3, WidthX, WidthY, "Brake: ", Color.white);
 		
+		AddButton (StartX - 10, StartY + ButtonOffsetY * 5, 100, (int)(WidthY * 1.5f), "Resume ", Color.magenta);
+		AddButton (StartX + 110, StartY + ButtonOffsetY * 5, 100, (int)(WidthY * 1.5f), "Main Menu ", Color.magenta);	
 		
 		((ButtonsNW)ButtonsList[0]).ButtonSelected();
 	}
@@ -71,14 +61,6 @@ public class DebugGuiNW : MonoBehaviour {
 		// Title
 		GuiUtilsNW.GUIStereoButton (StartX, StartY - 60, WidthX, WidthY, "Name of controller here", Color.cyan);
 		
-		// Creates Boxes
-		// When adding new buttons, make sure to increase 'NumButtons' variable at top
-		/*GuiUtilsNW.GUIStereoButton (StartX, StartY, WidthX, WidthY, "Acceleration: ", ButtonColors[0]);
-		GuiUtilsNW.GUIStereoButton (StartX, StartY + ButtonOffsetY, WidthX, WidthY, "Max Speed: ", ButtonColors[1]);
-		GuiUtilsNW.GUIStereoButton (StartX, StartY + ButtonOffsetY * 2, WidthX, WidthY, "Sensitivity: ", ButtonColors[2]);
-		GuiUtilsNW.GUIStereoButton (StartX, StartY + ButtonOffsetY * 3, WidthX, WidthY, "Brake: ", ButtonColors[3]);
-		*/
-		
 		// Need to change this for ease of use
 		for(int i = 0; i < ButtonsList.Count; i++){
 			
@@ -98,27 +80,22 @@ public class DebugGuiNW : MonoBehaviour {
 				holder = brake;
 				break;
 			default:
-				holder = 999999999999.999f;
+				holder = 999999999999.999f; // Shouldn't get this
 				break;
 			}
-			((ButtonsNW)(ButtonsList[i])).DynamicDisplay(holder);
-			
-			//((ButtonsNW)(ButtonsList[i])).UpdateText((float)DynamicInfo[i]);
-			//((ButtonsNW)(ButtonsList[i])).Display();
-				
-			//if(i == 0)
-			//	((ButtonsNW)(ButtonsList[i])).UpdateText(accel);
-			//else if (i = 1)
-			
-			//((ButtonsNW)(ButtonsList[i])).Display();
-			//((ButtonsNW)(ButtonsList[i])).UpdatedDisplay();
+			if (i >= 4){  // Change this, i = 5 or 6, means it is not a dynamic button.
+				((ButtonsNW)(ButtonsList[i])).Display();
+			}
+			else{
+				((ButtonsNW)(ButtonsList[i])).DynamicDisplay(holder);
+			}
 		}
 		
 		// Buttons appear next to currently selected button
-		GuiUtilsNW.GUIStereoButton (StartX - 32, StartY + ButtonOffsetY * SelectedIndex, 30, 30, "Z", Color.green);
-		GuiUtilsNW.GUIStereoButton (StartX + 202, StartY + ButtonOffsetY * SelectedIndex, 30, 30, "X", Color.green);
-		
-		
+		if(SelectedIndex < 4){
+			GuiUtilsNW.GUIStereoButton (StartX - 32, StartY + ButtonOffsetY * SelectedIndex, 30, 30, "Z", Color.green);
+			GuiUtilsNW.GUIStereoButton (StartX + 202, StartY + ButtonOffsetY * SelectedIndex, 30, 30, "X", Color.green);
+		}	
 		
 	}
 	
@@ -133,24 +110,7 @@ public class DebugGuiNW : MonoBehaviour {
 			}	
 		}
 		
-		// Moves between buttons with arrows keys
-		if(Input.GetKeyDown(KeyCode.DownArrow) && SelectedIndex < ButtonsList.Count - 1){
-			//Color col = Color.white;
-			((ButtonsNW)ButtonsList[SelectedIndex]).ButtonDeselected();
-			//((ButtonsNW)ButtonsList[SelectedIndex]).ChangeColor(col);
-			SelectedIndex++;
-			// ChangeButtonColor(SelectedIndex - 1);
-			//((ButtonsNW)ButtonsList[SelectedIndex]).ChangeColor(Color.yellow);
-			((ButtonsNW)ButtonsList[SelectedIndex]).ButtonSelected();
-		}
-		if(Input.GetKeyDown(KeyCode.UpArrow) && SelectedIndex > 0){
-			((ButtonsNW)ButtonsList[SelectedIndex]).ButtonDeselected();
-			//((ButtonsNW)ButtonsList[SelectedIndex]).ChangeColor(Color.white);
-			SelectedIndex--;
-			//((ButtonsNW)ButtonsList[SelectedIndex]).ChangeColor(Color.yellow);
-			// ChangeButtonColor(SelectedIndex + 1);
-			((ButtonsNW)ButtonsList[SelectedIndex]).ButtonSelected();
-		}
+		SelectedIndex = GuiUtilsNW.GUIKeyboardUpDown(SelectedIndex, ButtonsList);
 	}
 	
 	void AddButton(int X, int Y, int wX, int wY, string text, Color color){
@@ -160,11 +120,5 @@ public class DebugGuiNW : MonoBehaviour {
 	void AddBox(){
 		
 	}	
-	
-	// Changes the color of the GUI button if it is currently selected by the keyboard
-	/*void ChangeButtonColor(int prevIndex){
-		ButtonColors[prevIndex] = Color.white;
-		ButtonColors[SelectedIndex] = Color.yellow;
-	}*/
 
 }
