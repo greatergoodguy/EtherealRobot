@@ -24,6 +24,7 @@ public class StartMenuGuiNW : MonoBehaviour {
 		
 		DebugUtils.Assert(startTexture != null);
 		
+		// Add Buttons here
 		AddButton (StartX, StartY, WidthX, WidthY, "Start", Color.white);
 		AddButton (StartX, StartY + ButtonOffsetY, WidthX, WidthY, "Exit", Color.white);
 	
@@ -63,6 +64,8 @@ public class StartMenuGuiNW : MonoBehaviour {
 		}
 		
 		// Moves between buttons with arrows keys
+		
+		/*
 		if(Input.GetKeyDown(KeyCode.DownArrow) && SelectedIndex < ButtonsList.Count - 1){
 			((ButtonsNW)ButtonsList[SelectedIndex]).ButtonDeselected();
 			SelectedIndex++;
@@ -73,6 +76,9 @@ public class StartMenuGuiNW : MonoBehaviour {
 			SelectedIndex--;
 			((ButtonsNW)ButtonsList[SelectedIndex]).ButtonSelected();
 		}
+		*/
+			
+		SelectedIndex = GuiUtilsNW.GUIKeyboardUpDown(SelectedIndex, ButtonsList);
 	}
 	
 	void AddButton(int X, int Y, int wX, int wY, string text, Color color){

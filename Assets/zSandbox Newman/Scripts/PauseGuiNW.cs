@@ -14,15 +14,18 @@ public class PauseGuiNW : MonoBehaviour {
 	
 	private int SelectedIndex = 0;	// Indicates what key is currently selected by Keyboard
 	
-	static private int NumButtons = 2;  //
-	private Color[] ButtonColors = new Color[NumButtons];
+	private ArrayList ButtonsList = new ArrayList();
 	
 	// Use this for initialization
 	void Start () {
-		// Initializes GUI buttons to white, except for the selectedIndex
-		ButtonColors[SelectedIndex] = Color.yellow;
-		for(int i = 1; i < ButtonColors.Length; i++)
-			ButtonColors[i] = Color.white;
+		
+		// Add Buttons here
+		AddButton (StartX, StartY, WidthX, WidthY, "Resume", Color.white);
+		AddButton (StartX, StartY + ButtonOffsetY, WidthX, WidthY, "Debug", Color.white);
+		AddButton (StartX, StartY + ButtonOffsetY * 2, WidthX, WidthY, "Quit", Color.white);
+	
+		// Makes first button appear yellow by default
+		((ButtonsNW)ButtonsList[0]).ButtonSelected();
 	
 	}
 	
@@ -34,12 +37,9 @@ public class PauseGuiNW : MonoBehaviour {
 	void OnGUI(){
 		if(!isGuiOn){
 			return;	
-		}
-		
-		// Creates Buttons
-		// When adding new buttons, make sure to increase 'NumButtons' variable at top
-		GuiUtilsNW.GUIStereoButton (StartX, StartY, WidthX, WidthY, "Resume", ButtonColors[0]);
-		GuiUtilsNW.GUIStereoButton (StartX, StartY + ButtonOffsetY, WidthX, WidthY, "Quit", ButtonColors[1]);
+		}	
+		for(int i = 0; i < ButtonsList.Count; i++)
+			((ButtonsNW)(ButtonsList[i])).Display();	
 	}
 	
 	// Determines what each button does when pressed
@@ -49,24 +49,18 @@ public class PauseGuiNW : MonoBehaviour {
 				// Resume Game	
 			}
 			if(SelectedIndex == 1){
+				// Go to Debug Menu	
+			}
+			if(SelectedIndex == 2){
 				// Quit game	
 			}	
 		}
 		
 		// Moves between buttons with arrows keys
-		if(Input.GetKeyDown(KeyCode.DownArrow) && SelectedIndex < NumButtons - 1){
-			SelectedIndex++;
-			ChangeButtonColor(SelectedIndex - 1);
-		}
-		if(Input.GetKeyDown(KeyCode.UpArrow) && SelectedIndex > 0){
-			SelectedIndex--;
-			ChangeButtonColor(SelectedIndex + 1);
-		}
+		SelectedIndex = GuiUtilsNW.GUIKeyboardUpDown(SelectedIndex, ButtonsList);
 	}
-	
-	// Changes the color of the GUI button if it is currently selected by the keyboard
-	void ChangeButtonColor(int prevIndex){
-		ButtonColors[prevIndex] = Color.white;
-		ButtonColors[SelectedIndex] = Color.yellow;
-	}
+
+	void AddButton(int X, int Y, int wX, int wY, string text, Color color){
+		ButtonsList.Add (new ButtonsNW(X, Y, wX, wY, text, color));
+	}	
 }
