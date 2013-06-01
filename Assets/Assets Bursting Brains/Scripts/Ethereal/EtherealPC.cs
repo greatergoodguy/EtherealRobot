@@ -190,9 +190,15 @@ public class EtherealPC : PlayerController_Deprecated {
 		
 		
 		//Jump
+		/*
 		if(IsGrounded() && Input.GetKeyDown(KeyCode.LeftShift)){
 			rigidbody.AddForce(Vector3.up * jumpPower * 100);
 			//canJump = false;
+		}
+		*/
+		if(canJump && Input.GetKeyDown(KeyCode.LeftShift)){
+			rigidbody.AddForce(Vector3.up * jumpPower * 100);
+			canJump = false;
 		}
 		
 		// Controls the Camera rotation
