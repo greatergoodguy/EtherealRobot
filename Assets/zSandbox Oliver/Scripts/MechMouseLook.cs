@@ -59,11 +59,17 @@ public class MechMouseLook : MonoBehaviour {
 		}
 		
 		// Smooth out movement
+		// TODO: could probably just use a Vector3
 		yRotateCurrent = Mathf.SmoothDamp (yRotateCurrent, yRotateTarget, ref yRotateSpeed, lookDamp);
 		xRotateCurrent = Mathf.SmoothDamp (xRotateCurrent, xRotateTarget, ref xRotateSpeed, lookDamp);
 		zRotateCurrent = Mathf.SmoothDamp (zRotateCurrent, zRotateTarget, ref zRotateSpeed, tiltDamp);
 		
+		// Debug.Log ("xRotateSpeed = " + xRotateSpeed);
+		// Debug.Log ("yRotateSpeed = " + yRotateSpeed);
+		// Debug.Log ("zRotateSpeed = " + zRotateSpeed);
+		
 		// Apply rotations to the camera
 		transform.rotation = Quaternion.Euler (xRotateCurrent, yRotateCurrent, zRotateCurrent);
+		Debug.Log ("done applying mouse look transforms");
 	}
 }

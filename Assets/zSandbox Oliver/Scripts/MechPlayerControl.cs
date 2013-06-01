@@ -44,7 +44,8 @@ public class MechPlayerControl : MonoBehaviour {
 				Mathf.SmoothDamp (currentHorizontalVelo.y, 0f, ref deaccelVeloZ, deaccel));
 		}
 		// rotates the player model with mouse movement
-		transform.rotation = Quaternion.Euler (0, stdCamObj.GetComponent<MechMouseLook>().yRotateCurrent, 0);
+		transform.rotation = Quaternion.Euler (0, stdCamObj.GetComponent<MechCameraControl>().yRotateCurrent, 0);
+		// transform.rotation = Quaternion.Euler (0, stdCamObj.GetComponent<MechMouseLook>().yRotateCurrent, 0);
 	}
 
 	// detects if player is in contact with the ground

@@ -496,7 +496,6 @@ GameObject:
   - 124: {fileID: 1872992235}
   - 81: {fileID: 1872992234}
   - 114: {fileID: 1872992239}
-  - 114: {fileID: 1872992240}
   m_Layer: 0
   m_Name: Standard Camera
   m_TagString: MainCamera
@@ -572,30 +571,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1872992233}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e5605bffa047438c8db7c927731ad87, type: 3}
+  m_Script: {fileID: 11500000, guid: 8d726e0afb16b4fd78e6b2a3bee11b83, type: 3}
   m_Name: 
   invertedLook: 0
-  lookSensitivity: 5
+  lookSensitivity: 2
   lookDamp: .100000001
   yRotateCurrent: 0
-  tiltAngle: 12
+  tiltAngle: 8
   tiltSensitivity: .5
   tiltSpeed: 100
   tiltDamp: .200000003
-  lookDirection: 0
---- !u!114 &1872992240
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1872992233}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3def74562c3424b3d8a4459f93716365, type: 3}
-  m_Name: 
   bobFrequency: .5
-  xRange: .920000017
-  yRange: .879999995
-  bobX: .5
-  bobY: .5
-  jerk: .850000024
+  bobX: .400000006
+  bobY: .349999994
+  tiltAngleX: 8
+  tiltAngleZ: 9
+  jerk: .25

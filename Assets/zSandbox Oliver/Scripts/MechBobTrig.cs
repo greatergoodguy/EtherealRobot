@@ -8,6 +8,8 @@ public class MechBobTrig : MonoBehaviour {
 	public float yRange = 0.88f;
 	public float bobX = 0.5f;
 	public float bobY = 0.5f;
+	public float tiltAngleX = 8f;
+	public float tiltAngleZ = 10f;
 	public float jerk = 0.85f;
 	private float distance;
 	private Vector3 prevPosition;
@@ -33,8 +35,15 @@ public class MechBobTrig : MonoBehaviour {
 		// using sine to calculate head bob from distance traveled 
 		float xMovement = Mathf.Sin (distance) * bobX;
 		float yMovement = Mathf.Sin (distance * 2) * bobY;
+		// flattens out bottom of downwards head movement
 		if (yMovement < -jerk) yMovement = -jerk;
+		
+		// apply translations and rotation to camera's position relative to the parent
 		transform.localPosition = new Vector3 (xMovement * xRange, yMovement * yRange, transform.localPosition.z);
-	
+		transform.localEulerAngles = new Vector3 (yMovement * tiltAngleX, transform.localEulerAngles.y, xMovement * tiltAngleZ);
+		
+		Debug.Log ("done applying head bob transforms at distance " + distance);
+		// TODO: may be more efficient to translate the existing transform matrix than newing up one and assigning
+		// transform.Translate(current sine pos - previous, current sine pos - previous, 0f);
 	}
 }
