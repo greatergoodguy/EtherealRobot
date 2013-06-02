@@ -32,15 +32,20 @@ public class MechCameraControl : MonoBehaviour {
 	public float tiltAngleX = 8f;
 	public float tiltAngleZ = 9f;
 	public float jerk = 0.25f;	// 0..1 - Adjust jerky-ness of movement, 1 is smoothest
+	public float resetDamp = 0.15f;	// Amount of time it takes to reset position
 	private float xMovement;
 	private float yMovement;
+	private float xHeadVelo = 0.0f;
+	private float yHeadVelo = 0.0f;
 	private float distance;
 	private Vector3 prevPosition;
+	
+	public GameObject mech;
 	
 	
 	// Awake is always called 
 	void Awake () {
-		prevPosition = transform.parent.parent.position;
+		prevPosition = mech.transform.position;
 	}
 			
 	// Initialization
@@ -52,9 +57,14 @@ public class MechCameraControl : MonoBehaviour {
 	void Update () {
 		
 		// TODO: make boolean to detect user input, and run transforms if true
-		// TODO: if no user input, resettle the camera to default position
-		mouseLook(); headBob();
-				
+		mouseLook();
+		/*
+		// Head position based on movement
+		if (isStationary()) resetPosition();
+		else headBob();
+		*/
+		headBob();
+					
 		// Apply headbob translations camera's position relative to the parent
 		transform.localPosition = new Vector3 (xMovement, yMovement, transform.localPosition.z);
 		// TODO: may be more efficient to translate the existing transform matrix than newing up one and assigning
@@ -67,6 +77,14 @@ public class MechCameraControl : MonoBehaviour {
 			yRotateCurrent, 
 			zRotateCurrent + (xMovement * tiltAngleZ));
 		// Debug.Log ("done applying mouse look transforms");
+	}
+	
+	// Detects movement/velocity of mech
+	bool isStationary () {
+	
+		return (mech.rigidbody.velocity.x < 0.1f && 
+				mech.rigidbody.velocity.y < 0.1f &&
+				mech.rigidbody.velocity.z < 0.1f);
 	}
 	
 	// Mouselook code that does stuff for looking with mouse
@@ -99,28 +117,49 @@ public class MechCameraControl : MonoBehaviour {
 		yRotateCurrent = Mathf.SmoothDamp (yRotateCurrent, yRotateTarget, ref yRotateSpeed, lookDamp);
 		xRotateCurrent = Mathf.SmoothDamp (xRotateCurrent, xRotateTarget, ref xRotateSpeed, lookDamp);
 		zRotateCurrent = Mathf.SmoothDamp (zRotateCurrent, zRotateTarget, ref zRotateSpeed, tiltDamp);
-		// Debug.Log ("xRotateSpeed = "+xRotateSpeed"\nyRotateSpeed = "+yRotateSpeed+"\nzRotateSpeed = "+zRotateSpeed);
+		// Debug.Log ("xRotateSpeed = "+xRotateSpeed+"\nyRotateSpeed = "+yRotateSpeed+"\nzRotateSpeed = "+zRotateSpeed);
+		// Debug.Log ("xRotateTarget = "+xRotateTarget+"\nyRotateTarget = "+yRotateTarget+"\nzRotateTarget = "+zRotateTarget);
+		// Debug.Log ("xRotateCurrent = "+xRotateCurrent+"\nyRotateCurrent = "+yRotateCurrent+"\nzRotateCurrent = "+zRotateCurrent);
 	}
 	
 	// Headbob method bobs head
 	void headBob () {
 	
 		// Get current camera position
-		Vector3 currPosition = transform.parent.parent.position;
+		Vector3 currPosition = mech.transform.position;
+		// Vector3 currPosition = transform.parent.parent.position;
 	
 		// If player is grounded, then get to bobbin'
-		if (transform.parent.parent.GetComponent<MechPlayerControl>().grounded) {
+		if (mech.GetComponent<MechPlayerControl>().grounded) {
 			// TODO: need to handle when float overflows
 			distance += Vector3.Distance(prevPosition, currPosition) * bobFrequency;
 		}
-		prevPosition = currPosition;
 		
-		// Using sine to calculate head bob from distance traveled 
-		// NOTE: sin (x*2) ** 0.5 may also be used for vertical head movement
-		xMovement = Mathf.Sin (distance) * bobX;
-		yMovement = Mathf.Sin (distance * 2) * bobY;
-		// Flattens out and jerks downward head movement
-		float yThreshold = -bobY * jerk;
-		if (yMovement < yThreshold) yMovement = yThreshold * jerk/4;
+		if (isStationary()) resetPosition();
+		else {
+			//Debug.Log ("BOBBING");
+			prevPosition = currPosition;
+			
+			// Using sine to calculate head bob from distance traveled 
+			// NOTE: sin (x*2) ** 0.5 may also be used for vertical head movement
+			xMovement = Mathf.Sin (distance) * bobX;
+			yMovement = Mathf.Sin (distance * 2) * bobY;
+			// Flattens out and jerks downward head movement
+			float yThreshold = -bobY * jerk;
+			if (yMovement < yThreshold) {
+				yMovement = yThreshold * jerk/4;
+			}
+		}
+	}
+	
+	// Resets head position when stationary
+	void resetPosition () {
+	
+		distance = 0.0f;
+		//Debug.Log ("BEFORE DAMP: xMovement = "+xMovement+", yMovement = "+yMovement);
+		xMovement = Mathf.SmoothDamp (xMovement, 0.0f, ref xHeadVelo, resetDamp);
+		yMovement = Mathf.SmoothDamp (yMovement, 0.0f, ref yHeadVelo, resetDamp);
+		//Debug.Log ("AFTER DAMP: xMovement = "+xMovement+", yMovement = "+yMovement);
+		//Debug.Log ("xHeadVelo = "+xHeadVelo+", yHeadVelo = "+yHeadVelo);
 	}
 }
