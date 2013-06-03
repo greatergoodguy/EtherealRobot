@@ -14,10 +14,17 @@ public class KeyboardInput : Input_BB {
 	public override bool GetButton_RotateBodyLeft(){	return Input.GetKey(KeyCode.Q);}  
 	public override bool GetButton_RotateBodyRight() {	return Input.GetKey(KeyCode.E);}  
 	
-	public override bool GetButtonDown_Jump() {		return Input.GetKeyDown(KeyCode.LeftShift);}  
+	public override bool GetButton_DebugIncreaseAttribute(){	return Input.GetKey(KeyCode.Z);}  
+	public override bool GetButton_DebugDecreaseAttribute() {	return Input.GetKey(KeyCode.X);} 
+	
+	public override bool GetButtonDown_MenuDown() {		return Input.GetKeyDown(KeyCode.W);}  
+	public override bool GetButtonDown_MenuUp() {		return Input.GetKeyDown(KeyCode.S);}  
+	public override bool GetButtonDown_SelectMenuItem() {return Input.GetKeyDown(KeyCode.Space);}  
+	public override bool GetButtonDown_Jump() {			return Input.GetKeyDown(KeyCode.LeftShift);}  
+	public override bool GetButtonDown_SwitchCameraMode() {			return Input.GetKeyDown(KeyCode.B);}
 	
 	public override bool GetButtonDown_Pause() {					return Input.GetKeyDown(KeyCode.P);}
-	public override bool GetButtonDown_SwitchCameraMode() {			return Input.GetKeyDown(KeyCode.B);}
+	public override bool GetButtonDown_Debug() {					return Input.GetKeyDown(KeyCode.O);}
 	public override bool GetButtonDown_CycleActiveEnvironment() {	return Input.GetKeyDown(KeyCode.V);}
 	public override bool GetButtonDown_CycleActivePlayer() {		return Input.GetKeyDown(KeyCode.C);}
 	public override float GetAxis_MouseX() {						return Input.GetAxis("Mouse X");}

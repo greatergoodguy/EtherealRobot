@@ -73,6 +73,8 @@ public class MechProtoPC : PlayerController {
 	private Vector3 headForward = Vector3.zero;
 	private Vector3 bodyForward = Vector3.zero;
  	
+	private DebugData debugData = new DebugData();
+	
 	// * * * * * * * * * * * * *
 	
 	// Awake
@@ -261,6 +263,9 @@ public class MechProtoPC : PlayerController {
 				Jump();	
 			}
 			
+			if(InputManager.activeInput.GetButtonDown_SwitchCameraMode()){
+				SwitchCameraController();
+			}
 			
 			// * * * * * * * * * * *
 			// Mouse input
@@ -371,4 +376,11 @@ public class MechProtoPC : PlayerController {
 	public override string GetControllerName() {
     	return "Mech";
    	}  
+	
+	public override void SwitchCameraController(){
+	}
+	
+	public override DebugData GetDebugData(){
+		return debugData;
+	}
 }

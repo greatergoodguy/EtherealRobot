@@ -31,4 +31,7 @@ public class StandardCameraController : CameraController_BB {
 	public override void SetYRotation(float yRotation){
 		YRotation = yRotation;
 	}
+	
+	public override void SetSharedOrientation(Quaternion camRotation){
+	}
 }

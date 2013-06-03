@@ -42,8 +42,8 @@ public class EtherealPC : PlayerController {
 	private Vector3 forward;
 	private Vector3 angDirection;
 	private Transform head;
-	private GameObject standardCam;
-	private GameObject oculusCam;
+	private GameObject standardCameraGO;
+	private GameObject oculusCameraGO;
 	
 	//Camera Variable
 	//protected CameraController_BB 	CameraController 	= null;
@@ -65,6 +65,8 @@ public class EtherealPC : PlayerController {
 	
 	public MouseLook_Ethereal mouseLook;
 	
+	private DebugData debugData = new DebugData();
+	
 	void Awake () {
 		mouseLook = GetComponentInChildren<MouseLook_Ethereal>();
 		DebugUtils.Assert(mouseLook != null);
@@ -82,17 +84,6 @@ public class EtherealPC : PlayerController {
 		collider.material.staticFriction2 = .2f;
 		collider.material.frictionCombine = PhysicMaterialCombine.Minimum;
 		
-		/*
-		CameraController_BB[] CameraControllers;
-		CameraControllers = gameObject.GetComponentsInChildren<CameraController_BB>();
-		
-		if(CameraControllers.Length == 0)
-			Debug.LogWarning("OVRPlayerController: No OVRCameraController attached.");
-		else if (CameraControllers.Length > 1)
-			Debug.LogWarning("OVRPlayerController: More then 1 OVRCameraController attached.");
-		else
-			CameraController = CameraControllers[0];
-		*/
 		OVRCameraController[] CameraControllers;
 		CameraControllers = gameObject.GetComponentsInChildren<OVRCameraController>();
 		
@@ -107,15 +98,20 @@ public class EtherealPC : PlayerController {
 		cube = transform.position;
 		sphereForward = transform.position;
 		head = transform.FindChild("Head");
-		standardCam = head.FindChild("Camera").gameObject;
-		oculusCam = head.FindChild("OVRCameraController").gameObject;
+		standardCameraGO = head.FindChild("Camera").gameObject;
+		oculusCameraGO = head.FindChild("OVRCameraController").gameObject;
 		
-		standardCam.SetActive(true);
-		oculusCam.SetActive(false);
+		standardCameraGO.SetActive(true);
+		oculusCameraGO.SetActive(false);
 		
 		SetCameras();
 		
 		AllowMouseRotation = false;
+		
+		debugData.AddData("Acceleration: ", ref acceleration);
+		debugData.AddData("Max Speed: ", ref maxSpeed);
+		debugData.AddData("Sensitivy: ", ref turnSensitivity);
+		debugData.AddData("Brake Speed: ", ref turnSensitivity);
 	}
 	
 	float contAngle = 0;
@@ -164,18 +160,16 @@ public class EtherealPC : PlayerController {
 			angMove = GetAngularDirection(absoluteAngle);
 			transform.Rotate(angMove);
 		}
-		
-		//Camera Switch
-		if(InputManager.activeInput.GetButtonDown_SwitchCameraMode()){
-			SwitchCameraController();
-		}
-		
-		
+				
 		if(canJump){
 			if(InputManager.activeInput.GetButtonDown_Jump()){
 				rigidbody.AddForce(Vector3.up * jumpPower * 100);
 				canJump = false;
 			}
+		}
+		
+		if(InputManager.activeInput.GetButtonDown_SwitchCameraMode()){
+			SwitchCameraController();
 		}
 		
 		// Controls the Camera rotation
@@ -280,10 +274,14 @@ public class EtherealPC : PlayerController {
 
     }
 	
-	public void SwitchCameraController(){
-		standardCam.SetActive(!standardCam.activeSelf);
-		oculusCam.SetActive(!oculusCam.activeSelf);	
+	public override void SwitchCameraController(){
+		standardCameraGO.SetActive(!standardCameraGO.activeSelf);
+		oculusCameraGO.SetActive(!oculusCameraGO.activeSelf);	
 		
 		mouseLook.SwitchHeadMotion();
+	}
+	
+	public override DebugData GetDebugData(){
+		return debugData;
 	}
 }

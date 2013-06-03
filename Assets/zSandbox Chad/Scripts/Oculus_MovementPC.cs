@@ -59,6 +59,8 @@ public class Oculus_MovementPC : PlayerController {
 	//
 	public static bool  AllowMouseRotation      = true;
 	
+	private DebugData debugData = new DebugData();
+	
 	// Use this for initialization
 	void Start () {
 		
@@ -290,4 +292,11 @@ public class Oculus_MovementPC : PlayerController {
         }
 
     }
+	
+	public override void SwitchCameraController(){
+	}
+	
+	public override DebugData GetDebugData(){
+		return debugData;
+	}
 }

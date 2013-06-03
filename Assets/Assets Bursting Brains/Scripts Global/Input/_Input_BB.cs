@@ -14,10 +14,17 @@ public abstract class Input_BB {
 	public abstract bool GetButton_RotateBodyLeft();
 	public abstract bool GetButton_RotateBodyRight();
 	
+	public abstract bool GetButton_DebugIncreaseAttribute();
+	public abstract bool GetButton_DebugDecreaseAttribute();
+	
+	public abstract bool GetButtonDown_MenuUp();
+	public abstract bool GetButtonDown_MenuDown();
+	public abstract bool GetButtonDown_SelectMenuItem();
 	public abstract bool GetButtonDown_Jump();
+	public abstract bool GetButtonDown_SwitchCameraMode();
 	
 	public abstract bool GetButtonDown_Pause();
-	public abstract bool GetButtonDown_SwitchCameraMode();
+	public abstract bool GetButtonDown_Debug();
 	public abstract bool GetButtonDown_CycleActiveEnvironment();
 	public abstract bool GetButtonDown_CycleActivePlayer();
 	

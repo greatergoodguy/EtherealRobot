@@ -1,41 +1,60 @@
 using UnityEngine;
 using System.Collections;
 
-public class DebugGui : MonoBehaviour {
+public class DebugGui : MenuGui {
 	
-	public Font 	FontReplaceSmall	= null;
-	public Font 	FontReplaceLarge	= null;
-	private int    	StereoSpreadX 	= -40;
+	private int    	StartX			= 260;
+	private int    	StartY			= 200;
+	private int    	WidthX			= 200;
+	private int    	WidthY			= 30;
+	private int    	ButtonOffsetY	= 32;
+	private int		SideButtonOffsetX = 30;
 	
-	// Spacing for scenes menu
-	private int    	StartX			= 240;
-	private int    	StartY			= 300;
-	private int    	WidthX			= 300;
-	private int    	WidthY			= 50;
+	private bool 	isGuiOn			= true;
 	
-	private bool 	isGuiOn			= false;
+	private int SelectedIndex = 0;	// Indicates what key is currently selected by Keyboard
 	
-	private string controllerName   = "Name has not been initialized";
+	static private int NumButtons = 4;
+	private Color[] ButtonColors = new Color[NumButtons];
 	
-	private PlayerManager playerManager;
-	private PlayerController activeController;
+	private ArrayList ButtonsList = new ArrayList();
 	
+	private float accel = 0;
+	private float brake = -200;
+	private float maxSpeed = 2000;
+	private float sens = 20;
+	
+	private DebugData currDebugData;
 	
 	// Use this for initialization
 	void Start () {
-		playerManager = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
 		
-		//activeController = playerManager.GetActivePlayer().GetComponent<PlayerController_Deprecated>();
-		activeController = playerManager.GetActivePlayerController();
-		controllerName = activeController.GetControllerName();
+		// Add Buttons Here
+		//AddButton (StartX, StartY, WidthX, WidthY, "Acceleration: ", Color.white);
+		//AddButton (StartX, StartY + ButtonOffsetY, WidthX, WidthY, "Max Speed: ", Color.white);
+		//AddButton (StartX, StartY + ButtonOffsetY * 2, WidthX, WidthY, "Sensitivity: ", Color.white);
+		//AddButton (StartX, StartY + ButtonOffsetY * 3, WidthX, WidthY, "Brake: ", Color.white);
 		
+		//AddButton (StartX - 10, StartY + ButtonOffsetY * 5, 100, (int)(WidthY * 1.5f), "Resume ", Color.magenta);
+		//AddButton (StartX + 110, StartY + ButtonOffsetY * 5, 100, (int)(WidthY * 1.5f), "Main Menu ", Color.magenta);	
+		
+		//((Button) ButtonsList[0]).ButtonSelected();
+		
+		ExitGui();
 	}
+	
 	
 	// Update is called once per frame
 	void Update () {
-		if(Input.GetKeyDown(KeyCode.Z)){
-			isGuiOn = !isGuiOn;
-		}
+		KeyboardMenuSelection();
+		accel++;
+		maxSpeed--;
+		sens -= .001f;
+		
+		if(brake < 20)
+			brake++;
+		else
+			brake = -20;
 	}
 	
 	void OnGUI(){
@@ -43,43 +62,61 @@ public class DebugGui : MonoBehaviour {
 			return;	
 		}
 		
-		//GUI.Button (new Rect (10,10,150,100), "I am a button");				
-		GUIStereoBox (StartX, StartY, WidthX, WidthY, ref controllerName, Color.yellow);
-	}
+		// Title
+		GuiUtils.GUIStereoButton (StartX, StartY - 60, WidthX, WidthY, "Ethereal", Color.cyan);
 		
-	// GUIStereoBox - Values based on pixels in DK1 resolution of W: (1280 / 2) H: 800
-	void GUIStereoBox(int X, int Y, int wX, int wY, ref string text, Color color)
-	{
-		float ploLeft = 0, ploRight = 0;
-		float sSX = (float)Screen.width / 1280.0f;
+		// Need to change this for ease of use
+		for(int i = 0; i < ButtonsList.Count; i++){
+			float holder = currDebugData.GetValueAt(i);
+			((Button) (ButtonsList[i])).DynamicDisplay(holder);
+		}
 		
-		float sSY = ((float)Screen.height / 800.0f);
-		OVRDevice.GetPhysicalLensOffsets(ref ploLeft, ref ploRight); 
-		int xL = (int)((float)X * sSX);
-		int sSpreadX = (int)((float)StereoSpreadX * sSX);
-		int xR = (Screen.width / 2) + xL + sSpreadX - 
-			      // required to adjust for physical lens shift
-			      (int)(ploLeft * (float)Screen.width / 2);
-		int y = (int)((float)Y * sSY);
+		// Buttons appear next to currently selected button
+		if(SelectedIndex < 4){
+			GuiUtils.GUIStereoButton (StartX - 32, StartY + ButtonOffsetY * SelectedIndex, 30, 30, "Z", Color.green);
+			GuiUtils.GUIStereoButton (StartX + 202, StartY + ButtonOffsetY * SelectedIndex, 30, 30, "X", Color.green);
+		}	
 		
-		GUI.contentColor = color;
-		
-		int sWX = (int)((float)wX * sSX);
-		int sWY = (int)((float)wY * sSY);
-		
-		// Change font size based on screen scale
-		if(Screen.height > 800)
-			GUI.skin.font = FontReplaceLarge;
-		else
-			GUI.skin.font = FontReplaceSmall;
-		
-		GUI.Box(new Rect(xL, y, sWX, sWY), text);
-		GUI.Box(new Rect(xR, y, sWX, sWY), text);			
 	}
 	
-	public void SetNewActivePlayer(){
-		activeController = playerManager.GetActivePlayerController();
-		controllerName = activeController.GetControllerName();
-		print(controllerName);
+	// Determines what each button does when pressed
+	void KeyboardMenuSelection() {
+		if(Input.GetKeyDown(KeyCode.Return)){
+			if (SelectedIndex == 0){
+				// Resume Game	
+			}
+			if(SelectedIndex == 1){
+				// Quit game	
+			}	
+		}
+		
+		SelectedIndex = GuiUtils.GUIKeyboardUpDown(SelectedIndex, ButtonsList);
+	}
+	
+	void AddButton(int X, int Y, int wX, int wY, string text, Color color){
+		ButtonsList.Add (new Button(X, Y, wX, wY, text, color));
+	}
+		
+	public override bool IsGuiOn(){
+		return isGuiOn;
+	}
+	
+	public override void EnterGui(){
+		isGuiOn = true;
+		enabled = true;
+	}
+	
+	public override void ExitGui(){
+		isGuiOn = false;
+		enabled = false;
+	}
+	
+	public void SetDebugData(DebugData debugData){
+		currDebugData = debugData;
+		ButtonsList.Clear();
+		
+		for(int i=0; i<debugData.GetSize(); i++){
+			AddButton (StartX, StartY + ButtonOffsetY * i, WidthX, WidthY, debugData.GetKeyAt(i), Color.white);
+		}
 	}
 }

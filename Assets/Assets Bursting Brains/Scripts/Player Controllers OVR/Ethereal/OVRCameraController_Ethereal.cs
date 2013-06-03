@@ -44,8 +44,7 @@ public class OVRCameraController_Ethereal : CameraController_BB {
 	
 	// Set to true if we want the rotation of the camera controller to be influenced by tracker
 	public bool  		TrackerRotatesY	= false;
-	// Use this to turn on/off Prediction
-	public bool			PredictionOn 	= true;
+	
 	// Use this to decide where tracker sampling should take place
 	// Setting to true allows for better latency, but some systems
 	// (such as Pro water) will break
@@ -341,7 +340,7 @@ public class OVRCameraController_Ethereal : CameraController_BB {
 		sharedOrientation = SharedOrientation;
 	}
 	
-	public void SetSharedOrientation(Quaternion sharedOrientation){
+	public override void SetSharedOrientation(Quaternion sharedOrientation){
 		SharedOrientation = sharedOrientation;
 	}
 	

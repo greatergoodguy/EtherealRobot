@@ -23,6 +23,8 @@ public abstract class PlayerController : MonoBehaviour{
 	}
 	
 	public abstract string GetControllerName();
+	public abstract void SwitchCameraController();
+	public abstract DebugData GetDebugData();
 }
 
 

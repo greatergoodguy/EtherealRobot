@@ -15,6 +15,9 @@ public class GameManager : MonoBehaviour {
 		DebugUtils.Assert(playerManager != null);
 		DebugUtils.Assert(guiManager != null);
 		DebugUtils.Assert(environmentManager != null);
+		
+		guiManager.SetDebugGui(playerManager.GetActivePlayerDebugData());
+		DebugUtils.Assert(playerManager.GetActivePlayerDebugData() != null);
 	}
 	
 	// Update is called once per frame
@@ -32,12 +35,19 @@ public class GameManager : MonoBehaviour {
 		
 		if(InputManager.activeInput.GetButtonDown_CycleActivePlayer()){
 			playerManager.CycleActivePlayer();			
-			guiManager.SetDebugGui();
 		}	
 		
 		if(InputManager.activeInput.GetButtonDown_CycleActiveEnvironment()){
 			playerManager.SetPosition(new Vector3(813, 115, 1174));
 			environmentManager.CycleActiveEnvironment();
+		}
+		
+		if(InputManager.activeInput.GetButtonDown_Pause()){
+			guiManager.TogglePauseGui();
+		}
+		
+		if(InputManager.activeInput.GetButtonDown_Debug()){
+			guiManager.ToggleDebugGui();
 		}
 		
 	}

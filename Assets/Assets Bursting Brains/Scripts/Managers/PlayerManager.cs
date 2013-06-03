@@ -94,10 +94,14 @@ public class PlayerManager : MonoBehaviour {
 	}
 	
 	public PlayerController GetActivePlayerController(){
-		return GetActivePlayer().GetComponent<PlayerController>();	
+		return activePlayer.GetComponent<PlayerController>();	
 	}
 	
 	public void SwitchCameraController(){
 		
+	}
+	
+	public DebugData GetActivePlayerDebugData(){
+		return GetActivePlayerController().GetDebugData();
 	}
 }
