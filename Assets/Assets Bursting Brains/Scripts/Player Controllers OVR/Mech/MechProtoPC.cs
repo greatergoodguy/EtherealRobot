@@ -35,7 +35,7 @@ using System.Collections.Generic;
 // direction on. This game object should also house the body geometry which will be seen
 // by the player.
 //
-public class MechProtoPC : PlayerController_Deprecated {
+public class MechProtoPC : PlayerController {
 	protected CharacterController 	characterController = null;
 	protected OVRCameraController 	CameraController 	= null;
 
@@ -197,21 +197,13 @@ public class MechProtoPC : PlayerController_Deprecated {
 				
 			MoveScale = 1.0f;
 			
-			// * * * * * * * * * * *
-			// Keyboard input
-			
-			// Move
-			
-			// WASD
-			if (Input.GetKey(KeyCode.W)) moveForward = true;
-			if (Input.GetKey(KeyCode.A)) moveLeft	 = true;
-			if (Input.GetKey(KeyCode.S)) moveBack 	 = true; 
-			if (Input.GetKey(KeyCode.D)) moveRight 	 = true; 
-			// Arrow keys
-			if (Input.GetKey(KeyCode.UpArrow))    moveForward = true;
-			if (Input.GetKey(KeyCode.LeftArrow))  moveLeft 	  = true;
-			if (Input.GetKey(KeyCode.DownArrow))  moveBack 	  = true; 
-			if (Input.GetKey(KeyCode.RightArrow)) moveRight   = true; 
+			if (InputManager.activeInput.GetButton_Forward() ||
+				InputManager.activeInput.GetButton_Accel()){
+				moveForward  = true;
+			}
+			if (InputManager.activeInput.GetButton_Left()) 		moveLeft	 = true;
+			if (InputManager.activeInput.GetButton_Backward()) 	moveBack 	 = true; 
+			if (InputManager.activeInput.GetButton_Right()) 	moveRight 	 = true; 
 			
 			if ( (moveForward && moveLeft) || (moveForward && moveRight) ||
 				 (moveBack && moveLeft)    || (moveBack && moveRight) )
@@ -227,7 +219,7 @@ public class MechProtoPC : PlayerController_Deprecated {
 			float moveInfluence = Acceleration * 0.1f * MoveScale * MoveScaleMultiplier;
 			
 			// Run!
-			if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+			if (InputManager.activeInput.DummyButton())
 				moveInfluence *= 2.0f;
 			
 			if(DirXform != null) {
@@ -249,7 +241,7 @@ public class MechProtoPC : PlayerController_Deprecated {
 			
 			
 			//reduce by half to avoid getting ill
-			if (Input.GetKey(KeyCode.Q)){
+			if (InputManager.activeInput.GetButton_RotateBodyLeft()){
 				
 				float degreesPerSecond = -40;
 				Vector3 rotationAmount = Vector3.up * Time.deltaTime * degreesPerSecond;
@@ -257,20 +249,19 @@ public class MechProtoPC : PlayerController_Deprecated {
 				
 				YRotation += rotationAmount.y;
 			}
-			if (Input.GetKey(KeyCode.E)){
+			if (InputManager.activeInput.GetButton_RotateBodyRight()){
 				float degreesPerSecond = 40;
 				Vector3 rotationAmount = Vector3.up * Time.deltaTime * degreesPerSecond;
 				mechGO.transform.Rotate(rotationAmount);
 				
 				YRotation += rotationAmount.y;
 			}
-			if (Input.GetKeyDown(KeyCode.R)){
-				//Quaternion tempRotation = CameraController.transform.rotation;
-				//tempRotation.y = mechGO.transform.rotation.y;
-				//CameraController.transform.rotation = tempRotation;
-				YRotation = 0;
+			
+			if (InputManager.activeInput.GetButtonDown_Jump()){
+				Jump();	
 			}
-		
+			
+			
 			// * * * * * * * * * * *
 			// Mouse input
 			
@@ -278,8 +269,10 @@ public class MechProtoPC : PlayerController_Deprecated {
 			
 			// Rotate
 			float deltaRotation = 0.0f;
-			if(AllowMouseRotation == false)
-				deltaRotation = Input.GetAxis("Mouse X") * rotateInfluence * 3.25f;
+			if(AllowMouseRotation == false){
+				float mouseXaxis = InputManager.activeInput.GetAxis_MouseX();
+				deltaRotation = mouseXaxis * rotateInfluence * 3.25f;
+			}
 			
 			float filteredDeltaRotation = (sDeltaRotationOld * 0.0f) + (deltaRotation * 1.0f);
 			YRotation += filteredDeltaRotation;
