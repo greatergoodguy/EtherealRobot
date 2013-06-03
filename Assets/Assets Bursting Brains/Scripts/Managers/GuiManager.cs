@@ -4,13 +4,13 @@ using System.Collections;
 public class GuiManager : MonoBehaviour {
 	
 	private DebugGui debugGui;
-	private StartGui startGui;
+	private StartMenuGui startGui;
 	private PauseGui pauseGui;
 	
 	// Use this for initialization
 	void Start () {
 		debugGui = GetComponentInChildren<DebugGui>();
-		startGui = GetComponentInChildren<StartGui>();
+		startGui = GetComponentInChildren<StartMenuGui>();
 		pauseGui = GetComponentInChildren<PauseGui>();
 		
 		pauseGui.ExitGui();
@@ -30,7 +30,7 @@ public class GuiManager : MonoBehaviour {
 		
 	}
 	
-	public void SetDebugGui(GameObject activePlayerGO){
-		debugGui.SetNewActivePlayer(activePlayerGO);
+	public void SetDebugGui(){
+		debugGui.SetNewActivePlayer();
 	}
 }

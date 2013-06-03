@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class EtherealPC : PlayerController_Deprecated {
+public class EtherealPC : PlayerController {
 	
 	//private float force = 6.0f;
 	//private float moveSpeed = 5.0f;
@@ -65,6 +65,8 @@ public class EtherealPC : PlayerController_Deprecated {
 	
 	public MouseLook_Ethereal mouseLook;
 	
+	private InputManager inputManager;
+	
 	void Awake () {
 		mouseLook = GetComponentInChildren<MouseLook_Ethereal>();
 		DebugUtils.Assert(mouseLook != null);
@@ -116,6 +118,10 @@ public class EtherealPC : PlayerController_Deprecated {
 		SetCameras();
 		
 		AllowMouseRotation = false;
+		
+		inputManager = GameObject.Find("InputManager").GetComponent<InputManager>();
+		
+		DebugUtils.Assert(inputManager != null);
 	}
 	
 	float contAngle = 0;
@@ -138,7 +144,8 @@ public class EtherealPC : PlayerController_Deprecated {
 		//Vector3 brakeForce = new Vector3();
 		
 		//Basic Movement Acceleration
-		if(Input.GetKey(KeyCode.W)){
+		if(inputManager.activeInput.GetButton_Accel() ||
+			inputManager.activeInput.GetButton_Forward()){
 			
 			Vector3 tempAngMove = transform.position;
 			currSpeed += acceleration;
@@ -149,27 +156,8 @@ public class EtherealPC : PlayerController_Deprecated {
 		}
 		//Brake Mechanic
 		else{				
-			//brakeForce = -cubeForward * currSpeed;
 			rigidbody.AddForce(rigidbody.velocity * -brakeSpeed);
 		}
-		
-		/*if(Input.GetKey(KeyCode.S)){
-			Vector3 tempPos = transform.position;
-			Vector3 tempAngMove = transform.position;
-			tempPos -= cubeForward * moveSpeed;
-			if (angle < 46 && angle > 10 && crossProd.y < 0){
-				degreePerSecond = 80;
-				tempAngMove = Vector3.up * degreePerSecond * Time.deltaTime;
-				transform.Rotate(tempAngMove);				
-			}
-			else if (angle < 46 && angle > 10 && crossProd.y > 0){
-				degreePerSecond = -80;
-				tempAngMove = Vector3.up * degreePerSecond * Time.deltaTime;
-				transform.Rotate(tempAngMove);
-			}
-			tempPos = -cubeForward * moveSpeed * force;
-			rigidbody.AddForce(tempPos);
-		}*/
 		
 		//Steering Mechanics
 		Vector3 angMove = transform.position;
@@ -184,21 +172,16 @@ public class EtherealPC : PlayerController_Deprecated {
 		}
 		
 		//Camera Switch
-		if(Input.GetKeyDown(KeyCode.B)){
+		if(inputManager.activeInput.GetButtonDown_SwitchCameraMode()){
 			SwitchCameraController();
 		}
 		
 		
-		//Jump
-		/*
-		if(IsGrounded() && Input.GetKeyDown(KeyCode.LeftShift)){
-			rigidbody.AddForce(Vector3.up * jumpPower * 100);
-			//canJump = false;
-		}
-		*/
-		if(canJump && Input.GetKeyDown(KeyCode.LeftShift)){
-			rigidbody.AddForce(Vector3.up * jumpPower * 100);
-			canJump = false;
+		if(canJump){
+			if(inputManager.activeInput.GetButtonDown_Jump()){
+				rigidbody.AddForce(Vector3.up * jumpPower * 100);
+				canJump = false;
+			}
 		}
 		
 		// Controls the Camera rotation

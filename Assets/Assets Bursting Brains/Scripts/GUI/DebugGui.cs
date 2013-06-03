@@ -18,14 +18,15 @@ public class DebugGui : MonoBehaviour {
 	private string controllerName   = "Name has not been initialized";
 	
 	private PlayerManager playerManager;
-	private PlayerController_Deprecated activeController;
+	private PlayerController activeController;
 	
 	
 	// Use this for initialization
 	void Start () {
 		playerManager = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
 		
-		activeController = playerManager.GetActivePlayer().GetComponent<PlayerController_Deprecated>();
+		//activeController = playerManager.GetActivePlayer().GetComponent<PlayerController_Deprecated>();
+		activeController = playerManager.GetActivePlayerController();
 		controllerName = activeController.GetControllerName();
 		
 	}
@@ -76,8 +77,8 @@ public class DebugGui : MonoBehaviour {
 		GUI.Box(new Rect(xR, y, sWX, sWY), text);			
 	}
 	
-	public void SetNewActivePlayer(GameObject activePlayerGO){
-		activeController = activePlayerGO.GetComponent<PlayerController_Deprecated>();
+	public void SetNewActivePlayer(){
+		activeController = playerManager.GetActivePlayerController();
 		controllerName = activeController.GetControllerName();
 		print(controllerName);
 	}

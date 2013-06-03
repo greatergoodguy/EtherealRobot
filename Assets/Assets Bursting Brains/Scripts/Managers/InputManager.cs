@@ -6,7 +6,7 @@ public class InputManager : MonoBehaviour {
 	private Input_BB keyboardInput;
 	private Input_BB xboxInput;
 	
-	private Input_BB activeInput;
+	public Input_BB activeInput;
 	
 	void Awake() {
 		keyboardInput = GetComponentInChildren<KeyboardInput>();
@@ -16,12 +16,9 @@ public class InputManager : MonoBehaviour {
 		
 		DebugUtils.Assert(keyboardInput != null);
 		DebugUtils.Assert(xboxInput != null);
+		DebugUtils.Assert(activeInput != null);
 	}
 	
 	void Start() {
-	}
-
-	public Input_BB GetActiveInput() {
-		return activeInput;	
 	}
 }
