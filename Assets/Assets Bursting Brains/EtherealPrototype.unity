@@ -377,7 +377,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &114364187
 Transform:
   m_ObjectHideFlags: 0
@@ -1082,7 +1082,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 451152714}
   m_Layer: 0
-  m_Name: 4 CaveEnvironment
+  m_Name: 2 CaveEnvironment
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2099,7 +2099,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &779614877
 Transform:
   m_ObjectHideFlags: 0
@@ -2592,7 +2592,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 842051271}
   m_Layer: 0
-  m_Name: 3 HillyEnvironmentNew
+  m_Name: 1 HillyEnvironmentNew
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3246,6 +3246,10 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 100084, guid: 000b147b537424827a023fff62533101, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 000b147b537424827a023fff62533101, type: 2}
   m_RootGameObject: {fileID: 779614876}
@@ -3812,6 +3816,8 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0cab2db13444d4d4b94cae1393c0ff1c, type: 3}
   m_Name: 
+  keyboardInput: {fileID: 0}
+  xboxInput: {fileID: 0}
   activeInput: {fileID: 0}
 --- !u!1 &1234387844
 GameObject:
@@ -4087,7 +4093,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1294884099}
   m_Layer: 0
-  m_Name: 2 HillyEnvironmentOld
+  m_Name: 4 HillyEnvironmentOld
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4616,7 +4622,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1481172852}
   m_Layer: 0
-  m_Name: 1 SnowEnvironment
+  m_Name: 3 SnowEnvironment
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4811,9 +4817,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 842051271}
   - {fileID: 1481172852}
   - {fileID: 1294884099}
-  - {fileID: 842051271}
   - {fileID: 451152714}
   m_Father: {fileID: 0}
 --- !u!114 &1551924002
@@ -5667,7 +5673,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: ab385fde899762e4fa8a62b748cb8d0f, type: 2}
       propertyPath: m_Name
-      value: 3 HillyEnvironmentNew
+      value: 1 HillyEnvironmentNew
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ab385fde899762e4fa8a62b748cb8d0f, type: 2}

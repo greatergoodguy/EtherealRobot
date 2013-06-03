@@ -65,8 +65,6 @@ public class EtherealPC : PlayerController {
 	
 	public MouseLook_Ethereal mouseLook;
 	
-	private InputManager inputManager;
-	
 	void Awake () {
 		mouseLook = GetComponentInChildren<MouseLook_Ethereal>();
 		DebugUtils.Assert(mouseLook != null);
@@ -118,10 +116,6 @@ public class EtherealPC : PlayerController {
 		SetCameras();
 		
 		AllowMouseRotation = false;
-		
-		inputManager = GameObject.Find("InputManager").GetComponent<InputManager>();
-		
-		DebugUtils.Assert(inputManager != null);
 	}
 	
 	float contAngle = 0;
@@ -144,8 +138,8 @@ public class EtherealPC : PlayerController {
 		//Vector3 brakeForce = new Vector3();
 		
 		//Basic Movement Acceleration
-		if(inputManager.activeInput.GetButton_Accel() ||
-			inputManager.activeInput.GetButton_Forward()){
+		if(InputManager.activeInput.GetButton_Accel() ||
+			InputManager.activeInput.GetButton_Forward()){
 			
 			Vector3 tempAngMove = transform.position;
 			currSpeed += acceleration;
@@ -172,13 +166,13 @@ public class EtherealPC : PlayerController {
 		}
 		
 		//Camera Switch
-		if(inputManager.activeInput.GetButtonDown_SwitchCameraMode()){
+		if(InputManager.activeInput.GetButtonDown_SwitchCameraMode()){
 			SwitchCameraController();
 		}
 		
 		
 		if(canJump){
-			if(inputManager.activeInput.GetButtonDown_Jump()){
+			if(InputManager.activeInput.GetButtonDown_Jump()){
 				rigidbody.AddForce(Vector3.up * jumpPower * 100);
 				canJump = false;
 			}

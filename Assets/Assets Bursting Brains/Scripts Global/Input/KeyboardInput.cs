@@ -11,6 +11,9 @@ public class KeyboardInput : Input_BB {
 	public override bool GetButton_Left() {			return Input.GetKey(KeyCode.A);}  
 	public override bool GetButton_Right() {		return Input.GetKey(KeyCode.D);}  
 	
+	public override bool GetButton_RotateBodyLeft(){	return Input.GetKey(KeyCode.Q);}  
+	public override bool GetButton_RotateBodyRight() {	return Input.GetKey(KeyCode.E);}  
+	
 	public override bool GetButtonDown_Jump() {		return Input.GetKeyDown(KeyCode.LeftShift);}  
 	
 	public override bool GetButtonDown_Pause() {					return Input.GetKeyDown(KeyCode.P);}
@@ -18,4 +21,6 @@ public class KeyboardInput : Input_BB {
 	public override bool GetButtonDown_CycleActiveEnvironment() {	return Input.GetKeyDown(KeyCode.V);}
 	public override bool GetButtonDown_CycleActivePlayer() {		return Input.GetKeyDown(KeyCode.C);}
 	public override float GetAxis_MouseX() {						return Input.GetAxis("Mouse X");}
+	
+	public override bool DummyButton() { return false;}  
 }
