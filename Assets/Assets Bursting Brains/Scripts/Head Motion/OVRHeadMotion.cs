@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class OVRHeadMotion : HeadMotion {
 	
-	OVRCameraController_Ethereal cameraController;
+	CameraController_BB cameraController;
 	
 	private Queue<Quaternion> camRotationHistory = new Queue<Quaternion>();
 	public int historySize = 15;
@@ -12,7 +12,7 @@ public class OVRHeadMotion : HeadMotion {
 	private Quaternion lastCamRotation = Quaternion.identity;
 	
 	void Start(){
-		cameraController = GetComponent<OVRCameraController_Ethereal>();
+		cameraController = GetComponent<CameraController_BB>();
 	
 		
 		Quaternion currCamRotation = GetCamRotation();		

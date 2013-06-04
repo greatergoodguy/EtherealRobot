@@ -10,8 +10,6 @@ public class PlayerManager : MonoBehaviour {
 	private int activePlayerIndex = 0;
 	private GameObject activePlayer;
 	
-	private Input_BB activeInput;
-	
 	void Awake(){
 		foreach(Transform child in transform)
 			Destroy(child.gameObject);
@@ -95,10 +93,15 @@ public class PlayerManager : MonoBehaviour {
 		return activePlayer;	
 	}
 	
-	public void SetActiveInput(Input_BB newInput){
-		activeInput = newInput;	
-		foreach (DictionaryEntry pair in playerHT) {
-           	PlayerController_Deprecated currentPC = ((GameObject) pair.Value).GetComponent<PlayerController_Deprecated>();
-        }
+	public PlayerController GetActivePlayerController(){
+		return activePlayer.GetComponent<PlayerController>();	
+	}
+	
+	public void SwitchCameraController(){
+		
+	}
+	
+	public DebugData GetActivePlayerDebugData(){
+		return GetActivePlayerController().GetDebugData();
 	}
 }

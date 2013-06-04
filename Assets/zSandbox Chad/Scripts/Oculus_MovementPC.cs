@@ -59,6 +59,8 @@ public class Oculus_MovementPC : PlayerController {
 	//
 	public static bool  AllowMouseRotation      = true;
 	
+	private DebugData debugData = new DebugData();
+	
 	// Use this for initialization
 	void Start () {
 		
@@ -114,12 +116,13 @@ public class Oculus_MovementPC : PlayerController {
 		//Gets forward Vector
 		cubeForward = transform.forward;
 		sphereForward = head.forward;
+		Vector3 sphereAngleVec = new Vector3(sphereForward.x, cubeForward.y, sphereForward.z);
 		
-		float absoluteAngle = Vector3.Angle (cubeForward,sphereForward);
+		float absoluteAngle = Vector3.Angle (cubeForward,sphereAngleVec);
 		
-		contAngle = absoluteAngle * AngleDir(transform.forward, sphereForward, transform.up);
+		contAngle = absoluteAngle * AngleDir(transform.forward, sphereAngleVec, transform.up);
 		//print("cubeForward: " + cubeForward.x + "       sphereForward: " + sphereForward.x);
-		crossProd = Vector3.Cross(cubeForward, sphereForward);
+		crossProd = Vector3.Cross(cubeForward, sphereAngleVec);
 		
 		//Force Vectors
 		Vector3 forwardForce = new Vector3();
@@ -175,6 +178,14 @@ public class Oculus_MovementPC : PlayerController {
 		if(Input.GetKeyDown(KeyCode.V)){
 			standardCam.SetActive(!standardCam.activeSelf);
 			oculusCam.SetActive(!oculusCam.activeSelf);
+		}
+		
+		if(Input.GetKey(KeyCode.E)){
+			transform.rotation = Quaternion.AngleAxis(30, Vector3.up);
+		}
+		
+		if(Input.GetKey(KeyCode.Q)){
+			transform.rotation = Quaternion.AngleAxis(-30, Vector3.up);
 		}
 		
 		//Jump
@@ -281,4 +292,11 @@ public class Oculus_MovementPC : PlayerController {
         }
 
     }
+	
+	public override void SwitchCameraController(){
+	}
+	
+	public override DebugData GetDebugData(){
+		return debugData;
+	}
 }

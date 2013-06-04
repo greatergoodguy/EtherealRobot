@@ -203,7 +203,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1314650922}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.00712013245, y: 1, z: .00712108612}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1872992238}
@@ -279,7 +279,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1679673282}
-  m_LocalRotation: {x: 0, y: .707106829, z: 0, w: .707106709}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 18.5112038, y: 29.7000008, z: 15.459301}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -348,12 +348,17 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2ed6fab912d20420ca5faf053fb1ecb3, type: 3}
   m_Name: 
-  walkAccel: 25
+  walkAccel: 20
   maxWalkSpeed: 4.5
-  deaccel: 15
+  decel: 15
   maxJumpAngle: 60
+  rotationRateQE: 1
+  tiltAngle: 8
+  enableQEKeys: 0
+  enableMouseSteer: 1
   canJump: 0
   grounded: 0
+  currentHorizontalVelo: {x: 0, y: 0}
   stdCamObj: {fileID: 1872992233}
 --- !u!1 &1718969229
 GameObject:
@@ -496,7 +501,6 @@ GameObject:
   - 124: {fileID: 1872992235}
   - 81: {fileID: 1872992234}
   - 114: {fileID: 1872992239}
-  - 114: {fileID: 1872992240}
   m_Layer: 0
   m_Name: Standard Camera
   m_TagString: MainCamera
@@ -572,30 +576,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 1872992233}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e5605bffa047438c8db7c927731ad87, type: 3}
+  m_Script: {fileID: 11500000, guid: 8d726e0afb16b4fd78e6b2a3bee11b83, type: 3}
   m_Name: 
   invertedLook: 0
-  lookSensitivity: 5
-  lookDamp: .100000001
+  lookSensitivity: 2
+  maxAngleY: 50
   yRotateCurrent: 0
-  tiltAngle: 12
-  tiltSensitivity: .5
+  tiltAngle: 6
+  tiltSensitivity: .699999988
   tiltSpeed: 100
-  tiltDamp: .200000003
-  lookDirection: 0
---- !u!114 &1872992240
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1872992233}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3def74562c3424b3d8a4459f93716365, type: 3}
-  m_Name: 
   bobFrequency: .5
-  xRange: .920000017
-  yRange: .879999995
-  bobX: .5
-  bobY: .5
-  jerk: .850000024
+  horizontalBob: .400000006
+  verticalBob: .349999994
+  tiltAngleX: 8
+  tiltAngleZ: 9
+  jerk: .25
+  resetDamp: .150000006
+  resetBobFreq: .0500000007
+  mech: {fileID: 1679673282}
