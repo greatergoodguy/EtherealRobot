@@ -64,6 +64,8 @@ public class OVRCameraController_Ethereal : CameraController_BB {
 	public float 		NearClipPlane   = 0.15f;
 	public float 		FarClipPlane    = 1000.0f;
 	
+	private Vector3		initialForward;
+	
 	// * * * * * * * * * * * * *
 		
 	private MouseLook_Ethereal mouseLook;
@@ -73,6 +75,8 @@ public class OVRCameraController_Ethereal : CameraController_BB {
 		base.Awake();
 		
 		mouseLook = transform.parent.GetComponent<MouseLook_Ethereal>();
+		
+		initialForward = transform.forward;
 	}
 
 	// Start
@@ -379,7 +383,21 @@ public class OVRCameraController_Ethereal : CameraController_BB {
 		QualitySettings.vSyncCount = 			1;
 	}
 	
-	public float GetAngleFromAnchor(){
-		return mouseLook.GetAngleFromAnchor();
+	public float GetOculusAngleFromAnchor(){
+		return mouseLook.GetOculusAngleFromAnchor();
+	}
+	
+	public float GetCamAngleFromLaser(){
+		return mouseLook.GetCamAngleFromLaser(GetCameraForwardVector());
+	}
+	
+	public float GetLaserAngleFromAnchor(){
+		return mouseLook.GetLaserAngleFromAnchor();
+	}
+	
+	public Vector3 GetCameraForwardVector(){
+		Vector3 result = Quaternion.AngleAxis(GetOculusAngleFromAnchor(), Vector3.up) * initialForward;
+		result = result.normalized;
+		return result;	
 	}
 }

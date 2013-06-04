@@ -36,9 +36,8 @@ public class MouseLook_Ethereal : MonoBehaviour {
 		initialQuaternion = transform.localRotation;
 		initialForward = transform.forward;
 		
-		print (initialQuaternion);
-		print (initialForward);
-		
+		//print (initialQuaternion);
+		//print (initialForward);
     }
 	
     void Update ()
@@ -77,8 +76,23 @@ public class MouseLook_Ethereal : MonoBehaviour {
 			activeHeadMotion = mouseHeadMotion;
 	}
 	
-	public float GetAngleFromAnchor(){
+	public float GetOculusAngleFromAnchor(){
 		float result = AngleUtils.GetSignedAngle(transform.parent.forward, transform.forward, transform.up);
+		return result;
+	}
+	
+	public float GetCamAngleFromLaser(Vector3 camForward){
+		float result = AngleUtils.GetSignedAngle(transform.parent.forward, camForward, transform.up);
+		print (result);
+		
+		return result;
+	}
+	
+	public float GetLaserAngleFromAnchor(){
+		float result = AngleUtils.GetSignedAngle(transform.parent.forward, Vector3.forward, Vector3.up);
+		
+		print (result);
+		
 		return result;
 	}
 }
