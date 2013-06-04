@@ -59,7 +59,7 @@ public class Chad_LightMechanic : MonoBehaviour {
 		if(isInLight){
 			print ("Light is good");
 			if(lightIntensity > 1)
-				print ("You must love light");			
+				print ("You must love light");
 		}
 		else{
 			print ("Get in the light!");
