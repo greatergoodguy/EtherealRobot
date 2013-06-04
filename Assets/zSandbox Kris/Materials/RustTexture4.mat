@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: RustTexture1
+  m_Name: RustTexture4
   m_Shader: {fileID: 7, guid: 0000000000000000e000000000000000, type: 0}
   m_ShaderKeywords: []
   m_SavedProperties:
@@ -16,8 +16,8 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: 00190591e18f77648942d7faff33cb2e, type: 3}
-          m_Scale: {x: 20, y: 20}
+          m_Texture: {fileID: 2800000, guid: e6e53f78318c89c4697828f6ddf1ee85, type: 3}
+          m_Scale: {x: 2, y: 2}
           m_Offset: {x: 0, y: 0}
     m_Floats: {}
     m_Colors:

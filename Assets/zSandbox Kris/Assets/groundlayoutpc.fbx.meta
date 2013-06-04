@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 38746b41438a8c140866e47335983d46
+guid: 934effded83951c45a29d6a7135cb2b9
 ModelImporter:
   serializedVersion: 15
   fileIDToRecycleName:
@@ -17,7 +17,7 @@ ModelImporter:
     7400000: Default Take
     9500000: //RootNode
   materials:
-    importMaterials: 0
+    importMaterials: 1
     materialName: 0
     materialSearch: 1
   animations:
@@ -47,7 +47,7 @@ ModelImporter:
     secondaryUVPackMargin: 4
   tangentSpace:
     normalSmoothAngle: 60
-    splitTangentsAcrossUV: 0
+    splitTangentsAcrossUV: 1
     normalImportMode: 1
     tangentImportMode: 1
   importAnimation: 1
