@@ -19,12 +19,7 @@ public class DebugGui : MenuGui {
 	
 	private ArrayList ButtonsList = new ArrayList();
 	
-	private float accel = 0;
-	private float brake = -200;
-	private float maxSpeed = 2000;
-	private float sens = 20;
-	
-	private DebugData currDebugData;
+	private DebugData debugData;
 	
 	// Use this for initialization
 	void Start () {
@@ -39,22 +34,19 @@ public class DebugGui : MenuGui {
 		//AddButton (StartX + 110, StartY + ButtonOffsetY * 5, 100, (int)(WidthY * 1.5f), "Main Menu ", Color.magenta);	
 		
 		//((Button) ButtonsList[0]).ButtonSelected();
-		
-		ExitGui();
 	}
 	
 	
 	// Update is called once per frame
 	void Update () {
-		KeyboardMenuSelection();
-		accel++;
-		maxSpeed--;
-		sens -= .001f;
+		SelectedIndex = GuiUtils.GUIKeyboardUpDown(SelectedIndex, ButtonsList);
 		
-		if(brake < 20)
-			brake++;
-		else
-			brake = -20;
+		if(InputManager.activeInput.GetButton_DebugDecreaseAttribute()){
+			debugData.DebugDecrease(SelectedIndex);
+		}
+		if(InputManager.activeInput.GetButton_DebugIncreaseAttribute()){
+			debugData.DebugIncrease(SelectedIndex);
+		}
 	}
 	
 	void OnGUI(){
@@ -67,30 +59,12 @@ public class DebugGui : MenuGui {
 		
 		// Need to change this for ease of use
 		for(int i = 0; i < ButtonsList.Count; i++){
-			float holder = currDebugData.GetValueAt(i);
+			float holder = debugData.GetValue(i);
 			((Button) (ButtonsList[i])).DynamicDisplay(holder);
 		}
 		
-		// Buttons appear next to currently selected button
-		if(SelectedIndex < 4){
-			GuiUtils.GUIStereoButton (StartX - 32, StartY + ButtonOffsetY * SelectedIndex, 30, 30, "Z", Color.green);
-			GuiUtils.GUIStereoButton (StartX + 202, StartY + ButtonOffsetY * SelectedIndex, 30, 30, "X", Color.green);
-		}	
-		
-	}
-	
-	// Determines what each button does when pressed
-	void KeyboardMenuSelection() {
-		if(Input.GetKeyDown(KeyCode.Return)){
-			if (SelectedIndex == 0){
-				// Resume Game	
-			}
-			if(SelectedIndex == 1){
-				// Quit game	
-			}	
-		}
-		
-		SelectedIndex = GuiUtils.GUIKeyboardUpDown(SelectedIndex, ButtonsList);
+		GuiUtils.GUIStereoButton (StartX - 32, StartY + ButtonOffsetY * SelectedIndex, 30, 30, "Z", Color.green);
+		GuiUtils.GUIStereoButton (StartX + 202, StartY + ButtonOffsetY * SelectedIndex, 30, 30, "X", Color.green);		
 	}
 	
 	void AddButton(int X, int Y, int wX, int wY, string text, Color color){
@@ -112,11 +86,11 @@ public class DebugGui : MenuGui {
 	}
 	
 	public void SetDebugData(DebugData debugData){
-		currDebugData = debugData;
+		this.debugData = debugData;
 		ButtonsList.Clear();
 		
 		for(int i=0; i<debugData.GetSize(); i++){
-			AddButton (StartX, StartY + ButtonOffsetY * i, WidthX, WidthY, debugData.GetKeyAt(i), Color.white);
+			AddButton (StartX, StartY + ButtonOffsetY * i, WidthX, WidthY, debugData.GetKey(i), Color.white);
 		}
 	}
 }
