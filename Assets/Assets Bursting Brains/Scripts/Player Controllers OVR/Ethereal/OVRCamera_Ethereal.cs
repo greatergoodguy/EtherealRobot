@@ -258,6 +258,7 @@ public class OVRCamera_Ethereal : OVRComponent {
 		q = orientationOffset * q;
 		
 		// Multiply in the current HeadQuat (q is now the latest best rotation)
+		
 		if(CameraController != null) {
 			Quaternion DirQ = Quaternion.identity;
 			CameraController.GetSharedOrientation(ref DirQ);
@@ -268,14 +269,35 @@ public class OVRCamera_Ethereal : OVRComponent {
 		// Insertion by Tom
 		//============================
 		
-		float yAngle = CameraController.GetAngleFromAnchor();
+		Quaternion DirQuat = Quaternion.identity;
+		CameraController.GetSharedOrientation(ref DirQuat);
 		
-		//Vector3 forward = q * Vector3.forward;
-		//q = Quaternion.AngleAxis(-yAngle, forward);
+		float ovrToAnchorAngle = CameraController.GetOculusAngleFromAnchor();
+		float camToLaserAngle = CameraController.GetCamAngleFromLaser();
+		float laserToAnchorAngle = CameraController.GetLaserAngleFromAnchor();
+		
+		Vector3 camForward = CameraController.GetCameraForwardVector();
+		
+		Vector3 forward = DirQuat * Vector3.forward;
+		Vector3 up = DirQuat * Vector3.up;
+		Vector3 right = DirQuat * Vector3.right;
+		
+		//print (DirQuat.eulerAngles);
+		//print (q.eulerAngles);
+		
+		Vector3 tempEulerAngle = q.eulerAngles;
+		float newYAngle = -camToLaserAngle;
+		tempEulerAngle.y = newYAngle;
+		q.eulerAngles = tempEulerAngle;
+		
+		//Vector3 flattenCamForward = camForward - up;
+		//q = q * Quaternion.AngleAxis(-yAngle, Vector3.up);
 		
 		//============================
 		
 		// Update camera rotation
+		
+		
 		gameObject.camera.transform.rotation = q;
 		
 		// Update camera position (first add Offset to parent transform)
@@ -284,8 +306,7 @@ public class OVRCamera_Ethereal : OVRComponent {
 	
 		// Adjust neck by taking eye position and transforming through q
 		gameObject.camera.transform.position += q * EyePosition;		
-		
-		
+				
 	}
 	
 	// CreatePerspectiveMatrix
