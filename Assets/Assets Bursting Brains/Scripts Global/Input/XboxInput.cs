@@ -14,8 +14,8 @@ public class XboxInput : Input_BB {
 	public override bool GetButton_RotateBodyLeft(){	return Input.GetKey(KeyCode.Q);}  
 	public override bool GetButton_RotateBodyRight() {	return Input.GetKey(KeyCode.E);}
 	
-	public override bool GetButton_DebugIncreaseAttribute(){	return Input.GetKey(KeyCode.Z);}  
-	public override bool GetButton_DebugDecreaseAttribute() {	return Input.GetKey(KeyCode.X);} 
+	public override bool GetButton_DebugIncreaseAttribute(){	return Input.GetKey(KeyCode.X);}  
+	public override bool GetButton_DebugDecreaseAttribute() {	return Input.GetKey(KeyCode.Z);} 
 	
 	public override bool GetButtonDown_MenuDown() {		return Input.GetKeyDown(KeyCode.W);}  
 	public override bool GetButtonDown_MenuUp() {		return Input.GetKeyDown(KeyCode.S);}  

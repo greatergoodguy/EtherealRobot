@@ -30,8 +30,6 @@ public class StartMenuGui : MenuGui {
 	
 		// Makes first button appear yellow by default
 		((Button) ButtonsList[0]).ButtonSelected();
-		
-		ExitGui();
 	}
 	
 	// Update is called once per frame
