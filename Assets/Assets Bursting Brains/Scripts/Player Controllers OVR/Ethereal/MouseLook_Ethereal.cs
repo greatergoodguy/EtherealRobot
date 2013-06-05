@@ -43,7 +43,7 @@ public class MouseLook_Ethereal : MonoBehaviour {
     void Update ()
     {
         if (axes == RotationAxes.MouseXAndY) {
-            float rotationX = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * sensitivityX;
+            float rotationX = transform.localEulerAngles.y + Input.GetAxis("Xbox_Horizontal") * sensitivityX;
 
             rotationY += Input.GetAxis("Mouse Y") * sensitivityY;
             rotationY = Mathf.Clamp (rotationY, minimumY, maximumY);
