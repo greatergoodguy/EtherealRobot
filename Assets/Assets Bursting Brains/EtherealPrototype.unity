@@ -4423,7 +4423,7 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 119666328}
   m_GameObject: {fileID: 1432115419}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4afe8e19b5524dcfb6957b2fa7b2e8e, type: 3}
   m_Name: 

@@ -82,17 +82,12 @@ public class MouseLook_Ethereal : MonoBehaviour {
 	}
 	
 	public float GetCamAngleFromLaser(Vector3 camForward){
-		float result = AngleUtils.GetSignedAngle(transform.parent.forward, camForward, transform.up);
-		print (result);
-		
+		float result = AngleUtils.GetSignedAngle(camForward, transform.parent.forward, transform.up);		
 		return result;
 	}
 	
 	public float GetLaserAngleFromAnchor(){
 		float result = AngleUtils.GetSignedAngle(transform.parent.forward, Vector3.forward, Vector3.up);
-		
-		print (result);
-		
 		return result;
 	}
 }

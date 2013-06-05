@@ -508,7 +508,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100008}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4afe8e19b5524dcfb6957b2fa7b2e8e, type: 3}
   m_Name: 
@@ -566,11 +566,11 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 41397b9747d3440e28b993b13e922f4d, type: 3}
   m_Name: 
+  PredictionOn: 1
   NeckPosition: {x: 0, y: .699999988, z: 0}
   EyeCenterPosition: {x: 0, y: .150000006, z: .0900000036}
   FollowOrientation: {fileID: 0}
   TrackerRotatesY: 0
-  PredictionOn: 1
   CallInPreRender: 0
   WireMode: 0
   LensCorrection: 1
