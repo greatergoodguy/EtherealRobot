@@ -63,8 +63,8 @@ public class DebugGui : MenuGui {
 			((Button) (ButtonsList[i])).DynamicDisplay(holder);
 		}
 		
-		GuiUtils.GUIStereoButton (StartX - 32, StartY + ButtonOffsetY * SelectedIndex, 30, 30, "Z", Color.green);
-		GuiUtils.GUIStereoButton (StartX + 202, StartY + ButtonOffsetY * SelectedIndex, 30, 30, "X", Color.green);		
+		_GuiUtilsOR.GUIStereoButton (StartX - 32, StartY + ButtonOffsetY * SelectedIndex, 30, 30, "Z", Color.green);
+		_GuiUtilsOR.GUIStereoButton (StartX + 202, StartY + ButtonOffsetY * SelectedIndex, 30, 30, "X", Color.green);		
 	}
 	
 	void AddButton(int X, int Y, int wX, int wY, string text, Color color){
