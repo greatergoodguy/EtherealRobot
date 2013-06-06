@@ -14,6 +14,71 @@ public class EtherealPC : PlayerController {
 	private float currSpeed = 0.0f;
 	private float distToGround;
 	
+	private float increaseRate = 1;
+		
+	public void IncreaseAccel(){
+		acceleration += Time.deltaTime * increaseRate;
+		if(acceleration > MAX_ACCEL){
+			acceleration = MAX_ACCEL;	
+		}
+	}
+	public void DecreaseAccel(){
+		acceleration -= Time.deltaTime * increaseRate;
+		if(acceleration < MIN_ACCEL){
+			acceleration = MIN_ACCEL;	
+		}
+	}
+	public void IncreaseMaxSpeed(){
+		maxSpeed += Time.deltaTime * increaseRate;
+		if(maxSpeed > MAX_TOP_SPEED){
+			maxSpeed = MAX_TOP_SPEED;	
+		}
+	}
+	public void DecreaseMaxSpeed(){
+		maxSpeed -= Time.deltaTime * increaseRate;
+		if(maxSpeed < MIN_TOP_SPEED){
+			maxSpeed = MIN_TOP_SPEED;	
+		}
+	}
+	public void IncreaseSensitivity(){
+		turnSensitivity += Time.deltaTime * increaseRate;
+		if(turnSensitivity > MAX_TURN_SENS){
+			turnSensitivity = MAX_TURN_SENS;	
+		}
+	}
+	public void DecreaseSensitivity(){
+		turnSensitivity -= Time.deltaTime * increaseRate;
+		if(turnSensitivity < MIN_TURN_SENS){
+			turnSensitivity = MIN_TURN_SENS;	
+		}
+	}
+	public void IncreaseBrakeSpeed(){
+		brakeSpeed += Time.deltaTime * increaseRate;
+		if(brakeSpeed > MAX_BRAKE_SPEED){
+			brakeSpeed = MAX_BRAKE_SPEED;	
+		}
+	}
+	public void DecreaseBrakeSpeed(){
+		brakeSpeed -= Time.deltaTime * increaseRate;
+		if(brakeSpeed < MIN_BRAKE_SPEED){
+			brakeSpeed = MIN_BRAKE_SPEED;	
+		}
+	}
+	public void IncreaseJumpPow(){
+		jumpPower += Time.deltaTime * increaseRate;
+		if(jumpPower > MAX_JUMP_POW){
+			jumpPower = MAX_JUMP_POW;	
+		}
+	}
+	public void DecreaseJumpPow(){
+		jumpPower -= Time.deltaTime * increaseRate;
+		if(jumpPower < MIN_JUMP_POW){
+			jumpPower = MIN_JUMP_POW;	
+		}
+	}
+	
+	
+	
 	public static float MIN_TURN_SENS = 1.0f;
 	public static float MAX_TURN_SENS = 8.0f;
 	
@@ -65,7 +130,7 @@ public class EtherealPC : PlayerController {
 	
 	public MouseLook_Ethereal mouseLook;
 	
-	private DebugData debugData = new DebugData();
+	private DebugData debugData;
 	
 	void Awake () {
 		mouseLook = GetComponentInChildren<MouseLook_Ethereal>();
@@ -108,16 +173,36 @@ public class EtherealPC : PlayerController {
 		
 		AllowMouseRotation = false;
 		
-		debugData.AddData("Acceleration: ", ref acceleration);
-		debugData.AddData("Max Speed: ", ref maxSpeed);
-		debugData.AddData("Sensitivy: ", ref turnSensitivity);
-		debugData.AddData("Brake Speed: ", ref turnSensitivity);
+		debugData = new DebugData(this);
+		debugData.AddData("Acceleration: ", 
+			new DebugData.GetValueDelagate(GetAcceleration), 
+			new DebugData.IncreaseDelagate(IncreaseAccel), 
+			new DebugData.DecreaseDelagate(DecreaseAccel));
+		
+		debugData.AddData("Max Speed: ", 
+			new DebugData.GetValueDelagate(GetMaxSpeed),
+			new DebugData.IncreaseDelagate(IncreaseMaxSpeed), 
+			new DebugData.DecreaseDelagate(DecreaseMaxSpeed));
+		
+		debugData.AddData("Sensitivy: ", 
+			new DebugData.GetValueDelagate(GetSensitivity),
+			new DebugData.IncreaseDelagate(IncreaseSensitivity), 
+			new DebugData.DecreaseDelagate(DecreaseSensitivity));
+		
+		debugData.AddData("Brake Speed: ", 
+			new DebugData.GetValueDelagate(GetBrakeSpeed),
+			new DebugData.IncreaseDelagate(IncreaseBrakeSpeed), 
+			new DebugData.DecreaseDelagate(DecreaseBrakeSpeed));
+		
+		debugData.AddData("Jump Power: ", 
+			new DebugData.GetValueDelagate(GetJumpPower),
+			new DebugData.IncreaseDelagate(IncreaseJumpPow), 
+			new DebugData.DecreaseDelagate(DecreaseJumpPow));
 	}
 	
 	float contAngle = 0;
 	// Update is called once per frame
-	void Update () {
-		
+	void Update () {		
 		//Gets forward Vector
 		cubeForward = transform.forward;
 		sphereForward = head.forward;
@@ -234,25 +319,11 @@ public class EtherealPC : PlayerController {
 		return contAngle;
 	}
 	
-	public float GetTurnSensitivity(){
-		return turnSensitivity;
-	}
-	
-	public float GetAcceleration(){
-		return acceleration;
-	}
-	
-	public float GetBrakeSpeed(){
-		return brakeSpeed;
-	}
-	
-	public float GetMaxSpeed(){
-		return maxSpeed;
-	}
-	
-	public float GetJumpPower(){
-		return jumpPower;
-	}
+	public float GetAcceleration(){			return acceleration;}
+	public float GetMaxSpeed(){				return maxSpeed;}
+	public float GetSensitivity(){			return turnSensitivity;}
+	public float GetBrakeSpeed(){			return brakeSpeed;}
+	public float GetJumpPower(){			return jumpPower;}
 	
 	public bool IsGrounded(){
   		return Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.2f);

@@ -25,12 +25,14 @@ public class Button {
 	}
 	
 	public void Display(){
-		GuiUtils.GUIStereoButton(xPos, yPos, xWidth, yWidth, origText, buttonColor);
+		// temporary
+		//_GuiUtilsOR.GUIStereoButton(xPos, yPos, xWidth, yWidth, origText, buttonColor);
+		_GuiUtilsStandard.GUIStereoButton(xPos, yPos, xWidth, yWidth, origText, buttonColor);
 	}
 	
 	public void DynamicDisplay(float num){
 		totalText = origText + num;
-		GuiUtils.GUIStereoButton(xPos, yPos, xWidth, yWidth, totalText, buttonColor);
+		_GuiUtilsOR.GUIStereoButton(xPos, yPos, xWidth, yWidth, totalText, buttonColor);
 	}
 	
 	public void ButtonSelected(){

@@ -3,29 +3,30 @@ using System.Collections;
 
 public class Chad_LightMechanic : MonoBehaviour {
 	
-	private RaycastHit hit;
-	private GameObject player;
-	private GameObject spotlight;
-	private GameObject lightCollider;
-	/*
-	private float playerPosX;
-	private float playerPosZ;
-	private float lightXRange;
-	private float lightZRange;
-	*/
+	//Light detection variables
 	private float range;
 	private int lightIntensity = 0;
 	private bool isInLight = false;
 	
-
+	//Health Mechanic Variables
+	private static float MIN_HEALTH = 0;
+	private static float MAX_HEALTH = 100;
+	private float currentHealth;
+	public float regenRate = 0.5f;
+	
+	//Fading mechanic variables
+	Texture2D fader;
+	private Color currentColor = new Color (0, 0, 0, 0);
+	private Color fromColor = new Color (0, 0, 0, 0);
+	private Color toColor = new Color (0, 0, 0, 1);
+	private float fadeSpeed = 0.5f;
+	
 	// Use this for initialization
 	void Start () {
-		//player = GameObject.FindGameObjectWithTag("Player");
-		//spotlight = GameObject.FindGameObjectWithTag("Light");
-		//lightCollider = GameObject.FindGameObjectWithTag("Light Boundary");
-		//range = spotlight.light.range;
+		fader = new Texture2D(1, 1);
+		fader.SetPixel(0, 0, Color.black);
+		currentHealth = MAX_HEALTH;
 		
-	
 	}
 	
 	/*
@@ -39,43 +40,46 @@ public class Chad_LightMechanic : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		//float dist = Vector3.Distance(player.transform.position, spotlight.transform.position);
-		//Vector3 rayDirection = new Vector3(spotlight.transform.position.x, 0, spotlight.transform.position.z);
 		
-		//Debug.DrawLine(spotlight.transform.position, hit.point, Color.green);
-		
-		/*
-		//Point light recognition
-		if (dist < range){
-			print ("You are in light");
-			
-		}
-		else{
-			print ("You are not in light");
-		}
-		*/
-		
-		//Spotlight recognition
+		currentHealth = Mathf.Clamp(currentHealth, MIN_HEALTH, MAX_HEALTH);
+		//Light recognition and Health implementation
 		if(isInLight){
-			print ("Light is good");
+			currentHealth += regenRate;
 			if(lightIntensity > 1)
-				print ("You must love light");			
+				currentHealth += regenRate;
 		}
-		else{
-			print ("Get in the light!");
-		}
+		else
+			currentHealth -= regenRate;
+
+		print("Health: " + currentHealth);
+	}
+	
+	void OnGUI(){
+		if (lightIntensity <= 0)
+			currentColor = Color.Lerp(currentColor, toColor, Time.deltaTime * fadeSpeed);
+			
+		else if (lightIntensity > 0)
+			currentColor = Color.Lerp(currentColor, fromColor, Time.deltaTime * fadeSpeed);
+		
+		GUI.color = currentColor;
+		GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), fader);
 	}
 	
 	void OnTriggerEnter(Collider collision){
-		lightIntensity ++;
-		if (lightIntensity > 0){
+		if(collision.gameObject.tag == "Light Boundary")
+			lightIntensity ++;
+		
+		if (lightIntensity > 0)
 			isInLight = true;
-		}
+		
     }
+	
 	void OnTriggerExit(Collider collision){
-		lightIntensity --;
-		if (lightIntensity <= 0){
+		if(collision.gameObject.tag == "Light Boundary")
+			lightIntensity --;
+		
+		if (lightIntensity <= 0)
 			isInLight = false;
-		}
-    }
+    
+	}
 }
