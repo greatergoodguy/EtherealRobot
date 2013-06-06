@@ -3,6 +3,6 @@ using System.Collections;
 
 public class MouseHeadMotion : HeadMotion {
 	public override float GetHeadHorizontalAxis(){
-		return Input.GetAxis("Mouse X");	
+		return InputManager.activeInput.GetAxis_MouseX();
 	}
 }
