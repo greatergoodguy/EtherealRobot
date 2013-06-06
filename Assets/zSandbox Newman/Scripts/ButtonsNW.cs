@@ -11,7 +11,6 @@ public class ButtonsNW : MonoBehaviour {
 	private string totalText;  // for dynamic GUI
 	private Color buttonColor;
 	private Color buttonColorOrig;
-	
 
 	public ButtonsNW(int X, int Y, int wX, int wY, string textInfo, Color color){
 		xPos = X;
@@ -26,6 +25,7 @@ public class ButtonsNW : MonoBehaviour {
 	
 	public void Display(){
 		GuiUtilsNW.GUIStereoButton(xPos, yPos, xWidth, yWidth, origText, buttonColor);
+		
 	}
 	
 	public void DynamicDisplay(float num){

@@ -15,6 +15,7 @@ public class GuiUtilsNW : MonoBehaviour {
 	private static float centerX 		= Screen.width/4 + 60;  // Need to figure out true center of Oculus
 	private static float centerY 		= Screen.height/2;
 	
+	
 	// Creates GUI buttons
 	public static void GUIStereoButton(int X, int Y, int wX, int wY, string text, Color color){
 		//int X = (int) rect.x;
