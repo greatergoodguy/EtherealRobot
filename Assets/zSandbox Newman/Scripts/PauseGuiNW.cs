@@ -16,12 +16,15 @@ public class PauseGuiNW : MonoBehaviour {
 	
 	private ArrayList ButtonsList = new ArrayList();
 	
+	private ArrayList InputList = new ArrayList() {"Keyboard", "XBox"};
+	
 	// Use this for initialization
 	void Start () {
 		
 		// Add Buttons here
 		AddButton (StartX, StartY, WidthX, WidthY, "Resume", Color.white);
 		AddButton (StartX, StartY + ButtonOffsetY, WidthX, WidthY, "Debug", Color.white);
+		AddButton (StartX, StartY + ButtonOffsetY, WidthX, WidthY, "Current Input\n", Color.white);
 		AddButton (StartX, StartY + ButtonOffsetY * 2, WidthX, WidthY, "Quit", Color.white);
 	
 		// Makes first button appear yellow by default
@@ -51,10 +54,14 @@ public class PauseGuiNW : MonoBehaviour {
 			if(SelectedIndex == 1){
 				// Go to Debug Menu	
 			}
-			if(SelectedIndex == 2){
+			if(SelectedIndex == 3){
 				// Quit game	
 			}	
 		}
+		
+		/*if(Input.GetKeyDown (KeyCode.LeftArrow && SelectedIndex == 2 )){
+			
+		}*/
 		
 		// Moves between buttons with arrows keys
 		SelectedIndex = GuiUtilsNW.GUIKeyboardUpDown(SelectedIndex, ButtonsList);

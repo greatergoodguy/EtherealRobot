@@ -22,7 +22,8 @@ public class StartMenuGui : MenuGui {
 	// Use this for initialization
 	void Start () {
 		
-		DebugUtils.Assert(startTexture != null);
+		
+		//DebugUtils.Assert(startTexture != null);
 		
 		// Add Buttons here
 		AddButton (StartX, StartY, WidthX, WidthY, "Start", Color.white);
@@ -43,7 +44,8 @@ public class StartMenuGui : MenuGui {
 		}
 		
 		// Renders GUI textures
-		GuiUtils.GUIStereoTexture(200, 150, 500, 500, startTexture);		
+
+		_GuiUtilsStandard.GUIStereoTexture(200, 150, 500, 500, startTexture);		
 		
 		// Renders Buttons
 		for(int i = 0; i < ButtonsList.Count; i++){
@@ -65,7 +67,8 @@ public class StartMenuGui : MenuGui {
 			}	
 		}
 			
-		SelectedIndex = GuiUtils.GUIKeyboardUpDown(SelectedIndex, ButtonsList);
+		// Change this
+		SelectedIndex = _GuiUtilsStandard.GUIKeyboardUpDown(SelectedIndex, ButtonsList);
 	}
 	
 	void AddButton(int X, int Y, int wX, int wY, string text, Color color){
