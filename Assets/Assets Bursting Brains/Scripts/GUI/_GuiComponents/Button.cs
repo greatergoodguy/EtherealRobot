@@ -26,8 +26,11 @@ public class Button {
 	
 	public void Display(){
 		// temporary
-		//_GuiUtilsOR.GUIStereoButton(xPos, yPos, xWidth, yWidth, origText, buttonColor);
-		_GuiUtilsStandard.GUIStereoButton(xPos, yPos, xWidth, yWidth, origText, buttonColor);
+		_GuiUtilsOR.GUIStereoButton(xPos, yPos, xWidth, yWidth, origText, buttonColor);
+		
+		
+		//_GuiUtilsStandard.GUIStereoButton(xPos, yPos, xWidth, yWidth, origText, buttonColor);
+		
 	}
 	
 	public void DynamicDisplay(float num){
