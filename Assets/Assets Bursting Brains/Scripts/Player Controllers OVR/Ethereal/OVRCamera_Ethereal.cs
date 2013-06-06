@@ -276,6 +276,8 @@ public class OVRCamera_Ethereal : OVRComponent {
 		float camToLaserAngle = CameraController.GetCamAngleFromLaser();
 		float laserToAnchorAngle = CameraController.GetLaserAngleFromAnchor();
 		
+		print (camToLaserAngle + "  " + ovrToAnchorAngle);
+		
 		Vector3 camForward = CameraController.GetCameraForwardVector();
 		
 		Vector3 forward = DirQuat * Vector3.forward;
@@ -286,7 +288,10 @@ public class OVRCamera_Ethereal : OVRComponent {
 		//print (q.eulerAngles);
 		
 		Vector3 tempEulerAngle = q.eulerAngles;
-		float newYAngle = -camToLaserAngle;
+		float newYAngle = camToLaserAngle + ovrToAnchorAngle + ovrToAnchorAngle/2;
+		
+		print("newAngle: " + newYAngle);
+		
 		tempEulerAngle.y = newYAngle;
 		q.eulerAngles = tempEulerAngle;
 		

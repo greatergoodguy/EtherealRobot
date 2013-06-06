@@ -62,6 +62,7 @@ public class OVRGamepadController : MonoBehaviour
                     Debug.Log(string.Format("GamePad {0} found", pidx));
                     playerIndex = pidx;
                     playerIndexSet = true;
+			
                 }
             }
         }
