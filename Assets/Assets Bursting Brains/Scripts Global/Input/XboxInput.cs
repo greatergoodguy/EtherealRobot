@@ -22,7 +22,7 @@ public class XboxInput : Input_BB {
 	//	float axis7 = Input.GetAxis("Axis_7");
 	//	return Input.GetKeyDown(KeyCode.JoystickButton1);
 	//}
-	public override bool GetButtonDown_SelectMenuItem() {return Input.GetKeyDown(KeyCode.JoystickButton7);}
+	public override bool GetButtonDown_SelectMenuItem() {return Input.GetKeyDown(KeyCode.JoystickButton4);}
 	public override bool GetButtonDown_Jump() {		return Input.GetKeyDown(KeyCode.JoystickButton9);}  
 	public override bool GetButtonDown_SwitchCameraMode() {			return Input.GetKeyDown(KeyCode.B);}
 	
