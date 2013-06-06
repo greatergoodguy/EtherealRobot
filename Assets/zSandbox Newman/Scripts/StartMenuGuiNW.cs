@@ -63,6 +63,13 @@ public class StartMenuGuiNW : MonoBehaviour {
 			}	
 		}
 		
+		/*if(Input.GetKeyDown (KeyCode.T)){
+			ORView = !ORView;
+		}*/
+		
+		
+		//if(InputManager.activeInput.
+		
 		// Moves between buttons with arrows keys
 		
 		/*

@@ -1,19 +1,8 @@
 using UnityEngine;
 using System.Collections;
 
-public class GuiUtils : MonoBehaviour {
+public class _GuiUtilsOR : MonoBehaviour {
 	
-	public static void GUIStereoButton(int X, int Y, int wX, int wY, string text, Color color){
-	}
-	
-	public static void GUIStereoTexture(int X, int Y, int wX, int wY, Texture texture){
-	}
-
-	public static void GUIStereoTextureCentered(float X, float Y, Texture texture){
-	}
-	
-	
-	/*
 	static public Font 	FontReplaceSmall	= null;
 	static public Font 	FontReplaceLarge	= null;
 	static private int    	StereoSpreadX 	= -40;	
@@ -99,7 +88,7 @@ public class GuiUtils : MonoBehaviour {
 			GUI.skin.font = FontReplaceLarge;
 		else
 			GUI.skin.font = FontReplaceSmall;
-	}*/
+	}
 	
 	public static int GUIKeyboardUpDown(int index, ArrayList ButtonsList){
 		
