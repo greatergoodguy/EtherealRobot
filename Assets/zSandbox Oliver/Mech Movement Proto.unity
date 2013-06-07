@@ -234,7 +234,7 @@ Light:
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: .600000024
-  m_Range: 20
+  m_Range: 30
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -264,7 +264,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 345977448}
-  m_LocalRotation: {x: .0436193943, y: 0, z: 0, w: .999048233}
+  m_LocalRotation: {x: .0697564781, y: 0, z: 0, w: .997564077}
   m_LocalPosition: {x: .300000012, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -410,8 +410,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 973954242}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.000182098447, y: 2.49605751, z: .11388427}
-  m_LocalScale: {x: .00241084327, y: .291784853, z: .00242315116}
+  m_LocalPosition: {x: -.000182098447, y: 2.24375916, z: .11388427}
+  m_LocalScale: {x: .00408275984, y: .494137108, z: .00410360238}
   m_Children: []
   m_Father: {fileID: 1718969233}
 --- !u!23 &973954244
@@ -625,8 +625,7 @@ MonoBehaviour:
   maxJumpAngle: 60
   rotationRateQE: 1
   tiltAngle: 8
-  enableQEKeys: 0
-  enableMouseSteer: 1
+  oculusMode: 0
   canJump: 0
   grounded: 0
   currentHorizontalVelo: {x: 0, y: 0}

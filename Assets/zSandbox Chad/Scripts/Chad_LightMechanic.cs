@@ -4,9 +4,14 @@ using System.Collections;
 public class Chad_LightMechanic : MonoBehaviour {
 	
 	//Light detection variables
-	private float range;
+	private float range = 10.3f;       //needs to be calculated for different sized spotlights
 	private int lightIntensity = 0;
 	private bool isInLight = false;
+	private GameObject light;
+	private Vector3 playerPos;
+	private Vector3 lightPos;
+	private Vector3 direction;
+	
 	
 	//Health Mechanic Variables
 	private static float MIN_HEALTH = 0;
@@ -20,13 +25,14 @@ public class Chad_LightMechanic : MonoBehaviour {
 	private Color fromColor = new Color (0, 0, 0, 0);
 	private Color toColor = new Color (0, 0, 0, 1);
 	private float fadeSpeed = 0.5f;
-	
+
 	// Use this for initialization
 	void Start () {
 		fader = new Texture2D(1, 1);
 		fader.SetPixel(0, 0, Color.black);
 		currentHealth = MAX_HEALTH;
-		
+		light = GameObject.Find("Spotlight");
+	
 	}
 	
 	/*
@@ -40,9 +46,18 @@ public class Chad_LightMechanic : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		RaycastHit hit;
+		lightPos = light.transform.position;
+		playerPos = transform.position;
 		
+		isInLight = Physics.Raycast(light.transform.position, direction, range);
+		
+		direction = playerPos - lightPos;
+		Debug.DrawRay(lightPos, direction, Color.green);
+		//print(Vector3.Distance(playerPos, lightPos));
 		currentHealth = Mathf.Clamp(currentHealth, MIN_HEALTH, MAX_HEALTH);
 		//Light recognition and Health implementation
+		/*
 		if(isInLight){
 			currentHealth += regenRate;
 			if(lightIntensity > 1)
@@ -50,21 +65,30 @@ public class Chad_LightMechanic : MonoBehaviour {
 		}
 		else
 			currentHealth -= regenRate;
-
-		print("Health: " + currentHealth);
+		//print("Health: " + currentHealth);
+		*/
+		if(isInLight && gameObject.tag == "Player"){
+			currentHealth += regenRate;
+			
+		}
+		else{
+			currentHealth -= regenRate;
+		}
+		print (currentHealth);
 	}
 	
 	void OnGUI(){
-		if (lightIntensity <= 0)
+		if (!isInLight)
 			currentColor = Color.Lerp(currentColor, toColor, Time.deltaTime * fadeSpeed);
 			
-		else if (lightIntensity > 0)
+		else if (isInLight && gameObject.tag == "Player")
 			currentColor = Color.Lerp(currentColor, fromColor, Time.deltaTime * fadeSpeed);
 		
 		GUI.color = currentColor;
 		GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), fader);
 	}
 	
+	/*
 	void OnTriggerEnter(Collider collision){
 		if(collision.gameObject.tag == "Light Boundary")
 			lightIntensity ++;
@@ -82,4 +106,5 @@ public class Chad_LightMechanic : MonoBehaviour {
 			isInLight = false;
     
 	}
+	*/
 }

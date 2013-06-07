@@ -12,8 +12,7 @@ public class MechPlayerControl : MonoBehaviour {
 	private float tiltDamp = 0.1f;
 	private float tiltSpeed;
 	//public float maxYAngle = 50f;
-	public bool enableQEKeys = false;
-	public bool enableMouseSteer = true;
+	public bool oculusMode = false;
 	public bool canJump = false;
 	public bool grounded = false;
 	private float rotationAngle;
@@ -44,8 +43,13 @@ public class MechPlayerControl : MonoBehaviour {
 		}
 		
 		// move/accelerate the player
-		if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0) {
-			rigidbody.AddRelativeForce (Input.GetAxis("Horizontal") * walkAccel, 0f, Input.GetAxis("Vertical") * walkAccel);
+		//if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0) {
+		//	rigidbody.AddRelativeForce (Input.GetAxis("Horizontal") * walkAccel, 0f, Input.GetAxis("Vertical") * walkAccel);
+		if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)) { 
+			if (Input.GetKey(KeyCode.W)) rigidbody.AddRelativeForce (0f, 0f, 1f * walkAccel);
+			if (Input.GetKey(KeyCode.S)) rigidbody.AddRelativeForce (0f, 0f, -1f * walkAccel);
+			if (Input.GetKey(KeyCode.A)) rigidbody.AddRelativeForce (-1f * walkAccel, 0f, 0f);
+			if (Input.GetKey(KeyCode.D)) rigidbody.AddRelativeForce (1f * walkAccel, 0f, 0f); 
 		// stop/decelerate the player
 		} else {
 			rigidbody.velocity = new Vector3 (
@@ -53,10 +57,8 @@ public class MechPlayerControl : MonoBehaviour {
 				rigidbody.velocity.y, 
 				Mathf.SmoothDamp (currentHorizontalVelo.y, 0f, ref decelVeloZ, decel));
 		}
-		// TODO: implement lumbering movement with QE steering when at a standstill
-		// rotates player with Q and E
-		if (enableQEKeys) {
-			enableMouseSteer = false;
+		// OCULUS MODE: rotates player with Q and E
+		if (oculusMode) {
 			if (Input.GetKey(KeyCode.Q)) {
 				rotationAngle -= rotationRateQE;
 				zRotateTarget = tiltAngle;
@@ -68,24 +70,15 @@ public class MechPlayerControl : MonoBehaviour {
 			}
 			// TODO: might need to handle overflow for zoolander edge case
 			//rotationAngle = Mathf.Clamp(rotationAngle, -maxYAngle, maxYAngle);
-		}
-		
-		// TODO: Find out if designers want option for QE keys in mouse steering mode.
-		// They better not because that's fucking stupid. Whoever says 'yes' better have a damn good reason. 
-		// Control Oculus switch with one boolean if designers are smart.
-		
-		// Mouse Mode: rotates the player model with mouse/camera movement
-		if (enableMouseSteer) {
-			enableQEKeys = false;
+			// TODO: finish lumbering rotation around the z-axis in Oculus Mode
+			zRotateCurrent = Mathf.SmoothDamp (zRotateCurrent, zRotateTarget, ref tiltSpeed, tiltDamp);
+			transform.rotation = Quaternion.Euler (0.0f, rotationAngle,	zRotateCurrent);		
+		// MOUSE MODE: rotates the player model with mouse/camera movement
+		} else {
 			transform.rotation = Quaternion.Euler (
 				0.0f, 
 				stdCamObj.GetComponent<MechCameraControl>().yRotateCurrent + rotationAngle,
 				0.0f);
-		// OCULUS MODE, MOTHERFUCKERS!
-		} else {
-			// TODO: finish lumbering rotation around the z-axis in Oculus Mode
-			zRotateCurrent = Mathf.SmoothDamp (zRotateCurrent, zRotateTarget, ref tiltSpeed, tiltDamp);
-			transform.rotation = Quaternion.Euler (0.0f, rotationAngle,	zRotateCurrent);		
 		}
 	}
 
@@ -109,9 +102,12 @@ public class MechPlayerControl : MonoBehaviour {
 	}
 	
 	// detects if player is in the air
-	void OnCollisionExit () {
+	void OnCollisionExit (Collision collisionInfo) {
 	
-		grounded = canJump = false;
-		Debug.Log ("I BELIEVE I CAN FLY!");
+		string objName = collisionInfo.gameObject.name;
+		if (objName.Equals("Plane") || objName.Equals("HillyTerrain")) {
+			grounded = canJump = false;
+			Debug.Log ("I BELIEVE I CAN FLY!");
+		}
 	}
 }
