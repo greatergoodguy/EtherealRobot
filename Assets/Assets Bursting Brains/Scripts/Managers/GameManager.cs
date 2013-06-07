@@ -53,12 +53,5 @@ public class GameManager : MonoBehaviour {
 			InputManager.ToggleInput();
 		}
 		
-		
-		float val = Input.GetAxis("Menu Axis");
-		Debug.Log ("Left Analog: " + val);
-		
-		//float qwe = Input.GetAxis("R_Trigger");
-		//			Debug.Log ("Right Trigger Pressed: " + qwe);
-		
 	}
 }
