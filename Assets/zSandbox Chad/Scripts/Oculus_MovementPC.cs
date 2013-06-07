@@ -87,13 +87,14 @@ public class Oculus_MovementPC : PlayerController {
 		OVRCameraController[] CameraControllers;
 		CameraControllers = gameObject.GetComponentsInChildren<OVRCameraController>();
 		
+		/*
 		if(CameraControllers.Length == 0)
 			Debug.LogWarning("OVRPlayerController: No OVRCameraController attached.");
 		else if (CameraControllers.Length > 1)
 			Debug.LogWarning("OVRPlayerController: More then 1 OVRCameraController attached.");
 		else
 			CameraController = CameraControllers[0];
-		
+		*/
 		distToGround = collider.bounds.extents.y;
 		cube = transform.position;
 		sphereForward = transform.position;

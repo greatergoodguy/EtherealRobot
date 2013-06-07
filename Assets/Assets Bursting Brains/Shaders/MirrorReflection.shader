@@ -1,59 +1,21 @@
-// Upgrade NOTE: replaced 'PositionFog()' with multiply of UNITY_MATRIX_MVP by position
-// Upgrade NOTE: replaced 'V2F_POS_FOG' with 'float4 pos : SV_POSITION'
-
-Shader "FX/Mirror Reflection" {
+Shader "FX/Mirror Reflection" { 
 Properties {
-    _ReflectColor ("Reflection Color", Color) = (1,1,1,0.5)
-    _ReflectionTex ("Environment Reflection", 2D) = "" {}
-}  
-
-// -----------------------------------------------------------
-// ARB vertex program
-
-Subshader {
-    Pass {
-    
-CGPROGRAM
-// profiles arbfp1
-// vertex vert
-// fragmentoption ARB_precision_hint_fastest 
-// fragmentoption ARB_fog_exp2
-
-#include "UnityCG.cginc"
-
-struct v2f {
-    float4 pos : SV_POSITION;
-    float4 ref : TEXCOORD0;
-};
-
-v2f vert(appdata_base v)
-{
-    v2f o;
-    o.pos = mul (UNITY_MATRIX_MVP, v.vertex);
-    
-    // calculate the reflection vector
-    float4x4 mat= float4x4 (
-        .5, 0, 0,.5,
-         0,.5, 0,.5,
-         0, 0,.5,.5,
-         0, 0, 0, 1
-    );    
-    o.ref = mul (mat, o.pos);
-    
-    return o;
+    _MainTex ("Base (RGB)", 2D) = "white" {}
+    _ReflectionTex ("Reflection", 2D) = "white" { TexGen ObjectLinear }
 }
-ENDCG
 
-        SetTexture [_ReflectionTex] { constantColor[_ReflectColor] combine texture * constant }
+// two texture cards: full thing
+Subshader { 
+    Pass {
+        SetTexture[_MainTex] { combine texture }
+        SetTexture[_ReflectionTex] { matrix [_ProjMatrix] combine texture * previous }
     }
 }
 
-// -----------------------------------------------------------
-//  Fallback to non-reflective for older cards or Unity non-Pros
-
+// fallback: just main texture
 Subshader {
     Pass {
-        SetTexture [_MainTex] { constantColor[_ReflectColor] combine constant }
+        SetTexture [_MainTex] { combine texture }
     }
 }
 

@@ -7,7 +7,7 @@ public class MechCameraControl : MonoBehaviour {
 	public bool invertedLook = false;
 	public float lookSensitivity = 2.0f;
 	public float maxAngleY = 50f;       // only applies when mouse steering is disabled
-	private bool enableMouseSteer;
+	private bool oculusMode;
 	private float lookDamp = 0.1f;
 	private float xRotateTarget;
 	private float yRotateTarget;
@@ -61,7 +61,7 @@ public class MechCameraControl : MonoBehaviour {
 	void Update () {
 	
 		// TODO: maybe consider using a message rather than pinging parent each frame
-		enableMouseSteer = mech.GetComponent<MechPlayerControl>().enableMouseSteer;
+		oculusMode = mech.GetComponent<MechPlayerControl>().oculusMode;
 		
 		mouseLook();
 		headBob();
@@ -72,7 +72,7 @@ public class MechCameraControl : MonoBehaviour {
 		// transform.Translate(current sine pos - previous, current sine pos - previous, 0f);	
 		
 		// Apply headbob and mouselook rotations to camera
-		if (enableMouseSteer) {
+		if (!oculusMode) {
 			transform.rotation = Quaternion.Euler (
 				xRotateCurrent + (yMovement * tiltAngleX), 
 				yRotateCurrent, 
@@ -104,7 +104,7 @@ public class MechCameraControl : MonoBehaviour {
 		lookDirection = Mathf.Lerp (lookDirection, mouseXLoc, tiltSpeed * Time.deltaTime); 
 
 		// CLASSIC MODE: Mouse Steering enabled
-		if (enableMouseSteer) {
+		if (!oculusMode) {
 			if (lookDirection > tiltSensitivity) {  // looking right
 				zRotateTarget = -tiltAngle;
 			} else if (lookDirection < -tiltSensitivity) {  // looking left
