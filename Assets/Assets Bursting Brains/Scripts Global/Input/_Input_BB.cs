@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 public abstract class Input_BB {
+	
 	public abstract bool GetButton_Accel();
 	public abstract bool GetButton_Debug();
 	public abstract bool GetButton_Brake();
@@ -22,6 +23,7 @@ public abstract class Input_BB {
 	public abstract bool GetButtonDown_SelectMenuItem();
 	public abstract bool GetButtonDown_Jump();
 	public abstract bool GetButtonDown_SwitchCameraMode();
+	public abstract bool GetButtonDown_ToggleInputControls();	
 	
 	public abstract bool GetButtonDown_Pause();
 	public abstract bool GetButtonDown_Debug();

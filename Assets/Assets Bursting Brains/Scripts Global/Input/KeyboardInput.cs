@@ -22,6 +22,10 @@ public class KeyboardInput : Input_BB {
 	public override bool GetButtonDown_SelectMenuItem() {return Input.GetKeyDown(KeyCode.Space);}  
 	public override bool GetButtonDown_Jump() {			return Input.GetKeyDown(KeyCode.LeftShift);}  
 	public override bool GetButtonDown_SwitchCameraMode() {			return Input.GetKeyDown(KeyCode.B);}
+	// 
+	public override bool GetButtonDown_ToggleInputControls() {  	
+		Debug.Log("XBox Input");
+		return Input.GetKeyDown(KeyCode.I);}
 	
 	public override bool GetButtonDown_Pause() {					return Input.GetKeyDown(KeyCode.P);}
 	public override bool GetButtonDown_Debug() {					return Input.GetKeyDown(KeyCode.O);}
