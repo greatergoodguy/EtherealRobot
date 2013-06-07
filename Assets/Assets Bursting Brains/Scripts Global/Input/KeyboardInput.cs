@@ -17,11 +17,11 @@ public class KeyboardInput : Input_BB {
 	public override bool GetButton_DebugIncreaseAttribute(){	return Input.GetKey(KeyCode.X);}  
 	public override bool GetButton_DebugDecreaseAttribute() {	return Input.GetKey(KeyCode.Z);} 
 	
-	public override bool GetButtonDown_MenuDown() {		return Input.GetKeyDown(KeyCode.DownArrow);}  
-	public override bool GetButtonDown_MenuUp() {		return Input.GetKeyDown(KeyCode.UpArrow);}  
-	public override bool GetButtonDown_SelectMenuItem() {return Input.GetKeyDown(KeyCode.KeypadEnter);}  
+	public override bool GetButtonDown_MenuDown() {		return Input.GetKeyDown(KeyCode.UpArrow);}  
+	public override bool GetButtonDown_MenuUp() {		return Input.GetKeyDown(KeyCode.DownArrow);}  
+	public override bool GetButtonDown_SelectMenuItem() {return Input.GetKeyDown(KeyCode.Return);}  
 	public override bool GetButtonDown_Jump() {			return Input.GetKeyDown(KeyCode.LeftShift);}  
-	public override bool GetButtonDown_SwitchCameraMode() {			return Input.GetKeyDown(KeyCode.B);}
+	public override bool GetButtonDown_SwitchCameraMode() {			return Input.GetKeyDown(KeyCode.C);}
 	// 
 	public override bool GetButtonDown_ToggleInputControls() { return Input.GetKeyDown(KeyCode.I);}
 	
