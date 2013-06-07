@@ -44,34 +44,10 @@ public class XboxInput : Input_BB {
 		else{return false;}
 	}
 		
-		
-	/*	
-		float axisVal = Input.GetAxis("Menu Axis");
-		if(!_InputManagerHelper.LeftStickDown() && axisVal == -1)
-			return true;	
-		else
-			return false;
-	}*/
-	/*public override bool GetButtonDown_MenuUp() {
-		float axisVal = Input.GetAxis("Menu Axis");
-		if(!_InputManagerHelper.LeftStickDown() && axisVal == -1)
-			return true;
-		else
-			return false;	
-	}	*/
-		
-	
-	
-	
-	//	float axis7 = Input.GetAxis("Axis_7");
-	//	return Input.GetKeyDown(KeyCode.JoystickButton1);
-	//}
 	public override bool GetButtonDown_SelectMenuItem() {return Input.GetKeyDown(KeyCode.JoystickButton4);}
 	public override bool GetButtonDown_Jump() {		return Input.GetKeyDown(KeyCode.JoystickButton9);}  
 	public override bool GetButtonDown_SwitchCameraMode() {			return Input.GetKeyDown(KeyCode.B);}
-	public override bool GetButtonDown_ToggleInputControls() {		
-		Debug.Log("Keyboard Input");
-		return Input.GetKeyDown(KeyCode.I);}
+	public override bool GetButtonDown_ToggleInputControls() {	return Input.GetKeyDown(KeyCode.I);}
 	
 	public override bool GetButtonDown_Pause() {					return Input.GetKeyDown(KeyCode.JoystickButton7);}
 	public override bool GetButtonDown_Debug() {					return Input.GetKeyDown(KeyCode.JoystickButton6);}
