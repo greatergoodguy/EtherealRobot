@@ -8,7 +8,7 @@ public class XboxInput : Input_BB {
 	
 	public override bool GetButton_Accel() {		return (Input.GetAxis("R_Trigger") > 0.25);}  
 	public override bool GetButton_Debug() {		return true;}  
-	public override bool GetButton_Brake() {		return Input.GetKey(KeyCode.JoystickButton2);}  
+	public override bool GetButton_Brake() {		return Input.GetKey(KeyCode.JoystickButton1);}  
 	
 	public override bool GetButton_Forward() {		return Input.GetKey(KeyCode.W);}  
 	public override bool GetButton_Backward() {		return Input.GetKey(KeyCode.S);}  
@@ -18,8 +18,8 @@ public class XboxInput : Input_BB {
 	public override bool GetButton_RotateBodyLeft(){	return Input.GetKey(KeyCode.Q);}  
 	public override bool GetButton_RotateBodyRight() {	return Input.GetKey(KeyCode.E);}
 	
-	public override bool GetButton_DebugIncreaseAttribute(){	return Input.GetKey(KeyCode.JoystickButton1);}  
-	public override bool GetButton_DebugDecreaseAttribute() {	return Input.GetKey(KeyCode.JoystickButton2);} 
+	public override bool GetButton_DebugIncreaseAttribute(){	return Input.GetKey(KeyCode.JoystickButton5);}  
+	public override bool GetButton_DebugDecreaseAttribute() {	return Input.GetKey(KeyCode.JoystickButton4);} 
 	
 	// public override bool GetButtonDown_MenuDown() {		return Input.GetKeyDown(KeyCode.JoystickButton3);}  
 	// public override bool GetButtonDown_MenuUp() {		return Input.GetKeyDown(KeyCode.JoystickButton0);}
@@ -44,10 +44,11 @@ public class XboxInput : Input_BB {
 		else{return false;}
 	}
 		
-	public override bool GetButtonDown_SelectMenuItem() {return Input.GetKeyDown(KeyCode.JoystickButton4);}
-	public override bool GetButtonDown_Jump() {		return Input.GetKeyDown(KeyCode.JoystickButton9);}  
-	public override bool GetButtonDown_SwitchCameraMode() {			return Input.GetKeyDown(KeyCode.B);}
-	public override bool GetButtonDown_ToggleInputControls() {	return Input.GetKeyDown(KeyCode.I);}
+	public override bool GetButtonDown_SelectMenuItem() {return Input.GetKeyDown(KeyCode.JoystickButton0);}
+	public override bool GetButtonDown_Jump() {		return (Input.GetAxis("L_Trigger") > 0.5);}   
+		// I do not have a controller on me so I'm not sure if this works. - Kris
+	public override bool GetButtonDown_SwitchCameraMode() {			return Input.GetKeyDown(KeyCode.JoystickButton9);}
+	public override bool GetButtonDown_ToggleInputControls() { return Input.GetKeyDown(KeyCode.I);}
 	
 	public override bool GetButtonDown_Pause() {					return Input.GetKeyDown(KeyCode.JoystickButton7);}
 	public override bool GetButtonDown_Debug() {					return Input.GetKeyDown(KeyCode.JoystickButton6);}
