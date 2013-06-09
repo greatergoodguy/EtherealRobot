@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class Chad_LightMechanic : LightDetection {
+public class Chad_FadeMechanic : LightDetection {
 	
 	//Health Mechanic Variables
 	private static float MIN_HEALTH = 0;
@@ -56,25 +56,4 @@ public class Chad_LightMechanic : LightDetection {
 		GUI.color = currentColor;
 		GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), fader);
 	}
-	
-	/*
-	void OnTriggerEnter(Collider collision){
-		if(collision.gameObject.tag == "Light Boundary")
-			lightIntensity ++;
-		
-		if (lightIntensity > 0)
-			isInLight = true;
-		
-    }
-	
-	void OnTriggerExit(Collider collision){
-		if(collision.gameObject.tag == "Light Boundary")
-			lightIntensity --;
-		
-		if (lightIntensity <= 0)
-			isInLight = false;
-    
-	}
-	*/
-
 }
