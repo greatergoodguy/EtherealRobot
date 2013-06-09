@@ -630,7 +630,7 @@ MonoBehaviour:
   oculusMode: 1
   canJump: 0
   grounded: 0
-  currentHorizontalVelo: {x: 0, y: 0}
+  currHoriVelo: {x: 0, y: 0}
   stdCamObj: {fileID: 1872992233}
 --- !u!114 &1679673289
 MonoBehaviour:

@@ -6,12 +6,11 @@ public class MechPlayerControl : MonoBehaviour {
 	public float walkAccel = 20.0f;
 	public float maxWalkSpeed = 4.5f;
 	public float decel = 15.0f;
-	public float maxJumpAngle = 60.0f;		// hill/terrain slope mech cannot jump from
-	public float rotationRateQE = 1.0f;		// y rotation rate with Q and E, degrees per frame
-	public float tiltAngle = 8.0f;			// angle of tilt during y rotation in Oculus mode
-	public float tiltDamp = 0.5f;			// amount of time it takes to reach max tilt angle
+	public float maxJumpAngle = 60.0f;		// Slope of hill/terrain where mech cannot jump
+	public float rotationRateQE = 1.0f;		// Y rotation rate with Q and E, degrees per frame
+	public float tiltAngle = 8.0f;			// Angle of tilt with Q and E while walking
+	public float tiltDamp = 0.5f;			// Number of seconds to reach/return from max tilt
 	private float tiltSpeed;
-	//public float maxYAngle = 50f;
 	public bool oculusMode = false;
 	public bool canJump = false;
 	public bool grounded = false;
@@ -23,51 +22,62 @@ public class MechPlayerControl : MonoBehaviour {
 	private float zRotateCounter;
 	private float zRotateCurrent;
 	private float zRotateTarget;
-	public Vector2 currentHorizontalVelo;	// accessed by cameral control script
-	public GameObject stdCamObj;
+	
+	/* TODO: Implement abstract the control class and have subclass static variables for:
+	 * 1. oculusMode  
+	 * 2. isMoving
+	 * 3. isTurning  
+	 * 4. isGrounded  
+	 * 5. canJump
+	 * 5. currVelo & currHoriVelo 
+	 */
+	public Vector2 currHoriVelo;			// REFACTOR, currently accessed by cam control script
+	public GameObject stdCamObj;			// Janky fix, refactor and remove
 	
 
 	// Initialization
 	void Start () {
-		currentHorizontalVelo = Vector2.zero;
+		currHoriVelo = Vector2.zero;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	
+		/* TODO: JANKY, REFACTOR AND REMOVE THESE TWO VARS */
 		isMoving = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D);
 		isTurning = Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.E); 
 		
-		// check if speed has reached max
-		currentHorizontalVelo.x = rigidbody.velocity.x;
-		currentHorizontalVelo.y = rigidbody.velocity.z;
-		float currVelo = currentHorizontalVelo.magnitude;
-		// if greater than max speed, set to max walk speed
+		// Check if speed has reached max
+		/* TODO: JANKY, REFACTOR AND REMOVE THESE THREE VARS */
+		currHoriVelo.x = rigidbody.velocity.x;
+		currHoriVelo.y = rigidbody.velocity.z;
+		float currVelo = currHoriVelo.magnitude;
+		// If greater than max speed, set to max walk speed
 		if (currVelo > maxWalkSpeed) {
-			currentHorizontalVelo = currentHorizontalVelo.normalized; 
-			currentHorizontalVelo *= maxWalkSpeed;
-			rigidbody.velocity = new Vector3 (currentHorizontalVelo.x, rigidbody.velocity.y, currentHorizontalVelo.y);
+			currHoriVelo = currHoriVelo.normalized; 
+			currHoriVelo *= maxWalkSpeed;
+			rigidbody.velocity = new Vector3 (currHoriVelo.x, rigidbody.velocity.y, currHoriVelo.y);
 		}
 		
 		/* DEPRECATED MOVEMENT IMPLEMENTATION: stopped working after a merge, switched to key based detection
 		if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0) {
 			rigidbody.AddRelativeForce (Input.GetAxis("Horizontal") * walkAccel, 0f, Input.GetAxis("Vertical") * walkAccel);  */
 			
-		// move/accelerate the player
-		if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)) { 
+		// Move/accelerate the player
+		if (isMoving) {
 			if (Input.GetKey(KeyCode.W)) rigidbody.AddRelativeForce (0f, 0f, 1f * walkAccel);
 			if (Input.GetKey(KeyCode.S)) rigidbody.AddRelativeForce (0f, 0f, -1f * walkAccel);
 			if (Input.GetKey(KeyCode.A)) rigidbody.AddRelativeForce (-1f * walkAccel, 0f, 0f);
 			if (Input.GetKey(KeyCode.D)) rigidbody.AddRelativeForce (1f * walkAccel, 0f, 0f); 
-		// stop/decelerate the player
+		// Stop/decelerate the player
 		} else {
 			rigidbody.velocity = new Vector3 (
-				Mathf.SmoothDamp (currentHorizontalVelo.x, 0f, ref decelVeloX, decel),
+				Mathf.SmoothDamp (currHoriVelo.x, 0f, ref decelVeloX, decel),
 				rigidbody.velocity.y, 
-				Mathf.SmoothDamp (currentHorizontalVelo.y, 0f, ref decelVeloZ, decel));
+				Mathf.SmoothDamp (currHoriVelo.y, 0f, ref decelVeloZ, decel));
 		}
 		
-		// OCULUS MODE: rotates player with Q and E
+		// OCULUS MODE: Rotates player with Q and E
 		if (oculusMode) {
 			if (Input.GetKey(KeyCode.Q)) {
 				rotationAngle -= rotationRateQE;
@@ -80,26 +90,26 @@ public class MechPlayerControl : MonoBehaviour {
 			} else {
 				zRotateTarget = 0;
 			}
-			// TODO: might need to handle rotationAngle overflow for zoolander edge case
+			// TODO: Might need to handle rotationAngle overflow for zoolander edge case
 			
-			// adds appropriate tilt angle about the z-axis if moving or turning
+			// Adds appropriate tilt angle about the z-axis if moving or turning
 			if (isMoving || isTurning)
 				zRotateCurrent = Mathf.SmoothDamp (zRotateCurrent, zRotateTarget, ref tiltSpeed, tiltDamp);
-			// apply rotations to mech
+			// Apply rotations to mech
 			transform.rotation = Quaternion.Euler (0.0f, rotationAngle,	zRotateCurrent);		
 			
-		// MOUSE MODE: rotates the player model with mouse/camera movement
+		// MOUSE MODE: Rotates the player model with mouse/camera movement
 		} else {
 			transform.rotation = Quaternion.Euler (
 				0.0f, 
-				stdCamObj.GetComponent<MechCameraControl>().yRotateCurrent + rotationAngle,
+				stdCamObj.GetComponent<MechCameraControl>().yRotateCurrent + rotationAngle,			// JANKY
 				0.0f);
 		}
 	}
 	
 	
 	/* TODO: MAKE THESE LAST THREE METHODS STATIC CLASS METHODS */
-	// detects if player is in contact with the ground
+	// Detects if player is in contact with the ground
 	void OnCollisionEnter (Collision collisionInfo) {
 	
 		// TODO: consider adding a non-rigidbody obj to bottom of mech for grounded buffer
@@ -107,7 +117,7 @@ public class MechPlayerControl : MonoBehaviour {
 		if (objName.Equals("Plane") || objName.Equals("HillyTerrain")) grounded = true;
 		Debug.Log ("OnCollisionEnter object collided with is: " + objName);
 	}
-	// detects if ground player is sloped low enough for jumping
+	// Detects if ground player is sloped low enough for jumping
 	void OnCollisionStay (Collision collisionInfo) {
 	
 		foreach (ContactPoint contact in collisionInfo.contacts) {
@@ -115,7 +125,7 @@ public class MechPlayerControl : MonoBehaviour {
 		}
 		//Debug.Log ("OnCollisionStay object collided with is: " + collisionInfo.gameObject.name);
 	}
-	// detects if player is in the air
+	// Detects if player is in the air
 	void OnCollisionExit (Collision collisionInfo) {
 	
 		string objName = collisionInfo.gameObject.name;

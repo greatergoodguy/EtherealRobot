@@ -3,49 +3,57 @@ using System.Collections;
 
 public class MechCameraControl : MonoBehaviour {
 
-	// class variables for looking
+	// Class variables for looking
 	public bool invertedLook = false;
 	public float lookSensitivity = 2.0f;
-	public float maxLookAngleY = 75f;       // only applies when mouse steering is disabled
+	public float maxLookAngleY = 75f;		// only applies when mouse steering is disabled
 	private bool oculusMode;
 	private float lookDamp = 0.1f;
 	private float xRotateTarget;
 	private float yRotateTarget;
 	private float zRotateTarget;
 	private float xRotateCurrent;
-	public float yRotateCurrent;        // is accessed by player control script
+	public float yRotateCurrent;			// REFACTOR, currently accessed by player control script
 	private float zRotateCurrent = 0.0f;
 	private float xRotateSpeed;
 	private float yRotateSpeed;
 	private float zRotateSpeed;
 	
-	// class variables for look tilting
+	// Class variables for look tilting
 	public float tiltAngle = 8f;
 	public float tiltSensitivity = 0.5f;
 	public float tiltSpeed = 100f;
 	private float tiltDamp = 0.1f;
 	private float lookDirection;
 	
-	// class variables for head bob control
-	public float bobFrequency = 0.4f;	// 0..1 - Adjusts stride
-	public float horizontalBob = 0.45f;	// 0..1 - Adjusts amount of horizontal bob
-	public float verticalBob = 0.35f;	// 0..1 - Adjusts amount of vertical bob
+	// Class variables for head bob control
+	public float bobFrequency = 0.4f;		// 0..1 - Adjusts stride
+	public float horizontalBob = 0.45f;		// 0..1 - Adjusts amount of horizontal bob
+	public float verticalBob = 0.35f;		// 0..1 - Adjusts amount of vertical bob
 	
 	/* NOTE: Tilt angle settings are effected by horizontal and vertical bob settings. 
 	 * Actual tilt angles are approximatly tiltAngleX * verticalBob, etc. */
 	 
-	public float tiltAngleX = 8f;       // Adjusts up/down tilt during bob
-	public float tiltAngleZ = 9f;       // Adjusts left/right tilt during bob
-	public float jerk = 0.25f;	        // 0..1 - Adjust jerky-ness of movement, 1 is smoothest
-	// public float resetDamp = 0.15f;	    // Amount of time it takes to reset position
-	// public float climbBobFreq = 0.1f;  // Adjusts stride during a slow climb
-	private float resetBobFreq = 0.05f;  // Adjusts speed of position reset after walking
+	public float tiltAngleX = 8f;			// Adjusts up/down tilt during bob
+	public float tiltAngleZ = 9f;			// Adjusts left/right tilt during bob
+	public float jerk = 0.25f;				// 0..1 - Adjust jerky-ness of movement, 1 is smoothest
+	// public float resetDamp = 0.15f;	// Amount of time it takes to reset position
+	// public float climbBobFreq = 0.1f;	// Adjusts stride during a slow climb
+	private float resetBobFreq = 0.05f;		// Adjusts speed of position reset after walking
 	private float counter = 0.0f;
 	private float xMovement;
 	private float yMovement;
 	private float distance;
 	
-	public GameObject mech;
+	/* TODO: Implement abstract the control class and have subclass static variables for:
+	 * 1. oculusMode  
+	 * 2. isMoving
+	 * 3. isTurning  
+	 * 4. isGrounded  
+	 * 5. canJump
+	 * 5. currVelo & currHoriVelo 
+	 */
+	public GameObject mech;					// Janky fix, refactor and remove
 	
 	
 	// Awake is always called 
@@ -60,17 +68,14 @@ public class MechCameraControl : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
-		/* TODO: Abstracting the control class and having static variables for:
-		 *   1. oculusMode  2. isMoving  3. isTurning  4. isGrounded  5. currVelo  */
-		oculusMode = mech.GetComponent<MechPlayerControl>().oculusMode;
-		
+		oculusMode = mech.GetComponent<MechPlayerControl>().oculusMode;								// JANKY
 		mouseLook();
 		headBob();
 					
 		// Apply headbob translations camera's position relative to the parent
 		transform.localPosition = new Vector3 (xMovement, yMovement, transform.localPosition.z);
-		// TODO: ?more efficient to translate the existing transform matrix than newing up one and assigning?
-		// transform.Translate(current sine pos - previous, current sine pos - previous, 0f);	
+		// TODO: ?Is it more efficient to translate the existing transform matrix than newing up one and assigning?
+		// transform.Translate (current sine pos - previous, current sine pos - previous, 0f);	
 		
 		// Apply headbob and mouselook rotations to camera
 		if (!oculusMode) {
@@ -105,9 +110,9 @@ public class MechCameraControl : MonoBehaviour {
 
 		// CLASSIC MODE: Mouse Steering enabled
 		if (!oculusMode) {
-			if (lookDirection > tiltSensitivity) {  // looking right
+			if (lookDirection > tiltSensitivity) {			// looking right
 				zRotateTarget = -tiltAngle;
-			} else if (lookDirection < -tiltSensitivity) {  // looking left
+			} else if (lookDirection < -tiltSensitivity) {	// looking left
 				zRotateTarget = tiltAngle;
 			} else { 
 				zRotateTarget = 0.0f;
@@ -118,48 +123,49 @@ public class MechCameraControl : MonoBehaviour {
 		}
 
 		// Smooth out movement
-		// TODO: ?faster using a Vector3?
+		/* TODO: Apply realistic rotation/turning movements in Oculus Mode to Mouse Mode */
 		yRotateCurrent = Mathf.SmoothDamp (yRotateCurrent, yRotateTarget, ref yRotateSpeed, lookDamp);
 		xRotateCurrent = Mathf.SmoothDamp (xRotateCurrent, xRotateTarget, ref xRotateSpeed, lookDamp);
 		zRotateCurrent = Mathf.SmoothDamp (zRotateCurrent, zRotateTarget, ref zRotateSpeed, tiltDamp);
-		// Debug.Log ("xRotateSpeed = "+xRotateSpeed+"\nyRotateSpeed = "+yRotateSpeed+"\nzRotateSpeed = "+zRotateSpeed);
-		// Debug.Log ("xRotateTarget = "+xRotateTarget+"\nyRotateTarget = "+yRotateTarget+"\nzRotateTarget = "+zRotateTarget);
-		// Debug.Log ("xRotateCurrent = "+xRotateCurrent+"\nyRotateCurrent = "+yRotateCurrent+"\nzRotateCurrent = "+zRotateCurrent);
+		// Debug.Log ("ROTATE SPEED\nxRotateSpeed = "+xRotateSpeed+"\nyRotateSpeed = "+yRotateSpeed+"\nzRotateSpeed = "+zRotateSpeed);
+		// Debug.Log ("ROTATE TARGET\nxRotateTarget = "+xRotateTarget+"\nyRotateTarget = "+yRotateTarget+"\nzRotateTarget = "+zRotateTarget);
+		// Debug.Log ("ROTATE CURRENT\nxRotateCurrent = "+xRotateCurrent+"\nyRotateCurrent = "+yRotateCurrent+"\nzRotateCurrent = "+zRotateCurrent);
 	}
 	
 	// Headbob method bobs head as long as mech is moving
 	void headBob () {
 	
+		/* TODO: JANKY, REFACTOR AND REMOVE THESE THREE VARS */
 		bool isMoving = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D);
 		bool isTurning = Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.E);
+		float currVelo;
 		
 		// If player is grounded, then WHIP YO HEAD BACK N FORTH WHIP YO HEAD BACK N FORTH
-		if (mech.GetComponent<MechPlayerControl>().grounded) {
+		if (mech.GetComponent<MechPlayerControl>().grounded) {										// JANKY
 			// Keep counter between 0 and 2PI. Counter will most likely never overflow, just a precaution
 			if (Mathf.Approximately (counter, 2*Mathf.PI) || counter > 2*Mathf.PI) 
 				counter = 0.0f;
 				
-			// mech is trekking about
+			// Mech is trekking about
 			if (isMoving) {
-				/*
-				 * TODO: adapt movement for difficult terrain, use force and velocity
-				// mech traversing difficult terrain
+				/* TODO: Use force and velocity to adapt movement for difficult terrain
+				// Mech traversing difficult terrain
 				if (exerting abnormal force relative to speed) {
 					counter += climbBobFreq;
 					Debug.Log ("Mech Climbing");
 				}
 				*/
-				float currVelo = mech.GetComponent<MechPlayerControl>().currentHorizontalVelo.magnitude;
+				currVelo = mech.GetComponent<MechPlayerControl>().currHoriVelo.magnitude;			// JANKY
 				counter += Mathf.PI * currVelo/80.0f * bobFrequency;
 				// Debug.Log ("Trek Velocity = "+currVelo);
 			
-			// mech is stationary and turning in place
+			// Mech is stationary and turning in place
 			} else if (isTurning) {
 				counter += Mathf.PI * 0.05f * bobFrequency;
 				
-			// mech not moving or moving very slowly
+			// Mech not moving or moving very slowly
 			} else if (xMovement > 0.01f || xMovement < -0.01f) {
-				// mech not moving, finish step animation
+				// Mech not moving, finish step animation
 				counter += resetBobFreq;
 				// Debug.Log ("Mech Stationary and Finishing Step");
 			}
