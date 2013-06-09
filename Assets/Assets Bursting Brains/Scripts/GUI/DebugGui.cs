@@ -54,8 +54,16 @@ public class DebugGui : MenuGui {
 			return;	
 		}
 		
+		
+		if(InputManager.IsXboxInput()){
+			_GuiUtilsOR.GUIStereoButton (StartX, StartY - 60, WidthX, WidthY, "Xbox", Color.cyan);	
+		}
+		else if(InputManager.IsKeyboardInput()){
+			_GuiUtilsOR.GUIStereoButton (StartX, StartY - 60, WidthX, WidthY, "Keyboard", Color.cyan);	
+		}
+		
 		// Title
-		GuiUtils.GUIStereoButton (StartX, StartY - 60, WidthX, WidthY, "Ethereal", Color.cyan);
+		_GuiUtilsOR.GUIStereoButton (StartX, StartY - 100, WidthX, WidthY, "Ethereal", Color.cyan);
 		
 		// Need to change this for ease of use
 		for(int i = 0; i < ButtonsList.Count; i++){

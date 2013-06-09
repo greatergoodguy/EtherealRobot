@@ -9,6 +9,14 @@ public static class InputManager {
 	// public static Input_BB activeInput = xboxInput;
 	public static Input_BB activeInput = keyboardInput;
 	
+	public static bool IsXboxInput(){
+		return activeInput == xboxInput;
+	}
+	
+	public static bool IsKeyboardInput(){
+		return activeInput == keyboardInput;
+	}
+	
 	public static void SwitchToXboxInput(){
 		activeInput = xboxInput;
 	}
