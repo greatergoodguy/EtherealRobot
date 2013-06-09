@@ -6,7 +6,7 @@ public class MechCameraControl : MonoBehaviour {
 	// class variables for looking
 	public bool invertedLook = false;
 	public float lookSensitivity = 2.0f;
-	public float maxAngleY = 50f;       // only applies when mouse steering is disabled
+	public float maxLookAngleY = 75f;       // only applies when mouse steering is disabled
 	private bool oculusMode;
 	private float lookDamp = 0.1f;
 	private float xRotateTarget;
@@ -37,9 +37,9 @@ public class MechCameraControl : MonoBehaviour {
 	public float tiltAngleX = 8f;       // Adjusts up/down tilt during bob
 	public float tiltAngleZ = 9f;       // Adjusts left/right tilt during bob
 	public float jerk = 0.25f;	        // 0..1 - Adjust jerky-ness of movement, 1 is smoothest
-	public float resetDamp = 0.15f;	    // Amount of time it takes to reset position
+	// public float resetDamp = 0.15f;	    // Amount of time it takes to reset position
 	// public float climbBobFreq = 0.1f;  // Adjusts stride during a slow climb
-	public float resetBobFreq = 0.05f;  // Adjusts speed of position reset after walking
+	private float resetBobFreq = 0.05f;  // Adjusts speed of position reset after walking
 	private float counter = 0.0f;
 	private float xMovement;
 	private float yMovement;
@@ -60,7 +60,8 @@ public class MechCameraControl : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
-		// TODO: maybe consider using a message rather than pinging parent each frame
+		/* TODO: Abstracting the control class and having static variables for:
+		 *   1. oculusMode  2. isMoving  3. isTurning  4. isGrounded  5. currVelo  */
 		oculusMode = mech.GetComponent<MechPlayerControl>().oculusMode;
 		
 		mouseLook();
@@ -84,7 +85,6 @@ public class MechCameraControl : MonoBehaviour {
 				zRotateCurrent + (xMovement * tiltAngleZ));		
 		}
 	}
-	
 
 	// Mouselook code that does stuff for looking with mouse
 	void mouseLook () {
@@ -114,7 +114,7 @@ public class MechCameraControl : MonoBehaviour {
 			}
 		// OCULUS MODE: Mouse Steering disabled
 		} else {
-			yRotateTarget = Mathf.Clamp (yRotateTarget, -maxAngleY, maxAngleY);
+			yRotateTarget = Mathf.Clamp (yRotateTarget, -maxLookAngleY, maxLookAngleY);
 		}
 
 		// Smooth out movement
@@ -130,16 +130,17 @@ public class MechCameraControl : MonoBehaviour {
 	// Headbob method bobs head as long as mech is moving
 	void headBob () {
 	
+		bool isMoving = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D);
+		bool isTurning = Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.E);
+		
 		// If player is grounded, then WHIP YO HEAD BACK N FORTH WHIP YO HEAD BACK N FORTH
 		if (mech.GetComponent<MechPlayerControl>().grounded) {
-			// Keep counter between 0 and 2PI
-			// (counter will most likely never overflow, but just incase..)
+			// Keep counter between 0 and 2PI. Counter will most likely never overflow, just a precaution
 			if (Mathf.Approximately (counter, 2*Mathf.PI) || counter > 2*Mathf.PI) 
 				counter = 0.0f;
 				
 			// mech is trekking about
-			if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || 
-				Input.GetKey(KeyCode.A) || Input.GetKey (KeyCode.D)) {
+			if (isMoving) {
 				/*
 				 * TODO: adapt movement for difficult terrain, use force and velocity
 				// mech traversing difficult terrain
@@ -151,13 +152,18 @@ public class MechCameraControl : MonoBehaviour {
 				float currVelo = mech.GetComponent<MechPlayerControl>().currentHorizontalVelo.magnitude;
 				counter += Mathf.PI * currVelo/80.0f * bobFrequency;
 				// Debug.Log ("Trek Velocity = "+currVelo);
-			}
+			
+			// mech is stationary and turning in place
+			} else if (isTurning) {
+				counter += Mathf.PI * 0.05f * bobFrequency;
+				
 			// mech not moving or moving very slowly
-			else if (xMovement > 0.01f || xMovement < -0.01f) {
+			} else if (xMovement > 0.01f || xMovement < -0.01f) {
 				// mech not moving, finish step animation
 				counter += resetBobFreq;
 				// Debug.Log ("Mech Stationary and Finishing Step");
 			}
+			
 			Mathf.Clamp (counter, 0f, 2*Mathf.PI);
 			// Using sine function for head bob
 			// NOTE: sin (x*2) ** 0.5 might also work for vertical head movement
@@ -180,7 +186,6 @@ public class MechCameraControl : MonoBehaviour {
 				mech.rigidbody.velocity.z < 0.5f);
 	}
 	*/
-	
 	/* DEPREMECATED MAYBE
 	// Resets head position when stationary
 	void resetPosition () {

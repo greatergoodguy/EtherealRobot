@@ -624,8 +624,9 @@ MonoBehaviour:
   decel: 15
   maxJumpAngle: 60
   rotationRateQE: 1
-  tiltAngle: 8
-  oculusMode: 0
+  tiltAngle: 7
+  tiltDamp: .5
+  oculusMode: 1
   canJump: 0
   grounded: 0
   currentHorizontalVelo: {x: 0, y: 0}
@@ -854,7 +855,7 @@ MonoBehaviour:
   m_Name: 
   invertedLook: 0
   lookSensitivity: 2
-  maxAngleY: 50
+  maxLookAngleY: 75
   yRotateCurrent: 0
   tiltAngle: 6
   tiltSensitivity: .699999988
@@ -865,6 +866,4 @@ MonoBehaviour:
   tiltAngleX: 8
   tiltAngleZ: 9
   jerk: .25
-  resetDamp: .150000006
-  resetBobFreq: .0500000007
   mech: {fileID: 1679673282}
