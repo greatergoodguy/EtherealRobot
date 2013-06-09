@@ -1,25 +1,14 @@
 using UnityEngine;
 using System.Collections;
 
-public class Chad_LightMechanic : MonoBehaviour {
-	
-	//Light detection variables
-	private float range = 10.3f;       //needs to be calculated for different sized spotlights
-	private int lightIntensity = 0;
-	private bool isInLight = true;
-	public static bool IS_IN_LIGHT = false;
-	private GameObject light;
-	private Vector3 playerPos;
-	private Vector3 lightPos;
-	private Vector3 direction;
-	private RaycastHit hit;
-	
+public class Chad_LightMechanic : LightDetection {
 	
 	//Health Mechanic Variables
 	private static float MIN_HEALTH = 0;
 	private static float MAX_HEALTH = 100;
 	private float currentHealth;
 	public float regenRate = 0.5f;
+	private bool isInLight;
 	
 	//Fading mechanic variables
 	Texture2D fader;
@@ -33,8 +22,7 @@ public class Chad_LightMechanic : MonoBehaviour {
 		fader = new Texture2D(1, 1);
 		fader.SetPixel(0, 0, Color.black);
 		currentHealth = MAX_HEALTH;
-		light = GameObject.Find("Spotlight");
-	
+		
 	}
 	
 	/*
@@ -48,36 +36,11 @@ public class Chad_LightMechanic : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		lightPos = light.transform.position;
-		playerPos = transform.position;
 		
-		
-		direction = playerPos - lightPos;
-		Debug.DrawRay(lightPos, direction, Color.green);
-		//print(Vector3.Distance(playerPos, lightPos));
+		isInLight = GetIsInLight();
 		currentHealth = Mathf.Clamp(currentHealth, MIN_HEALTH, MAX_HEALTH);
-		//Light recognition and Health implementation
-		/*
-		if(isInLight){
-			currentHealth += regenRate;
-			if(lightIntensity > 1)
-				currentHealth += regenRate;
-		}
-		else
-			currentHealth -= regenRate;
-		//print("Health: " + currentHealth);
-		*/
-		if(Physics.Raycast(lightPos, direction, out hit, range)){
-			// Ray hits player
-			if(hit.collider.gameObject.CompareTag("Player")){
-				isInLight = true;
-			}
-			//Ray hits non-player
-			else
-				isInLight = false;
-			
-			print (isInLight);
-		}
+	
+		print (isInLight);
 	}
 	
 	void OnGUI(){
@@ -113,8 +76,5 @@ public class Chad_LightMechanic : MonoBehaviour {
     
 	}
 	*/
-	
-	public bool GetIsInLight(){
-		return IS_IN_LIGHT;
-	}
+
 }
