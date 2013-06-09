@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour {
 		}
 		
 		if(InputManager.activeInput.GetButtonDown_CycleActivePlayer()){
-			//playerManager.CycleActivePlayer();			
+			playerManager.CycleActivePlayer();			
 		}	
 		
 		if(InputManager.activeInput.GetButtonDown_CycleActiveEnvironment()){

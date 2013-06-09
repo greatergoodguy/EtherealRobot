@@ -36,8 +36,8 @@ public class MouseLook_Mech : MonoBehaviour {
 		initialQuaternion = transform.localRotation;
 		initialForward = transform.forward;
 		
-		print (initialQuaternion);
-		print (initialForward);
+		//print (initialQuaternion);
+		//print (initialForward);
 		
     }
 	

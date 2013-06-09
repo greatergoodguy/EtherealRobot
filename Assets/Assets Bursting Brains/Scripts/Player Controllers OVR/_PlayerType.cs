@@ -4,7 +4,6 @@
  * player type in the Resources folder.
  */
 
-
 public enum PlayerType {
 	Ethereal
 	,MechProto

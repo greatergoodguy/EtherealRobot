@@ -18,7 +18,7 @@ public static class InputManager {
 	}
 	
 	public static void ToggleInput(){
-		if(activeInput == keyboardInput)
+		if (activeInput == keyboardInput)
 			activeInput = xboxInput;
 		else 
 			activeInput = keyboardInput;
