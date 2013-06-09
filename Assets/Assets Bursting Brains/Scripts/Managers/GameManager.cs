@@ -49,9 +49,20 @@ public class GameManager : MonoBehaviour {
 		if(InputManager.activeInput.GetButtonDown_Debug()){
 			guiManager.ToggleDebugGui();
 		}	
+		
 		if(InputManager.activeInput.GetButtonDown_ToggleInputControls()){
+			if(i == 0){
+				print("Xbox Controls");
+				i = 1;
+			}
+			else{
+				print("Keyboard Controls");
+				i = 0;
+			}
 			InputManager.ToggleInput();
 		}
 		
 	}
+	
+	private int i = 0;
 }
