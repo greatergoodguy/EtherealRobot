@@ -20,15 +20,15 @@ public class MechCC_Proto : MonoBehaviour {
 	private float zRotateSpeed;
 	
 	// Class variables for look tilting
-	public float tiltAngle = 8f;
-	public float tiltSensitivity = 0.5f;
+	public float tiltAngle = 6f;
+	public float tiltSensitivity = 0.7f;
 	public float tiltSpeed = 100f;
 	private float tiltDamp = 0.1f;
 	private float lookDirection;
 	
 	// Class variables for head bob control
-	public float bobFrequency = 0.4f;		// 0..1 - Adjusts stride
-	public float horizontalBob = 0.45f;		// 0..1 - Adjusts amount of horizontal bob
+	public float bobFrequency = 0.5f;		// 0..1 - Adjusts stride
+	public float horizontalBob = 0.4f;		// 0..1 - Adjusts amount of horizontal bob
 	public float verticalBob = 0.35f;		// 0..1 - Adjusts amount of vertical bob
 	
 	/* NOTE: Tilt angle settings are effected by horizontal and vertical bob settings. 
@@ -66,7 +66,7 @@ public class MechCC_Proto : MonoBehaviour {
 	//}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 	
 		oculusMode = mech.GetComponent<MechPC_Proto>().oculusMode;								// JANKY
 		mouseLook();
@@ -142,7 +142,6 @@ public class MechCC_Proto : MonoBehaviour {
 		
 		// If player is grounded, then WHIP YO HEAD BACK N FORTH WHIP YO HEAD BACK N FORTH
 		if (mech.GetComponent<MechPC_Proto>().grounded) {										// JANKY
-			Debug.Log ("is grounded");
 			// Keep counter between 0 and 2PI. Counter will most likely never overflow, just a precaution
 			if (Mathf.Approximately (counter, 2*Mathf.PI) || counter > 2*Mathf.PI) 
 				counter = 0.0f;

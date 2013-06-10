@@ -8,7 +8,7 @@ public class MechPC_Proto : MonoBehaviour {
 	public float decel = 15.0f;
 	public float maxJumpAngle = 60.0f;		// Slope of hill/terrain where mech cannot jump
 	public float rotationRateQE = 1.0f;		// Y rotation rate with Q and E, degrees per frame
-	public float tiltAngle = 8.0f;			// Angle of tilt with Q and E while walking
+	public float tiltAngle = 7.0f;			// Angle of tilt with Q and E while walking
 	public float tiltDamp = 0.5f;			// Number of seconds to reach/return from max tilt
 	private float tiltSpeed;
 	public bool oculusMode = false;
@@ -48,7 +48,7 @@ public class MechPC_Proto : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 
 		grounded = isGrounded();
 		if (InputManager.activeInput.GetButtonDown_SwitchCameraMode())
@@ -119,11 +119,10 @@ public class MechPC_Proto : MonoBehaviour {
 	}
 	
 	void SwitchCameraController () {
-		/* DISABLING CAMERA SWITCH UNTIL OCULUS MODE IS FIXED 
+		// DISABLING CAMERA SWITCH UNTIL OCULUS MODE IS FIXED 
+		oculusMode = !oculusCameraGO.activeSelf;
 		standardCameraGO.SetActive(!standardCameraGO.activeSelf);
-		oculusCameraGO.SetActive(!oculusCameraGO.activeSelf);	
-		oculusMode = !oculusMode;
-		*/
+		oculusCameraGO.SetActive(oculusMode);	
 	}	
 	
 	bool isGrounded () {
