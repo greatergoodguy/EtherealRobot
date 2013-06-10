@@ -24,6 +24,9 @@ public class LaserPointer_Chad : MonoBehaviour {
 		Vector3 origin = transform.position;
 		Vector3 forwardDirection = transform.forward;
 		
+		//Debug.Log ("origin = {"+origin.x+", "+origin.y+", "+origin.z+")");
+		//Debug.Log ("forward vector = {"+forwardDirection.x+", "+forwardDirection.y+", "+forwardDirection.z+")");
+		
 		//print(forwardDirection);
 		
 		Vector3 endPoint = origin + forwardDirection * 10000;

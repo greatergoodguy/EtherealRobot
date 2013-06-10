@@ -19,9 +19,9 @@ public class MechPC_Proto : MonoBehaviour {
 	private float rotationAngle;
 	private float decelVeloX;
 	private float decelVeloZ;
-	private float zRotateCounter;
 	private float zRotateCurrent;
 	private float zRotateTarget;
+	private Vector3 stdCamRot;
 	
 	/* TODO: Implement abstract the control class and have subclass static variables for:
 	 * 1. oculusMode  
@@ -47,12 +47,18 @@ public class MechPC_Proto : MonoBehaviour {
 		oculusCameraGO.SetActive(false);
 	}
 	
+	// Last update
+	void LateUpdate () {
+		if (InputManager.activeInput.GetButtonDown_SwitchCameraMode())
+			SwitchCameraController();
+	}
+	
 	// Update is called once per frame
 	void FixedUpdate () {
 
 		grounded = isGrounded();
-		if (InputManager.activeInput.GetButtonDown_SwitchCameraMode())
-			SwitchCameraController();
+		//if (InputManager.activeInput.GetButtonDown_SwitchCameraMode())
+		//	SwitchCameraController();
 		
 		/* TODO: JANKY, REFACTOR AND REMOVE THESE TWO VARS */
 		isMoving = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D);
@@ -104,7 +110,7 @@ public class MechPC_Proto : MonoBehaviour {
 			// TODO: Might need to handle rotationAngle overflow for zoolander edge case
 			
 			// Adds appropriate tilt angle about the z-axis if moving or turning
-			if (isMoving || isTurning)
+			if (isMoving && isTurning)
 				zRotateCurrent = Mathf.SmoothDamp (zRotateCurrent, zRotateTarget, ref tiltSpeed, tiltDamp);
 			// Apply rotations to mech
 			transform.rotation = Quaternion.Euler (0.0f, rotationAngle,	zRotateCurrent);		
@@ -113,16 +119,30 @@ public class MechPC_Proto : MonoBehaviour {
 		} else {
 			transform.rotation = Quaternion.Euler (
 				0.0f, 
-				stdCamObj.GetComponent<MechCC_Proto>().yRotateCurrent + rotationAngle,			// JANKY
+				stdCamObj.GetComponent<MechCC_Proto>().yRotateCurrent,					// JANKY
 				0.0f);
 		}
 	}
 	
 	void SwitchCameraController () {
-		// DISABLING CAMERA SWITCH UNTIL OCULUS MODE IS FIXED 
-		oculusMode = !oculusCameraGO.activeSelf;
-		standardCameraGO.SetActive(!standardCameraGO.activeSelf);
+		Vector3 updatePosition = transform.localPosition;
+		float updateRift = stdCamObj.GetComponent<MechCC_Proto>().yRotateCurrent; 
+		float updateStd = rotationAngle;
+		
+		oculusMode = !oculusCameraGO.activeInHierarchy;
+		standardCameraGO.SetActive(!oculusMode);
 		oculusCameraGO.SetActive(oculusMode);	
+		
+		transform.localPosition = updatePosition;
+		
+		if (oculusMode) {
+			rotationAngle = updateRift;
+			Debug.Log ("Updating Oculus: yRotate = "+updateRift);
+		} else {
+			stdCamObj.GetComponent<MechCC_Proto>().yRotateCurrent = updateStd;
+			stdCamObj.GetComponent<MechCC_Proto>().yRotateTarget = updateStd;
+			Debug.Log ("Updating standard cam: yRotate = "+updateStd);
+		}
 	}	
 	
 	bool isGrounded () {

@@ -10,9 +10,11 @@ public class MechCC_Proto : MonoBehaviour {
 	private bool oculusMode;
 	private float lookDamp = 0.1f;
 	private float xRotateTarget;
-	private float yRotateTarget;
+	[HideInInspector]
+	public float yRotateTarget;				// REFACTOR, currently accessed by player control script
 	private float zRotateTarget;
 	private float xRotateCurrent;
+	[HideInInspector]
 	public float yRotateCurrent;			// REFACTOR, currently accessed by player control script
 	private float zRotateCurrent = 0.0f;
 	private float xRotateSpeed;

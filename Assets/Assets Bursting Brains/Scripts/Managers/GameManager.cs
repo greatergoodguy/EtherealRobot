@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+		/*
 		if(Input.GetKeyDown(KeyCode.RightShift)){
 			GameObject camera = playerManager.GetCamera();
 			
@@ -32,6 +34,7 @@ public class GameManager : MonoBehaviour {
 				playerManager.FreezePlayer();
 			}
 		}
+		*/
 		
 		if(InputManager.activeInput.GetButtonDown_CycleActivePlayer()){
 			playerManager.CycleActivePlayer();			

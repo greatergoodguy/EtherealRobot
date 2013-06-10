@@ -81,9 +81,11 @@ public class PlayerManager : MonoBehaviour {
 		return activePlayer.rigidbody.constraints == RigidbodyConstraints.FreezeAll;
 	}
 	
+	/* // TODO: BROKEN
 	public GameObject GetCamera(){
 		return activePlayer.transform.FindChild("OVRCameraController").gameObject;
 	}
+	*/
 	
 	public void SetPosition(Vector3 pos){
 		activePlayer.transform.position = pos;	
