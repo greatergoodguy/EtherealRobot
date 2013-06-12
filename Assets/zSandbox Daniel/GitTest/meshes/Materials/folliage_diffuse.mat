@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: folliage_diffuse
-  m_Shader: {fileID: 4800000, guid: 33a0fe561c5b7ce438363d37d5219351, type: 3}
+  m_Shader: {fileID: 4800000, guid: f21040d953c5ac948b581a6608838cb6, type: 3}
   m_ShaderKeywords: []
   m_SavedProperties:
     serializedVersion: 2
@@ -15,20 +15,6 @@ Material:
       data:
         first:
           name: _MainTex
-        second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _Diffuse
-        second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _Normal
         second:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
@@ -63,6 +49,20 @@ Material:
           m_Offset: {x: 0, y: 0}
       data:
         first:
+          name: _Diffuse
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Normal
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
           name: _SoecularGloss
         second:
           m_Texture: {fileID: 0}
@@ -73,6 +73,34 @@ Material:
           name: _Emmisive
         second:
           m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _emmisivemap
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _speculargloss
+        second:
+          m_Texture: {fileID: 2800000, guid: 4b92c170af6dd0a47a2a00cbb2cb7fe8, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _diffusemap
+        second:
+          m_Texture: {fileID: 2800000, guid: 0ba355cb7a8264f4e8d5e27247e22f0b, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _normalmap
+        second:
+          m_Texture: {fileID: 2800000, guid: 142a4197c78336247b35b2a303a75de3, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
     m_Floats:
@@ -88,6 +116,14 @@ Material:
         first:
           name: _Glossiness
         second: .430051804
+      data:
+        first:
+          name: _specularpower
+        second: 1
+      data:
+        first:
+          name: _rimemmisive
+        second: 1
     m_Colors:
       data:
         first:
@@ -99,13 +135,21 @@ Material:
         second: {r: .462686598, g: .925373077, b: .828306019, a: 1}
       data:
         first:
-          name: _SpecularColor
-        second: {r: .300699413, g: 1, b: 0, a: 1}
-      data:
-        first:
           name: _DiffuseColor
         second: {r: 1, g: 0, b: 0, a: 1}
       data:
         first:
+          name: _SpecularColor
+        second: {r: .300699413, g: 1, b: 0, a: 1}
+      data:
+        first:
           name: _RimColor
         second: {r: 0, g: .118881203, b: 1, a: 1}
+      data:
+        first:
+          name: _rimcolor
+        second: {r: .447761208, g: 1, b: .884145677, a: 1}
+      data:
+        first:
+          name: _diffusecolor
+        second: {r: 1, g: 1, b: 1, a: 1}
