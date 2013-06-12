@@ -195,6 +195,15 @@ public class Oculus_MovementPC : PlayerController {
 			//canJump = false;
 		}
 		
+		//Ground Sticking
+		RaycastHit stick;
+		Vector3 surfaceNormal = new Vector3();
+		if(Physics.Raycast(transform.position, Vector3.down, out stick, 50.0f)){
+			//Vector3 stickToGround = new Vector3(transform.position.x, stick.point.y, transform.position.z);
+			surfaceNormal = stick.normal;
+			rigidbody.AddRelativeForce(surfaceNormal * -10);
+		}
+		
 		// Controls the Camera rotation
 		float rotateInfluence = DeltaTime * RotationAmount * RotationScaleMultiplier;
 		
