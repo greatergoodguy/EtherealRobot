@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: tileincline
-  m_Shader: {fileID: 4800000, guid: 33a0fe561c5b7ce438363d37d5219351, type: 3}
+  m_Shader: {fileID: 4800000, guid: f21040d953c5ac948b581a6608838cb6, type: 3}
   m_ShaderKeywords: []
   m_SavedProperties:
     serializedVersion: 2
@@ -75,17 +75,61 @@ Material:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _emmisivemap
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _speculargloss
+        second:
+          m_Texture: {fileID: 2800000, guid: 2f698eaacf9909c4dbccfe208a33e624, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _diffusemap
+        second:
+          m_Texture: {fileID: 2800000, guid: 00972d32e48ed794e978e4834375a4f9, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _normalmap
+        second:
+          m_Texture: {fileID: 2800000, guid: 36fcc9924b4b12b4e8d853762d821f5b, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
     m_Floats:
       data:
         first:
           name: _rim_power
         second: 3
+      data:
+        first:
+          name: _specularpower
+        second: 1
+      data:
+        first:
+          name: _rimemmisive
+        second: 1
     m_Colors:
+      data:
+        first:
+          name: _Color
+        second: {r: .5, g: .5, b: .5, a: 1}
       data:
         first:
           name: _rim_light_color
         second: {r: .462686598, g: .925373077, b: .828306019, a: 1}
       data:
         first:
-          name: _Color
-        second: {r: .5, g: .5, b: .5, a: 1}
+          name: _rimcolor
+        second: {r: .447761208, g: 1, b: .884145677, a: 1}
+      data:
+        first:
+          name: _diffusecolor
+        second: {r: 1, g: 1, b: 1, a: 1}

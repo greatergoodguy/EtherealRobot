@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: door
-  m_Shader: {fileID: 4800000, guid: 33a0fe561c5b7ce438363d37d5219351, type: 3}
+  m_Shader: {fileID: 4800000, guid: f21040d953c5ac948b581a6608838cb6, type: 3}
   m_ShaderKeywords: []
   m_SavedProperties:
     serializedVersion: 2
@@ -110,6 +110,34 @@ Material:
           m_Texture: {fileID: 2800000, guid: 32a1ab964b0ae4b459b494af0c0b25b1, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _emmisivemap
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _speculargloss
+        second:
+          m_Texture: {fileID: 2800000, guid: 97bab854098c6b24e9ce83e268697aa8, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _diffusemap
+        second:
+          m_Texture: {fileID: 2800000, guid: 613de2551a3f0654ca732367a6fe121c, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _normalmap
+        second:
+          m_Texture: {fileID: 2800000, guid: ebaac3605aa2c5c4b887c57ae049e130, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
     m_Floats:
       data:
         first:
@@ -119,15 +147,23 @@ Material:
         first:
           name: _RimPower
         second: 1.70777202
-    m_Colors:
       data:
         first:
-          name: _rim_light_color
-        second: {r: .462686598, g: .925373077, b: .828306019, a: 1}
+          name: _specularpower
+        second: 0
+      data:
+        first:
+          name: _rimemmisive
+        second: 0
+    m_Colors:
       data:
         first:
           name: _Color
         second: {r: .5, g: .5, b: .5, a: 1}
+      data:
+        first:
+          name: _rim_light_color
+        second: {r: .462686598, g: .925373077, b: .828306019, a: 1}
       data:
         first:
           name: _DiffuseColor
@@ -135,4 +171,12 @@ Material:
       data:
         first:
           name: _Specular_colar_multiplier
+        second: {r: 1, g: 1, b: 1, a: 1}
+      data:
+        first:
+          name: _rimcolor
+        second: {r: .447761208, g: 1, b: .884145677, a: 1}
+      data:
+        first:
+          name: _diffusecolor
         second: {r: 1, g: 1, b: 1, a: 1}

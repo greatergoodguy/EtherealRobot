@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Dirt_diffuse
-  m_Shader: {fileID: 4800000, guid: 33a0fe561c5b7ce438363d37d5219351, type: 3}
+  m_Shader: {fileID: 4800000, guid: f21040d953c5ac948b581a6608838cb6, type: 3}
   m_ShaderKeywords: []
   m_SavedProperties:
     serializedVersion: 2
@@ -47,11 +47,47 @@ Material:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _emmisivemap
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _speculargloss
+        second:
+          m_Texture: {fileID: 2800000, guid: b43d5d08ca3b8954ab7556afb5a511f4, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _diffusemap
+        second:
+          m_Texture: {fileID: 2800000, guid: 48768e6e2e0d4f049a53945737c048bb, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _normalmap
+        second:
+          m_Texture: {fileID: 2800000, guid: ae4ccb86fa9f54e4ebf86a1a28b1cd9f, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
     m_Floats:
       data:
         first:
           name: _rim_power
         second: 2.67307687
+      data:
+        first:
+          name: _specularpower
+        second: 1.57692313
+      data:
+        first:
+          name: _rimemmisive
+        second: 1
     m_Colors:
       data:
         first:
@@ -61,3 +97,11 @@ Material:
         first:
           name: _rim_light_color
         second: {r: .462686598, g: .925373077, b: .828306019, a: 1}
+      data:
+        first:
+          name: _rimcolor
+        second: {r: .447761208, g: 1, b: .884145677, a: 1}
+      data:
+        first:
+          name: _diffusecolor
+        second: {r: 1, g: 1, b: 1, a: 1}
