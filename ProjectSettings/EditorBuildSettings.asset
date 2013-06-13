@@ -4,4 +4,16 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Photon Unity Networking/DemoHub/DemoHub-Scene.unity
+  - enabled: 1
+    path: Assets/Photon Unity Networking/DemoBoxes/DemoBoxes-Scene.unity
+  - enabled: 1
+    path: Assets/Photon Unity Networking/DemoWorker/DemoWorker-Scene.unity
+  - enabled: 1
+    path: Assets/Photon Unity Networking/MarcoPolo-Tutorial/MarcoPolo-Scene.unity
+  - enabled: 1
+    path: Assets/Photon Unity Networking/DemoSynchronization/DemoSynchronization-Scene.unity
+  - enabled: 1
+    path: Assets/Photon Unity Networking/DemoFriendsAndCustomAuth/DemoFriends-Scene.unity
