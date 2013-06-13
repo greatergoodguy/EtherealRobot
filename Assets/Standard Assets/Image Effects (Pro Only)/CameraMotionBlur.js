@@ -224,8 +224,10 @@ public class CameraMotionBlur extends PostEffectsBase
 				// forward (probably most important)
 				blurVector.w = movementScale * (Vector3.Dot(transform.forward, distanceVector) ) * (source.width * 0.5f);
 				// jump (maybe scale down further)
+				// blurVector.x += movementScale * (Vector3.Dot(transform.up, distanceVector) ) * (source.width * 0.5f);
 				blurVector.x += movementScale * (Vector3.Dot(transform.up, distanceVector) ) * (source.width * 0.5f);
 				// strafe (maybe scale down further)
+				// blurVector.y += movementScale * (Vector3.Dot(transform.right, distanceVector) ) * (source.width * 0.5f);
 				blurVector.y += movementScale * (Vector3.Dot(transform.right, distanceVector) ) * (source.width * 0.5f);
 			}
 

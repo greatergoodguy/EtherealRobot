@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class GameManager : MonoBehaviour {
+public class GameManager_BB : MonoBehaviour {
 	private PlayerManager 		playerManager;
 	private GuiManager 			guiManager;
 	private EnvironmentManager	environmentManager;
