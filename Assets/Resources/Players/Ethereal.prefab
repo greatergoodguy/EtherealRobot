@@ -559,10 +559,10 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c0ac00fd2ed244b07a629ec6755315cd, type: 3}
   m_Name: 
-  turnSensitivity: 2
-  acceleration: 1
+  turnSensitivity: .400000006
+  acceleration: .5
   brakeSpeed: 1
-  maxSpeed: 30
+  maxSpeed: 88
   jumpPower: 5
   RotationAmount: 1.5
   mouseLook: {fileID: 0}
