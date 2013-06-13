@@ -8,7 +8,8 @@ public class GameManager : Photon.MonoBehaviour
     public void Awake()
     {
         // PhotonNetwork.logLevel = NetworkLogLevel.Full;
-        if (!PhotonNetwork.connected) {
+        if (!PhotonNetwork.connected)
+        {
             // We must be connected to a photon server! Back to main menu
             Application.LoadLevel(Application.loadedLevel - 1);
             return;
