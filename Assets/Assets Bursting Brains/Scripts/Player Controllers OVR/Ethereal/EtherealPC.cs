@@ -6,13 +6,14 @@ public class EtherealPC : PlayerController {
 	//private float force = 6.0f;
 	//private float moveSpeed = 5.0f;
 	
-	public float turnSensitivity = 2.0f;
-	public float acceleration = 1.0f;
+	public float turnSensitivity = 0.4f;
+	public float acceleration = 0.5f;
 	public float brakeSpeed = 1.0f;			//dont make larger than max speed
-	public float maxSpeed = 30.0f;
+	public float maxSpeed = 88.0f;
 	public float jumpPower = 5.0f;
-	private float currSpeed = 0.0f;
+	private float currForce = 0.0f;
 	private float distToGround;
+	private float velo;
 	
 	private float increaseRate = 1;
 		
@@ -79,17 +80,17 @@ public class EtherealPC : PlayerController {
 	
 	
 	
-	public static float MIN_TURN_SENS = 1.0f;
-	public static float MAX_TURN_SENS = 8.0f;
+	public static float MIN_TURN_SENS = 0.0f;
+	public static float MAX_TURN_SENS = 1.0f;
 	
-	public static float MIN_ACCEL = 1.0f;
+	public static float MIN_ACCEL = 0.1f;
 	public static float MAX_ACCEL = 10.0f;
 	
 	public static float MIN_BRAKE_SPEED= 1.0f;
 	public static float MAX_BRAKE_SPEED = 30.0f;
 	
 	public static float MIN_TOP_SPEED = 10.0f;
-	public static float MAX_TOP_SPEED = 30.0f;
+	public static float MAX_TOP_SPEED = 200.0f;
 	
 	public static float MIN_JUMP_POW = 1.0f;
 	public static float MAX_JUMP_POW = 10.0f;
@@ -102,6 +103,7 @@ public class EtherealPC : PlayerController {
 	private Vector3 sphere;
 	private Vector3 cubeForward;
 	private Vector3 sphereForward;
+	private Vector3 forwardForce;
 	private Vector3 sphereAng;
 	private Vector3 crossProd;
 	private Vector3 forward;
@@ -212,40 +214,53 @@ public class EtherealPC : PlayerController {
 		
 		contAngle = absoluteAngle * AngleDir(transform.forward, sphereAng, transform.up);
 		//print("cubeForward: " + cubeForward.x + "       sphereForward: " + sphereForward.x);
+		Debug.Log ("contAngle = "+contAngle);
 		crossProd = Vector3.Cross(cubeForward, sphereAng);
 		
-		//Force Vectors
-		Vector3 forwardForce = new Vector3();
-		//Vector3 brakeForce = new Vector3();
-		
-		//Basic Movement Acceleration
-		if(InputManager.activeInput.GetButton_Accel() ||
-			InputManager.activeInput.GetButton_Forward()){
-			
-			Vector3 tempAngMove = transform.position;
-			currSpeed += acceleration;
-			currSpeed = Mathf.Clamp(currSpeed, -maxSpeed, maxSpeed);
-			
-			forwardForce = cubeForward * currSpeed;
-			rigidbody.AddForce(forwardForce);
-		}
-		//Brake Mechanic
-		else{				
-			rigidbody.AddForce(rigidbody.velocity * -brakeSpeed);
-		}
-		
 		//Steering Mechanics
-		Vector3 angMove = transform.position;
+		//Vector3 angMove = transform.position;
+		float currAng = Mathf.SmoothDamp(0f, contAngle, ref velo, turnSensitivity);
+		/*
 		if (crossProd.y < 0){
 			angMove = GetAngularDirection(absoluteAngle);
 			angMove = -angMove;
 			transform.Rotate(angMove);				
 		}
-		else if (crossProd.y > 0){
+		else if (crossProd.y > 0) {
 			angMove = GetAngularDirection(absoluteAngle);
 			transform.Rotate(angMove);
 		}
-				
+		*/
+		transform.Rotate(0f, currAng, 0f);
+			
+		//Force Vectors
+		//Vector3 forwardForce = new Vector3();
+		//Vector3 brakeForce = new Vector3();
+		
+		//Velocity Vector
+		Vector3 currVeloVector = rigidbody.velocity;
+		float currVelo = currVeloVector.magnitude;
+		
+		//Basic Movement Acceleration
+		if(InputManager.activeInput.GetButton_Accel() ||
+			InputManager.activeInput.GetButton_Forward()){
+			
+			//Debug.Log ("Current velocity = "+currVelo);
+			if (currVelo < maxSpeed) {
+				currForce += acceleration;
+				forwardForce = cubeForward * currForce;
+				rigidbody.AddForce(forwardForce);
+			} else {
+				rigidbody.AddForce(-forwardForce);
+				forwardForce = cubeForward * currForce;
+				rigidbody.AddForce(forwardForce);
+			}
+		//Brake Mechanic
+		} else {				
+			rigidbody.AddForce(rigidbody.velocity * -brakeSpeed);
+			currForce = 0f;
+		}
+			
 		if(canJump){
 			if(InputManager.activeInput.GetButtonDown_Jump()){
 				rigidbody.AddForce(Vector3.up * jumpPower * 100);
@@ -270,7 +285,7 @@ public class EtherealPC : PlayerController {
 			
 		float filteredDeltaRotation = (sDeltaRotationOld * 0.0f) + (deltaRotation * 1.0f);
 		YRotation += filteredDeltaRotation;
-		sDeltaRotationOld = filteredDeltaRotation;
+		//sDeltaRotationOld = filteredDeltaRotation;
 			
 		// Rotate
 		YRotation += OVRGamepadController.GetAxisRightX() * rotateInfluence;
@@ -293,7 +308,7 @@ public class EtherealPC : PlayerController {
 		{
 			// Make sure to set the initial direction of the camera 
 			// to match the game player direction
-			CameraController.SetOrientationOffset(OrientationOffset);
+			//CameraController.SetOrientationOffset(OrientationOffset);
 			CameraController.SetYRotation(YRotation);
 		}
 	}
