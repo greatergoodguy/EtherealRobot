@@ -6440,9 +6440,11 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 991979484}
+  - 114: {fileID: 991979489}
   - 114: {fileID: 991979486}
   - 114: {fileID: 991979485}
   - 114: {fileID: 991979487}
+  - 114: {fileID: 991979488}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -6467,7 +6469,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 991979483}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 326f70a826480413e8e7a997f75d4255, type: 3}
   m_Name: 
@@ -6499,12 +6501,32 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 991979483}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e33d137431b13410ebf0dea154d5838e, type: 3}
   m_Name: 
   AutoConnect: 0
   GuiSpace: 0
+--- !u!114 &991979488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 991979483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c6d0074d16ef46d69224ec3a9910d29, type: 3}
+  m_Name: 
+--- !u!114 &991979489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 991979483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec9688e51e936458d941e36fcaf7856c, type: 3}
+  m_Name: 
 --- !u!1 &998949183
 GameObject:
   m_ObjectHideFlags: 0
