@@ -15,8 +15,8 @@ public class GuiManager : MonoBehaviour {
 		pauseGui.ExitGui();
 		debugGui.ExitGui();
 		
-		startGui.ExitGui();
-		//startGui.EnterGui();
+		//startGui.ExitGui();
+		startGui.EnterGui();
 	}
 		
 	// Use this for initialization
