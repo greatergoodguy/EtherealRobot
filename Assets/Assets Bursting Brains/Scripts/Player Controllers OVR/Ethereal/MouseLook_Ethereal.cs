@@ -52,8 +52,8 @@ public class MouseLook_Ethereal : MonoBehaviour {
         }
         else if (axes == RotationAxes.MouseX) {
 			if(activeHeadMotion == mouseHeadMotion){
-				float horizontalAxis = activeHeadMotion.GetHeadHorizontalAxis();
-				transform.Rotate(0, horizontalAxis * sensitivityX, 0);	
+				float horizontalAxis = activeHeadMotion.GetHeadHorizontalAxis() * sensitivityX;
+				transform.Rotate(0, horizontalAxis, 0);	
 			}
 			else{
 				float ovrAxis = activeHeadMotion.GetHeadHorizontalAxis();
