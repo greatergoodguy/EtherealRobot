@@ -145,10 +145,10 @@ public class EtherealPC : PlayerController {
 		//Friction Fixes
 		rigidbody.freezeRotation = true;
 		
-		collider.material.dynamicFriction = .2f;
-		collider.material.dynamicFriction2 = .2f;
-		collider.material.staticFriction = .2f;
-		collider.material.staticFriction2 = .2f;
+		collider.material.dynamicFriction = 1.0f;
+		collider.material.dynamicFriction2 = 1.0f;
+		collider.material.staticFriction = 1.0f;
+		collider.material.staticFriction2 = 1.0f;
 		collider.material.frictionCombine = PhysicMaterialCombine.Minimum;
 		
 		OVRCameraController[] CameraControllers;
