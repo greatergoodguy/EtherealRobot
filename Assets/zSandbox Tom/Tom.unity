@@ -1511,7 +1511,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 2106828706}
   - 114: {fileID: 2106828705}
-  - 114: {fileID: 2106828704}
   - 114: {fileID: 2106828707}
   m_Layer: 0
   m_Name: NetworkLogic
@@ -1520,18 +1519,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2106828704
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400000, guid: f67b93144fb294e95b6f45966ca3f4d7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2106828703}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f92ed1afef25f432d9c5e23d4325cd53, type: 3}
-  m_Name: 
-  messages: []
 --- !u!114 &2106828705
 MonoBehaviour:
   m_ObjectHideFlags: 0
