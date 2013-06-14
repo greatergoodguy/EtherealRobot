@@ -41,7 +41,7 @@ public class MechPlayerControl : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 	
 		/* TODO: JANKY, REFACTOR AND REMOVE THESE TWO VARS */
 		isMoving = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D);
@@ -64,6 +64,7 @@ public class MechPlayerControl : MonoBehaviour {
 			rigidbody.AddRelativeForce (Input.GetAxis("Horizontal") * walkAccel, 0f, Input.GetAxis("Vertical") * walkAccel);  */
 			
 		// Move/accelerate the player
+		//Debug.Log ("Current velocity = "+currVelo);
 		if (isMoving) {
 			if (Input.GetKey(KeyCode.W)) rigidbody.AddRelativeForce (0f, 0f, 1f * walkAccel);
 			if (Input.GetKey(KeyCode.S)) rigidbody.AddRelativeForce (0f, 0f, -1f * walkAccel);

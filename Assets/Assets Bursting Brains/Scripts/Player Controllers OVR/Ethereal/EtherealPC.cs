@@ -145,10 +145,10 @@ public class EtherealPC : PlayerController {
 		//Friction Fixes
 		rigidbody.freezeRotation = true;
 		
-		collider.material.dynamicFriction = .2f;
-		collider.material.dynamicFriction2 = .2f;
-		collider.material.staticFriction = .2f;
-		collider.material.staticFriction2 = .2f;
+		collider.material.dynamicFriction = 1.0f;
+		collider.material.dynamicFriction2 = 1.0f;
+		collider.material.staticFriction = 1.0f;
+		collider.material.staticFriction2 = 1.0f;
 		collider.material.frictionCombine = PhysicMaterialCombine.Minimum;
 		
 		OVRCameraController[] CameraControllers;
@@ -204,7 +204,7 @@ public class EtherealPC : PlayerController {
 	
 	float contAngle = 0;
 	// Update is called once per frame
-	void Update () {		
+	void FixedUpdate () {		
 		//Gets forward Vector
 		cubeForward = transform.forward;
 		sphereForward = head.forward;
@@ -213,14 +213,12 @@ public class EtherealPC : PlayerController {
 		float absoluteAngle = Vector3.Angle (cubeForward,sphereAng);
 		
 		contAngle = absoluteAngle * AngleDir(transform.forward, sphereAng, transform.up);
-		//print("cubeForward: " + cubeForward.x + "       sphereForward: " + sphereForward.x);
-		Debug.Log ("contAngle = "+contAngle);
 		crossProd = Vector3.Cross(cubeForward, sphereAng);
 		
 		//Steering Mechanics
-		//Vector3 angMove = transform.position;
 		float currAng = Mathf.SmoothDamp(0f, contAngle, ref velo, turnSensitivity);
 		/*
+		Vector3 angMove = transform.position;
 		if (crossProd.y < 0){
 			angMove = GetAngularDirection(absoluteAngle);
 			angMove = -angMove;
@@ -245,9 +243,10 @@ public class EtherealPC : PlayerController {
 		if(InputManager.activeInput.GetButton_Accel() ||
 			InputManager.activeInput.GetButton_Forward()){
 			
-			//Debug.Log ("Current velocity = "+currVelo);
+			Debug.Log ("Current velocity = "+currVelo);
 			if (currVelo < maxSpeed) {
-				currForce += acceleration;
+				//currForce += acceleration;
+				currForce = 2f;
 				forwardForce = cubeForward * currForce;
 				rigidbody.AddForce(forwardForce);
 			} else {
