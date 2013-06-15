@@ -8,10 +8,9 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 400000}
-  - 114: {fileID: 11400002}
   - 114: {fileID: 11400000}
   m_Layer: 0
-  m_Name: NetworkLogic
+  m_Name: NetworkEnabler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25,8 +24,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 400002}
-  - 114: {fileID: 11400004}
-  - 114: {fileID: 11400006}
+  - 114: {fileID: 11400002}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -42,10 +40,11 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 400004}
+  - 114: {fileID: 11400004}
   - 114: {fileID: 11400008}
-  - 114: {fileID: 11400010}
+  - 114: {fileID: 11400006}
   m_Layer: 0
-  m_Name: NetworkEnabler
+  m_Name: NetworkLogic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -72,8 +71,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 400004}
   - {fileID: 400000}
+  - {fileID: 400004}
   m_Father: {fileID: 0}
 --- !u!4 &400004
 Transform:
@@ -94,48 +93,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f92ed1afef25f432d9c5e23d4325cd53, type: 3}
+  m_Script: {fileID: 11500000, guid: 2c6d0074d16ef46d69224ec3a9910d29, type: 3}
   m_Name: 
-  messages: []
 --- !u!114 &11400002
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  subId: 0
-  ownerId: 0
-  group: 0
-  prefixBackup: -1
-  observed: {fileID: 0}
-  synchronization: 0
-  onSerializeTransformOption: 3
-  onSerializeRigidBodyOption: 2
-  instantiationId: 0
---- !u!114 &11400004
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100002}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  subId: 0
-  ownerId: 0
-  group: 0
-  prefixBackup: -1
-  observed: {fileID: 0}
-  synchronization: 0
-  onSerializeTransformOption: 3
-  onSerializeRigidBodyOption: 2
-  instantiationId: 0
---- !u!114 &11400006
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -145,7 +105,19 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ec9688e51e936458d941e36fcaf7856c, type: 3}
   m_Name: 
---- !u!114 &11400008
+--- !u!114 &11400004
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e0b9983b7ea743da9332dab49989722, type: 3}
+  m_Name: 
+  playerPrefab: {fileID: 400012, guid: 6ea2b27cd83814e4ea1f74c53f33908b, type: 2}
+  startPos: {x: 25, y: 50, z: 25}
+--- !u!114 &11400006
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -164,7 +136,7 @@ MonoBehaviour:
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
   instantiationId: 0
---- !u!114 &11400010
+--- !u!114 &11400008
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -172,8 +144,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 100004}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c6d0074d16ef46d69224ec3a9910d29, type: 3}
+  m_Script: {fileID: 11500000, guid: 7d5473a086c03634ca4fdb0ca08c33d8, type: 3}
   m_Name: 
+  messages: []
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

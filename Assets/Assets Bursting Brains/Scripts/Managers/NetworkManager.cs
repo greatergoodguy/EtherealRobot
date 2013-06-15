@@ -23,6 +23,7 @@ public class NetworkManager : MonoBehaviour {
 		else{
 			networkMainMenu.enabled = false;
 			networkLogicGO.SetActive(true);
+			GameObject.Find ("Ethereal(Clone)").SetActive(false);
 		}
 	}
 	

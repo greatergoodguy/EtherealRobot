@@ -98,11 +98,12 @@ public class NetworkMainMenu_BB : MonoBehaviour {
         GUILayout.BeginHorizontal();
         GUILayout.FlexibleSpace();
         //this.roomName = GUILayout.TextField(this.roomName);
-        if (GUILayout.Button("Join Room", GUILayout.Width(100)))
-        {
+		
+		
+        if (GUILayout.Button("Join Room", GUILayout.Width(100))) {
             PhotonNetwork.JoinRoom(this.roomName);
         }
-
+		
         GUILayout.EndHorizontal();
 
 
@@ -113,11 +114,16 @@ public class NetworkMainMenu_BB : MonoBehaviour {
 
         GUILayout.Label(PhotonNetwork.countOfPlayers + " users are online in " + PhotonNetwork.countOfRooms + " rooms.");
         GUILayout.FlexibleSpace();
-        if (GUILayout.Button("Join Random", GUILayout.Width(100)))
-        {
+		
+		/*
+        if (GUILayout.Button("Join Random", GUILayout.Width(100))) {
             PhotonNetwork.JoinRandomRoom();
         }
-        
+        */
+		
+		if (GUILayout.Button("Exit", GUILayout.Width(100))) {
+            DisableGUI();
+        }
 
         GUILayout.EndHorizontal();
 
@@ -150,6 +156,10 @@ public class NetworkMainMenu_BB : MonoBehaviour {
 
         GUILayout.EndArea();
     }
+	
+	private void DisableGUI(){
+		enabled = false;
+	}
 
     // We have two options here: we either joined(by title, list or random) or created a room.
     private void OnJoinedRoom()

@@ -4,6 +4,7 @@ using UnityEngine;
 public class NetworkLogicCoordinator : Photon.MonoBehaviour
 {
     public Transform playerPrefab;
+	public Vector3 startPos;
 
     public void Awake()
     {
@@ -16,8 +17,10 @@ public class NetworkLogicCoordinator : Photon.MonoBehaviour
         PhotonNetwork.isMessageQueueRunning = true;
 
         // Spawn our local player
-		if(playerPrefab != null)
-        	PhotonNetwork.Instantiate(this.playerPrefab.name, transform.position, Quaternion.identity, 0);
+		if(playerPrefab != null){
+        	GameObject newPlayer = PhotonNetwork.Instantiate(this.playerPrefab.name, transform.position, Quaternion.identity, 0);
+			newPlayer.transform.position = startPos;
+		}
     }
 
     public void OnGUI()
