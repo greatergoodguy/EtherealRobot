@@ -12,10 +12,7 @@ public class NetworkManager : MonoBehaviour {
 		networkLogicGO = transform.FindChild("NetworkLogic").gameObject;
 		
 		DebugUtils.Assert(networkMainMenu != null);
-	}
-	
-	// Use this for initialization
-	void Start () {
+		
 		if (!PhotonNetwork.connected){
 			networkMainMenu.enabled = true;
 			networkLogicGO.SetActive(false);
@@ -25,6 +22,10 @@ public class NetworkManager : MonoBehaviour {
 			networkLogicGO.SetActive(true);
 			GameObject.Find ("Ethereal(Clone)").SetActive(false);
 		}
+	}
+	
+	// Use this for initialization
+	void Start () {
 	}
 	
 	// Update is called once per frame

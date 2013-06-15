@@ -162,33 +162,28 @@ public class NetworkMainMenu_BB : MonoBehaviour {
 	}
 
     // We have two options here: we either joined(by title, list or random) or created a room.
-    private void OnJoinedRoom()
-    {
+    private void OnJoinedRoom() {
+		Debug.Log("OnJoinedRoom");
         this.StartCoroutine(this.MoveToGameScene());
     }
 
-    private void OnCreatedRoom()
-    {
+    private void OnCreatedRoom() {
         Debug.Log("OnCreatedRoom");
         this.StartCoroutine(this.MoveToGameScene());
     }
 
-    private void OnDisconnectedFromPhoton()
-    {
+    private void OnDisconnectedFromPhoton() {
         Debug.Log("Disconnected from Photon.");
     }
 
-    private void OnFailedToConnectToPhoton(object parameters)
-    {
+    private void OnFailedToConnectToPhoton(object parameters) {
         this.connectFailed = true;
         Debug.Log("OnFailedToConnectToPhoton. StatusCode: " + parameters);
     }
 
-    private IEnumerator MoveToGameScene()
-    {
+    private IEnumerator MoveToGameScene() {
         Debug.Log("MoveToGameScene");
-        while (PhotonNetwork.room == null)
-        {
+        while (PhotonNetwork.room == null) {
             yield return 0;
         }
 

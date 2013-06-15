@@ -7,7 +7,9 @@ public class FirstPersonNetwork_Ethereal : Photon.MonoBehaviour {
 
     void Awake() {
         etherealPC_script = GetComponent<EtherealPC>();
+    }
 
+	void Start() {
 		if (PhotonNetwork.connected){
         	if (photonView.isMine) {
             	etherealPC_script.enabled = true;
@@ -21,8 +23,9 @@ public class FirstPersonNetwork_Ethereal : Photon.MonoBehaviour {
 		}
 
         gameObject.name = gameObject.name + photonView.viewID;
-    }
-
+		print ("gameObject.name: " + gameObject.name);
+	}
+	
     void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
         if (stream.isWriting) {
             //We own this player: send the others our data
