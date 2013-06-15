@@ -11,14 +11,15 @@ public class NetworkLogicCoordinator : Photon.MonoBehaviour
         if (!PhotonNetwork.connected)
         {
             // We must be connected to a photon server! Back to main menu
-            Application.LoadLevel(Application.loadedLevel - 1);
+            Application.LoadLevel(Application.loadedLevel);
             return;
         }
 
         PhotonNetwork.isMessageQueueRunning = true;
 
         // Spawn our local player
-        PhotonNetwork.Instantiate(this.playerPrefab.name, transform.position, Quaternion.identity, 0);
+		if(playerPrefab != null)
+        	PhotonNetwork.Instantiate(this.playerPrefab.name, transform.position, Quaternion.identity, 0);
     }
 
     public void OnGUI()
