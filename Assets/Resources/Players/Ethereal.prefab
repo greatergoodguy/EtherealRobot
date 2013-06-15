@@ -134,6 +134,7 @@ GameObject:
   - 114: {fileID: 11400026}
   - 114: {fileID: 11400032}
   - 114: {fileID: 11400034}
+  - 114: {fileID: 11400038}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -916,6 +917,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9fa4eb2b294ef14684f2d183ada255c, type: 3}
   m_Name: 
   startTexture: {fileID: 2800000, guid: 8398d81a481eb4f4498bbf800879901d, type: 3}
+  startTexture2: {fileID: 2800000, guid: a3e5fcc9131cf42dd90d1432016380bd, type: 3}
+--- !u!114 &11400038
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9fa4eb2b294ef14684f2d183ada255c, type: 3}
+  m_Name: 
+  startTexture: {fileID: 2800000, guid: 8398d81a481eb4f4498bbf800879901d, type: 3}
+  startTexture2: {fileID: 2800000, guid: a3e5fcc9131cf42dd90d1432016380bd, type: 3}
 --- !u!124 &12400000
 Behaviour:
   m_ObjectHideFlags: 1

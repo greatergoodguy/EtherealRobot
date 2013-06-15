@@ -8,17 +8,16 @@ public class NetworkLogicCoordinator : Photon.MonoBehaviour
     public void Awake()
     {
         // PhotonNetwork.logLevel = NetworkLogLevel.Full;
-        if (!PhotonNetwork.connected)
-        {
-            // We must be connected to a photon server! Back to main menu
-            Application.LoadLevel(Application.loadedLevel - 1);
+        if (!PhotonNetwork.connected){
+            // We must be connected to a photon server!
             return;
         }
 
         PhotonNetwork.isMessageQueueRunning = true;
 
         // Spawn our local player
-        PhotonNetwork.Instantiate(this.playerPrefab.name, transform.position, Quaternion.identity, 0);
+		if(playerPrefab != null)
+        	PhotonNetwork.Instantiate(this.playerPrefab.name, transform.position, Quaternion.identity, 0);
     }
 
     public void OnGUI()

@@ -8,9 +8,8 @@ public class NetworkManager : MonoBehaviour {
 	
 	
 	void Awake () {
-		networkMainMenu = GetComponentInChildren<NetworkMainMenu_BB>();
-		Transform networkLogic_transform = transform.FindChild("NetworkLogic");
-		networkLogicGO = networkLogic_transform.gameObject;
+		networkMainMenu = transform.FindChild("NetworkEnabler").transform.GetComponentInChildren<NetworkMainMenu_BB>();
+		networkLogicGO = transform.FindChild("NetworkLogic").gameObject;
 		
 		DebugUtils.Assert(networkMainMenu != null);
 	}
