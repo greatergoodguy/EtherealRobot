@@ -421,7 +421,7 @@ AudioListener:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100010}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!92 &9200000
 Behaviour:
   m_ObjectHideFlags: 1
@@ -901,6 +901,8 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c0ac00fd2ed244b07a629ec6755315cd, type: 3}
   m_Name: 
+  normalGravity: -9.81000042
+  airGravity: -60
   turnSensitivity: .400000006
   acceleration: .5
   brakeSpeed: 1
