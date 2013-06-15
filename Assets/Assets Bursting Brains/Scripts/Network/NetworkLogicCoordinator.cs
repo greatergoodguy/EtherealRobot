@@ -8,10 +8,8 @@ public class NetworkLogicCoordinator : Photon.MonoBehaviour
     public void Awake()
     {
         // PhotonNetwork.logLevel = NetworkLogLevel.Full;
-        if (!PhotonNetwork.connected)
-        {
-            // We must be connected to a photon server! Back to main menu
-            Application.LoadLevel(Application.loadedLevel);
+        if (!PhotonNetwork.connected){
+            // We must be connected to a photon server!
             return;
         }
 
