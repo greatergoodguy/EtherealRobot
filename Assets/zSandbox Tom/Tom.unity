@@ -282,7 +282,7 @@ Transform:
   m_GameObject: {fileID: 333295514}
   m_LocalRotation: {x: .100072868, y: .699989676, z: .100072816, w: .699989557}
   m_LocalPosition: {x: .184697464, y: .114667438, z: -.0253810287}
-  m_LocalScale: {x: .50974077, y: .92753315, z: 1}
+  m_LocalScale: {x: .50974077, y: .927533209, z: 1}
   m_Children: []
   m_Father: {fileID: 205457826}
 --- !u!23 &333295516
@@ -350,7 +350,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 683492038}
-  - 114: {fileID: 683492040}
   - 114: {fileID: 683492039}
   m_Layer: 0
   m_Name: NetworkEnabler
@@ -381,26 +380,6 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2c6d0074d16ef46d69224ec3a9910d29, type: 3}
   m_Name: 
---- !u!114 &683492040
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400008, guid: f67b93144fb294e95b6f45966ca3f4d7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 683492037}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  subId: 3
-  ownerId: 0
-  group: 0
-  prefixBackup: -1
-  observed: {fileID: 0}
-  synchronization: 0
-  onSerializeTransformOption: 3
-  onSerializeRigidBodyOption: 2
-  instantiationId: 0
 --- !u!1 &718169262
 GameObject:
   m_ObjectHideFlags: 0
@@ -1006,7 +985,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1485391966}
-  - 114: {fileID: 1485391968}
   - 114: {fileID: 1485391967}
   m_Layer: 0
   m_Name: NetworkManager
@@ -1037,26 +1015,6 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ec9688e51e936458d941e36fcaf7856c, type: 3}
   m_Name: 
---- !u!114 &1485391968
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400004, guid: f67b93144fb294e95b6f45966ca3f4d7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1485391965}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  subId: 2
-  ownerId: 0
-  group: 0
-  prefixBackup: -1
-  observed: {fileID: 0}
-  synchronization: 0
-  onSerializeTransformOption: 3
-  onSerializeRigidBodyOption: 2
-  instantiationId: 0
 --- !u!1 &1496222906
 GameObject:
   m_ObjectHideFlags: 0
@@ -1402,7 +1360,7 @@ Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 3d368aea244274e719d932a4f4da1a63, type: 3}
   m_PrefabInternal: {fileID: 829587068}
   m_GameObject: {fileID: 1811185051}
-  m_LocalRotation: {x: 1.08201075e-08, y: .989676893, z: .143316627, w: -7.47185283e-08}
+  m_LocalRotation: {x: 1.08201084e-08, y: .989676893, z: .143316627, w: -7.47185283e-08}
   m_LocalPosition: {x: .00449408544, y: .147364974, z: -.210534513}
   m_LocalScale: {x: 1.00886822, y: 1.40075254, z: 1.00886822}
   m_Children: []
@@ -1510,8 +1468,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 2106828706}
-  - 114: {fileID: 2106828705}
   - 114: {fileID: 2106828707}
+  - 114: {fileID: 2106828705}
   m_Layer: 0
   m_Name: NetworkLogic
   m_TagString: Untagged
