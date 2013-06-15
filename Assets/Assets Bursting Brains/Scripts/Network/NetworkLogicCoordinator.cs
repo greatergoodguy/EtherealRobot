@@ -5,7 +5,9 @@ public class NetworkLogicCoordinator : Photon.MonoBehaviour
 {
     public Transform playerPrefab;
 	public Vector3 startPos;
-
+	
+	public static int i = 1;
+	
     public void Awake()
     {
         // PhotonNetwork.logLevel = NetworkLogLevel.Full;
@@ -18,6 +20,9 @@ public class NetworkLogicCoordinator : Photon.MonoBehaviour
 
         // Spawn our local player
 		if(playerPrefab != null){
+			
+			print ("Player #" + i);
+			
         	GameObject newPlayer = PhotonNetwork.Instantiate(this.playerPrefab.name, transform.position, Quaternion.identity, 0);
 			newPlayer.transform.position = startPos;
 		}

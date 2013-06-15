@@ -459,6 +459,7 @@ GameObject:
   - 114: {fileID: 572694993}
   - 20: {fileID: 572694992}
   - 114: {fileID: 572694991}
+  - 114: {fileID: 572695002}
   - 114: {fileID: 572695001}
   m_Layer: 0
   m_Name: Ethereal_Network
@@ -649,6 +650,17 @@ MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 572694989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4092e281006554e60adf0ca5dd6bf80f, type: 3}
+  m_Name: 
+--- !u!114 &572695002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400042, guid: 6ea2b27cd83814e4ea1f74c53f33908b,
+    type: 2}
+  m_PrefabInternal: {fileID: 1727745425}
   m_GameObject: {fileID: 572694989}
   m_Enabled: 1
   m_EditorHideFlags: 0
