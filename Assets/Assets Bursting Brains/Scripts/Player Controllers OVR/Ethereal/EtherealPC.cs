@@ -5,7 +5,9 @@ public class EtherealPC : PlayerController {
 	
 	//private float force = 6.0f;
 	//private float moveSpeed = 5.0f;
-	
+
+	public float normalGravity = -9.81f;
+	public float airGravity = -60.0f;
 	public float turnSensitivity = 0.4f;
 	public float acceleration = 0.5f;
 	public float brakeSpeed = 1.0f;			//dont make larger than max speed
@@ -235,6 +237,16 @@ public class EtherealPC : PlayerController {
 		//Vector3 forwardForce = new Vector3();
 		//Vector3 brakeForce = new Vector3();
 		
+		// Increases Gravity while in the air for grater fall speed
+		if(IsNearlyGrounded()){
+			Physics.gravity = new Vector3(0, normalGravity, 0);
+			// Debug.Log("Grav: 9.81");
+		}
+		else {
+			Physics.gravity = new Vector3(0, airGravity, 0);
+			// Debug.Log("Grav: 60");
+		}
+			
 		//Velocity Vector
 		Vector3 currVeloVector = rigidbody.velocity;
 		float currVelo = currVeloVector.magnitude;
@@ -243,10 +255,10 @@ public class EtherealPC : PlayerController {
 		if(InputManager.activeInput.GetButton_Accel() ||
 			InputManager.activeInput.GetButton_Forward()){
 			
-			Debug.Log ("Current velocity = "+currVelo);
+			//Debug.Log ("Current velocity = "+currVelo);
 			if (currVelo < maxSpeed) {
-				//currForce += acceleration;
-				currForce = 2f;
+				currForce += acceleration;
+				//currForce = 2f;
 				forwardForce = cubeForward * currForce;
 				rigidbody.AddForce(forwardForce);
 			} else {
@@ -341,6 +353,10 @@ public class EtherealPC : PlayerController {
 	
 	public bool IsGrounded(){
   		return Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.2f);
+	}
+	
+	public bool IsNearlyGrounded(){
+  		return Physics.Raycast(transform.position, -Vector3.up, distToGround + 1.0f);
 	}
 	
 	private float AngleDir(Vector3 fwd, Vector3 targetDir, Vector3 up){
