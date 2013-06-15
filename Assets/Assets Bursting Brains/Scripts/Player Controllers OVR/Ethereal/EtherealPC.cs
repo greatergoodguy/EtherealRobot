@@ -239,12 +239,12 @@ public class EtherealPC : PlayerController {
 		
 		// Increases Gravity while in the air for grater fall speed
 		if(IsNearlyGrounded()){
-			Physics.gravity = new Vector3(0, normalGravity, 0);
-			// Debug.Log("Grav: 9.81");
+			rigidbody.AddForce(Vector3.up * normalGravity);	 // Does not use actual gravity, just changes for Ethereal object
+			//Physics.gravity = new Vector3(0, normalGravity, 0);
 		}
 		else {
-			Physics.gravity = new Vector3(0, airGravity, 0);
-			// Debug.Log("Grav: 60");
+			rigidbody.AddForce(Vector3.up * airGravity);			
+			//Physics.gravity = new Vector3(0, airGravity, 0);
 		}
 			
 		//Velocity Vector
