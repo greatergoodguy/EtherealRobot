@@ -41,8 +41,8 @@ public class GameManager_BB : MonoBehaviour {
 		}	
 		
 		if(InputManager.activeInput.GetButtonDown_CycleActiveEnvironment()){
-			playerManager.SetPosition(new Vector3(813, 115, 1174));
 			environmentManager.CycleActiveEnvironment();
+			playerManager.SetPosition(environmentManager.GetEnvironmentStartPos());
 		}
 		
 		if(InputManager.activeInput.GetButtonDown_Pause()){

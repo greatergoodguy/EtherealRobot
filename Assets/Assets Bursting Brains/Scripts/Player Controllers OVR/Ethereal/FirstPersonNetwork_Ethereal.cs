@@ -25,8 +25,8 @@ public class FirstPersonNetwork_Ethereal : Photon.MonoBehaviour {
 		}
 		
 		if (!photonView.isMine) {
-			GameObject headGO = transform.FindChild("Head").gameObject;
-			headGO.SetActive(false);
+			//GameObject headGO = transform.FindChild("Head").gameObject;
+			//headGO.SetActive(false);
 		}
 		
         gameObject.name = gameObject.name + photonView.viewID;
@@ -41,8 +41,8 @@ public class FirstPersonNetwork_Ethereal : Photon.MonoBehaviour {
         }
         else {
             //Network player, receive data
-            correctPlayerPos = (Vector3)stream.ReceiveNext();
-            correctPlayerRot = (Quaternion)stream.ReceiveNext();
+            this.correctPlayerPos = (Vector3)stream.ReceiveNext();
+            this.correctPlayerRot = (Quaternion)stream.ReceiveNext();
         }
     }
 
@@ -53,8 +53,8 @@ public class FirstPersonNetwork_Ethereal : Photon.MonoBehaviour {
     {
         if (!photonView.isMine) {
             //Update remote player (smooth this, this looks good, at the cost of some accuracy)
-            transform.position = Vector3.Lerp(transform.position, correctPlayerPos, Time.deltaTime * 5);
-            transform.rotation = Quaternion.Lerp(transform.rotation, correctPlayerRot, Time.deltaTime * 5);
+            transform.position = Vector3.Lerp(transform.position, this.correctPlayerPos, Time.deltaTime * 5);
+            transform.rotation = Quaternion.Lerp(transform.rotation, this.correctPlayerRot, Time.deltaTime * 5);
         }
     }
 
