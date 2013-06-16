@@ -7,21 +7,22 @@ public class Oculus_MovementPC : PlayerController {
 	//private float moveSpeed = 5.0f;
 	
 	public float turnSensitivity = 2.0f;
-	public float acceleration = 1.0f;
+	public float acceleration = 0.5f;
 	public float brakeSpeed = 1.0f;			//dont make larger than max speed
 	public float maxSpeed = 30.0f;
 	public float jumpPower = 5.0f;
+	public float bouncePower = 1;
 	private float currSpeed = 0.0f;
 	private float distToGround;
 	
 	public static float minTurnSens = 1.0f;
-	public static float minAccel = 1.0f;
+	public static float minAccel = 0.01f;
 	public static float minBrakeSpd = 1.0f;
 	public static float minMaxSpd = 10.0f;
 	public static float minJumpPow = 1.0f;
 	
 	public static float maxTurnSens = 8.0f;
-	public static float maxAccel = 10.0f;
+	public static float maxAccel = 1.0f;
 	public static float maxBrakeSpd = 30.0f;
 	public static float topMaxSpd = 30.0f;
 	public static float maxJumpPow = 10.0f;
@@ -34,6 +35,7 @@ public class Oculus_MovementPC : PlayerController {
 	private Vector3 sphere;
 	private Vector3 cubeForward;
 	private Vector3 sphereForward;
+	private Vector3 forwardForce;
 	private Vector3 crossProd;
 	private Vector3 forward;
 	private Vector3 angDirection;
@@ -134,7 +136,7 @@ public class Oculus_MovementPC : PlayerController {
 			
 			Vector3 tempAngMove = transform.position;
 			currSpeed += acceleration;
-			currSpeed = Mathf.Clamp(currSpeed, -maxSpeed, maxSpeed);
+			currSpeed = Mathf.Clamp(currSpeed, 0, maxSpeed);
 			
 			forwardForce = cubeForward * currSpeed;
 			rigidbody.AddForce(forwardForce);
@@ -143,6 +145,7 @@ public class Oculus_MovementPC : PlayerController {
 		else{				
 			//brakeForce = -cubeForward * currSpeed;
 			rigidbody.AddForce(rigidbody.velocity * -brakeSpeed);
+			currSpeed = 0;
 		}
 		
 		/*if(Input.GetKey(KeyCode.S)){
@@ -220,6 +223,7 @@ public class Oculus_MovementPC : PlayerController {
 		YRotation += OVRGamepadController.GetAxisRightX() * rotateInfluence;
 
 		SetCameras();
+		print (currSpeed);
 	}
 	
 	// InitializeInputs
@@ -246,7 +250,16 @@ public class Oculus_MovementPC : PlayerController {
 		if (!canJump){
 			canJump = true;
 		}
+		if(collision.gameObject.tag == "Bouncer"){
+			rigidbody.AddForce(transform.forward * currSpeed * -100);
+		}
     }
+	
+	void OnCollisionExit(Collision collision){
+		if(collision.gameObject.tag == "Bouncer"){
+			currSpeed = 0;
+		}
+	}
 	
 	public override string GetControllerName() {
     	return "Ball";
