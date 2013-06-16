@@ -34,9 +34,8 @@ public class OVRHeadMotion : HeadMotion {
 		lastCamRotation = camRotation;
 	}
 	
-	public override float GetHeadHorizontalAxis(){	
-		return lastCamRotation.y;
-	}
+	public override float GetHeadHorizontalAxis() {	return lastCamRotation.y; }
+	public override float GetHeadVerticalAxis() { return lastCamRotation.x; }
 	
 	private Quaternion GetCamRotation(){
 		Quaternion DirQ = Quaternion.identity;

@@ -6,6 +6,7 @@ public abstract class Input_BB {
 	public abstract bool GetButton_Accel();
 	public abstract bool GetButton_Debug();
 	public abstract bool GetButton_Brake();
+	public abstract bool GetButton_Look();
 	
 	public abstract bool GetButton_Forward();
 	public abstract bool GetButton_Backward();
@@ -31,6 +32,7 @@ public abstract class Input_BB {
 	public abstract bool GetButtonDown_CycleActivePlayer();
 	
 	public abstract float GetAxis_MouseX();
+	public abstract float GetAxis_MouseY();
 	
 	public abstract bool DummyButton();
 }

@@ -5,8 +5,8 @@ public class LaserPointer : MonoBehaviour {
 	
 	private const float LINE_WIDTH = 0.02f;
 	
-	public Color color1 = Color.red;
-	public Color color2 = Color.red;
+	public Color color1 = Color.magenta;
+	public Color color2 = Color.magenta;
 	
 	public LineRenderer lineRenderer;
 	
@@ -21,6 +21,7 @@ public class LaserPointer : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		Vector3 origin = transform.position;
+		origin.y = origin.y+0.1f;
 		Vector3 forwardDirection = transform.forward;
 		
 		//print(forwardDirection);
