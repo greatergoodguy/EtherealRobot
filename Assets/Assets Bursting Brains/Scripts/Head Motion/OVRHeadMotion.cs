@@ -23,7 +23,6 @@ public class OVRHeadMotion : HeadMotion {
 		DebugUtils.Assert(cameraController != null);
 	}
 	
-	
 	void Update(){
 		Quaternion camRotation = GetCamRotation();
 		cameraController.SetSharedOrientation(camRotation);
@@ -34,8 +33,9 @@ public class OVRHeadMotion : HeadMotion {
 		lastCamRotation = camRotation;
 	}
 	
-	public override float GetHeadHorizontalAxis() {	return lastCamRotation.y; }
-	public override float GetHeadVerticalAxis() { return lastCamRotation.x; }
+	public override float GetHeadHorizontalAxis () { return lastCamRotation.y; }
+	public override float GetHeadVerticalAxis () { return lastCamRotation.x; }
+	public override string ToString () { return string.Format ("OVRHeadMotion"); }
 	
 	private Quaternion GetCamRotation(){
 		Quaternion DirQ = Quaternion.identity;
