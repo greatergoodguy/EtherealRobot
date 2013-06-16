@@ -18,6 +18,9 @@ public class EtherealPC : PlayerController {
 	private float velo;
 	
 	private float increaseRate = 1;
+	
+	private bool stucktoGround = false;
+	private bool hasStuckToGround = false;
 		
 	public void IncreaseAccel(){
 		acceleration += Time.deltaTime * increaseRate;
@@ -236,7 +239,7 @@ public class EtherealPC : PlayerController {
 		//Force Vectors
 		//Vector3 forwardForce = new Vector3();
 		//Vector3 brakeForce = new Vector3();
-		
+	
 		// Increases Gravity while in the air for grater fall speed
 		if(IsNearlyGrounded()){
 			rigidbody.AddForce(Vector3.up * normalGravity);	 // Does not use actual gravity, just changes for Ethereal object
@@ -301,7 +304,37 @@ public class EtherealPC : PlayerController {
 		// Rotate
 		YRotation += OVRGamepadController.GetAxisRightX() * rotateInfluence;
 
+
+		// Sticks player to ground if they press 'B'
+        if (Input.GetKeyDown(KeyCode.G)){	
+			stucktoGround = !stucktoGround;
+			hasStuckToGround = false;
+
+		}	
+		if(stucktoGround){
+			if(!hasStuckToGround){
+				if(IsNearlyGrounded())
+					hasStuckToGround = true;
+			}
+			else {
+				GroundStick();
+			}
+		}
+		
 		SetCameras();
+
+	}
+	
+	// Sticks player to the ground
+	public void GroundStick() {
+		RaycastHit hit = new RaycastHit();
+		if(!IsNearlyGrounded()){
+			if(Physics.Raycast(transform.position, -Vector3.up, out hit)){	
+				float groundHeight = transform.position.y - (hit.distance - (distToGround * 2));
+				Vector3 grounded = new Vector3(transform.position.x, groundHeight, transform.position.z);
+				transform.position = grounded;
+			}
+		}	
 	}
 	
 	// InitializeInputs
