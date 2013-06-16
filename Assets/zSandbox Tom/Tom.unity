@@ -2539,7 +2539,7 @@ Prefab:
     - target: {fileID: 11400004, guid: f67b93144fb294e95b6f45966ca3f4d7, type: 2}
       propertyPath: playerPrefab
       value: 
-      objectReference: {fileID: 400010, guid: ff2094db1f95e45a1aa7507b72a7211d, type: 2}
+      objectReference: {fileID: 400000, guid: 50c8c8b827b70432099e46a718a2e71e, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f67b93144fb294e95b6f45966ca3f4d7, type: 2}
   m_RootGameObject: {fileID: 1485391965}
@@ -2787,7 +2787,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e0b9983b7ea743da9332dab49989722, type: 3}
   m_Name: 
-  playerPrefab: {fileID: 400010, guid: ff2094db1f95e45a1aa7507b72a7211d, type: 2}
+  playerPrefab: {fileID: 400000, guid: 50c8c8b827b70432099e46a718a2e71e, type: 2}
   startPos: {x: 25, y: 50, z: 25}
 --- !u!114 &2106828705
 MonoBehaviour:
