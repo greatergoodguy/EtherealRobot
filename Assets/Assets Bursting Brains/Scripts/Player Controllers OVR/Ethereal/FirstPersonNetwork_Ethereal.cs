@@ -23,7 +23,12 @@ public class FirstPersonNetwork_Ethereal : Photon.MonoBehaviour {
 			etherealPC_script.enabled = true;
 		}
 		}
-
+		
+		if (!photonView.isMine) {
+			GameObject headGO = GameObject.Find("Head");
+			headGO.SetActive(false);
+		}
+		
         gameObject.name = gameObject.name + photonView.viewID;
 		print ("gameObject.name: " + gameObject.name);
 	}
