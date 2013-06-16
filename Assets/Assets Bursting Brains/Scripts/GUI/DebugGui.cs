@@ -40,10 +40,24 @@ public class DebugGui : MenuGui {
 		}
 		
 		if(InputManager.activeInput.GetButton_DebugDecreaseAttribute()){
-			debugData.DebugDecrease(SelectedIndex);
+			int numIterations = 1;
+			
+			if(InputManager.activeInput.GetButton_DebugAccelerator()){
+				numIterations = 5;
+			}
+			for(int i=0; i<numIterations; i++){
+				debugData.DebugDecrease(SelectedIndex);	
+			}
 		}
 		if(InputManager.activeInput.GetButton_DebugIncreaseAttribute()){
-			debugData.DebugIncrease(SelectedIndex);
+			int numIterations = 1;
+			
+			if(InputManager.activeInput.GetButton_DebugAccelerator()){
+				numIterations = 9;
+			}
+			for(int i=0; i<numIterations; i++){
+				debugData.DebugIncrease(SelectedIndex);
+			}
 		}
 	}
 	
@@ -78,6 +92,7 @@ public class DebugGui : MenuGui {
 			((Button) (ButtonsList[i])).DynamicDisplay(holder);
 		}
 		
+		_GuiUtilsOR.GUIStereoButton (startX - 82, startY + height_labelWithOffset * SelectedIndex, 40, 30, "shift", Color.magenta);
 		_GuiUtilsOR.GUIStereoButton (startX - 32, startY + height_labelWithOffset * SelectedIndex, 30, 30, "z", Color.green);
 		_GuiUtilsOR.GUIStereoButton (startX + width_labelWithOffset, startY + height_labelWithOffset * SelectedIndex, 30, 30, "x", Color.green);		
 	}

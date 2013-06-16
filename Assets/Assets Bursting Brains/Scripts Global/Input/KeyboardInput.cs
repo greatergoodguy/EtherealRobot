@@ -15,6 +15,7 @@ public class KeyboardInput : Input_BB {
 	public override bool GetButton_RotateBodyLeft() {				return Input.GetKey(KeyCode.Q); }  
 	public override bool GetButton_RotateBodyRight() {				return Input.GetKey(KeyCode.E); }  
 	// Menu input	
+	public override bool GetButton_DebugAccelerator() {				return Input.GetKey(KeyCode.LeftShift); }  
 	public override bool GetButton_DebugIncreaseAttribute() {		return Input.GetKey(KeyCode.X); }  
 	public override bool GetButton_DebugDecreaseAttribute() {		return Input.GetKey(KeyCode.Z); } 
 	public override bool GetButtonDown_MenuDown() {					return Input.GetKeyDown(KeyCode.UpArrow); }  
