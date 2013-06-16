@@ -95,7 +95,6 @@ GameObject:
   - 114: {fileID: 11400012}
   - 114: {fileID: 11400010}
   - 20: {fileID: 2000006}
-  - 114: {fileID: 11400040}
   m_Layer: 0
   m_Name: Ethereal
   m_TagString: Player
@@ -136,10 +135,9 @@ GameObject:
   - 114: {fileID: 11400026}
   - 114: {fileID: 11400032}
   - 114: {fileID: 11400034}
-  - 114: {fileID: 11400038}
   m_Layer: 0
   m_Name: Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -479,7 +477,7 @@ MonoBehaviour:
   sensitivityX: 4
   sensitivityY: 4
   maxAngleVert: 80
-  maxAngleHori: 38
+  maxAngleHori: 42
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -562,11 +560,12 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c0ac00fd2ed244b07a629ec6755315cd, type: 3}
   m_Name: 
-  turnSensitivity: .100000001
+  turnSensitivity: .5
   acceleration: 1
   brakeSpeed: 1
-  maxSpeed: 111
+  maxSpeed: 50
   jumpPower: 5
+  hoverHeight: 6
   mouseLook: {fileID: 0}
 --- !u!114 &11400014
 MonoBehaviour:
