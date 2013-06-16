@@ -1382,10 +1382,14 @@ internal class NetworkingPeer : LoadbalancingPeer, IPhotonPeerListener
                 break;
 
             case EventCode.Join:
+			
+				Debug.Log("NetworkingPeer - OnEvent case: EventCode.Join");
+			
                 // actorNr is fetched out of event above
                 Hashtable actorProperties = (Hashtable)photonEvent[ParameterCode.PlayerProperties];
                 if (originatingPlayer == null)
                 {
+					Debug.Log("NetworkingPeer - originatingPlayer == null");
                     bool isLocal = this.mLocalActor.ID == actorNr;
                     this.AddNewPlayer(actorNr, new PhotonPlayer(isLocal, actorNr, actorProperties));
                     this.ResetPhotonViewsOnSerialize(); // This sets the correct OnSerializeState for Reliable OnSerialize
@@ -1393,6 +1397,7 @@ internal class NetworkingPeer : LoadbalancingPeer, IPhotonPeerListener
 
                 if (this.mActors[actorNr] == this.mLocalActor)
                 {
+					Debug.Log("NetworkingPeer - this.mActors[actorNr] == this.mLocalActor");
                     // in this player's 'own' join event, we get a complete list of players in the room, so check if we know all players
                     int[] actorsInRoom = (int[])photonEvent[ParameterCode.ActorList];
                     foreach (int actorNrToCheck in actorsInRoom)
@@ -1403,7 +1408,8 @@ internal class NetworkingPeer : LoadbalancingPeer, IPhotonPeerListener
                             this.AddNewPlayer(actorNrToCheck, new PhotonPlayer(false, actorNrToCheck, string.Empty));
                         }
                     }
-
+				
+					Debug.Log("NetworkingPeer - Before sending Mono Message OnJoinedRoom");
                     SendMonoMessage(PhotonNetworkingMessage.OnJoinedRoom);
                 }
                 else

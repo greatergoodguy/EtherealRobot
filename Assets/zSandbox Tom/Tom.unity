@@ -1027,7 +1027,8 @@ Prefab:
       propertyPath: subId
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 11400008, guid: f67b93144fb294e95b6f45966ca3f4d7, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: f67b93144fb294e95b6f45966ca3f4d7, type: 2}
   m_RootGameObject: {fileID: 1485391965}
   m_IsPrefabParent: 0
@@ -2609,8 +2610,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 2106828706}
   - 114: {fileID: 2106828704}
-  - 114: {fileID: 2106828707}
   - 114: {fileID: 2106828705}
+  - 114: {fileID: 2106828707}
   m_Layer: 0
   m_Name: NetworkLogic
   m_TagString: Untagged
@@ -2665,12 +2666,11 @@ Transform:
 --- !u!114 &2106828707
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400008, guid: f67b93144fb294e95b6f45966ca3f4d7,
-    type: 2}
-  m_PrefabInternal: {fileID: 1097975482}
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2106828703}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d5473a086c03634ca4fdb0ca08c33d8, type: 3}
+  m_Script: {fileID: 11500000, guid: f92ed1afef25f432d9c5e23d4325cd53, type: 3}
   m_Name: 
   messages: []
