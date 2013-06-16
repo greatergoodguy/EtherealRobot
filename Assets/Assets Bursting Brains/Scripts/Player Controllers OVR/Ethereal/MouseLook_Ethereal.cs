@@ -43,7 +43,8 @@ public class MouseLook_Ethereal : PlayerController {
         if (axes == RotationAxes.MouseXAndY) {
             //float rotationX = transform.localEulerAngles.y + Input.GetAxis("Xbox_Horizontal") * sensitivityX;
 			//Debug.Log("In MouseXandY - MouseLook_Ethereal.cs");
-			if (activeHeadMotion == mouseHeadMotion) {
+			if (activeHeadMotion.ToString().Equals("MouseHeadMotion")) {
+				Debug.Log(activeHeadMotion.ToString ());
 				/* Get horizontal rotation */
 				yTarget += activeHeadMotion.GetHeadHorizontalAxis() * sensitivityX;
 				yTarget = Mathf.Clamp (yTarget, -maxAngleHori, maxAngleHori);
@@ -52,14 +53,17 @@ public class MouseLook_Ethereal : PlayerController {
 				xTarget += activeHeadMotion.GetHeadVerticalAxis() * -sensitivityY;
 				xTarget = Mathf.Clamp (xTarget, -maxAngleVert, maxAngleVert);
 				xCurrent = Mathf.SmoothDamp (xCurrent, xTarget, ref xVelo, smoothTime);
-				transform.localRotation = Quaternion.Euler (xCurrent, yCurrent, 0f);	
+				transform.localRotation = Quaternion.Euler (xCurrent, yCurrent, 0f);
 			} else {
+				Debug.Log(activeHeadMotion.ToString ());
 				/* Get horizontal rotation */
 				float ovrAxisY = activeHeadMotion.GetHeadHorizontalAxis();
-				transform.localRotation = Quaternion.AngleAxis (180 * ovrAxisY, transform.up);
+				Debug.Log("Horizontal Angle = "+ovrAxisY);
 				/* Get vertical rotation: current coded for non-inverted look only */
 				float ovrAxisX = activeHeadMotion.GetHeadVerticalAxis();
-				transform.localRotation = Quaternion.AngleAxis (180 * ovrAxisX, transform.right);
+				Debug.Log("Vertical Angle = "+ovrAxisX);
+				transform.localRotation = Quaternion.Euler (180f*ovrAxisX, 180f*ovrAxisY, 0f);
+				//transform.localRotation = Quaternion.AngleAxis (180 * ovrAxisX, transform.right);
 			}
 			
         /* Only horizontal or only vertical control modes
@@ -83,8 +87,10 @@ public class MouseLook_Ethereal : PlayerController {
 	/* Helper Methods
 	 * TODO: IS DEPRECATED? WHEN ARE THESE CALLED? */
 	public void SwitchHeadMotion () {
-		if (activeHeadMotion == mouseHeadMotion) activeHeadMotion = ovrHeadMotion;
-		else activeHeadMotion = mouseHeadMotion;
+		if (activeHeadMotion.ToString().Equals("MouseHeadMotion")) 
+			activeHeadMotion = ovrHeadMotion;
+		else 
+			activeHeadMotion = mouseHeadMotion;
 	}
 	public float GetOculusAngleFromAnchor () {
 		return AngleUtils.GetSignedAngle(transform.parent.forward, transform.forward, transform.up);

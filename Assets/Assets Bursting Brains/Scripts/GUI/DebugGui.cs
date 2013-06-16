@@ -3,12 +3,16 @@ using System.Collections;
 
 public class DebugGui : MenuGui {
 	
-	private int    	StartX			= 260;
-	private int    	StartY			= 200;
-	private int    	WidthX			= 200;
-	private int    	WidthY			= 30;
-	private int    	ButtonOffsetY	= 32;
-	private int		SideButtonOffsetX = 30;
+	private static int    	startX_Header			= 100;
+	private static int    	startY_Header			= 100;
+	
+	private static int    	startX					= 260;
+	private static int    	startY					= 200;
+	private static int    	width_label				= 200;
+	private static int    	width_labelWithOffset	= width_label + 2;
+	private static int    	height_label			= 30;
+	private static int    	height_labelWithOffset	= height_label + 2;
+	private static int		sideButtonOffsetX 		= 30;
 	
 	private bool 	isGuiOn			= true;
 	
@@ -54,16 +58,17 @@ public class DebugGui : MenuGui {
 			return;	
 		}
 		
-		
+		// Title
+		_GuiUtilsOR.GUIStereoButton (startX_Header, startY_Header, width_label, height_label, "Ethereal", Color.yellow);
 		if(InputManager.IsXboxInput()){
-			_GuiUtilsOR.GUIStereoButton (StartX, StartY - 60, WidthX, WidthY, "Xbox", Color.cyan);	
+			_GuiUtilsOR.GUIStereoButton (startX_Header, startY_Header + height_labelWithOffset, 
+				width_label, height_label, "Xbox", Color.cyan);	
 		}
 		else if(InputManager.IsKeyboardInput()){
-			_GuiUtilsOR.GUIStereoButton (StartX, StartY - 60, WidthX, WidthY, "Keyboard", Color.cyan);	
+			_GuiUtilsOR.GUIStereoButton (startX_Header, startY_Header + height_labelWithOffset, 
+				width_label, height_label, "Keyboard", Color.cyan);	
 		}
-		
-		// Title
-		_GuiUtilsOR.GUIStereoButton (StartX, StartY - 100, WidthX, WidthY, "Ethereal", Color.cyan);
+		_GuiUtilsOR.GUIStereoButton (startX_Header + width_labelWithOffset, startY_Header + height_labelWithOffset, 30, 30, "i", Color.green);
 		
 		// Need to change this for ease of use
 		for(int i = 0; i < ButtonsList.Count; i++){
@@ -71,8 +76,8 @@ public class DebugGui : MenuGui {
 			((Button) (ButtonsList[i])).DynamicDisplay(holder);
 		}
 		
-		_GuiUtilsOR.GUIStereoButton (StartX - 32, StartY + ButtonOffsetY * SelectedIndex, 30, 30, "Z", Color.green);
-		_GuiUtilsOR.GUIStereoButton (StartX + 202, StartY + ButtonOffsetY * SelectedIndex, 30, 30, "X", Color.green);		
+		_GuiUtilsOR.GUIStereoButton (startX - 32, startY + height_labelWithOffset * SelectedIndex, 30, 30, "z", Color.green);
+		_GuiUtilsOR.GUIStereoButton (startX + 202, startY + height_labelWithOffset * SelectedIndex, 30, 30, "x", Color.green);		
 	}
 	
 	void AddButton(int X, int Y, int wX, int wY, string text, Color color){
@@ -98,7 +103,7 @@ public class DebugGui : MenuGui {
 		ButtonsList.Clear();
 		
 		for(int i=0; i<debugData.GetSize(); i++){
-			AddButton (StartX, StartY + ButtonOffsetY * i, WidthX, WidthY, debugData.GetKey(i), Color.white);
+			AddButton (startX, startY + height_labelWithOffset * i, width_label, height_label, debugData.GetKey(i), Color.white);
 		}
 	}
 }

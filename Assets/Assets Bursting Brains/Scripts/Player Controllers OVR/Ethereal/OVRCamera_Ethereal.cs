@@ -268,7 +268,7 @@ public class OVRCamera_Ethereal : OVRComponent {
 		//============================
 		// Insertion by Tom
 		//============================
-		
+			
 		Quaternion DirQuat = Quaternion.identity;
 		CameraController.GetSharedOrientation(ref DirQuat);
 		
@@ -280,12 +280,10 @@ public class OVRCamera_Ethereal : OVRComponent {
 		
 		tempEulerAngle.y = newYAngle;
 		q.eulerAngles = tempEulerAngle;
-		
+				
 		//============================
 		
 		// Update camera rotation
-		
-		
 		gameObject.camera.transform.rotation = q;
 		
 		// Update camera position (first add Offset to parent transform)

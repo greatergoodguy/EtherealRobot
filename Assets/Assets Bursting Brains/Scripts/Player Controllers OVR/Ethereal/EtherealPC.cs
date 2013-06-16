@@ -17,6 +17,10 @@ public class EtherealPC : PlayerController {
 	public static float MAX_TOP_SPEED = 888.0f;
 	public static float MIN_JUMP_POW = 1.0f;
 	public static float MAX_JUMP_POW = 10.0f;
+	public static float MIN_GRAV = 0.0f;
+	public static float MAX_GRAV = 120.0f;
+	public static float MIN_HOVR = 0.0f;
+	public static float MAX_HOVR = 20.0f;
 	
 	// Public Tunable Movement Vars
 	public float turnSensitivity = 0.5f;
@@ -25,8 +29,10 @@ public class EtherealPC : PlayerController {
 	public float maxSpeed = 50.0f;
 	public float jumpPower = 5.0f;
 	public float hoverHeight = 6.0f;
+	public float grav = 60.0f;
 	
 	// Private Parts
+	private bool killGrav = false;
 	private bool canJump = false;
 	private float currForce = 0.0f;
 	private float distToGround;
@@ -46,18 +52,18 @@ public class EtherealPC : PlayerController {
 	
 	// Camera Stuff
 	//protected CameraController_BB 	CameraController 	= null;
-	//public float RotationAmount  = 1.5f;
-	//private Quaternion OrientationOffset = Quaternion.identity;		// Initial direction of controller (passed down into CameraController)
-	//private float YRotation = 0.0f;									// Rotation amount from inputs (passed down into CameraController)
-	//private float RotationScaleMultiplier = 1.0f;
-	//static float sDeltaRotationOld = 0.0f;
+	public float RotationAmount  = 1.5f;
+	private Quaternion OrientationOffset = Quaternion.identity;		// Initial direction of controller (passed down into CameraController)
+	private float YRotation = 0.0f;									// Rotation amount from inputs (passed down into CameraController)
+	private float RotationScaleMultiplier = 1.0f;
+	static float sDeltaRotationOld = 0.0f;
 	protected OVRCameraController CameraController = null;
 	
 	// Transfom used to point player in a given direction; 
 	// We should attach objects to this if we want them to rotate 
 	// separately from the head (i.e. the body)
 	//protected Transform DirXform = null;
-	//public static bool AllowMouseRotation = true;
+	public static bool AllowMouseRotation = true;
 	
 	public MouseLook_Ethereal mouseLook;
 	//private DebugData debugData;
@@ -104,10 +110,14 @@ public class EtherealPC : PlayerController {
 		oculusCameraGO.SetActive(false);
 		
 		//SetCameras();					// TODO: What's this for?
-		//AllowMouseRotation = false;	// TODO: Deprecated?
+		AllowMouseRotation = false;		// TODO: What's this for?
 		
 		/* Initate fine tuning GUI */
 		debugData = new DebugData(this);
+		debugData.AddData("Current Velocity: ", 
+			new DebugData.GetValueDelagate(GetCurrVelocity),
+			new DebugData.IncreaseDelagate(DummyFunction), 
+			new DebugData.DecreaseDelagate(DummyFunction));
 		debugData.AddData("Acceleration: ", 
 			new DebugData.GetValueDelagate(GetAcceleration), 
 			new DebugData.IncreaseDelagate(IncreaseAccel), 
@@ -128,13 +138,22 @@ public class EtherealPC : PlayerController {
 			new DebugData.GetValueDelagate(GetJumpPower),
 			new DebugData.IncreaseDelagate(IncreaseJumpPow), 
 			new DebugData.DecreaseDelagate(DecreaseJumpPow));
+		debugData.AddData("Falling Gravity: ", 
+			new DebugData.GetValueDelagate(GetGrav),
+			new DebugData.IncreaseDelagate(IncreaseGrav), 
+			new DebugData.DecreaseDelagate(DecreaseGrav));
+		debugData.AddData("Hover Height: ", 
+			new DebugData.GetValueDelagate(GetHoverHeight),
+			new DebugData.IncreaseDelagate(IncreaseHovr), 
+			new DebugData.DecreaseDelagate(DecreaseHovr));
 	}
 	
 	// FixedUpdate is called once per frame
 	void FixedUpdate () {		
 		
 		if (Input.GetKeyDown (KeyCode.G)) {
-			rigidbody.useGravity = !rigidbody.useGravity;
+			killGrav = !killGrav;
+			rigidbody.useGravity = !killGrav; 
 			Debug.Log ("Toggling Gravity");
 		}
 		// Gets forward Vector
@@ -160,7 +179,7 @@ public class EtherealPC : PlayerController {
 		float currVelo = currVeloVector.magnitude;
 		
 		//camera.fieldOfView = 60f + (80f * currVelo/maxSpeed);
-		Camera.main.fieldOfView = 60f + (20f * currVelo/maxSpeed);
+		//Camera.main.fieldOfView = 60f + (20f * currVelo/maxSpeed);
 		
 		// Basic Movement Acceleration
 		if (InputManager.activeInput.GetButton_Accel() ||
@@ -197,15 +216,17 @@ public class EtherealPC : PlayerController {
 			}
 		}
 		// Realistic Gravity Compensation & 'Hovering' Mechanic
-		if (!IsGrounded () && rigidbody.useGravity) {
-			rigidbody.AddForce(Vector3.up * -60f);
-		}
-		RaycastHit ground;
-		if (Physics.Raycast (transform.position, -Vector3.up, out ground)) {
-			float altitude = ground.distance;
-			Debug.Log ("Distance to Ground = "+altitude);
-			if (altitude > hoverHeight)	rigidbody.useGravity = true;
-			else rigidbody.useGravity = false;
+		if (!killGrav) {
+			if (!IsGrounded ()) {
+				rigidbody.AddForce(Vector3.up * -grav);
+			}
+			RaycastHit ground;
+			if (Physics.Raycast (transform.position, -Vector3.up, out ground)) {
+				float altitude = ground.distance;
+				//Debug.Log ("Distance to Ground = "+altitude);
+				if (altitude > hoverHeight)	rigidbody.useGravity = true;
+				else rigidbody.useGravity = false;
+			}
 		}
 		
 		// Camera Toggle
@@ -213,7 +234,7 @@ public class EtherealPC : PlayerController {
 			SwitchCameraController();
 		}
 		
-		/* TODO: UNNEEDED?
+		/* TODO: UNNEEDED? */
 		// Controls the Camera rotation
 		float rotateInfluence = DeltaTime * RotationAmount * RotationScaleMultiplier;
 		// Rotate
@@ -227,11 +248,11 @@ public class EtherealPC : PlayerController {
 		// Rotate
 		YRotation += OVRGamepadController.GetAxisRightX() * rotateInfluence;
 		
-		SetCameras();		// TODO: WHY?
-		*/
+		//SetCameras();		// TODO: WHY?
+		
 	}
 	
-	/* TODO: DO WE NEED THESE?
+	/* TODO: DO WE NEED THESE? */
 	// InitializeInputs
 	public void InitializeInputs() {
 		// Get our start direction
@@ -247,7 +268,6 @@ public class EtherealPC : PlayerController {
 			CameraController.SetYRotation(YRotation);
 		}
 	}
-	*/
 	
 	/* TODO: Might need OnCollision stuff from Mech scripts */
 	void OnCollisionEnter(Collision collision) {
@@ -288,6 +308,9 @@ public class EtherealPC : PlayerController {
 	public float GetSensitivity() {				return turnSensitivity; }
 	public float GetBrakeSpeed() {				return brakeSpeed; }
 	public float GetJumpPower() {				return jumpPower; }
+	public float GetGrav() {					return grav; }
+	public float GetHoverHeight() {				return hoverHeight; }
+	public float GetCurrVelocity() {			return rigidbody.GetPointVelocity(transform.position).magnitude; }
 	
 	/* MOVEMENT TUNING HELPER METHODS */
 	public void IncreaseAccel() {
@@ -329,5 +352,23 @@ public class EtherealPC : PlayerController {
 	public void DecreaseJumpPow() {
 		jumpPower -= Time.deltaTime * increaseRate;
 		if (jumpPower < MIN_JUMP_POW) jumpPower = MIN_JUMP_POW;	
+	}
+	public void IncreaseGrav() {
+		grav += Time.deltaTime * increaseRate;
+		if (grav > MAX_GRAV) grav = MAX_GRAV;	
+	}
+	public void DecreaseGrav() {
+		grav -= Time.deltaTime * increaseRate;
+		if (grav < MIN_GRAV) grav = MIN_GRAV;	
+	}
+	public void IncreaseHovr() {
+		hoverHeight += Time.deltaTime * increaseRate;
+		if (hoverHeight > MAX_HOVR) hoverHeight = MAX_HOVR;	
+	}
+	public void DecreaseHovr() {
+		hoverHeight -= Time.deltaTime * increaseRate;
+		if (hoverHeight < MIN_HOVR) hoverHeight = MIN_HOVR;	
+	}
+	public void DummyFunction() {
 	}
 }
