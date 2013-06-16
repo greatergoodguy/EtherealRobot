@@ -126,14 +126,16 @@ public class EtherealPC : PlayerController {
 			new DebugData.GetValueDelagate(GetMaxSpeed),
 			new DebugData.IncreaseDelagate(IncreaseMaxSpeed), 
 			new DebugData.DecreaseDelagate(DecreaseMaxSpeed));
-		debugData.AddData("Sensitivy: ", 
+		debugData.AddData("Sensitivity: ", 
 			new DebugData.GetValueDelagate(GetSensitivity),
 			new DebugData.IncreaseDelagate(IncreaseSensitivity), 
 			new DebugData.DecreaseDelagate(DecreaseSensitivity));
+		/*
 		debugData.AddData("Brake Speed: ", 
 			new DebugData.GetValueDelagate(GetBrakeSpeed),
 			new DebugData.IncreaseDelagate(IncreaseBrakeSpeed), 
 			new DebugData.DecreaseDelagate(DecreaseBrakeSpeed));
+		*/
 		debugData.AddData("Jump Power: ", 
 			new DebugData.GetValueDelagate(GetJumpPower),
 			new DebugData.IncreaseDelagate(IncreaseJumpPow), 

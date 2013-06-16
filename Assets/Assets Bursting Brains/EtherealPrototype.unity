@@ -4728,7 +4728,7 @@ Transform:
   m_PrefabParentObject: {fileID: 400010, guid: a8801a57fc0c04518a84ce478a83e4e9, type: 2}
   m_PrefabInternal: {fileID: 1354490257}
   m_GameObject: {fileID: 1285853611}
-  m_LocalRotation: {x: 0, y: -.0361876152, z: 0, w: .999345005}
+  m_LocalRotation: {x: 0, y: -.036187619, z: 0, w: .999345064}
   m_LocalPosition: {x: 816.876587, y: 126.061386, z: 1191.92102}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -5084,6 +5084,8 @@ MonoBehaviour:
   maxSpeed: 50
   jumpPower: 5
   hoverHeight: 6
+  grav: 60
+  RotationAmount: 1.5
   mouseLook: {fileID: 0}
 --- !u!114 &1432115423
 MonoBehaviour:
@@ -6491,6 +6493,8 @@ MonoBehaviour:
   maxSpeed: 50
   jumpPower: 5
   hoverHeight: 6
+  grav: 60
+  RotationAmount: 1.5
   mouseLook: {fileID: 0}
 --- !u!114 &1757589466
 MonoBehaviour:

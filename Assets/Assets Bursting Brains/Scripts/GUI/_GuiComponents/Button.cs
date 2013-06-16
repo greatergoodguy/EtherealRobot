@@ -38,6 +38,11 @@ public class Button {
 		_GuiUtilsOR.GUIStereoButton(xPos, yPos, xWidth, yWidth, totalText, buttonColor);
 	}
 	
+	public void DynamicDisplay(string appendedText){
+		totalText = origText + appendedText;
+		_GuiUtilsOR.GUIStereoButton(xPos, yPos, xWidth, yWidth, totalText, buttonColor);
+	}
+	
 	public void ButtonSelected(){
 		buttonColor = Color.yellow;		
 	}

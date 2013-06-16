@@ -45,8 +45,8 @@ public class DebugData {
 	}
 	
 	
-	public float GetValue(int index){
-		return ((GetValueDelagate) getValueDelegates[index])();
+	public string GetValue(int index){
+		return ((GetValueDelagate) getValueDelegates[index])().ToString("F2");
 	}
 	
 }
