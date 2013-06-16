@@ -28,16 +28,19 @@ public class EtherealPC : PlayerController {
 	public float brakeSpeed = 1.0f;			//dont make larger than max speed
 	public float maxSpeed = 50.0f;
 	public float jumpPower = 5.0f;
-	public float hoverHeight = 6.0f;
-	public float grav = 60.0f;
+	public float hoverHeight = 10.0f;
+	public float grav = 30.0f;
 	
 	// Private Parts
+	private bool inHoverZone = false;
 	private bool killGrav = false;
 	private bool canJump = false;
 	private float currForce = 0.0f;
 	private float distToGround;
 	private float velo;
+	private float veloY;
 	private float increaseRate = 1;
+	private float camFOV;
 	//private Vector3 cube;
 	//private Vector3 sphere;
 	private Vector3 cubeForward;
@@ -108,6 +111,7 @@ public class EtherealPC : PlayerController {
 		/* Set default camera mode */
 		standardCameraGO.SetActive(true);
 		oculusCameraGO.SetActive(false);
+		camFOV = Camera.main.fieldOfView;
 		
 		//SetCameras();					// TODO: What's this for?
 		AllowMouseRotation = false;		// TODO: What's this for?
@@ -166,6 +170,7 @@ public class EtherealPC : PlayerController {
 		
 		// Steering Mechanics: rotates player head and body
 		float currAng = Mathf.SmoothDamp (0f, contAngle, ref velo, turnSensitivity);
+		//Debug.Log ("Current Angle = "+currAng);
 		if (!InputManager.activeInput.GetButton_Look()) {
 			transform.Rotate (0f, currAng, 0f);
 		}
@@ -175,7 +180,8 @@ public class EtherealPC : PlayerController {
 		float currVelo = currVeloVector.magnitude;
 		
 		//camera.fieldOfView = 60f + (80f * currVelo/maxSpeed);
-		//Camera.main.fieldOfView = 60f + (20f * currVelo/maxSpeed);
+		float warpCam = (currVelo/maxSpeed > 1f) ? 1f : currVelo/maxSpeed;
+		//Camera.main.fieldOfView = camFOV + (camFOV*0.5f * warpCam);
 		
 		// Basic Movement Acceleration
 		if (InputManager.activeInput.GetButton_Accel() ||
@@ -213,21 +219,31 @@ public class EtherealPC : PlayerController {
 		}
 		// Realistic Gravity Compensation & 'Hovering' Mechanic
 		if (!killGrav) {
-			if (!IsGrounded ()) {
+			if (!IsGrounded () && rigidbody.useGravity) {
 				rigidbody.AddForce(Vector3.up * -grav);
 			}
 			RaycastHit ground;
 			if (Physics.Raycast (transform.position, -Vector3.up, out ground)) {
 				float altitude = ground.distance;
 				//Debug.Log ("Distance to Ground = "+altitude);
-				if (altitude > hoverHeight)	rigidbody.useGravity = true;
-				else rigidbody.useGravity = false;
+				if (altitude > hoverHeight)	{ 
+					rigidbody.useGravity = true;
+				} else { 
+					rigidbody.useGravity = false;
+					// Dampen rough terrain
+					if (altitude < 0.20f*hoverHeight && rigidbody.velocity.y < 0f) {
+						float dampY = Mathf.SmoothDamp (rigidbody.velocity.y, 0f, ref veloY, 0.1f);
+						Debug.Log ("Current Y Velocity = "+dampY);
+						rigidbody.velocity = new Vector3 (rigidbody.velocity.x, dampY, rigidbody.velocity.z);	
+					}
+				}
 			}
 		}
 		
 		// Camera Toggle
 		if (InputManager.activeInput.GetButtonDown_SwitchCameraMode()) {
 			SwitchCameraController();
+			camFOV = Camera.main.fieldOfView;
 		}
 		
 		/* TODO: UNNEEDED? */
