@@ -1104,10 +1104,8 @@ public static class PhotonNetwork
     /// <param name="maxPlayers">Max number of players that can join the room.</param>
     /// <param name="customRoomProperties">Custom properties of the new room (set on create, so they are immediately available).</param>
     /// <param name="propsToListInLobby">Array of custom-property-names that should be forwarded to the lobby (include only the useful ones).</param>
-    public static void CreateRoom(string roomName, bool isVisible, bool isOpen, int maxPlayers, Hashtable customRoomProperties, string[] propsToListInLobby) {
-		
-		Debug.Log("PhotonNetwork - CreateRoom(string, bool, bool, int, Hashtable, string[]");
-		
+    public static void CreateRoom(string roomName, bool isVisible, bool isOpen, int maxPlayers, Hashtable customRoomProperties, string[] propsToListInLobby)
+    {
         if (connectionStateDetailed == PeerState.Joining || connectionStateDetailed == PeerState.Joined || connectionStateDetailed == PeerState.ConnectedToGameserver)
         {
             Debug.LogError("CreateRoom aborted: You can only create a room while not currently connected/connecting to a room.");
@@ -1121,19 +1119,17 @@ public static class PhotonNetwork
             if (offlineMode)
             {
                 offlineMode_inRoom = true;
-				Debug.Log("SendMonoMessage: OnCreatedRoom");
                 NetworkingPeer.SendMonoMessage(PhotonNetworkingMessage.OnCreatedRoom);
-				Debug.Log("SendMonoMessage: OnJoinedRoom");
                 NetworkingPeer.SendMonoMessage(PhotonNetworkingMessage.OnJoinedRoom);
             }
             else
             {
-                if (maxPlayers > 255) {
+                if (maxPlayers > 255)
+                {
                     Debug.LogError("Error: CreateRoom called with " + maxPlayers + " maxplayers. This has been reverted to the max of 255 players because internally a 'byte' is used.");
                     maxPlayers = 255;
                 }
-				
-				Debug.Log("networkingPeer.OpCreateGame");
+
                 networkingPeer.OpCreateGame(roomName, isVisible, isOpen, (byte)maxPlayers, autoCleanUpPlayerObjects, customRoomProperties, propsToListInLobby);
             }
         }
@@ -1144,9 +1140,8 @@ public static class PhotonNetwork
     /// This fails if the room is either full or no longer available (might close at the same time).
     /// </summary>
     /// <param name="roomName">The room instance to join (only listedRoom.Name is used).</param>
-    public static void JoinRoom(RoomInfo listedRoom) {
-		Debug.Log("PhotonNetwork - JoinRoom(RoomInfo)");
-		
+    public static void JoinRoom(RoomInfo listedRoom)
+    {
         if (listedRoom == null)
         {
             Debug.LogError("JoinRoom aborted: you passed a NULL room");
@@ -1161,7 +1156,8 @@ public static class PhotonNetwork
     /// This fails if the room is either full or no longer available (might close at the same time).
     /// </summary>
     /// <param name="roomName">Unique name of the room to create.</param>
-    public static void JoinRoom(string roomName) {
+    public static void JoinRoom(string roomName)
+    {
         if (connectionStateDetailed == PeerState.Joining || connectionStateDetailed == PeerState.Joined || connectionStateDetailed == PeerState.ConnectedToGameserver)
         {
             Debug.LogError("JoinRoom aborted: You can only join a room while not currently connected/connecting to a room.");
