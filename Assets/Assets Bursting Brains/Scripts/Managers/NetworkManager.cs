@@ -3,24 +3,30 @@ using System.Collections;
 
 public class NetworkManager : MonoBehaviour {
 	
-	private NetworkMainMenu_BB networkMainMenu;
+	private GameObject networkEnablerGO;
 	private GameObject networkLogicGO;
 	
 	
 	void Awake () {
-		networkMainMenu = transform.FindChild("NetworkEnabler").transform.GetComponentInChildren<NetworkMainMenu_BB>();
+		networkEnablerGO = transform.FindChild("NetworkEnabler").gameObject;
 		networkLogicGO = transform.FindChild("NetworkLogic").gameObject;
 		
-		DebugUtils.Assert(networkMainMenu != null);
+		DebugUtils.Assert(networkEnablerGO != null);
+		DebugUtils.Assert(networkLogicGO != null);
 		
 		if (!PhotonNetwork.connected){
-			networkMainMenu.enabled = true;
+			networkEnablerGO.SetActive(true);
 			networkLogicGO.SetActive(false);
 		}
 		else{
-			networkMainMenu.enabled = false;
+			networkEnablerGO.SetActive(false);
 			networkLogicGO.SetActive(true);
-			//GameObject.Find ("Ethereal(Clone)").SetActive(false);
+			
+			// hack by tom - contact Tom and tell him to remove his mess
+			GameObject singlePlayerEtherealGO = GameObject.Find ("Ethereal(Clone)");
+			if(singlePlayerEtherealGO != null){
+				singlePlayerEtherealGO.SetActive(false);
+			}
 		}
 	}
 	
