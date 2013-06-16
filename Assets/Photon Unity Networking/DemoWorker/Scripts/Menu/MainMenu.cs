@@ -157,7 +157,6 @@ public class MainMenu : MonoBehaviour
     // We have two options here: we either joined(by title, list or random) or created a room.
     private void OnJoinedRoom()
     {
-		Debug.Log("JoinedRoom");
         this.StartCoroutine(this.MoveToGameScene());
     }
 
