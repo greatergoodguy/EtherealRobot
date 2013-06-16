@@ -1795,6 +1795,10 @@ Prefab:
       propertyPath: startPos.z
       value: 1148.00305
       objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: f67b93144fb294e95b6f45966ca3f4d7, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f67b93144fb294e95b6f45966ca3f4d7, type: 2}
   m_RootGameObject: {fileID: 1651591835}
@@ -5419,8 +5423,9 @@ GameObject:
   - 33: {fileID: 821816612}
   - 135: {fileID: 821816611}
   - 23: {fileID: 821816610}
-  - 114: {fileID: 821816613}
   - 81: {fileID: 821816608}
+  - 114: {fileID: 821816613}
+  - 114: {fileID: 1922042264}
   m_Layer: 0
   m_Name: Head
   m_TagString: Untagged
@@ -5500,13 +5505,11 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 02f82ef18118147898101f21d3e0f901, type: 3}
   m_Name: 
-  axes: 1
-  sensitivityX: 15
-  sensitivityY: 15
-  minimumX: -360
-  maximumX: 360
-  minimumY: -60
-  maximumY: 60
+  axes: 0
+  sensitivityX: 4
+  sensitivityY: 4
+  maxAngleVert: 80
+  maxAngleHori: 38
 --- !u!1 &830378396
 GameObject:
   m_ObjectHideFlags: 0
@@ -9940,7 +9943,6 @@ GameObject:
   - 114: {fileID: 1432115422}
   - 114: {fileID: 1432115421}
   - 20: {fileID: 1432115429}
-  - 114: {fileID: 1432115430}
   m_Layer: 0
   m_Name: Ethereal
   m_TagString: Player
@@ -9986,12 +9988,11 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c0ac00fd2ed244b07a629ec6755315cd, type: 3}
   m_Name: 
-  turnSensitivity: .400000006
-  acceleration: .5
+  turnSensitivity: .100000001
+  acceleration: 1
   brakeSpeed: 1
-  maxSpeed: 88
+  maxSpeed: 111
   jumpPower: 5
-  RotationAmount: 1.5
   mouseLook: {fileID: 0}
 --- !u!114 &1432115423
 MonoBehaviour:
@@ -10103,26 +10104,6 @@ Camera:
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_HDR: 0
---- !u!114 &1432115430
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400040, guid: 291d77721f76848149eb3edb0866c2e6,
-    type: 2}
-  m_PrefabInternal: {fileID: 1402563938}
-  m_GameObject: {fileID: 1432115419}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  subId: 3
-  ownerId: 0
-  group: 0
-  prefixBackup: -1
-  observed: {fileID: 0}
-  synchronization: 0
-  onSerializeTransformOption: 3
-  onSerializeRigidBodyOption: 2
-  instantiationId: 0
 --- !u!1 &1434249163
 GameObject:
   m_ObjectHideFlags: 0
@@ -10622,7 +10603,6 @@ GameObject:
   - 114: {fileID: 1541408438}
   - 114: {fileID: 1541408446}
   - 114: {fileID: 1541408441}
-  - 114: {fileID: 1541408447}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -10967,13 +10947,14 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 11400038, guid: 291d77721f76848149eb3edb0866c2e6,
     type: 2}
   m_PrefabInternal: {fileID: 1330460976}
-  m_GameObject: {fileID: 1541408436}
+  m_GameObject: {fileID: 2116319051}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9fa4eb2b294ef14684f2d183ada255c, type: 3}
+  m_Script: {fileID: 11500000, guid: adf951bc310c1448e80d68c1f4e1ec41, type: 3}
   m_Name: 
-  startTexture: {fileID: 2800000, guid: 8398d81a481eb4f4498bbf800879901d, type: 3}
-  startTexture2: {fileID: 2800000, guid: a3e5fcc9131cf42dd90d1432016380bd, type: 3}
+  color1: {r: 1, g: .418803453, b: .965301752, a: 1}
+  color2: {r: 1, g: 0, b: .940298557, a: 1}
+  lineRenderer: {fileID: 0}
 --- !u!1 &1544419043
 GameObject:
   m_ObjectHideFlags: 0
@@ -12054,7 +12035,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1651591836
 Transform:
   m_ObjectHideFlags: 0
@@ -12578,7 +12559,6 @@ GameObject:
   - 114: {fileID: 1757589465}
   - 114: {fileID: 1757589464}
   - 20: {fileID: 1757589463}
-  - 114: {fileID: 1757589472}
   m_Layer: 0
   m_Name: Ethereal
   m_TagString: Player
@@ -12653,12 +12633,11 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c0ac00fd2ed244b07a629ec6755315cd, type: 3}
   m_Name: 
-  turnSensitivity: .400000006
-  acceleration: .5
+  turnSensitivity: .100000001
+  acceleration: 1
   brakeSpeed: 1
-  maxSpeed: 88
+  maxSpeed: 111
   jumpPower: 5
-  RotationAmount: 1.5
   mouseLook: {fileID: 0}
 --- !u!114 &1757589466
 MonoBehaviour:
@@ -12741,26 +12720,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 1330460976}
   m_GameObject: {fileID: 1757589461}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1757589472
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400040, guid: 291d77721f76848149eb3edb0866c2e6,
-    type: 2}
-  m_PrefabInternal: {fileID: 1330460976}
-  m_GameObject: {fileID: 1757589461}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  subId: 4
-  ownerId: 0
-  group: 0
-  prefixBackup: -1
-  observed: {fileID: 0}
-  synchronization: 0
-  onSerializeTransformOption: 3
-  onSerializeRigidBodyOption: 2
-  instantiationId: 0
 --- !u!1 &1773177971
 GameObject:
   m_ObjectHideFlags: 0
@@ -13343,7 +13302,6 @@ GameObject:
   - 114: {fileID: 1922042261}
   - 114: {fileID: 1922042262}
   - 114: {fileID: 1922042263}
-  - 114: {fileID: 1922042264}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -13624,13 +13582,14 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 11400038, guid: 291d77721f76848149eb3edb0866c2e6,
     type: 2}
   m_PrefabInternal: {fileID: 1402563938}
-  m_GameObject: {fileID: 1922042255}
+  m_GameObject: {fileID: 821816606}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9fa4eb2b294ef14684f2d183ada255c, type: 3}
+  m_Script: {fileID: 11500000, guid: adf951bc310c1448e80d68c1f4e1ec41, type: 3}
   m_Name: 
-  startTexture: {fileID: 2800000, guid: 8398d81a481eb4f4498bbf800879901d, type: 3}
-  startTexture2: {fileID: 2800000, guid: a3e5fcc9131cf42dd90d1432016380bd, type: 3}
+  color1: {r: 1, g: .418803453, b: .965301752, a: 1}
+  color2: {r: 1, g: 0, b: .940298557, a: 1}
+  lineRenderer: {fileID: 0}
 --- !u!1 &1939035345
 GameObject:
   m_ObjectHideFlags: 0
@@ -15274,8 +15233,9 @@ GameObject:
   - 33: {fileID: 2116319057}
   - 135: {fileID: 2116319056}
   - 23: {fileID: 2116319055}
-  - 114: {fileID: 2116319054}
   - 81: {fileID: 2116319053}
+  - 114: {fileID: 2116319054}
+  - 114: {fileID: 1541408447}
   m_Layer: 0
   m_Name: Head
   m_TagString: Untagged
@@ -15315,13 +15275,11 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 02f82ef18118147898101f21d3e0f901, type: 3}
   m_Name: 
-  axes: 1
-  sensitivityX: 15
-  sensitivityY: 15
-  minimumX: -360
-  maximumX: 360
-  minimumY: -60
-  maximumY: 60
+  axes: 0
+  sensitivityX: 4
+  sensitivityY: 4
+  maxAngleVert: 80
+  maxAngleHori: 38
 --- !u!23 &2116319055
 Renderer:
   m_ObjectHideFlags: 0
@@ -15796,7 +15754,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2144374102}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d5473a086c03634ca4fdb0ca08c33d8, type: 3}
+  m_Script: {fileID: 11500000, guid: f92ed1afef25f432d9c5e23d4325cd53, type: 3}
   m_Name: 
   messages: []
 --- !u!114 &2144374106
