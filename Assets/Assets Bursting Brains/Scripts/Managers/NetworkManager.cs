@@ -3,27 +3,35 @@ using System.Collections;
 
 public class NetworkManager : MonoBehaviour {
 	
-	private NetworkMainMenu_BB networkMainMenu;
+	private GameObject networkEnablerGO;
 	private GameObject networkLogicGO;
 	
 	
 	void Awake () {
-		networkMainMenu = GameObject.Find("NetworkEnabler").transform.GetComponentInChildren<NetworkMainMenu_BB>();
-		networkLogicGO = GameObject.Find("NetworkLogic");
+		networkEnablerGO = transform.FindChild("NetworkEnabler").gameObject;
+		networkLogicGO = transform.FindChild("NetworkLogic").gameObject;
 		
-		DebugUtils.Assert(networkMainMenu != null);
+		DebugUtils.Assert(networkEnablerGO != null);
+		DebugUtils.Assert(networkLogicGO != null);
+		
+		if (!PhotonNetwork.connected){
+			networkEnablerGO.SetActive(true);
+			networkLogicGO.SetActive(false);
+		}
+		else{
+			networkEnablerGO.SetActive(false);
+			networkLogicGO.SetActive(true);
+			
+			// hack by tom - contact Tom and tell him to remove his mess
+			GameObject singlePlayerEtherealGO = GameObject.Find ("Ethereal(Clone)");
+			if(singlePlayerEtherealGO != null){
+				singlePlayerEtherealGO.SetActive(false);
+			}
+		}
 	}
 	
 	// Use this for initialization
 	void Start () {
-		if (!PhotonNetwork.connected){
-			networkMainMenu.enabled = true;
-			networkLogicGO.SetActive(false);
-		}
-		else{
-			networkMainMenu.enabled = false;
-			networkLogicGO.SetActive(true);
-		}
 	}
 	
 	// Update is called once per frame

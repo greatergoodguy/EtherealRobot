@@ -250,7 +250,7 @@ public class EtherealPC : PlayerController {
         if (dir > 0.0f)  		return 1.0f;
         else if (dir < 0.0f)  	return -1.0f;
         else 					return 0.0f; 
-    }
+  }
 	/* Switch between standard and Oculus camera modes */
 	public override void SwitchCameraController(){
 		standardCameraGO.SetActive(!standardCameraGO.activeSelf);

@@ -274,29 +274,12 @@ public class OVRCamera_Ethereal : OVRComponent {
 		
 		float ovrToAnchorAngle = CameraController.GetOculusAngleFromAnchor();
 		float camToLaserAngle = CameraController.GetCamAngleFromLaser();
-		float laserToAnchorAngle = CameraController.GetLaserAngleFromAnchor();
-		
-		print (camToLaserAngle + "  " + ovrToAnchorAngle);
-		
-		Vector3 camForward = CameraController.GetCameraForwardVector();
-		
-		Vector3 forward = DirQuat * Vector3.forward;
-		Vector3 up = DirQuat * Vector3.up;
-		Vector3 right = DirQuat * Vector3.right;
-		
-		//print (DirQuat.eulerAngles);
-		//print (q.eulerAngles);
 		
 		Vector3 tempEulerAngle = q.eulerAngles;
 		float newYAngle = camToLaserAngle + ovrToAnchorAngle + ovrToAnchorAngle/2;
 		
-		print("newAngle: " + newYAngle);
-		
 		tempEulerAngle.y = newYAngle;
 		q.eulerAngles = tempEulerAngle;
-		
-		//Vector3 flattenCamForward = camForward - up;
-		//q = q * Quaternion.AngleAxis(-yAngle, Vector3.up);
 		
 		//============================
 		

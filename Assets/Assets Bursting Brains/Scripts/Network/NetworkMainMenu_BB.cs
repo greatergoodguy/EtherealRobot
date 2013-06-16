@@ -98,11 +98,12 @@ public class NetworkMainMenu_BB : MonoBehaviour {
         GUILayout.BeginHorizontal();
         GUILayout.FlexibleSpace();
         //this.roomName = GUILayout.TextField(this.roomName);
-        if (GUILayout.Button("Join Room", GUILayout.Width(100)))
-        {
+		
+		
+        if (GUILayout.Button("Join Room", GUILayout.Width(100))) {
             PhotonNetwork.JoinRoom(this.roomName);
         }
-
+		
         GUILayout.EndHorizontal();
 
 
@@ -113,11 +114,16 @@ public class NetworkMainMenu_BB : MonoBehaviour {
 
         GUILayout.Label(PhotonNetwork.countOfPlayers + " users are online in " + PhotonNetwork.countOfRooms + " rooms.");
         GUILayout.FlexibleSpace();
-        if (GUILayout.Button("Join Random", GUILayout.Width(100)))
-        {
+		
+		/*
+        if (GUILayout.Button("Join Random", GUILayout.Width(100))) {
             PhotonNetwork.JoinRandomRoom();
         }
-        
+        */
+		
+		if (GUILayout.Button("Exit", GUILayout.Width(100))) {
+            DisableGUI();
+        }
 
         GUILayout.EndHorizontal();
 
@@ -150,35 +156,34 @@ public class NetworkMainMenu_BB : MonoBehaviour {
 
         GUILayout.EndArea();
     }
+	
+	private void DisableGUI(){
+		enabled = false;
+	}
 
     // We have two options here: we either joined(by title, list or random) or created a room.
-    private void OnJoinedRoom()
-    {
+    private void OnJoinedRoom() {
+		Debug.Log("OnJoinedRoom");
         this.StartCoroutine(this.MoveToGameScene());
     }
 
-    private void OnCreatedRoom()
-    {
+    private void OnCreatedRoom() {
         Debug.Log("OnCreatedRoom");
         this.StartCoroutine(this.MoveToGameScene());
     }
 
-    private void OnDisconnectedFromPhoton()
-    {
+    private void OnDisconnectedFromPhoton() {
         Debug.Log("Disconnected from Photon.");
     }
 
-    private void OnFailedToConnectToPhoton(object parameters)
-    {
+    private void OnFailedToConnectToPhoton(object parameters) {
         this.connectFailed = true;
         Debug.Log("OnFailedToConnectToPhoton. StatusCode: " + parameters);
     }
 
-    private IEnumerator MoveToGameScene()
-    {
+    private IEnumerator MoveToGameScene() {
         Debug.Log("MoveToGameScene");
-        while (PhotonNetwork.room == null)
-        {
+        while (PhotonNetwork.room == null) {
             yield return 0;
         }
 

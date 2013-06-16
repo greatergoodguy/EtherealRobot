@@ -116,7 +116,7 @@ public class MechPlayerControl : MonoBehaviour {
 		// TODO: consider adding a non-rigidbody obj to bottom of mech for grounded buffer
 		string objName = collisionInfo.gameObject.name;
 		if (objName.Equals("Plane") || objName.Equals("HillyTerrain")) grounded = true;
-		Debug.Log ("OnCollisionEnter object collided with is: " + objName);
+		//Debug.Log ("OnCollisionEnter object collided with is: " + objName);
 	}
 	// Detects if ground player is sloped low enough for jumping
 	void OnCollisionStay (Collision collisionInfo) {

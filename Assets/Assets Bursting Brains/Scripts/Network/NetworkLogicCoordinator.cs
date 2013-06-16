@@ -4,21 +4,28 @@ using UnityEngine;
 public class NetworkLogicCoordinator : Photon.MonoBehaviour
 {
     public Transform playerPrefab;
-
+	public Vector3 startPos;
+	
+	public static int i = 1;
+	
     public void Awake()
     {
         // PhotonNetwork.logLevel = NetworkLogLevel.Full;
-        if (!PhotonNetwork.connected)
-        {
-            // We must be connected to a photon server! Back to main menu
-            Application.LoadLevel(Application.loadedLevel - 1);
+        if (!PhotonNetwork.connected){
+            // We must be connected to a photon server!
             return;
         }
 
         PhotonNetwork.isMessageQueueRunning = true;
 
         // Spawn our local player
-        PhotonNetwork.Instantiate(this.playerPrefab.name, transform.position, Quaternion.identity, 0);
+		if(playerPrefab != null){
+			
+			print ("Player #" + i);
+			
+        	GameObject newPlayer = PhotonNetwork.Instantiate(this.playerPrefab.name, transform.position, Quaternion.identity, 0);
+			newPlayer.transform.position = startPos;
+		}
     }
 
     public void OnGUI()

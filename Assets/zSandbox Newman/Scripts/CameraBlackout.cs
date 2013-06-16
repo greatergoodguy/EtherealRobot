@@ -3,13 +3,20 @@ using System.Collections;
 
 public class CameraBlackout : MonoBehaviour {
 	
-	public Texture startTexture;
+	public Texture startTexture;	
+	public Texture startTexture2;
 	
-	float nextPossAnim = 0;
+
 	bool Animating = false;
 	float beginAnimTime = 0;
+	float fullAnimTime = 4;
+	bool BlackFlash = true;
+	float FlashTime = 1;
+	
+
+	float nextPossAnim = 0;
 	float BlackoutAnimTimer = 0;
-	float FullAnimationTime = 10;
+	float FullAnimationTime = 4;
 	
 	bool curFrameBlack = false;
 	bool FlashAnim = false;
@@ -50,16 +57,29 @@ public class CameraBlackout : MonoBehaviour {
 	}	
 	
 	void AnimateBlackout(){
-		print ("Inside AnimateBlackout");
-		float curTime = Time.time - beginAnimTime;
-		/*	
-		if(curTime < 2 || (curTime < 2.4 && curTime > 2.2) || (curTime < 5.5 && curTime > 5)){
-			GUI.DrawTexture(new Rect (Screen.width/2, 0, Screen.width, Screen.height), startTexture);	
+		/*float curTime = Time.time - beginAnimTime;
+		
+		if(curTime <= fullAnimTime){
+			if(BlackFlash){
+				GUI.DrawTexture(new Rect (Screen.width/2, 0, Screen.width, Screen.height), startTexture);
+				BlackFlash = false;
+				print ("Inside Blackflash");
+			}
+			else{
+				GUI.DrawTexture(new Rect (Screen.width/2, 0, Screen.width, Screen.height), startTexture2);
+				BlackFlash = true;
+				print ("Inside Noflash");
+			}
+			
 		}
-		else if(curTime  >= 6){
+		else{
 			Animating = false;	
 		}
 		*/
+		
+		
+		print ("Inside AnimateBlackout");
+		float curTime = Time.time - beginAnimTime;
 		
 		if(!FlashAnim){
 			print ("Should Get Here");
@@ -84,18 +104,5 @@ public class CameraBlackout : MonoBehaviour {
 			// No GUI overlay (Allows for flashing effect)
 		}
 		
-		/*
-		if(BlackoutAnimTimer < curTime){
-			Blackout
-			//Animating = false;
-			//curFrameBlack = false;
-		}
-		else if(((int)curTime) % 2 == 0){//curFrameBlack){
-			GUI.DrawTexture(new Rect (Screen.width/2, 0, Screen.width, Screen.height), startTexture);
-			//curFrameBlack = false;
-		}
-		else{
-			//curFrameBlack = true;
-		}*/
 	}
 }
