@@ -9,7 +9,7 @@ public class MouseLook_Ethereal : PlayerController {
     public float sensitivityX = 2F;
     public float sensitivityY = 2F;
     public float maxAngleVert = 80F;
-    public float maxAngleHori = 38F;
+    public float maxAngleHori = 40F;
 	private float smoothTime = 0.1f;
 	private float xTarget, xCurrent = 0f;
 	private float yTarget, yCurrent = 0f;

@@ -40,4 +40,17 @@ public class EnvironmentManager : MonoBehaviour {
 		activeEnvironment = (GameObject) environments[activeEnvironmentIndex];
 		activeEnvironment.SetActive(true);
 	}
+	
+	public Vector3 GetEnvironmentStartPos(){
+		Transform startPos_transform = activeEnvironment.transform.FindChild("StartPos");
+		
+		if(startPos_transform == null){
+			print ("No start pos");
+			return Vector3.zero;
+		}
+		else{
+			print ("There is a start pos");
+			return startPos_transform.position;
+		}
+	}
 }

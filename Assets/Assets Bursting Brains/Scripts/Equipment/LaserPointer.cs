@@ -19,24 +19,16 @@ public class LaserPointer : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		Vector3 origin = transform.position;
-		origin.y = origin.y+0.1f;
 		Vector3 forwardDirection = transform.forward;
-		
-		//print(forwardDirection);
-		
-		Vector3 endPoint = origin + forwardDirection * 10000;
-		
-		
+		origin.y = origin.y + 0.1f;
+		Vector3 endPoint = origin + forwardDirection * 888f;
 		RaycastHit hit = new RaycastHit();
 		
 		lineRenderer.SetPosition(0, origin);
-		
-		if(Physics.Raycast(origin, forwardDirection, out hit)){
-			endPoint = hit.point;
-		}
-		
+		//if (Physics.Raycast (origin, forwardDirection, out hit))
+		//	endPoint = hit.point;
 		lineRenderer.SetPosition(1, endPoint);
 	
 	}

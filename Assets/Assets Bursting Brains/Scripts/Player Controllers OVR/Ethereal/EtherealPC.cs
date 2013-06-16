@@ -14,16 +14,17 @@ public class EtherealPC : PlayerController {
 	public static float MIN_BRAKE_SPEED= 1.0f;
 	public static float MAX_BRAKE_SPEED = 30.0f;
 	public static float MIN_TOP_SPEED = 10.0f;
-	public static float MAX_TOP_SPEED = 200.0f;
+	public static float MAX_TOP_SPEED = 888.0f;
 	public static float MIN_JUMP_POW = 1.0f;
 	public static float MAX_JUMP_POW = 10.0f;
 	
 	// Public Tunable Movement Vars
-	public float turnSensitivity = 0.1f;
+	public float turnSensitivity = 0.5f;
 	public float acceleration = 1.0f;
 	public float brakeSpeed = 1.0f;			//dont make larger than max speed
-	public float maxSpeed = 111.0f;
+	public float maxSpeed = 50.0f;
 	public float jumpPower = 5.0f;
+	public float hoverHeight = 6.0f;
 	
 	// Private Parts
 	private bool canJump = false;
@@ -132,6 +133,10 @@ public class EtherealPC : PlayerController {
 	// FixedUpdate is called once per frame
 	void FixedUpdate () {		
 		
+		if (Input.GetKeyDown (KeyCode.G)) {
+			rigidbody.useGravity = !rigidbody.useGravity;
+			Debug.Log ("Toggling Gravity");
+		}
 		// Gets forward Vector
 		cubeForward = transform.forward;
 		sphereForward = head.forward;
@@ -154,22 +159,26 @@ public class EtherealPC : PlayerController {
 		Vector3 currVeloVector = rigidbody.velocity;
 		float currVelo = currVeloVector.magnitude;
 		
+		//camera.fieldOfView = 60f + (80f * currVelo/maxSpeed);
+		Camera.main.fieldOfView = 60f + (20f * currVelo/maxSpeed);
+		
 		// Basic Movement Acceleration
 		if (InputManager.activeInput.GetButton_Accel() ||
 			InputManager.activeInput.GetButton_Forward()) {
+			float angledThrust = Mathf.Abs (contAngle) / 40f;
 			// Below max speed, add forward force
 			if (currVelo < maxSpeed) {
 				currForce += acceleration;
-				forwardForce = cubeForward * currForce;
+				forwardForce = cubeForward * currForce * (1-angledThrust);
+				upwardForce = sphereForward * currForce * angledThrust;
 				rigidbody.AddForce(forwardForce);
-				upwardForce = sphereForward * currForce * 2f;
 				rigidbody.AddForce(upwardForce);
 			// At max speed, maintain velocity
 			} else {
 				rigidbody.AddForce(-forwardForce);
 				rigidbody.AddForce(-upwardForce);
-				forwardForce = cubeForward * currForce;
-				upwardForce = sphereForward * currForce;
+				forwardForce = cubeForward * currForce * (1-angledThrust);
+				upwardForce = sphereForward * currForce * angledThrust;
 				rigidbody.AddForce(forwardForce);
 				rigidbody.AddForce(upwardForce);
 			}
@@ -187,6 +196,18 @@ public class EtherealPC : PlayerController {
 				canJump = false;
 			}
 		}
+		// Realistic Gravity Compensation & 'Hovering' Mechanic
+		if (!IsGrounded () && rigidbody.useGravity) {
+			rigidbody.AddForce(Vector3.up * -60f);
+		}
+		RaycastHit ground;
+		if (Physics.Raycast (transform.position, -Vector3.up, out ground)) {
+			float altitude = ground.distance;
+			Debug.Log ("Distance to Ground = "+altitude);
+			if (altitude > hoverHeight)	rigidbody.useGravity = true;
+			else rigidbody.useGravity = false;
+		}
+		
 		// Camera Toggle
 		if (InputManager.activeInput.GetButtonDown_SwitchCameraMode()) {
 			SwitchCameraController();
