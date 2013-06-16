@@ -1031,6 +1031,10 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11400012, guid: ff2094db1f95e45a1aa7507b72a7211d, type: 2}
+      propertyPath: synchronization
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ff2094db1f95e45a1aa7507b72a7211d, type: 2}
   m_RootGameObject: {fileID: 1685719450}
@@ -2285,7 +2289,7 @@ MonoBehaviour:
   group: 0
   prefixBackup: -1
   observed: {fileID: 1685719451}
-  synchronization: 2
+  synchronization: 1
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
   instantiationId: -1
