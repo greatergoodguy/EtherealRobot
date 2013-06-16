@@ -10,6 +10,7 @@ public class FirstPersonNetwork_Ethereal : Photon.MonoBehaviour {
     }
 
 	void Start() {
+		if(etherealPC_script != null){
 		if (PhotonNetwork.connected){
         	if (photonView.isMine) {
             	etherealPC_script.enabled = true;
@@ -20,6 +21,7 @@ public class FirstPersonNetwork_Ethereal : Photon.MonoBehaviour {
 		}
 		else{
 			etherealPC_script.enabled = true;
+		}
 		}
 
         gameObject.name = gameObject.name + photonView.viewID;
