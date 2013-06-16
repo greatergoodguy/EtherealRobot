@@ -206,11 +206,11 @@ MonoBehaviour:
   maxJumpAngle: 60
   rotationRateQE: 1
   tiltAngle: 8
-  enableQEKeys: 0
-  enableMouseSteer: 1
+  tiltDamp: .5
+  oculusMode: 0
   canJump: 0
   grounded: 0
-  currentHorizontalVelo: {x: 0, y: 0}
+  currHoriVelo: {x: 0, y: 0}
   stdCamObj: {fileID: 100004}
 --- !u!114 &11400002
 MonoBehaviour:
@@ -224,7 +224,7 @@ MonoBehaviour:
   m_Name: 
   invertedLook: 0
   lookSensitivity: 2
-  maxAngleY: 50
+  maxLookAngleY: 75
   yRotateCurrent: 0
   tiltAngle: 6
   tiltSensitivity: .699999988
@@ -235,8 +235,6 @@ MonoBehaviour:
   tiltAngleX: 8
   tiltAngleZ: 9
   jerk: .25
-  resetDamp: .150000006
-  resetBobFreq: .0500000007
   mech: {fileID: 100002}
 --- !u!124 &12400000
 Behaviour:

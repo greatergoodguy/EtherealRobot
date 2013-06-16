@@ -1388,6 +1388,8 @@ MonoBehaviour:
   maxSpeed: 50
   jumpPower: 5
   hoverHeight: 6
+  grav: 60
+  RotationAmount: 1.5
   mouseLook: {fileID: 0}
 --- !u!114 &510572659
 MonoBehaviour:
@@ -3508,6 +3510,8 @@ MonoBehaviour:
   maxSpeed: 50
   jumpPower: 5
   hoverHeight: 6
+  grav: 60
+  RotationAmount: 1.5
   mouseLook: {fileID: 0}
 --- !u!114 &1179550553
 MonoBehaviour:
@@ -4920,6 +4924,8 @@ MonoBehaviour:
   maxSpeed: 50
   jumpPower: 5
   hoverHeight: 6
+  grav: 60
+  RotationAmount: 1.5
   mouseLook: {fileID: 0}
 --- !u!114 &1745534203
 MonoBehaviour:
@@ -5846,6 +5852,8 @@ MonoBehaviour:
   maxSpeed: 50
   jumpPower: 5
   hoverHeight: 6
+  grav: 60
+  RotationAmount: 1.5
   mouseLook: {fileID: 0}
 --- !u!114 &2084384484
 MonoBehaviour:
