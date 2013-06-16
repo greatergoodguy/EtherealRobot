@@ -118,6 +118,10 @@ public class EtherealPC : PlayerController {
 		
 		/* Initate fine tuning GUI */
 		debugData = new DebugData(this);
+		debugData.AddData("Current Velocity: ", 
+			new DebugData.GetValueDelagate(GetCurrVelocity),
+			new DebugData.IncreaseDelagate(DummyFunction), 
+			new DebugData.DecreaseDelagate(DummyFunction));
 		debugData.AddData("Acceleration: ", 
 			new DebugData.GetValueDelagate(GetAcceleration), 
 			new DebugData.IncreaseDelagate(IncreaseAccel), 
@@ -126,14 +130,16 @@ public class EtherealPC : PlayerController {
 			new DebugData.GetValueDelagate(GetMaxSpeed),
 			new DebugData.IncreaseDelagate(IncreaseMaxSpeed), 
 			new DebugData.DecreaseDelagate(DecreaseMaxSpeed));
-		debugData.AddData("Sensitivy: ", 
+		debugData.AddData("Sensitivity: ", 
 			new DebugData.GetValueDelagate(GetSensitivity),
 			new DebugData.IncreaseDelagate(IncreaseSensitivity), 
 			new DebugData.DecreaseDelagate(DecreaseSensitivity));
+		/*
 		debugData.AddData("Brake Speed: ", 
 			new DebugData.GetValueDelagate(GetBrakeSpeed),
 			new DebugData.IncreaseDelagate(IncreaseBrakeSpeed), 
 			new DebugData.DecreaseDelagate(DecreaseBrakeSpeed));
+		*/
 		debugData.AddData("Jump Power: ", 
 			new DebugData.GetValueDelagate(GetJumpPower),
 			new DebugData.IncreaseDelagate(IncreaseJumpPow), 
@@ -322,6 +328,7 @@ public class EtherealPC : PlayerController {
 	public float GetJumpPower() {				return jumpPower; }
 	public float GetGrav() {					return grav; }
 	public float GetHoverHeight() {				return hoverHeight; }
+	public float GetCurrVelocity() {			return rigidbody.GetPointVelocity(transform.position).magnitude; }
 	
 	/* MOVEMENT TUNING HELPER METHODS */
 	public void IncreaseAccel() {
@@ -379,5 +386,7 @@ public class EtherealPC : PlayerController {
 	public void DecreaseHovr() {
 		hoverHeight -= Time.deltaTime * increaseRate;
 		if (hoverHeight < MIN_HOVR) hoverHeight = MIN_HOVR;	
+	}
+	public void DummyFunction() {
 	}
 }

@@ -16,6 +16,7 @@ public abstract class Input_BB {
 	public abstract bool GetButton_RotateBodyLeft();
 	public abstract bool GetButton_RotateBodyRight();
 	
+	public abstract bool GetButton_DebugAccelerator();
 	public abstract bool GetButton_DebugIncreaseAttribute();
 	public abstract bool GetButton_DebugDecreaseAttribute();
 	
