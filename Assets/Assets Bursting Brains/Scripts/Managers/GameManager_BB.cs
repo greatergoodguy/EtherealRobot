@@ -21,21 +21,7 @@ public class GameManager_BB : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-
-		/*
-		if(Input.GetKeyDown(KeyCode.RightShift)){
-			GameObject camera = playerManager.GetCamera();
-			
-			if(playerManager.isPlayerFrozen()){
-				playerManager.UnfreezePlayer();	
-			}
-			else{
-				playerManager.FreezePlayer();
-			}
-		}
-		*/
-		
+	void Update () {		
 		if(InputManager.activeInput.GetButtonDown_CycleActivePlayer()){
 			playerManager.CycleActivePlayer();			
 		}	
