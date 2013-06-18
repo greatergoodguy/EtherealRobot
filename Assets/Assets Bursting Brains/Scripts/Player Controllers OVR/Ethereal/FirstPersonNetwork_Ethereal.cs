@@ -25,8 +25,8 @@ public class FirstPersonNetwork_Ethereal : Photon.MonoBehaviour {
 		}
 		
 		if (!photonView.isMine) {
-			//GameObject headGO = transform.FindChild("Head").gameObject;
-			//headGO.SetActive(false);
+			GameObject headGO = transform.FindChild("Head").gameObject;
+			headGO.SetActive(false);
 		}
 		
         gameObject.name = gameObject.name + photonView.viewID;
