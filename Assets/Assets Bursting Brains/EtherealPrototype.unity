@@ -1039,7 +1039,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: f67b93144fb294e95b6f45966ca3f4d7, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f67b93144fb294e95b6f45966ca3f4d7, type: 2}
@@ -5240,8 +5240,8 @@ MonoBehaviour:
   brakeSpeed: 1
   maxSpeed: 50
   jumpPower: 5
-  hoverHeight: 6
-  grav: 60
+  hoverHeight: 10
+  grav: 30
   RotationAmount: 1.5
   mouseLook: {fileID: 0}
 --- !u!114 &1432115423
@@ -5292,7 +5292,7 @@ Renderer:
     type: 2}
   m_PrefabInternal: {fileID: 1402563938}
   m_GameObject: {fileID: 1432115419}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_LightmapIndex: 255
@@ -6273,7 +6273,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1651591836
 Transform:
   m_ObjectHideFlags: 0
@@ -6639,8 +6639,8 @@ MonoBehaviour:
   brakeSpeed: 1
   maxSpeed: 50
   jumpPower: 5
-  hoverHeight: 6
-  grav: 60
+  hoverHeight: 10
+  grav: 30
   RotationAmount: 1.5
   mouseLook: {fileID: 0}
 --- !u!114 &1757589466
@@ -6691,7 +6691,7 @@ Renderer:
     type: 2}
   m_PrefabInternal: {fileID: 465404329}
   m_GameObject: {fileID: 1757589461}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_LightmapIndex: 255
