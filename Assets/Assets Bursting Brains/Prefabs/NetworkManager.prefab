@@ -115,7 +115,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e0b9983b7ea743da9332dab49989722, type: 3}
   m_Name: 
-  playerPrefab: {fileID: 400012, guid: 6ea2b27cd83814e4ea1f74c53f33908b, type: 2}
+  playerPrefab: {fileID: 400012, guid: b54a704f556ec44c9a8b56ceef73b9db, type: 2}
   startPos: {x: 25, y: 50, z: 25}
 --- !u!114 &11400006
 MonoBehaviour:
