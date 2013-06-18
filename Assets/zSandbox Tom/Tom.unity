@@ -192,7 +192,7 @@ MonoBehaviour:
   sensitivityX: 15
   sensitivityY: 15
   maxAngleVert: 80
-  maxAngleHori: 38
+  maxAngleHori: 40
 --- !u!23 &197506566
 Renderer:
   m_ObjectHideFlags: 0
@@ -558,6 +558,9 @@ MonoBehaviour:
   brakeSpeed: 1
   maxSpeed: 88
   jumpPower: 5
+  hoverHeight: 10
+  grav: 30
+  RotationAmount: 1.5
   mouseLook: {fileID: 0}
 --- !u!114 &572694995
 MonoBehaviour:
