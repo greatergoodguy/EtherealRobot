@@ -549,7 +549,7 @@ MonoBehaviour:
   ownerId: 0
   group: 0
   prefixBackup: -1
-  observed: {fileID: 400010}
+  observed: {fileID: 11400010}
   synchronization: 1
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
