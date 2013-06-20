@@ -30,6 +30,7 @@ GameObject:
   - 114: {fileID: 11400002}
   - 114: {fileID: 11400030}
   - 114: {fileID: 11400044}
+  - 114: {fileID: 11400046}
   m_Layer: 8
   m_Name: CameraLeft
   m_TagString: MainCamera
@@ -74,6 +75,7 @@ GameObject:
   - 114: {fileID: 11400040}
   - 114: {fileID: 11400028}
   - 114: {fileID: 11400036}
+  - 114: {fileID: 11400048}
   m_Layer: 8
   m_Name: CameraRight
   m_TagString: MainCamera
@@ -97,7 +99,6 @@ GameObject:
   - 114: {fileID: 11400014}
   - 114: {fileID: 11400012}
   - 114: {fileID: 11400010}
-  - 20: {fileID: 2000006}
   m_Layer: 0
   m_Name: Ethereal
   m_TagString: Player
@@ -174,7 +175,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100004}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: .987101078, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400012}
@@ -310,34 +311,6 @@ Camera:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingPath: 2
-  m_TargetTexture: {fileID: 0}
-  m_HDR: 0
---- !u!20 &2000006
-Camera:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100008}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: .192156866, g: .301960796, b: .474509805, a: .0196078438}
-  m_NormalizedViewPortRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
-  near clip plane: .300000012
-  far clip plane: 1000
-  field of view: 60
-  orthographic: 0
-  orthographic size: 100
-  m_Depth: 0
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_HDR: 0
 --- !u!23 &2300000
@@ -480,14 +453,15 @@ MonoBehaviour:
   sensitivityX: 4
   sensitivityY: 4
   maxAngleVert: 80
-  maxAngleHori: 42
+  maxAngleHori: 80
+  maxAngle: 80
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100002}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6e08b356a0cc14cc9b5371f01a2208ec, type: 3}
   m_Name: 
@@ -516,7 +490,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100006}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6e08b356a0cc14cc9b5371f01a2208ec, type: 3}
   m_Name: 
@@ -566,10 +540,11 @@ MonoBehaviour:
   turnSensitivity: .5
   acceleration: 1
   brakeSpeed: 1
-  maxSpeed: 50
+  maxSpeed: 88
   jumpPower: 5
-  hoverHeight: 10
+  hoverHeight: 40
   grav: 30
+  maxVeloCornerAngle: 35
   RotationAmount: 1.5
   mouseLook: {fileID: 0}
 --- !u!114 &11400014
@@ -583,8 +558,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adf951bc310c1448e80d68c1f4e1ec41, type: 3}
   m_Name: 
   color1: {r: 1, g: 0, b: 0, a: 1}
-  color2: {r: 1, g: 0, b: 0, a: 1}
-  lineRenderer: {fileID: 0}
+  color2: {r: 1, g: 0, b: 1, a: 1}
+  lrHead: {fileID: 0}
+  lrVelo: {fileID: 0}
 --- !u!114 &11400016
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -927,13 +903,14 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100004}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: adf951bc310c1448e80d68c1f4e1ec41, type: 3}
   m_Name: 
   color1: {r: 1, g: .418803453, b: .965301752, a: 1}
   color2: {r: 1, g: 0, b: .940298557, a: 1}
-  lineRenderer: {fileID: 0}
+  lrHead: {fileID: 0}
+  lrVelo: {fileID: 0}
 --- !u!114 &11400040
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1008,6 +985,30 @@ MonoBehaviour:
   noiseTexture: {fileID: 2800000, guid: 31f5a8611c4ed1245b18456206e798dc, type: 3}
   showVelocity: 0
   showVelocityScale: 1
+--- !u!114 &11400046
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcbff1aed077d451d9670c7cae2e3e41, type: 3}
+  m_Name: 
+  NeckPosition: {x: 0, y: 0, z: 0}
+  EyePosition: {x: 0, y: .0900000036, z: .159999996}
+--- !u!114 &11400048
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcbff1aed077d451d9670c7cae2e3e41, type: 3}
+  m_Name: 
+  NeckPosition: {x: 0, y: 0, z: 0}
+  EyePosition: {x: 0, y: .0900000036, z: .159999996}
 --- !u!124 &12400000
 Behaviour:
   m_ObjectHideFlags: 1

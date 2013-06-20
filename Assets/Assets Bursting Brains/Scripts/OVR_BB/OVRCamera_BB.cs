@@ -245,11 +245,13 @@ public class OVRCamera_BB : OVRComponent_BB{
 			// If desired, update parent transform y rotation here
 			// This is useful if we want to track the current location of
 			// of the head.
+			
+			/* MODIFIED BY OLIVER FOR LOOK MECHANIC */
 			// TODO: Future support for x and z, and possibly change to a quaternion
 			if(CameraController.TrackerRotatesY == true)
 			{
 				Vector3 a = gameObject.camera.transform.rotation.eulerAngles;
-				a.x = 0; 
+				//a.x = 0; 
 				a.z = 0;
 				gameObject.transform.parent.transform.eulerAngles = a;
 			}

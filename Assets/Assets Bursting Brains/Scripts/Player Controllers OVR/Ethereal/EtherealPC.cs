@@ -20,16 +20,17 @@ public class EtherealPC : PlayerController {
 	public static float MIN_GRAV = 0.0f;
 	public static float MAX_GRAV = 120.0f;
 	public static float MIN_HOVR = 0.0f;
-	public static float MAX_HOVR = 20.0f;
+	public static float MAX_HOVR = 40.0f;
 	
 	// Public Tunable Movement Vars
 	public float turnSensitivity = 0.5f;
 	public float acceleration = 1.0f;
-	public float brakeSpeed = 1.0f;			//dont make larger than max speed
-	public float maxSpeed = 50.0f;
+	public float brakeSpeed = 1.0f;				// dont make larger than max speed
+	public float maxSpeed = 88.0f;
 	public float jumpPower = 5.0f;
-	public float hoverHeight = 10.0f;
+	public float hoverHeight = 40.0f;
 	public float grav = 30.0f;
+	public float maxVeloCornerAngle = 35.0f;	// max cornering angle at max speed (200mph)
 	
 	// Private Parts
 	private bool inHoverZone = false;
@@ -37,21 +38,27 @@ public class EtherealPC : PlayerController {
 	private bool canJump = false;
 	private float currForce = 0.0f;
 	private float distToGround;
-	private float velo;
+	private float currAngX, veloAngX = 0f;
+	private float currAngY, veloAngY = 0f;
 	private float veloY;
 	private float increaseRate = 1;
 	private float camFOV;
+	private float deltaGs;
+	private float yInt;
+	private	float contAngleX = 0f;
 	//private Vector3 cube;
 	//private Vector3 sphere;
 	private Vector3 cubeForward;
 	private Vector3 sphereForward;
+	private Vector3 lastSphereFwd;
 	private Vector3 forwardForce;
-	private Vector3 upwardForce;
+	private Vector3 forwardThrust;
 	private Vector3 sphereAng;
 	private Vector3 crossProd;
 	private Transform head;
 	private GameObject standardCameraGO;
 	private GameObject oculusCameraGO;
+	private bool testON = false;
 	
 	// Camera Stuff
 	//protected CameraController_BB 	CameraController 	= null;
@@ -75,6 +82,8 @@ public class EtherealPC : PlayerController {
 	void Awake () {
 		mouseLook = GetComponentInChildren<MouseLook_Ethereal>();
 		DebugUtils.Assert(mouseLook != null);
+		deltaGs = (maxVeloCornerAngle - mouseLook.maxAngle) / 292f;	// Interpolate angle delta from 1-292 ft/s
+		yInt = 80f - deltaGs;
 	}
 	
 	// Start runs when gameObject is enabled, use for initialization
@@ -165,56 +174,114 @@ public class EtherealPC : PlayerController {
 		// Gets forward Vector
 		cubeForward = transform.forward;
 		sphereForward = head.forward;
-		
-		Vector3 sphereAng = new Vector3 (sphereForward.x, cubeForward.y, sphereForward.z);
-		float absoluteAngle = Vector3.Angle (cubeForward,sphereAng);
-		
-		/* TODO: Extract contAngle out of parent
-		 * is currently static class float var inherited from parent */
-		contAngle = absoluteAngle * AngleDir (cubeForward, sphereAng, transform.up);
-		//crossProd = Vector3.Cross(cubeForward, sphereAng);	// TODO: UNUSED
-		
-		// Steering Mechanics: rotates player head and body
-		float currAng = Mathf.SmoothDamp (0f, contAngle, ref velo, turnSensitivity);
-		//Debug.Log ("Current Angle = "+currAng);
-		if (!InputManager.activeInput.GetButton_Look()) {
-			transform.Rotate (0f, currAng, 0f);
-		}
-			
 		// Velocity Vector
 		Vector3 currVeloVector = rigidbody.velocity;
+		Vector3 veloNormalized = currVeloVector.normalized;
 		float currVelo = currVeloVector.magnitude;
+		float absoluteAngle, angleDirY, angleDirX = 0f;
+		// Find Angle between head and body
+		if (currVelo < 99f) {
+			//Debug.Log ("HORSE FUCKING SHIT");
+			Vector3 sphereAngY = new Vector3 (sphereForward.x, cubeForward.y, sphereForward.z);
+			Vector3 sphereAngX = new Vector3 (cubeForward.x, sphereForward.y, sphereForward.z);
+			absoluteAngle = Vector3.Angle (cubeForward, sphereAngY);
+			contAngle = absoluteAngle * AngleDir (cubeForward, sphereAngY, transform.up);
+			absoluteAngle = Vector3.Angle (cubeForward, sphereAngX);
+			contAngleX = absoluteAngle * AngleDir (cubeForward, sphereAngX, transform.right);
+		// Find Angle between velocity vector and body, locks head turn
+		} else {
+			float maxLook = currVelo * deltaGs + yInt;
+			Debug.Log ("maxLook = "+maxLook);
+			Vector3 sphereAngY = new Vector3 (sphereForward.x, veloNormalized.y, sphereForward.z);	
+			Vector3	sphereAngX = new Vector3 (veloNormalized.x, sphereForward.y, sphereForward.z);	
+			absoluteAngle = Vector3.Angle (veloNormalized, sphereAngY);
+			//Debug.Log ("absoluteAngleY = "+absoluteAngle);
+			angleDirY = AngleDir (veloNormalized, sphereAngY, transform.up);
+			contAngle = (absoluteAngle > maxLook) ? maxLook*angleDirY : absoluteAngle*angleDirY;
+			absoluteAngle = Vector3.Angle (veloNormalized, sphereAngX);
+			//Debug.Log ("absoluteAngleX = "+absoluteAngle);
+			angleDirX = AngleDir (veloNormalized, sphereAngX, transform.right);
+			contAngleX = (absoluteAngle > maxLook) ? maxLook*angleDirX : absoluteAngle*angleDirX;
+		}
+		/* TODO: Extract contAngle out of parent
+		 * is currently static class float var inherited from parent */
+		//crossProd = Vector3.Cross(cubeForward, sphereAng);	// Same as transform,up
 		
-		//camera.fieldOfView = 60f + (80f * currVelo/maxSpeed);
+		// Steering Mechanics: rotates player head and body
+		//currAngY = Mathf.SmoothDamp (currAngY, contAngle, ref veloAngY, turnSensitivity);
+		//currAngX = Mathf.SmoothDamp (currAngX, contAngleX, ref veloAngX, turnSensitivity);
+		currAngY = Mathf.SmoothDamp (0f, contAngle, ref veloAngY, turnSensitivity);
+		currAngX = Mathf.SmoothDamp (0f, contAngleX, ref veloAngX, turnSensitivity);
+		/* TODO: Rotation of the body should be limited by current velocity
+		 * Use current velocity vector to calculate rotation lock */
+		if (!InputManager.activeInput.GetButton_Look()) {
+			//transform.Rotate (0f, currAngY, 0f);
+			//transform.Rotate (currAngX, 0f, 0f);
+			transform.rotation = Quaternion.Euler (0f, currAngY, 0f);
+			//transform.rotation = Quaternion.Euler (currAngX, currAngY, 0f);
+			//transform.eulerAngles = new Vector3 (currAngX, currAngY, 0f);
+		}
+		//Debug.Log ("contAngleX = "+contAngleX); 
+		//Debug.Log ("contAngleY = "+contAngle);
+		//Debug.Log ("Current AngleX = "+currAngX); Debug.Log ("Current AngleY = "+currAngY);
+			
 		float warpCam = (currVelo/maxSpeed > 1f) ? 1f : currVelo/maxSpeed;
+		standardCameraGO.camera.fieldOfView = camFOV + (camFOV*0.5f * warpCam);
 		//Camera.main.fieldOfView = camFOV + (camFOV*0.5f * warpCam);
 		
-		// Basic Movement Acceleration
+		// Forward and Angular Movement Acceleration
 		if (InputManager.activeInput.GetButton_Accel() ||
 			InputManager.activeInput.GetButton_Forward()) {
-			float angledThrust = Mathf.Abs (contAngle) / 40f;
 			// Below max speed, add forward force
 			if (currVelo < maxSpeed) {
-				currForce += acceleration;
-				forwardForce = cubeForward * currForce * (1-angledThrust);
-				upwardForce = sphereForward * currForce * angledThrust;
-				rigidbody.AddForce(forwardForce);
-				rigidbody.AddForce(upwardForce);
+			 	// Force = units/s/n, at n seconds will be at units/s velocity
+			 	//Debug.Log ("WHAT IN THE GODDAMN FUCK");
+				currForce = maxSpeed/2.5f;
+				forwardThrust = cubeForward * currForce;
+				rigidbody.AddForce(forwardThrust, ForceMode.Acceleration);
+				/*
+				if (!InputManager.activeInput.GetButton_Look()) {
+					lastSphereFwd = sphereForward;
+					forwardThrust = sphereForward * currForce;
+				} else {
+					forwardThrust = lastSphereFwd * currForce;
+				}
+				rigidbody.AddForce(forwardThrust, ForceMode.Acceleration);
+				*/
 			// At max speed, maintain velocity
 			} else {
-				rigidbody.AddForce(-forwardForce);
-				rigidbody.AddForce(-upwardForce);
-				forwardForce = cubeForward * currForce * (1-angledThrust);
-				upwardForce = sphereForward * currForce * angledThrust;
-				rigidbody.AddForce(forwardForce);
-				rigidbody.AddForce(upwardForce);
+				rigidbody.velocity = veloNormalized * maxSpeed;
+				/*
+				rigidbody.AddForce(-forwardThrust, ForceMode.Acceleration);
+				if (!InputManager.activeInput.GetButton_Look()) {
+					lastSphereFwd = sphereForward;
+					forwardThrust = sphereForward * currForce;
+				} else {
+					forwardThrust = lastSphereFwd * currForce;
+				}
+				rigidbody.AddForce(forwardThrust, ForceMode.Acceleration);
+				*/
 			}
-			//Debug.Log ("Current velocity = "+currVelo);
+			// Cornering Physics
+			if ((contAngle > 1f  || contAngleX > 1f) && 
+				!InputManager.activeInput.GetButton_Look()) {
+				Vector3 turnMotherFucker = veloNormalized + sphereForward.normalized;
+				rigidbody.AddForce (turnMotherFucker * currVelo);
+				//Debug.Log ("position = "+transform.position.x+", "+transform.position.y+", "+transform.position.z);
+				//Debug.Log ("rigidbody velo = "+currVeloVector.x+", "+currVeloVector.y+", "+currVeloVector.z);
+				//Vector3 veloMod = Quaternion.AngleAxis (contAngle, transform.up) * rigidbody.velocity;
+				//veloMod = Quaternion.AngleAxis (contAngleX, transform.right) * veloMod;
+				//rigidbody.velocity = veloMod.normalized * currVelo;
+				//rigidbody.velocity = Quaternion.AngleAxis (contAngleX, transform.right) * rigidbody.velocity;
+				//Debug.Log ("Current velocity = "+currVelo/Time.deltaTime);
+			}
 		// Brake Mechanic
 		} else {				
-			rigidbody.AddForce(rigidbody.velocity * -brakeSpeed);
+			//rigidbody.AddForce(rigidbody.velocity * -brakeSpeed);
+			rigidbody.AddForce(rigidbody.velocity * -1.0f);
 			currForce = 0f;
 		}
+		//Debug.Log ("Current velocity = "+currVelo);
 		
 		// Jumping Mechanic
 		if (canJump && IsGrounded()) {
@@ -226,12 +293,13 @@ public class EtherealPC : PlayerController {
 		// Realistic Gravity Compensation & 'Hovering' Mechanic
 		if (!killGrav) {
 			if (!IsGrounded () && rigidbody.useGravity) {
+				// TODO: experiment adding negative force on y-axis based on current velocity
 				rigidbody.AddForce(Vector3.up * -grav);
+				//rigidbody.AddForce(Vector3.up * -grav, ForceMode.Acceleration);
 			}
 			RaycastHit ground;
 			if (Physics.Raycast (transform.position, -Vector3.up, out ground)) {
 				float altitude = ground.distance;
-				//Debug.Log ("Distance to Ground = "+altitude);
 				if (altitude > hoverHeight)	{ 
 					rigidbody.useGravity = true;
 				} else { 
@@ -239,10 +307,12 @@ public class EtherealPC : PlayerController {
 					// Dampen rough terrain
 					if (altitude < 0.20f*hoverHeight && rigidbody.velocity.y < 0f) {
 						float dampY = Mathf.SmoothDamp (rigidbody.velocity.y, 0f, ref veloY, 0.1f);
-						Debug.Log ("Current Y Velocity = "+dampY);
 						rigidbody.velocity = new Vector3 (rigidbody.velocity.x, dampY, rigidbody.velocity.z);	
+						//Debug.Log ("Current Y Velocity = "+dampY);
+						//Debug.Log ("WHAT IN THE GODDAMN FUCK");
 					}
 				}
+				//Debug.Log ("Distance to Ground = "+altitude);
 			}
 		}
 		
@@ -305,7 +375,7 @@ public class EtherealPC : PlayerController {
 	 * TODO: Conditionals can be used to implement control "dead zones" */
 	private float AngleDir(Vector3 fwd, Vector3 targetDir, Vector3 up) {
         Vector3 perp = Vector3.Cross (fwd, targetDir);
-        float dir = Vector3.Dot (perp, up);
+        float dir = Vector3.Dot (perp, up);		// dot(v1, v2) = cos(theta)
         if (dir > 0.0f)  		return 1.0f;
         else if (dir < 0.0f)  	return -1.0f;
         else 					return 0.0f; 
