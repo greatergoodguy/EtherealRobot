@@ -20,7 +20,7 @@ RenderSettings:
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientLight: {r: .298507452, g: .298507452, b: .298507452, a: 1}
-  m_SkyboxMaterial: {fileID: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 53412155bc1016547b1a77b2333c0380, type: 2}
   m_HaloStrength: .5
   m_FlareStrength: 1
   m_HaloTexture: {fileID: 0}
@@ -915,6 +915,10 @@ Prefab:
     - target: {fileID: 400008, guid: ab385fde899762e4fa8a62b748cb8d0f, type: 2}
       propertyPath: m_LocalPosition.y
       value: 263.683289
+      objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: ab385fde899762e4fa8a62b748cb8d0f, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ab385fde899762e4fa8a62b748cb8d0f, type: 2}
@@ -3502,6 +3506,10 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: 68969806e17c4df49b24eaeb593d2629, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 68969806e17c4df49b24eaeb593d2629, type: 2}
   m_RootGameObject: {fileID: 816408857}
@@ -3800,7 +3808,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &904138581
 Transform:
   m_ObjectHideFlags: 0
@@ -3938,6 +3946,10 @@ Prefab:
       value: -2511.39429
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 67f5e000e5521424c8b831492286ecc8, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 67f5e000e5521424c8b831492286ecc8, type: 2}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -4699,6 +4711,10 @@ Prefab:
       propertyPath: m_LocalPosition.z
       value: -665
       objectReference: {fileID: 0}
+    - target: {fileID: 100014, guid: ac2447540f03f434bab65221b05579fd, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ac2447540f03f434bab65221b05579fd, type: 2}
   m_RootGameObject: {fileID: 238377139}
@@ -5250,7 +5266,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1336590761
 Transform:
   m_ObjectHideFlags: 0
@@ -5386,6 +5402,10 @@ Prefab:
       value: 3 Giant Ramp
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: efd5e423ec6f8274995adf604218195a, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: efd5e423ec6f8274995adf604218195a, type: 2}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -7688,7 +7708,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1960507760
 Transform:
   m_ObjectHideFlags: 0
@@ -7789,7 +7809,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1983461065
 Transform:
   m_ObjectHideFlags: 0
@@ -8285,7 +8305,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2133214135
 Transform:
   m_ObjectHideFlags: 0
