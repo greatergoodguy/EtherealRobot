@@ -1,0 +1,429 @@
+System:
+  OS: Windows 7  (6.1.7600)
+  CPU: Intel(R) Core(TM)2 Duo CPU T6500 @ 2.10GHz, count: 2
+  Physical RAM: 3584 MB
+  Addressable RAM: 2048 MB
+
+D3D9:
+  no D3D hardware acceleration
+
+OpenGL:
+  failed to set rendering context
+
+User locale: en-US
+System locale: en-US
+
+Running processes:
+taskhost.exe (312)
+    path: C:\Windows\system32\taskhost.exe
+    company:  Microsoft Corporation
+    product:  Microsoft® Windows® Operating System
+    filedesc: Host Process for Windows Tasks
+    filever:  6.1.7600.16385
+    prodver:  6.1.7600.16385
+Dwm.exe (336)
+    path: C:\Windows\system32\Dwm.exe
+    company:  Microsoft Corporation
+    product:  Microsoft® Windows® Operating System
+    filedesc: Desktop Window Manager
+    filever:  6.1.7600.16385
+    prodver:  6.1.7600.16385
+WISPTIS.EXE (652)
+    path: C:\Windows\SYSTEM32\WISPTIS.EXE
+    company:  Microsoft Corporation
+    product:  Microsoft® Windows® Operating System
+    filedesc: Microsoft Pen and Touch Input Component
+    filever:  6.1.7600.16385
+    prodver:  6.1.7600.16385
+TabTip.exe (748)
+    path: C:\Program Files\Common Files\microsoft shared\ink\TabTip.exe
+    company:  Microsoft Corporation
+    product:  Microsoft® Windows® Operating System
+    filedesc: Tablet PC Input Panel Accessory
+    filever:  6.1.7600.16385
+    prodver:  6.1.7600.16385
+Pen_TouchUser.exe (1248)
+    path: C:\Program Files\Tablet\Pen\Pen_TouchUser.exe
+    company:  Wacom Technology, Corp.
+    product:  WTouch User Mode Driver
+    filedesc: Touch User Mode Driver
+    filever:  5.2.5.5
+    prodver:  5.2.5.5
+taskeng.exe (2056)
+    path: C:\Windows\system32\taskeng.exe
+    company:  Microsoft Corporation
+    product:  Microsoft® Windows® Operating System
+    filedesc: Task Scheduler Engine
+    filever:  6.1.7600.16699
+    prodver:  6.1.7600.16699
+BatteryLife.exe (2144)
+    path: C:\Program Files\P4G\BatteryLife.exe
+    company:  ATK
+    product:  Power4Gear Hybrid
+    filedesc: Power4Gear Hybrid
+    filever:  1.1.0.1
+    prodver:  1.1.0.1
+wcourier.exe (2160)
+    path: C:\Program Files\ASUS\Wireless Console 3\wcourier.exe
+    company:  
+    product:  Wireless Console 3
+    filedesc: Wireless Console 3
+    filever:  3.0.12.0
+    prodver:  3.0.12.0
+Pen_TabletUser.exe (3156)
+    path: C:\Program Files\Tablet\Pen\Pen_TabletUser.exe
+    company:  Wacom Technology, Corp.
+    product:  Wacom Technology, Corp. User Module
+    filedesc: Tablet user module for consumer driver
+    filever:  5.2.5.5
+    prodver:  5.2.5.5
+HControlUser.exe (3248)
+    path: C:\Program Files\ASUS\ATK Hotkey\HControlUser.exe
+    company:  ASUS
+    product:  ATK Hotkey
+    filedesc: HControlUser
+    filever:  1.0.50.1
+    prodver:  1.0.50.0
+ATKOSD2.exe (3576)
+    path: C:\Program Files\ASUS\ATKOSD2\ATKOSD2.exe
+    company:  ASUS
+    product:  ATKOSD2
+    filedesc: ATKOSD2
+    filever:  7.0.6.4
+    prodver:  7.0.6.0
+DMedia.exe (3588)
+    path: C:\Program Files\ASUS\ATK Media\DMedia.exe
+    company:  ASUS
+    product:  ATK Media
+    filedesc: ATK Media
+    filever:  2.0.6.4
+    prodver:  2.0.6.0
+RtHDVCpl.exe (3596)
+    path: C:\Program Files\Realtek\Audio\HDA\RtHDVCpl.exe
+    company:  Realtek Semiconductor
+    product:  Realtek HD Audio Manager
+    filedesc: Realtek HD Audio Manager
+    filever:  1.0.0.419
+    prodver:  1.0.0.419
+ETDCtrl.exe (2916)
+    path: C:\Program Files\Elantech\ETDCtrl.exe
+    company:  ELAN Microelectronic Corp.
+    product:  ELAN Smart-Pad
+    filedesc: ETD Control Center
+    filever:  7.0.6.1
+    prodver:  7.0.6.1
+ADSMTray.exe (3072)
+    path: C:\Program Files\ASUS\ASUS Data Security Manager\ADSMTray.exe
+    company:  ASUSTek Computer Inc.
+    product:  ADSMTray
+    filedesc: ADSMTray
+    filever:  1.0.0.0
+    prodver:  1.0.0.0
+razerhid.exe (3792)
+    path: C:\Program Files\Razer\Lachesis\razerhid.exe
+    company:  
+    product:  razerhid Application
+    filedesc: razerhid MFC Application
+    filever:  1.10.0.8
+    prodver:  1.10.0.8
+OSD.exe (3900)
+    path: C:\Program Files\Razer\Lachesis\OSD.exe
+    company:  razercfg MFC Application
+    product:  razercfg MFC Application
+    filedesc: OSD
+    filever:  1.0.0.0
+    prodver:  1.0.0.0
+msseces.exe (1024)
+    path: C:\Program Files\Microsoft Security Client\msseces.exe
+    company:  Microsoft Corporation
+    product:  Microsoft Security Client
+    filedesc: Microsoft Security Client User Interface
+    filever:  4.1.522.0
+    prodver:  4.1.522.0
+razerofa.exe (3456)
+    path: C:\Program Files\Razer\Lachesis\razerofa.exe
+    company:  Razer Inc.
+    product:  Razer OFA
+    filedesc: Razer OFA - On-the-Fly Sensitivity Adjustment
+    filever:  4.0.0.4
+    prodver:  4.0.0.4
+BambooCore.exe (944)
+    path: C:\Program Files\Bamboo Dock\BambooCore.exe
+    company:  
+    product:  BambooCore
+    filedesc: BambooDock back-end application
+    filever:  1.0.0.0
+    prodver:  1.0.0.0
+iTunesHelper.exe (4212)
+    path: C:\Program Files\iTunes\iTunesHelper.exe
+    company:  Apple Inc.
+    product:  iTunes
+    filedesc: iTunesHelper
+    filever:  10.7.0.21
+    prodver:  10.7.0.21
+DivXUpdate.exe (4452)
+    path: C:\Program Files\DivX\DivX Update\DivXUpdate.exe
+    company:  
+    product:  DivX Update
+    filedesc: DivX Update
+    filever:  1.0.6.88
+    prodver:  1.0.6.88
+TrayMenu.exe (4544)
+    path: C:\Windows\System32\C2MP\TrayMenu.exe
+    company:  
+    product:  
+    filedesc: 
+    filever:  1.1.9.3
+    prodver:  1.1.9.3
+UpdateChecker.exe (4564)
+    path: C:\Windows\System32\C2MP\UpdateChecker.exe
+    company:  
+    product:  
+    filedesc: 
+    filever:  0.0.0.0
+    prodver:  0.0.0.0
+SRSPremiumPanel.exe (4584)
+    path: C:\Program Files\SRS Labs\SRS Premium Sound Control Panel\SRSPremiumPanel.exe
+    company:  SRS Labs, Inc.
+    product:  SRS Universal Audio Processing Object for Windows Vista
+    filedesc: SRS Premium Panel
+    filever:  1.4.9.0
+    prodver:  1.8.11.0
+ssh-agent.exe (5072)
+    path: C:\Users\Administrator\AppData\Local\GitHub\PortableGit_ca477551eeb4aea0e4ae9fcd3358bd96720bb5c8\bin\ssh-agent.exe
+    company:  
+    product:  
+    filedesc: 
+    filever:  0.0.0.0
+    prodver:  0.0.0.0
+AAM Updates Notifier.exe (7276)
+    path: C:\Program Files\Common Files\Adobe\OOBE\PDApp\UWA\AAM Updates Notifier.exe
+    company:  Adobe Systems Incorporated
+    product:  AAM Updates Notifier Application
+    filedesc: AAM Updates Notifier Application
+    filever:  2.0.240.0
+    prodver:  2.0.240.0
+taskhost.exe (3416)
+    path: C:\Windows\system32\taskhost.exe
+    company:  Microsoft Corporation
+    product:  Microsoft® Windows® Operating System
+    filedesc: Host Process for Windows Tasks
+    filever:  6.1.7600.16385
+    prodver:  6.1.7600.16385
+explorer.exe (6520)
+    path: C:\Windows\explorer.exe
+    company:  Microsoft Corporation
+    product:  Microsoft® Windows® Operating System
+    filedesc: Windows Explorer
+    filever:  6.1.7600.16768
+    prodver:  6.1.7600.16768
+CopyAgent.exe (9592)
+    path: C:\Users\Administrator\AppData\Roaming\Copy\CopyAgent.exe
+    company:  Barracuda Networks, Inc.
+    product:  Copy Agent
+    filedesc: Copy Agent
+    filever:  1.30.347.0
+    prodver:  1.30.347.0
+Dropbox.exe (9852)
+    path: C:\Users\Administrator\AppData\Roaming\Dropbox\bin\Dropbox.exe
+    company:  Dropbox, Inc.
+    product:  Dropbox
+    filedesc: Dropbox
+    filever:  2.0.22.0
+    prodver:  1.0.0.1
+explorer.exe (3060)
+    path: C:\Windows\explorer.exe
+    company:  Microsoft Corporation
+    product:  Microsoft® Windows® Operating System
+    filedesc: Windows Explorer
+    filever:  6.1.7600.16768
+    prodver:  6.1.7600.16768
+GitHub.exe (3044)
+    path: C:\Users\Administrator\AppData\Local\Apps\2.0\VD8ZMJPT.PTT\J7WTMGMX.KC0\gith..tion_317444273a93ac29_0001.0000_08490aa4380d2e54\GitHub.exe
+    company:  GitHub, Inc.
+    product:  GitHub
+    filedesc: GitHub
+    filever:  1.0.48.0
+    prodver:  1.0.48.0
+chrome.exe (10000)
+    path: C:\Users\Administrator\AppData\Local\Google\Chrome\Application\chrome.exe
+    company:  Google Inc.
+    product:  Google Chrome
+    filedesc: Google Chrome
+    filever:  27.0.1453.116
+    prodver:  27.0.1453.116
+chrome.exe (9860)
+    path: C:\Users\Administrator\AppData\Local\Google\Chrome\Application\chrome.exe
+    company:  Google Inc.
+    product:  Google Chrome
+    filedesc: Google Chrome
+    filever:  27.0.1453.116
+    prodver:  27.0.1453.116
+chrome.exe (6056)
+    path: C:\Users\Administrator\AppData\Local\Google\Chrome\Application\chrome.exe
+    company:  Google Inc.
+    product:  Google Chrome
+    filedesc: Google Chrome
+    filever:  27.0.1453.116
+    prodver:  27.0.1453.116
+chrome.exe (4104)
+    path: C:\Users\Administrator\AppData\Local\Google\Chrome\Application\chrome.exe
+    company:  Google Inc.
+    product:  Google Chrome
+    filedesc: Google Chrome
+    filever:  27.0.1453.116
+    prodver:  27.0.1453.116
+chrome.exe (1444)
+    path: C:\Users\Administrator\AppData\Local\Google\Chrome\Application\chrome.exe
+    company:  Google Inc.
+    product:  Google Chrome
+    filedesc: Google Chrome
+    filever:  27.0.1453.116
+    prodver:  27.0.1453.116
+chrome.exe (836)
+    path: C:\Users\Administrator\AppData\Local\Google\Chrome\Application\chrome.exe
+    company:  Google Inc.
+    product:  Google Chrome
+    filedesc: Google Chrome
+    filever:  27.0.1453.116
+    prodver:  27.0.1453.116
+MonoDevelop.exe (5788)
+    path: C:\Program Files\Unity\MonoDevelop\bin\MonoDevelop.exe
+    company:  
+    product:  MonoDevelop
+    filedesc: MonoDevelop
+    filever:  2.6.0.0
+    prodver:  2.6.0.0
+chrome.exe (6736)
+    path: C:\Users\Administrator\AppData\Local\Google\Chrome\Application\chrome.exe
+    company:  Google Inc.
+    product:  Google Chrome
+    filedesc: Google Chrome
+    filever:  27.0.1453.116
+    prodver:  27.0.1453.116
+chrome.exe (8256)
+    path: C:\Users\Administrator\AppData\Local\Google\Chrome\Application\chrome.exe
+    company:  Google Inc.
+    product:  Google Chrome
+    filedesc: Google Chrome
+    filever:  27.0.1453.116
+    prodver:  27.0.1453.116
+chrome.exe (8744)
+    path: C:\Users\Administrator\AppData\Local\Google\Chrome\Application\chrome.exe
+    company:  Google Inc.
+    product:  Google Chrome
+    filedesc: Google Chrome
+    filever:  27.0.1453.116
+    prodver:  27.0.1453.116
+gconfd-2.exe (5724)
+    path: C:\Program Files\gedit\libexec\gconfd-2.exe
+    company:  
+    product:  
+    filedesc: 
+    filever:  0.0.0.0
+    prodver:  0.0.0.0
+chrome.exe (5760)
+    path: C:\Users\Administrator\AppData\Local\Google\Chrome\Application\chrome.exe
+    company:  Google Inc.
+    product:  Google Chrome
+    filedesc: Google Chrome
+    filever:  27.0.1453.116
+    prodver:  27.0.1453.116
+chrome.exe (7248)
+    path: C:\Users\Administrator\AppData\Local\Google\Chrome\Application\chrome.exe
+    company:  Google Inc.
+    product:  Google Chrome
+    filedesc: Google Chrome
+    filever:  27.0.1453.116
+    prodver:  27.0.1453.116
+chrome.exe (3244)
+    path: C:\Users\Administrator\AppData\Local\Google\Chrome\Application\chrome.exe
+    company:  Google Inc.
+    product:  Google Chrome
+    filedesc: Google Chrome
+    filever:  27.0.1453.116
+    prodver:  27.0.1453.116
+chrome.exe (4576)
+    path: C:\Users\Administrator\AppData\Local\Google\Chrome\Application\chrome.exe
+    company:  Google Inc.
+    product:  Google Chrome
+    filedesc: Google Chrome
+    filever:  27.0.1453.116
+    prodver:  27.0.1453.116
+chrome.exe (3856)
+    path: C:\Users\Administrator\AppData\Local\Google\Chrome\Application\chrome.exe
+    company:  Google Inc.
+    product:  Google Chrome
+    filedesc: Google Chrome
+    filever:  27.0.1453.116
+    prodver:  27.0.1453.116
+chrome.exe (1100)
+    path: C:\Users\Administrator\AppData\Local\Google\Chrome\Application\chrome.exe
+    company:  Google Inc.
+    product:  Google Chrome
+    filedesc: Google Chrome
+    filever:  27.0.1453.116
+    prodver:  27.0.1453.116
+chrome.exe (8328)
+    path: C:\Users\Administrator\AppData\Local\Google\Chrome\Application\chrome.exe
+    company:  Google Inc.
+    product:  Google Chrome
+    filedesc: Google Chrome
+    filever:  27.0.1453.116
+    prodver:  27.0.1453.116
+iTunes.exe (7956)
+    path: C:\Program Files\iTunes\iTunes.exe
+    company:  Apple Inc.
+    product:  iTunes
+    filedesc: iTunes
+    filever:  10.7.0.21
+    prodver:  10.7.0.21
+AppleMobileDeviceHelper.exe (956)
+    path: C:\Program Files\Common Files\Apple\Mobile Device Support\AppleMobileDeviceHelper.exe
+    company:  Apple Inc.
+    product:  
+    filedesc: MobileDeviceHelper
+    filever:  17.893.0.4
+    prodver:  3.3.0.0
+conhost.exe (6668)
+    path: C:\Windows\system32\conhost.exe
+    company:  Microsoft Corporation
+    product:  Microsoft® Windows® Operating System
+    filedesc: Console Window Host
+    filever:  6.1.7600.17135
+    prodver:  6.1.7600.17135
+distnoted.exe (2616)
+    path: C:\Program Files\Common Files\Apple\Apple Application Support\distnoted.exe
+    company:  Apple Inc.
+    product:  distnoted
+    filedesc: distnoted
+    filever:  1.630.18.0
+    prodver:  1.630.18.0
+conhost.exe (9932)
+    path: C:\Windows\system32\conhost.exe
+    company:  Microsoft Corporation
+    product:  Microsoft® Windows® Operating System
+    filedesc: Console Window Host
+    filever:  6.1.7600.17135
+    prodver:  6.1.7600.17135
+chrome.exe (8512)
+    path: C:\Users\Administrator\AppData\Local\Google\Chrome\Application\chrome.exe
+    company:  Google Inc.
+    product:  Google Chrome
+    filedesc: Google Chrome
+    filever:  27.0.1453.116
+    prodver:  27.0.1453.116
+gedit.exe (9760)
+    path: C:\Program Files\gedit\bin\gedit.exe
+    company:  
+    product:  
+    filedesc: 
+    filever:  0.0.0.0
+    prodver:  0.0.0.0
+UnityBugReporter.exe (9556)
+    path: C:\Program Files\Unity\Editor\UnityBugReporter.exe
+    company:  Unity Technologies ApS
+    product:  Unity Bug Reporter
+    filedesc: Unity Bug Reporter
+    filever:  4.1.5.1944
+    prodver:  4.1.5.1944
