@@ -11,33 +11,31 @@ public class MouseLook_Ethereal : PlayerController {
     public float maxAngleVert = 80F;
     public float maxAngleHori = 80F;
     public float maxAngle = 80F;
-	private float smoothTime = 0.1f;
+	private float smoothTime = 5f;
 	private float xTarget, xCurrent = 0f;
 	private float yTarget, yCurrent = 0f;
 	private float xVelo, yVelo;
     private float rotationY = 0F;		// TODO: DEPRECATE ME
 	private HeadMotion mouseHeadMotion;
 	private HeadMotion ovrHeadMotion;
-	
 	private HeadMotion activeHeadMotion;
-	
-	private Quaternion initialQuaternion;
-	private Vector3 initialForward;
+	//private Quaternion initialQuaternion;
+	//private Vector3 initialForward;
 	
 	void Start () {
 		mouseHeadMotion = transform.FindChild("Camera").GetComponent<HeadMotion>();
 		ovrHeadMotion = transform.FindChild("OVRCameraController").GetComponent<HeadMotion>();
-		
 		activeHeadMotion = mouseHeadMotion;
 		
 		DebugUtils.Assert(mouseHeadMotion != null);
 		DebugUtils.Assert(ovrHeadMotion != null);
 		
-		initialQuaternion = transform.localRotation;
-		initialForward = transform.forward;
-		//print (initialQuaternion);
-		//print (initialForward);
+		//initialQuaternion = transform.localRotation;
+		//initialForward = transform.forward;
     }
+	
+	void Update () {
+	}
 	
     void FixedUpdate () {
     
@@ -48,11 +46,11 @@ public class MouseLook_Ethereal : PlayerController {
 				/* Get horizontal rotation */
 				yTarget += activeHeadMotion.GetHeadHorizontalAxis() * sensitivityX;
 				yTarget = Mathf.Clamp (yTarget, -maxAngleHori, maxAngleHori);
-				yCurrent = Mathf.SmoothDamp (yCurrent, yTarget, ref yVelo, smoothTime);
+				yCurrent = Mathf.SmoothDamp (yCurrent, yTarget, ref yVelo, Time.deltaTime * smoothTime);
 				/* Get vertical rotation: current coded for non-inverted look only */
 				xTarget += activeHeadMotion.GetHeadVerticalAxis() * -sensitivityY;
 				xTarget = Mathf.Clamp (xTarget, -maxAngleVert, maxAngleVert);
-				xCurrent = Mathf.SmoothDamp (xCurrent, xTarget, ref xVelo, smoothTime);
+				xCurrent = Mathf.SmoothDamp (xCurrent, xTarget, ref xVelo, Time.deltaTime * smoothTime);
 				transform.localRotation = Quaternion.Euler (xCurrent, yCurrent, 0f);
 			} else {
 				//Debug.Log(activeHeadMotion.ToString ());

@@ -43,6 +43,7 @@ public class LaserPointer : MonoBehaviour {
 		Vector3 origin2 = transform.position;
 		origin2.y = origin2.y + 0.1f;
 		lrVelo.SetPosition(0, origin2);
-		lrVelo.SetPosition(1, origin2 + transform.rigidbody.velocity);
+		//lrVelo.SetPosition(1, origin2 + transform.rigidbody.velocity);	// Velocity Vector Laser
+		lrVelo.SetPosition(1, origin2 + transform.forward * 888f);			// Forward Vector Laser
 	}
 }

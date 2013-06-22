@@ -5,9 +5,9 @@ public class DebugData {
 	
 	public EtherealPC etherealPC;
 	
-	public delegate float GetValueDelagate();
-	public delegate void IncreaseDelagate();
-	public delegate void DecreaseDelagate();
+	public delegate float GetValueDelegate();
+	public delegate void IncreaseDelegate();
+	public delegate void DecreaseDelegate();
 	
 	private ArrayList keys = new ArrayList();
 	private ArrayList getValueDelegates = new ArrayList();
@@ -21,7 +21,7 @@ public class DebugData {
 		this.etherealPC = etherealPC;
 	}
 	
-	public void AddData(string key, GetValueDelagate getValueDel, IncreaseDelagate increaseDel, DecreaseDelagate decreaseDel){
+	public void AddData(string key, GetValueDelegate getValueDel, IncreaseDelegate increaseDel, DecreaseDelegate decreaseDel){
 		keys.Add(key);
 		getValueDelegates.Add(getValueDel);
 		increaseDelegates.Add(increaseDel);
@@ -37,16 +37,15 @@ public class DebugData {
 	}
 	
 	public void DebugDecrease(int index){
-		((DecreaseDelagate) decreaseDelegates[index])();
+		((DecreaseDelegate) decreaseDelegates[index])();
 	}
 	
 	public void DebugIncrease(int index){
-		((IncreaseDelagate) increaseDelegates[index])();
+		((IncreaseDelegate) increaseDelegates[index])();
 	}
 	
-	
 	public string GetValue(int index){
-		return ((GetValueDelagate) getValueDelegates[index])().ToString("F2");
+		return ((GetValueDelegate) getValueDelegates[index])().ToString("F2");
 	}
 	
 }
