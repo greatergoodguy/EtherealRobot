@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 using System.Collections;
 using System.IO;
 using System.Text;
@@ -12,14 +13,15 @@ public class TimeRecorder : MonoBehaviour {
 	private bool hasStarted = false;
 	private bool timerIsGoing = false;  // currently unneeded
 	
-	private float rawPlayerTime = 0;
-	private int playerSecondsTime = 0;
-	private string playerClockTime = "00:00";
+	private float rawPlayerTime = 0;	
+	private float roundedPlayerTime = 0.00f;	
+	private string playerClockTime = "00:00.00";
 	
+	string HighScoreList;
 
 	// Use this for initialization
 	void Start () {
-
+		HighScoreList = GetHighScores();
 	}
 	
 	// Update is called once per frame
@@ -30,10 +32,13 @@ public class TimeRecorder : MonoBehaviour {
 	void OnGUI(){
 		if(hasStarted){
 			rawPlayerTime = Time.time - startTime;
-			playerSecondsTime = (int) rawPlayerTime;
-			playerClockTime = convertToClockTime(playerSecondsTime);
+			roundedPlayerTime = (float) Math.Round(rawPlayerTime, 2); 
+			Debug.Log("roundedTime: " + roundedPlayerTime);
+			playerClockTime = convertToClockTime(roundedPlayerTime);
 		}
-			GUI.Label(new Rect(10, 28, 100, 20), "Time " + playerClockTime);
+		GUI.Label(new Rect(10, 28, 100, 20), "Time " + playerClockTime);
+		GUI.Label(new Rect(Screen.width / 2, Screen.height / 10, 100, Screen.height - Screen.height / 10),
+			"High Scores\n" + HighScoreList);
 	}	
 	
 	void KeyboardTimeInput(){
@@ -48,13 +53,17 @@ public class TimeRecorder : MonoBehaviour {
 			}	
 		}
 		else if(Input.GetKeyDown(KeyCode.K)){
-			hasStarted = false;
-			
+			hasStarted = false;		
 			UpdateTimeRecords();
+			HighScoreList = GetHighScores();
 		}
 	}
 	
-	string convertToClockTime(int timeInSeconds){
+	string convertToClockTime(float timeRounded){
+	
+		int timeInSeconds = (int)(Math.Floor(timeRounded));	
+		float decimalHolder = (float)(Math.Round(timeRounded - (Math.Floor(timeRounded)),2));
+		
 		int minutes = timeInSeconds / 60; // ((int)rawPlayerTime) / 60;
 		int seconds = timeInSeconds % 60; // ((int)rawPlayerTime) % 60;
 		
@@ -67,8 +76,13 @@ public class TimeRecorder : MonoBehaviour {
 		if(minutes < 10)
 			minutesStr += "0";
 		minutesStr += minutes.ToString();
+	
+		string decimalsStr = decimalHolder.ToString().Substring(1);
+		while(decimalsStr.Length < 3){
+			decimalsStr += "0";	
+		}
 		
-		string clockTime = minutesStr + ":" + secondsStr;
+		string clockTime = minutesStr + ":" + secondsStr + decimalsStr;
 		return clockTime;
 	}
 	
@@ -77,7 +91,7 @@ public class TimeRecorder : MonoBehaviour {
 		string newFile = "";	
 		string[] file = File.ReadAllLines(filePath);
 		int fileLength = file.Length;
-		string playerScoreString = playerSecondsTime + "-" + playerClockTime + "\r\n";
+		string playerScoreString = roundedPlayerTime + "-" + playerClockTime + Environment.NewLine;
 		
 		if(fileLength == 0){
 			newFile += playerScoreString;
@@ -92,9 +106,9 @@ public class TimeRecorder : MonoBehaviour {
 					int hyphenIndex = file[lineCount].IndexOf("-");
 					string highScoreTimeStr = file[lineCount].Substring(0, hyphenIndex);
 					//int highScoreTime = (int) highScoreTimeStr;
-					int highScoreTime; // = int.Parse(highScoreTimeStr);
-					int.TryParse(highScoreTimeStr, out highScoreTime);
-					if(playerSecondsTime < highScoreTime){	
+					float highScoreTime; // = int.Parse(highScoreTimeStr);
+					float.TryParse(highScoreTimeStr, out highScoreTime);
+					if(roundedPlayerTime < highScoreTime){	
 						newFile += playerScoreString;
 						addedPlayerScore = true;
 					}
@@ -104,7 +118,7 @@ public class TimeRecorder : MonoBehaviour {
 					// Do nothing and exit the loop
 				}
 				else{
-					newFile += file[lineCount] + "\r\n"; // adds high score from old file
+					newFile += file[lineCount] + Environment.NewLine; // adds high score from old file
 				}
 				lineCount++;
 				
@@ -115,5 +129,18 @@ public class TimeRecorder : MonoBehaviour {
 			}
 		}
 		File.WriteAllText(filePath, newFile);
+	}
+	
+	string GetHighScores(){
+		string allHighScores = "";
+		string[] scoreList = File.ReadAllLines(filePath);
+
+		for(int i = 0; i < scoreList.Length; i++){
+			int hyphenIndex = scoreList[i].IndexOf("-");		
+			string highScoreStr = scoreList[i].Substring(hyphenIndex + 1);
+			allHighScores += highScoreStr + Environment.NewLine;
+		}
+		
+		return allHighScores;
 	}
 }
