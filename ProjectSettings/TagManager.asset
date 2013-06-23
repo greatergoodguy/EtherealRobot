@@ -3,9 +3,15 @@
 --- !u!78 &1
 TagManager:
   tags:
-  - 
+  - HoverPower
   - Light
   - Bouncer
+  - MenuButton
+  - Head
+  - BackButton
+  - LevelMenu
+  - SettingsButton
+  - SettingsMenu
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX
