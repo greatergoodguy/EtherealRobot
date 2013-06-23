@@ -1669,6 +1669,14 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400050, guid: 291d77721f76848149eb3edb0866c2e6, type: 2}
+      propertyPath: inputDeadZone
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400050, guid: 291d77721f76848149eb3edb0866c2e6, type: 2}
+      propertyPath: hoverHeight
+      value: 25
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 291d77721f76848149eb3edb0866c2e6, type: 2}
   m_RootGameObject: {fileID: 1432115419}
@@ -5207,7 +5215,7 @@ Transform:
   m_PrefabParentObject: {fileID: 400010, guid: a8801a57fc0c04518a84ce478a83e4e9, type: 2}
   m_PrefabInternal: {fileID: 1354490257}
   m_GameObject: {fileID: 1285853611}
-  m_LocalRotation: {x: 0, y: -.0361876152, z: 0, w: .999345005}
+  m_LocalRotation: {x: 0, y: -.036187619, z: 0, w: .999345064}
   m_LocalPosition: {x: 816.876587, y: 126.061386, z: 1191.92102}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -5724,18 +5732,15 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a948764320eca47f48c8ef3b842eabb6, type: 3}
   m_Name: 
-  turnSensitivity: 5
   acceleration: 2.5
   brakeSpeed: 1
   maxSpeed: 88
   jumpPower: 5
-  hoverHeight: 20
+  hoverHeight: 25
   grav: 30
   warpRatio: .5
-  inputDeadZone: 3
+  inputDeadZone: 13
   corneringThrustRatio: .5
-  lookAngleX: 0
-  lookAngleY: 0
   maxVeloCornerAngle: 35
 --- !u!1 &1435162963
 GameObject:
@@ -6975,7 +6980,6 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a948764320eca47f48c8ef3b842eabb6, type: 3}
   m_Name: 
-  turnSensitivity: 5
   acceleration: 2.5
   brakeSpeed: 1
   maxSpeed: 88
@@ -6985,8 +6989,6 @@ MonoBehaviour:
   warpRatio: .5
   inputDeadZone: 3
   corneringThrustRatio: .5
-  lookAngleX: 0
-  lookAngleY: 0
   maxVeloCornerAngle: 35
 --- !u!114 &1757589464
 MonoBehaviour:

@@ -4,8 +4,8 @@ using System.Collections;
 public class EtherealMove : MonoBehaviour {
 
 	// Public Tunable Movement Vars
-	public float turnSensitivity = 5f;
 	public float acceleration = 2.5f;
+	// public float turnSensitivity = 5f;
 	public float brakeSpeed = 1.0f;				// Don´t make larger than max speed
 	public float maxSpeed = 88.0f;
 	public float jumpPower = 5.0f;
@@ -18,20 +18,17 @@ public class EtherealMove : MonoBehaviour {
 	private bool theFinalFrontier = false;
 	private bool canJump, throttleOn = false;
 	private float veloY, distToGround;
-	private float angleDiff, angleVelo, turnSig;
-	private Vector3 jumpForce;
+	private float angleLook, angleVelo, potentAngle, turnSig;
+	private Vector3 jumpForce, fullGripAngleVec;
 	private Vector3 modifiedVeloAngle;			// TODO: questionable use 
 	private Quaternion noBacksies;
 	private Transform head;
 	// Rotation Vars	
-	public float lookAngleX, lookAngleY = 0f;	// TODO: questionable use
 	private float deltaGs, yInt;
 	public float maxVeloCornerAngle = 35.0f;	// max cornering angle at max speed (200mph)
 	// Other Private Parts
 	private float camFOV;
 	private Camera[] activeCams;
-	
-	/* TODO: Rid lookAngle from parent, is static class float var */
 	
 	void Awake () {
 		float maxAngle = 80f; 
@@ -43,10 +40,10 @@ public class EtherealMove : MonoBehaviour {
 	void Start () {
 	
 		/* Rigidbody Friction Settings */
-		//rigidbody.constraints = 
-			//RigidbodyConstraints.FreezeRotationX | 
-			//RigidbodyConstraints.FreezeRotationY |
-			//RigidbodyConstraints.FreezeRotationZ;
+		rigidbody.constraints = 
+			RigidbodyConstraints.FreezeRotationX | 
+			RigidbodyConstraints.FreezeRotationY |
+			RigidbodyConstraints.FreezeRotationZ;
 		rigidbody.drag = 0f;
 		collider.material.dynamicFriction = 1.0f;
 		collider.material.dynamicFriction2 = 1.0f;
@@ -69,9 +66,9 @@ public class EtherealMove : MonoBehaviour {
 		rigidbody.useGravity = theFinalFrontier; 
 		// Set Us up the Bomb	
 		float altitude;
-		float potentAngle = rigidbody.velocity.magnitude * deltaGs + yInt;
+		potentAngle = rigidbody.velocity.magnitude * deltaGs + yInt;
 		float thrust = maxSpeed/acceleration;
-		bool understeer = angleDiff > angleVelo && potentAngle > angleVelo;
+		bool understeer = angleLook > angleVelo && potentAngle > angleVelo;
 		float thrustMod = (understeer == true) ? (potentAngle-angleVelo)/potentAngle : 0f;
 		Vector3 forwardThrust = head.forward * thrust;
 		Vector3 corneringThrust = (-head.right * turnSig) * thrust * thrustMod;
@@ -110,8 +107,8 @@ public class EtherealMove : MonoBehaviour {
 					
 					// Dampen Rough Terrain: Counters negative velocity.y forces when at certain height
 					// TODO: Consider using constant minimal hover height
-					if (altitude < (0.19f * hoverHeight) && rigidbody.velocity.y < 0f) {
-						float dampY = Mathf.SmoothDamp (rigidbody.velocity.y, 0f, ref veloY, 0.1f);
+					if (altitude < (0.23f * hoverHeight) && rigidbody.velocity.y < 0f) {
+						float dampY = Mathf.SmoothDamp (rigidbody.velocity.y, 0f, ref veloY, 0.01f);
 						rigidbody.velocity = new Vector3 (rigidbody.velocity.x, dampY, rigidbody.velocity.z);	
 						//Debug.Log ("Current Y-Axis Velocity = "+dampY);
 					}
@@ -140,11 +137,12 @@ public class EtherealMove : MonoBehaviour {
 		float currVelo = rigidbody.velocity.magnitude;
 		float warpCam = Mathf.Clamp (currVelo/maxSpeed, 0f , 1f);
 		activeCams = Camera.allCameras;
-		angleDiff = Vector3.Angle (transform.forward, head.forward);
-		angleVelo = Vector3.Angle (transform.forward, rigidbody.velocity.normalized);
 		/* NOTE: 1 = LEFT, -1 = RIGHT 		Debug.Log ("Turn Signal = "+turnSig); */
 		// Debug.Log ("RIGHT IS -1, LEFT IS 1; TurnSig = "+turnSig);
 		turnSig = AngleDir (transform.forward, rigidbody.velocity.normalized, transform.up);
+		angleLook = Vector3.Angle (transform.forward, head.forward);
+		angleVelo = Vector3.Angle (transform.forward, rigidbody.velocity.normalized);
+		potentAngle = rigidbody.velocity.magnitude * deltaGs + yInt;
 		
 		// Camera Twix
 		// TODO: chop off bottom of view
@@ -161,11 +159,12 @@ public class EtherealMove : MonoBehaviour {
 		canJump = (IsGrounded() && InputManager.activeInput.GetButtonDown_Jump());		// Jump
 		
 		// Praya Moovmen n Lotashun 
+		// TODO: Clamp to velocity vector
 		if (!InputManager.activeInput.GetButton_Look()) {
 			// Deadzone and Anti-flippyfloppy Stuff
 			float noBackflips = Vector3.Angle (Vector3.up, head.forward);
 			float noFrontflips = Vector3.Angle (-Vector3.up, head.forward);
-			if (noBackflips < 13f || noFrontflips < 13f || angleDiff < 15f ) {
+			if (noBackflips < 13f || noFrontflips < 13f || angleLook < 15f ) {
 				if (noBacksies == Quaternion.identity) noBacksies = head.rotation;
 				transform.rotation = Quaternion.RotateTowards (transform.rotation, head.rotation, 0.1f);
 				Debug.Log ("NO FLIPPYFLOPPIES ALLOWED");
@@ -174,6 +173,29 @@ public class EtherealMove : MonoBehaviour {
 				transform.rotation = Quaternion.RotateTowards (transform.rotation, head.rotation, Time.deltaTime * 50f);
 			}
 		}
+		if (angleLook > angleVelo && potentAngle > angleVelo) {
+			Vector3 orthoVec = Vector3.zero;
+			Debug.Log ("Current World Position is: "+transform.position.x+", "+transform.position.y+", "+transform.position.z);
+			Debug.Log ("Rigidbody Velocity Vec = "+rigidbody.velocity.x+", "+rigidbody.velocity.y+", "+rigidbody.velocity.z);
+			Vector3 ptVelocity = rigidbody.GetPointVelocity (transform.position);		// Velocity at world pos
+			//Vector3 localVelocity = transform.InverseTransformDirection (ptVelocity);	// Converts world to local
+			//Debug.Log ("Point Velocity Vec = "+ptVelocity.x+", "+ptVelocity.y+", "+ptVelocity.z);
+			//Debug.Log ("Local Velocity Vec = "+localVelocity.x+", "+localVelocity.y+", "+localVelocity.z);
+			if (turnSig == -1f) {				// Turning Right
+				orthoVec = Vector3.Cross (ptVelocity, head.forward);
+			} else if (turnSig == 1f) {			// Turning Left
+				orthoVec = Vector3.Cross (head.forward, ptVelocity);
+			}
+			//fullGripAngleVec = Quaternion.AngleAxis ((potentAngle-angleVelo)*turnSig, orthoVec) * localVelocity;
+			//fullGripAngleVec = transform.TransformDirection (fullGripAngleVec);			// Back to world coord
+			fullGripAngleVec = Quaternion.AngleAxis ((potentAngle-angleVelo)*turnSig, orthoVec) * rigidbody.velocity;
+			Debug.Log ("Turn Signal is: "+ turnSig);
+			Debug.Log ("Potential Turn Angle is: "+potentAngle+", Velocity Angle is: "+angleVelo);
+			Debug.Log ("Decrease Turn Radius by: "+ (turnSig * (potentAngle-angleVelo)));
+			Debug.Log ("Full Grip Vec = "+fullGripAngleVec.x+", "+fullGripAngleVec.y+", "+fullGripAngleVec.z);
+		}
+		//Debug.Log ("Current velocity = "+currVelo);
+			
 		/* TODO: UNNEEDED?
 		float rotateInfluence = DeltaTime * RotationAmount * RotationScaleMultiplier;	// Camera rotation
 		float deltaRotation = 0.0f;														// Rotate
@@ -183,8 +205,6 @@ public class EtherealMove : MonoBehaviour {
 		YRotation += OVRGamepadController.GetAxisRightX() * rotateInfluence;			// Gamepad Rotation
 		//SetCameras();																	// TODO: WHY?
 		*/
-		
-		//Debug.Log ("Current velocity = "+currVelo);
 	}
 	
 	/* TODO: Might need OnCollision stuff from Mech scripts */
@@ -197,7 +217,7 @@ public class EtherealMove : MonoBehaviour {
     
     /* Checks to see if player is grounded */
 	public bool IsGrounded() { 
-		return Physics.Raycast (transform.position, -Vector3.up, distToGround + 0.2f); 
+		return Physics.Raycast (transform.position, -Vector3.up, distToGround + 0.29f); 
 	}
     
 	/* Find angle direction: Left or Right 
