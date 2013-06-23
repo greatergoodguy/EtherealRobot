@@ -28,22 +28,27 @@ public class LaserPointer : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void FixedUpdate () {
+	void Update () {
 		Vector3 origin = head.transform.position;
 		Vector3 forwardDirection = head.transform.forward;
 		Vector3 endPoint = origin + forwardDirection * 888f;
 		origin.y = origin.y + 0.1f;
-		RaycastHit hit = new RaycastHit();
-	
-		lrHead.SetPosition(0, origin);
+		//RaycastHit hit = new RaycastHit();
 		//if (Physics.Raycast (origin, forwardDirection, out hit))
 		//	endPoint = hit.point;
+		
+		lrHead.SetPosition(0, origin);
 		lrHead.SetPosition(1, endPoint);
 	
 		Vector3 origin2 = transform.position;
-		origin2.y = origin2.y + 0.1f;
+		origin2.y = origin2.y - 0.1f;
 		lrVelo.SetPosition(0, origin2);
-		//lrVelo.SetPosition(1, origin2 + transform.rigidbody.velocity);	// Velocity Vector Laser
-		lrVelo.SetPosition(1, origin2 + transform.forward * 888f);			// Forward Vector Laser
+		if (rigidbody.velocity.magnitude > 0.5f) {
+			Debug.Log ("Velo Laser");
+			lrVelo.SetPosition(1, origin2 + transform.rigidbody.velocity);		// Velocity Vector Laser
+		} else {
+			Debug.Log ("Body Forward Laser");
+			lrVelo.SetPosition(1, origin2 + transform.forward * 888f);			// Forward Vector Laser
+		}
 	}
 }

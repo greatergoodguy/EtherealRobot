@@ -34,10 +34,10 @@ public class MouseLook_Ethereal : PlayerController {
 		//initialForward = transform.forward;
     }
 	
-	void Update () {
+	void FixedUpdate () {
 	}
 	
-    void FixedUpdate () {
+    void Update () {
     
         if (axes == RotationAxes.MouseXAndY) {
             //float rotationX = transform.localEulerAngles.y + Input.GetAxis("Xbox_Horizontal") * sensitivityX;
@@ -52,6 +52,8 @@ public class MouseLook_Ethereal : PlayerController {
 				xTarget = Mathf.Clamp (xTarget, -maxAngleVert, maxAngleVert);
 				xCurrent = Mathf.SmoothDamp (xCurrent, xTarget, ref xVelo, Time.deltaTime * smoothTime);
 				transform.localRotation = Quaternion.Euler (xCurrent, yCurrent, 0f);
+				//Debug.Log ("Head's Forward Vector = "+transform.forward.x+", "+transform.forward.y+", "+transform.forward.z);
+				//Debug.Log ("Head's Up Vector = "+transform.up.x+", "+transform.up.y+", "+transform.up.z);
 			} else {
 				//Debug.Log(activeHeadMotion.ToString ());
 				/* Get horizontal rotation */
@@ -64,9 +66,9 @@ public class MouseLook_Ethereal : PlayerController {
 					ovrAxisY, 
 					transform.localRotation.z);
 			}
-			
+		}	
         /* Only horizontal or only vertical control modes
-         * TODO: MIGHT NOT NEED THESE LAST TWO CONTROL MODES */
+         * TODO: MIGHT NOT NEED THESE LAST TWO CONTROL MODES 
         } else if (axes == RotationAxes.MouseX) {
 			//Debug.Log("In MouseX - MouseLook_Ethereal.cs");
 			if (activeHeadMotion == mouseHeadMotion) {
@@ -81,6 +83,7 @@ public class MouseLook_Ethereal : PlayerController {
             rotationY = Mathf.Clamp (rotationY, -maxAngleVert, maxAngleVert);
             transform.localEulerAngles = new Vector3(-rotationY, transform.localEulerAngles.y, 0);
         }
+        */
     }
 	
 	/* Helper Methods
