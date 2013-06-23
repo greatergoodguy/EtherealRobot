@@ -1939,13 +1939,13 @@ MonoBehaviour:
   NeckPosition: {x: 0, y: 0, z: 0}
   EyeCenterPosition: {x: 0, y: .150000006, z: .0900000036}
   FollowOrientation: {fileID: 400048}
-  TrackerRotatesY: 0
+  TrackerRotatesY: 1
   CallInPreRender: 0
   WireMode: 0
   LensCorrection: 1
   Chromatic: 1
   BackgroundColor: {r: .192000002, g: .301999986, b: .474999994, a: 1}
-  NearClipPlane: .150000006
+  NearClipPlane: .300000012
   FarClipPlane: 1000
 --- !u!114 &11400012
 MonoBehaviour:

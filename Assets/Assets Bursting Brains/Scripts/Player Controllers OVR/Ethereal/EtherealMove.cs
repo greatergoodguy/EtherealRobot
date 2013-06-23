@@ -4,10 +4,10 @@ using System.Collections;
 public class EtherealMove : MonoBehaviour {
 
 	// Public Tunable Movement Vars
-	public float acceleration = 2.5f;
+	public float acceleration = 4.0f;
 	// public float turnSensitivity = 5f;
 	public float brakeSpeed = 1.0f;				// Don´t make larger than max speed
-	public float maxSpeed = 88.0f;
+	public float maxSpeed = 147.0f;
 	public float jumpPower = 5.0f;
 	public float hoverHeight = 29.0f;
 	public float grav = 30.0f;
@@ -72,7 +72,8 @@ public class EtherealMove : MonoBehaviour {
 		float thrustMod = (understeer == true) ? (potentAngle-angleVelo)/potentAngle : 0f;
 		Vector3 forwardThrust = head.forward * thrust;
 		Vector3 corneringThrust = (-head.right * turnSig) * thrust * thrustMod;
-		Vector3 modifiedThrust = (forwardThrust + corneringThrust).normalized * thrust;
+		//Vector3 modifiedThrust = head.forward;
+		Vector3 modifiedThrust = (forwardThrust + corneringThrust).normalized; // * thrust;
 		/* NOTE: Force = units/s/n, at n seconds will be at units/s velocity */
 		
 		// "Gravity"/Hovering and "Physics"
@@ -88,18 +89,45 @@ public class EtherealMove : MonoBehaviour {
 		
 					// Accel/Decel and Cornering "Physics"
 					// TODO: Consider ForceMode.Velocity with analog controls using deltaTime
+					if (angleLook > angleVelo && potentAngle > angleVelo) {
+						Vector3 orthoVec = Vector3.zero;
+						Vector3 ptVelocity = rigidbody.GetPointVelocity (transform.position);		// Velocity at world pos
+						//Debug.Log ("Current World Position is: "+transform.position.x+", "+transform.position.y+", "+transform.position.z);
+						//Debug.Log ("Rigidbody Velocity Vec = "+rigidbody.velocity.x+", "+rigidbody.velocity.y+", "+rigidbody.velocity.z);
+						//Vector3 localVelocity = transform.InverseTransformDirection (ptVelocity);	// Converts world to local
+						//Debug.Log ("Point Velocity Vec = "+ptVelocity.x+", "+ptVelocity.y+", "+ptVelocity.z);
+						//Debug.Log ("Local Velocity Vec = "+localVelocity.x+", "+localVelocity.y+", "+localVelocity.z);
+						if (turnSig == -1f) {				// Turning CCW
+							orthoVec = Vector3.Cross (head.forward, ptVelocity);
+						} else if (turnSig == 1f) {			// Turning CW
+							orthoVec = Vector3.Cross (ptVelocity, head.forward);
+						}
+						//fullGripAngleVec = Quaternion.AngleAxis ((potentAngle-angleVelo)*turnSig, orthoVec) * localVelocity;
+						//fullGripAngleVec = transform.TransformDirection (fullGripAngleVec);			// Back to world coord
+						fullGripAngleVec = Quaternion.AngleAxis ((potentAngle-angleVelo)*turnSig, orthoVec) * rigidbody.velocity;
+						modifiedThrust = (modifiedThrust + fullGripAngleVec).normalized; // * thrust;
+						//Debug.Log ("Turn Signal is: "+ turnSig);
+						//Debug.Log ("Potential Turn Angle is: "+potentAngle+", Velocity Angle is: "+angleVelo);
+						//Debug.Log ("Decrease Turn Radius by: "+ (turnSig * (potentAngle-angleVelo)));
+						//Debug.Log ("Full Grip Vec = "+fullGripAngleVec.x+", "+fullGripAngleVec.y+", "+fullGripAngleVec.z);
+					}
 					if (throttleOn) { 
 						Debug.Log ("GO TIME");
-						rigidbody.AddForce (modifiedThrust, ForceMode.Acceleration); }
-					else { 
+						rigidbody.AddForce (modifiedThrust * thrust, ForceMode.Acceleration); 
+					} else { 
 						Debug.Log ("NO GO TIME");
-						rigidbody.AddForce (rigidbody.velocity * -0.69f, ForceMode.Acceleration); }
+						float v = rigidbody.velocity.magnitude;
+						rigidbody.AddForce (rigidbody.velocity * -1f, ForceMode.Acceleration);
+						rigidbody.AddForce (modifiedThrust * v * 0.5f, ForceMode.Acceleration); 
+					}
 					
 					// Velocity Limiter
 					if (rigidbody.velocity.magnitude > maxSpeed) {
 						float v = rigidbody.velocity.magnitude;
 						float oppositeF = maxSpeed - v;
-						rigidbody.AddForce (rigidbody.velocity.normalized * oppositeF, ForceMode.VelocityChange);
+						modifiedThrust = (modifiedThrust * 0.25f + rigidbody.velocity.normalized).normalized;
+						rigidbody.AddForce (rigidbody.velocity * -1f, ForceMode.VelocityChange);
+						rigidbody.AddForce (modifiedThrust * maxSpeed, ForceMode.VelocityChange); 
 					} 
 					
 					// Jumping "Mechanic"
@@ -115,7 +143,6 @@ public class EtherealMove : MonoBehaviour {
 				}
 			}
 		}
-		
 		//Debug.Log ("Distance to Ground = "+altitude);
 		//Debug.Log ("Current velocity = "+rigidbody.velocity.magnitude);
 	}
@@ -126,6 +153,7 @@ public class EtherealMove : MonoBehaviour {
 		// Prayer Toggrahs
 		if (Input.GetKeyDown (KeyCode.G)) {
 			theFinalFrontier = !theFinalFrontier;
+			rigidbody.useGravity = theFinalFrontier ? true : false;
 			Debug.Log (!theFinalFrontier ? "GRAVITY ON" : "GRAVITY OFF");
 		}
 		if (InputManager.activeInput.GetButtonDown_SwitchCameraMode()) {	// Camera Toggle
@@ -137,8 +165,8 @@ public class EtherealMove : MonoBehaviour {
 		float currVelo = rigidbody.velocity.magnitude;
 		float warpCam = Mathf.Clamp (currVelo/maxSpeed, 0f , 1f);
 		activeCams = Camera.allCameras;
-		/* NOTE: 1 = LEFT, -1 = RIGHT 		Debug.Log ("Turn Signal = "+turnSig); */
-		// Debug.Log ("RIGHT IS -1, LEFT IS 1; TurnSig = "+turnSig);
+		/* NOTE: 1 = CW, -1 = CCW 		Debug.Log ("Turn Signal = "+turnSig); */
+		// Debug.Log ("CCW IS -1, CW IS 1; TurnSig = "+turnSig);
 		turnSig = AngleDir (transform.forward, rigidbody.velocity.normalized, transform.up);
 		angleLook = Vector3.Angle (transform.forward, head.forward);
 		angleVelo = Vector3.Angle (transform.forward, rigidbody.velocity.normalized);
@@ -172,27 +200,6 @@ public class EtherealMove : MonoBehaviour {
 				if (noBacksies != Quaternion.identity) noBacksies = Quaternion.identity;
 				transform.rotation = Quaternion.RotateTowards (transform.rotation, head.rotation, Time.deltaTime * 50f);
 			}
-		}
-		if (angleLook > angleVelo && potentAngle > angleVelo) {
-			Vector3 orthoVec = Vector3.zero;
-			Debug.Log ("Current World Position is: "+transform.position.x+", "+transform.position.y+", "+transform.position.z);
-			Debug.Log ("Rigidbody Velocity Vec = "+rigidbody.velocity.x+", "+rigidbody.velocity.y+", "+rigidbody.velocity.z);
-			Vector3 ptVelocity = rigidbody.GetPointVelocity (transform.position);		// Velocity at world pos
-			//Vector3 localVelocity = transform.InverseTransformDirection (ptVelocity);	// Converts world to local
-			//Debug.Log ("Point Velocity Vec = "+ptVelocity.x+", "+ptVelocity.y+", "+ptVelocity.z);
-			//Debug.Log ("Local Velocity Vec = "+localVelocity.x+", "+localVelocity.y+", "+localVelocity.z);
-			if (turnSig == -1f) {				// Turning Right
-				orthoVec = Vector3.Cross (ptVelocity, head.forward);
-			} else if (turnSig == 1f) {			// Turning Left
-				orthoVec = Vector3.Cross (head.forward, ptVelocity);
-			}
-			//fullGripAngleVec = Quaternion.AngleAxis ((potentAngle-angleVelo)*turnSig, orthoVec) * localVelocity;
-			//fullGripAngleVec = transform.TransformDirection (fullGripAngleVec);			// Back to world coord
-			fullGripAngleVec = Quaternion.AngleAxis ((potentAngle-angleVelo)*turnSig, orthoVec) * rigidbody.velocity;
-			Debug.Log ("Turn Signal is: "+ turnSig);
-			Debug.Log ("Potential Turn Angle is: "+potentAngle+", Velocity Angle is: "+angleVelo);
-			Debug.Log ("Decrease Turn Radius by: "+ (turnSig * (potentAngle-angleVelo)));
-			Debug.Log ("Full Grip Vec = "+fullGripAngleVec.x+", "+fullGripAngleVec.y+", "+fullGripAngleVec.z);
 		}
 		//Debug.Log ("Current velocity = "+currVelo);
 			

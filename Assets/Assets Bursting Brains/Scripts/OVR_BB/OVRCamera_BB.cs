@@ -254,6 +254,7 @@ public class OVRCamera_BB : OVRComponent_BB{
 				//a.x = 0; 
 				a.z = 0;
 				gameObject.transform.parent.transform.eulerAngles = a;
+				Debug.Log ("Assigning to OVR eulerAngles: "+a.x+", "+a.y+", "+a.z);
 			}
 				
 			// Read shared data from CameraController	

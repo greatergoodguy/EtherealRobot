@@ -29,7 +29,6 @@ GameObject:
   - 114: {fileID: 11400004}
   - 114: {fileID: 11400002}
   - 114: {fileID: 11400030}
-  - 114: {fileID: 11400044}
   - 114: {fileID: 11400046}
   m_Layer: 8
   m_Name: CameraLeft
@@ -74,7 +73,6 @@ GameObject:
   - 114: {fileID: 11400042}
   - 114: {fileID: 11400040}
   - 114: {fileID: 11400028}
-  - 114: {fileID: 11400036}
   - 114: {fileID: 11400048}
   m_Layer: 8
   m_Name: CameraRight
@@ -118,6 +116,7 @@ GameObject:
   - 114: {fileID: 11400020}
   - 114: {fileID: 11400018}
   - 114: {fileID: 11400022}
+  - 114: {fileID: 11400052}
   m_Layer: 8
   m_Name: OVRCameraController
   m_TagString: Untagged
@@ -371,8 +370,8 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100008}
   serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
+  m_Mass: 13
+  m_Drag: 5
   m_AngularDrag: .0500000007
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -539,7 +538,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0ac00fd2ed244b07a629ec6755315cd, type: 3}
   m_Name: 
   turnSensitivity: .5
-  acceleration: 2.5
+  acceleration: 3
   brakeSpeed: 1
   maxSpeed: 88
   jumpPower: 5
@@ -579,7 +578,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100010}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 41397b9747d3440e28b993b13e922f4d, type: 3}
   m_Name: 
@@ -887,18 +886,6 @@ MonoBehaviour:
     type: 3}
   colorCorrectionSelectiveShader: {fileID: 4800000, guid: e515e0f94cefc4c0db54b45cba621544,
     type: 3}
---- !u!114 &11400036
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100006}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9fa4eb2b294ef14684f2d183ada255c, type: 3}
-  m_Name: 
-  startTexture: {fileID: 2800000, guid: 8398d81a481eb4f4498bbf800879901d, type: 3}
-  startTexture2: {fileID: 0}
 --- !u!114 &11400038
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -919,7 +906,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100006}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d9fa4eb2b294ef14684f2d183ada255c, type: 3}
   m_Name: 
@@ -931,37 +918,6 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100006}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7db9ec1392f34265817a55853e6ab07, type: 3}
-  m_Name: 
-  filterType: 2
-  preview: 0
-  previewScale: {x: 1, y: 1, z: 1}
-  movementScale: 0
-  rotationScale: 1
-  maxVelocity: 8
-  maxNumSamples: 17
-  minVelocity: .100000001
-  velocityScale: .5
-  softZDistance: .00499999989
-  velocityDownsample: 1
-  excludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  shader: {fileID: 4800000, guid: 85a88efa8c871af4a9d17c64791b6f4f, type: 3}
-  dx11MotionBlurShader: {fileID: 4800000, guid: f1b13d7a80660504a858ea24cfa418c6,
-    type: 3}
-  replacementClear: {fileID: 4800000, guid: 7699c5fbfa27745a1abe111ab7bf9785, type: 3}
-  noiseTexture: {fileID: 2800000, guid: 31f5a8611c4ed1245b18456206e798dc, type: 3}
-  showVelocity: 0
-  showVelocityScale: 1
---- !u!114 &11400044
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100002}
   m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f7db9ec1392f34265817a55853e6ab07, type: 3}
@@ -1021,19 +977,38 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a948764320eca47f48c8ef3b842eabb6, type: 3}
   m_Name: 
-  turnSpeed: 1
-  turnSensitivity: 5
   acceleration: 2.5
   brakeSpeed: 1
   maxSpeed: 88
   jumpPower: 5
-  hoverHeight: 20
+  hoverHeight: 25
   grav: 30
-  camWarpRatio: .5
-  inputDeadZone: 3
-  lookAngleX: 0
-  lookAngleY: 0
+  warpRatio: .5
+  inputDeadZone: 13
+  corneringThrustRatio: .5
   maxVeloCornerAngle: 35
+--- !u!114 &11400052
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 815a39e147ca14991a05b48d9da33d2c, type: 3}
+  m_Name: 
+  PredictionOn: 1
+  NeckPosition: {x: 0, y: .699999988, z: 0}
+  EyeCenterPosition: {x: 0, y: .150000006, z: .0900000036}
+  FollowOrientation: {fileID: 400004}
+  TrackerRotatesY: 0
+  CallInPreRender: 0
+  WireMode: 0
+  LensCorrection: 1
+  Chromatic: 1
+  BackgroundColor: {r: .192000002, g: .301999986, b: .474999994, a: 1}
+  NearClipPlane: .150000006
+  FarClipPlane: 1000
 --- !u!124 &12400000
 Behaviour:
   m_ObjectHideFlags: 1
