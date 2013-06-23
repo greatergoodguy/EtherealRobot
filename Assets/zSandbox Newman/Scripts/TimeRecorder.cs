@@ -33,7 +33,6 @@ public class TimeRecorder : MonoBehaviour {
 		if(hasStarted){
 			rawPlayerTime = Time.time - startTime;
 			roundedPlayerTime = (float) Math.Round(rawPlayerTime, 2); 
-			Debug.Log("roundedTime: " + roundedPlayerTime);
 			playerClockTime = convertToClockTime(roundedPlayerTime);
 		}
 		GUI.Label(new Rect(10, 28, 100, 20), "Time " + playerClockTime);
