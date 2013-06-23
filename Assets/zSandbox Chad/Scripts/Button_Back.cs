@@ -4,16 +4,12 @@ using System.Collections;
 public class Button_Back : MonoBehaviour {
 	
 	public static float BACK_HIT_PRESSES = 0;
-	public GameObject head;
-	public GameObject levelMenu;
-	public GameObject settingsMenu;
-	public Vector3 headPos;
-	public Vector3 headForward;
+	private GameObject head;
+	private Vector3 headPos;
+	private Vector3 headForward;
 	// Use this for initialization
 	void Start () {
 		head = GameObject.FindGameObjectWithTag("Head");
-		levelMenu = GameObject.FindGameObjectWithTag("LevelMenu");
-		settingsMenu = GameObject.FindGameObjectWithTag("SettingsMenu");
 	}
 	
 	// Update is called once per frame
@@ -29,10 +25,9 @@ public class Button_Back : MonoBehaviour {
 				BACK_HIT_PRESSES -= 1;
 			}
 		}
-		if(BACK_HIT_PRESSES == 0 && levelMenu.activeInHierarchy){
+		if(BACK_HIT_PRESSES == 0){
 			renderer.enabled = false;
 			collider.enabled = false;
-			levelMenu.SetActive(false);
 		}
 	
 	}
