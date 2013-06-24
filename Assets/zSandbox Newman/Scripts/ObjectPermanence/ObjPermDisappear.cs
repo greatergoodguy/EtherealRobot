@@ -3,9 +3,9 @@ using System.Collections;
 
 // Requires an attached gameobject and correct material
 
-public class ObjectPermanence : MonoBehaviour {
+public class ObjPermDisappear : MonoBehaviour {
 	
-	public GameObject phaseObject;
+	public GameObject phaseOutObject;
 	
 	private GameObject head;
 	private bool seesAnObject;
@@ -14,7 +14,7 @@ public class ObjectPermanence : MonoBehaviour {
 	private Color transColor;
 
 	private bool objectStillExists = true;
-	private bool isFading = false;
+	private bool isFadingOut = false;
 	
 	private float transparency = 1.0f;
 	
@@ -22,7 +22,7 @@ public class ObjectPermanence : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		head = GameObject.FindGameObjectWithTag("Head");
-		startColor = phaseObject.renderer.material.color;	
+		startColor = phaseOutObject.renderer.material.color;	
 		transColor = new Color (startColor.r, startColor.g, startColor.b, 0);	
 
 	}
@@ -38,21 +38,21 @@ public class ObjectPermanence : MonoBehaviour {
 		Vector3 headPos = head.transform.position;
 		Vector3 headFor = head.transform.forward;
 		
-		seesAnObject = Physics.Raycast(headPos, headFor, out hit, Mathf.Infinity);  // change to infinite
+		seesAnObject = Physics.Raycast(headPos, headFor, out hit, Mathf.Infinity);
 		if(seesAnObject && hit.collider.CompareTag("LookIcon")){
 			
-			phaseObject.renderer.material.color = Color.Lerp(phaseObject.renderer.material.color, transColor, Time.deltaTime);  // .a = tranzColor;
-			isFading = true;
+			phaseOutObject.renderer.material.color = Color.Lerp(phaseOutObject.renderer.material.color, transColor, Time.deltaTime);  // .a = tranzColor;
+			isFadingOut = true;
 			
-			if(phaseObject.renderer.material.color.a < 0.05){
-				phaseObject.SetActive(false);	
+			if(phaseOutObject.renderer.material.color.a < 0.05){
+				phaseOutObject.SetActive(false);	
 				objectStillExists = false;	
-				isFading = false;
+				isFadingOut = false;
 			}
 		}
 		else{
-			if(isFading){
-				phaseObject.renderer.material.color = Color.Lerp(phaseObject.renderer.material.color, startColor, Time.deltaTime * 3);  // .a = tranzColor;
+			if(isFadingOut){
+				phaseOutObject.renderer.material.color = Color.Lerp(phaseOutObject.renderer.material.color, startColor, Time.deltaTime * 3);  // .a = tranzColor;
 			}
 		}	
 	}
