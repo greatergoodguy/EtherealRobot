@@ -5,26 +5,45 @@ public class MechPlayerGrab : MonoBehaviour {
 	
 	GameObject player;
 	
-	private bool isGrabbed = false;
-	private int grabDistance = 10;
+	private bool playerIsGrabbed = false;
+	//private int grabDistance = 10;
 	
 	
 	// Use this for initialization
 	void Start () {
-		player = GameObject.Find("Ethereal");
+		//player = GameObject.Find("Ethereal");
+		
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		
+		if(playerIsGrabbed){
+			Vector3 handPos = this.transform.position;
+			player.transform.position = handPos;
+		}
+		
+		/*
 		if(!isGrabbed)
 			grabPlayer();
 		else{
 			Debug.Log("Player's been grabbed");
-		}
+		}*/
 		
 	}
 	
-	void grabPlayer(){
+	void OnTriggerStay(Collider other){
+		if(!playerIsGrabbed && other.tag.Equals("Player")){
+			Debug.Log("player being grabbed");
+			player = other.gameObject;
+			playerIsGrabbed = true;
+		}
+	}
+	
+	
+	/*void grabPlayer(){
+			
+			
 		Vector3 handPos = this.transform.position;
 		Vector3 playerPos = player.transform.position;
 		float xDif = Mathf.Abs(handPos.x - playerPos.x);
@@ -36,6 +55,6 @@ public class MechPlayerGrab : MonoBehaviour {
 		}
 
 		
-	}
+	}*/
 	
 }
