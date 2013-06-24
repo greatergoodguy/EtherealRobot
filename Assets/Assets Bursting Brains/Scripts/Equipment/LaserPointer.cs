@@ -42,13 +42,13 @@ public class LaserPointer : MonoBehaviour {
 	
 		Vector3 origin2 = transform.position;
 		origin2.y = origin2.y - 0.1f;
-		lrVelo.SetPosition(0, origin2);
-		if (rigidbody.velocity.magnitude > 0.5f) {
-			//Debug.Log ("Velo Laser");
-			lrVelo.SetPosition(1, origin2 + transform.rigidbody.velocity);		// Velocity Vector Laser
+		lrVelo.SetPosition (0, origin2);
+		if (rigidbody.velocity.magnitude > 1.0f) {
+			Debug.Log ("Velo Laser, velocity = "+rigidbody.velocity.magnitude);
+			lrVelo.SetPosition (1, origin2 + transform.rigidbody.velocity);		// Velocity Vector Laser
 		} else {
-			//Debug.Log ("Body Forward Laser");
-			lrVelo.SetPosition(1, origin2 + transform.forward * 888f);			// Forward Vector Laser
+			Debug.Log ("Body Forward Laser");
+			lrVelo.SetPosition (1, origin2 + transform.forward * 888f);			// Forward Vector Laser
 		}
 	}
 }

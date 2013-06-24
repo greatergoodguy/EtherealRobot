@@ -371,7 +371,7 @@ Rigidbody:
   m_GameObject: {fileID: 100008}
   serializedVersion: 2
   m_Mass: 13
-  m_Drag: 5
+  m_Drag: 1
   m_AngularDrag: .0500000007
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -977,12 +977,12 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a948764320eca47f48c8ef3b842eabb6, type: 3}
   m_Name: 
-  acceleration: 50
-  lateralGs: 100
+  acceleration: 30
+  lateralGs: 90
   brakeSpeed: 1
-  maxSpeed: 147
+  maxSpeed: 90
   jumpPower: 5
-  hoverHeight: 29
+  hoverHeight: 99
   grav: 30
   warpRatio: .5
   inputDeadZone: 13
