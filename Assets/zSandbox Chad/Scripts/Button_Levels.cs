@@ -42,20 +42,18 @@ public class Button_Levels : MonoBehaviour {
 			levelMenu.SetActive(false);
 		}
 		
-		
 		if(Physics.Raycast(headPos, headForward, out hit, 15f)){
 			//duration = 0;
 			if(hit.collider.tag == "MenuButton"){
-				duration += Time.deltaTime;
 				renderer.material.color = Color.Lerp(renderer.material.color, endColor, Time.deltaTime);
-				print(duration);
-				if(duration >= 4.1f){
+				if(renderer.material.color.a < 0.05f){
 					backButton.renderer.enabled = true;
 					backButton.collider.enabled = true;
 					levelMenu.SetActive(true);
 				}
 			}
-			else renderer.material.color = startColor;
+			else 
+				renderer.material.color = startColor;
 		}
 	}
 }

@@ -1,10 +1,10 @@
 using UnityEngine;
 using System.Collections;
 
-public class Menu_Levels : MonoBehaviour {
-	
-	private Transform levelOne;
-	private Transform levelTwo;
+public class Menu_Settings : MonoBehaviour {
+
+	private Transform settingsOne;
+	private Transform settingsTwo;
 	private GameObject head;
 	private Vector3 headPos;
 	private Vector3 headForward;
@@ -17,10 +17,10 @@ public class Menu_Levels : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		head = GameObject.FindGameObjectWithTag("Head");
-		levelOne = transform.FindChild("Level_Button1");
-		levelTwo = transform.FindChild("Level_Button2");
+		settingsOne = transform.FindChild("Settings_Button1");
+		settingsTwo = transform.FindChild("Settings_Button2");
 		
-		startColor = levelOne.renderer.material.color;
+		startColor = settingsOne.renderer.material.color;
 		hitColor = new Color(startColor.r, startColor.g, startColor.b, 0);
 	}
 	
@@ -31,8 +31,8 @@ public class Menu_Levels : MonoBehaviour {
 		
 		hitButton = Physics.Raycast(headPos, headForward, out hit, 15f);
 		if(hitButton){
-			if(hit.collider.gameObject.name == "Level_Button1"){
-				levelOne.renderer.material.color = Color.Lerp(levelOne.renderer.material.color, hitColor, Time.deltaTime);
+			if(hit.collider.gameObject.name == "Settings_Button1"){
+				settingsOne.renderer.material.color = Color.Lerp(settingsOne.renderer.material.color, hitColor, Time.deltaTime);
 				/*
 				if(Input.GetKey(KeyCode.Return))
 					levelOne.renderer.material.color = activateColor;
@@ -40,8 +40,8 @@ public class Menu_Levels : MonoBehaviour {
 					levelOne.renderer.material.color = hitColor;
 				*/
 			}
-			else if(hit.collider.gameObject.name == "Level_Button2"){
-				levelTwo.renderer.material.color = Color.Lerp(levelTwo.renderer.material.color, hitColor, Time.deltaTime);;
+			else if(hit.collider.gameObject.name == "Settings_Button2"){
+				settingsTwo.renderer.material.color = Color.Lerp(settingsTwo.renderer.material.color, hitColor, Time.deltaTime);;
 				/*
 				if(Input.GetKey(KeyCode.Return))
 					levelTwo.renderer.material.color = activateColor;
@@ -50,8 +50,8 @@ public class Menu_Levels : MonoBehaviour {
 				*/
 			}
 			else{
-				levelOne.renderer.material.color = startColor;
-				levelTwo.renderer.material.color = startColor;
+				settingsOne.renderer.material.color = startColor;
+				settingsTwo.renderer.material.color = startColor;
 		
 			}
 		}
