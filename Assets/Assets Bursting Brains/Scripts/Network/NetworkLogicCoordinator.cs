@@ -12,10 +12,12 @@ public class NetworkLogicCoordinator : Photon.MonoBehaviour
     {
         // PhotonNetwork.logLevel = NetworkLogLevel.Full;
         if (!PhotonNetwork.connected){
+			print("not connected");
             // We must be connected to a photon server!
             return;
         }
-
+		print("connected");
+		
         PhotonNetwork.isMessageQueueRunning = true;
 
         // Spawn our local player
