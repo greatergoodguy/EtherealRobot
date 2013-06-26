@@ -42,8 +42,17 @@ public class MouseLook_Ethereal : PlayerController {
         if (axes == RotationAxes.MouseXAndY) {
             //float rotationX = transform.localEulerAngles.y + Input.GetAxis("Xbox_Horizontal") * sensitivityX;
 			if (activeHeadMotion.ToString().Equals("MouseHeadMotion")) {
-				Debug.Log(activeHeadMotion.ToString ());
+				//Debug.Log(activeHeadMotion.ToString ());
 				/* Get horizontal rotation */
+				/* Clamping Mechanic Proto
+				float xTargetDelta = activeHeadMotion.GetHeadVerticalAxis() * -sensitivityY;
+				if (Vector3.Angle (Vector3.up, transform.forward) < 10f)
+					xTarget += (xTargetDelta > 0f) ? xTargetDelta : 0f;
+				else if (Vector3.Angle (-Vector3.up, transform.forward) < 10f)
+					xTarget += (xTargetDelta < 0f) ? xTargetDelta : 0f;
+				else
+					xTarget += xTargetDelta;
+				*/
 				yTarget += activeHeadMotion.GetHeadHorizontalAxis() * sensitivityX;
 				yTarget = Mathf.Clamp (yTarget, -maxAngleHori, maxAngleHori);
 				yCurrent = Mathf.SmoothDamp (yCurrent, yTarget, ref yVelo, Time.deltaTime * smoothTime);
@@ -55,12 +64,12 @@ public class MouseLook_Ethereal : PlayerController {
 				//Debug.Log ("Head's Forward Vector = "+transform.forward.x+", "+transform.forward.y+", "+transform.forward.z);
 				//Debug.Log ("Head's Up Vector = "+transform.up.x+", "+transform.up.y+", "+transform.up.z);
 			} else {
-				Debug.Log(activeHeadMotion.ToString ());
+				//Debug.Log(activeHeadMotion.ToString ());
 				/* Get horizontal rotation */
 				float ovrAxisY = 180f*activeHeadMotion.GetHeadHorizontalAxis();
 				/* Get vertical rotation: current coded for non-inverted look only */
 				float ovrAxisX = 180f*activeHeadMotion.GetHeadVerticalAxis();
-				ovrAxisX = Mathf.Clamp (ovrAxisX, -85f, 85f);
+				ovrAxisX = Mathf.Clamp (ovrAxisX, -80f, 80f);
 				transform.localRotation = Quaternion.Euler (
 					ovrAxisX, 
 					ovrAxisY, 
