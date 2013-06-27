@@ -450,8 +450,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02f82ef18118147898101f21d3e0f901, type: 3}
   m_Name: 
   axes: 0
-  sensitivityX: 4
-  sensitivityY: 4
+  sensitivityX: 2
+  sensitivityY: 2
   maxAngleVert: 80
   maxAngleHori: 80
   maxAngle: 80
@@ -978,7 +978,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a948764320eca47f48c8ef3b842eabb6, type: 3}
   m_Name: 
   acceleration: 50
-  lateralGs: 150
+  lateralGs: 100
   brakeSpeed: 1
   maxSpeed: 147
   jumpPower: 5

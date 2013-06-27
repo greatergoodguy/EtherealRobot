@@ -4,8 +4,8 @@ using System.Collections;
 public class EtherealMove : MonoBehaviour {
 
 	// Public Tunable Movement Vars
-	public float acceleration = 50.0f;
-	public float lateralGs = 150.0f;
+	public float acceleration = 88.0f;
+	public float lateralGs = 100.0f;
 	// public float turnSensitivity = 5f;
 	public float brakeSpeed = 1.0f;				// Don´t make larger than max speed
 	public float maxSpeed = 147.0f;
@@ -47,10 +47,10 @@ public class EtherealMove : MonoBehaviour {
 			RigidbodyConstraints.FreezeRotationY |
 			RigidbodyConstraints.FreezeRotationZ;
 		rigidbody.drag = 0f;
-		collider.material.dynamicFriction = 0.5f;
-		collider.material.dynamicFriction2 = 0.5f;
-		collider.material.staticFriction = 0.5f;
-		collider.material.staticFriction2 = 0.5f;
+		collider.material.dynamicFriction = 0.8f;
+		collider.material.dynamicFriction2 = 0.8f;
+		collider.material.staticFriction = 0.8f;
+		collider.material.staticFriction2 = 0.8f;
 		collider.material.frictionCombine = PhysicMaterialCombine.Minimum;
 		/* Enable Rigidbody Interpolation: smooths fixed frame rate physics */
 		//rigidbody.interpolation = RigidbodyInterpolation.Interpolate;
@@ -68,7 +68,10 @@ public class EtherealMove : MonoBehaviour {
 		//rigidbody.useGravity = !theFinalFrontier; 
 		// Set Us up the Bomb	
 		float altitude = 0f;
-		Vector3 initialForce;
+		float currVelo = 0f;
+		Vector3 thrust = Vector3.zero;
+		Vector3 turnVector = Vector3.zero;
+		Vector3 veloVector = Vector3.zero;
 		/*
 		potentAngle = rigidbody.velocity.magnitude * deltaGs + yInt;
 		float thrust = maxSpeed/acceleration;
@@ -128,64 +131,80 @@ public class EtherealMove : MonoBehaviour {
 					if (throttleOn) { 
 						Debug.Log ("GO TIME");
 						//rigidbody.AddForce (modifiedThrust * thrust, ForceMode.Acceleration); 
-						deltaVelo = acceleration * Time.deltaTime;
+						//deltaVelo = acceleration * Time.deltaTime;
+						if (rigidbody.velocity.magnitude == 0f) {
+							Debug.Log ("Starting forward momentum");
+							thrust = head.forward * acceleration;
+							currVelo = thrust.magnitude;
+							//turnVector = Vector3.Cross (thrust.normalized, head.forward); 
+							//turnVector = Vector3.Cross (turnVector, thrust.normalized) * lateralGs;// * Time.deltaTime;
+							//if (rigidbody.velocity.magnitude > 0f) currVelo = rigidbody.velocity.magnitude;
+							//veloVector = (thrust + turnVector).normalized * acceleration;
+							veloVector = thrust;
+							//initialForce = head.forward * deltaVelo;
+							//rigidbody.AddForce (head.forward * deltaVelo, ForceMode.Acceleration);
+						} else {
+							Debug.Log ("Adding forward force");
+							//thrust = rigidbody.velocity.normalized * acceleration;
+							//currVelo = rigidbody.velocity.magnitude;
+							rigidbody.AddForce (rigidbody.velocity.normalized * acceleration);
+							turnVector = Vector3.Cross (rigidbody.velocity.normalized, head.forward); 
+							turnVector = Vector3.Cross (turnVector, rigidbody.velocity.normalized) * lateralGs;// * Time.deltaTime;
+							//if (rigidbody.velocity.magnitude > 0f) currVelo = rigidbody.velocity.magnitude;
+							//veloVector = (thrust + turnVector).normalized * acceleration;
+							veloVector = turnVector;
+							//initialForce = rigidbody.velocity * deltaVelo;
+							//rigidbody.AddForce (rigidbody.velocity.normalized * deltaVelo, ForceMode.Acceleration);
+						}
 					} else if (brakeOn) {
 						Debug.Log ("NO GO TIME");
-						deltaVelo += -acceleration * Time.deltaTime * 2.5f;
+						//deltaVelo += -acceleration * Time.deltaTime * 2.5f;
 					} else { 
 						Debug.Log ("SLOW GO TIME");
-						//float v = rigidbody.velocity.magnitude;
-						//rigidbody.AddForce (rigidbody.velocity * -1f, ForceMode.Acceleration);
+						float v = rigidbody.velocity.magnitude;
+						thrust = rigidbody.velocity.normalized * v * 0.2f;
+						currVelo = thrust.magnitude;
+						turnVector = Vector3.Cross (rigidbody.velocity.normalized, head.forward); 
+						turnVector = Vector3.Cross (turnVector, rigidbody.velocity.normalized) * lateralGs;// * Time.deltaTime;
+						//if (rigidbody.velocity.magnitude > 0f) currVelo = rigidbody.velocity.magnitude;
+						//veloVector = (thrust + turnVector).normalized * currVelo;
+						veloVector = turnVector;
+						rigidbody.AddForce (rigidbody.velocity * -1f, ForceMode.VelocityChange);
 						//rigidbody.AddForce (modifiedThrust * v * 0.5f, ForceMode.Acceleration); 
 						//deltaVelo += -acceleration * Time.deltaTime * 0.7f;
-						deltaVelo = -deltaVelo;
+						//deltaVelo = -deltaVelo;
 					}
 					
-					if (rigidbody.velocity.magnitude < 1.0f && throttleOn) {
-						Debug.Log ("Starting forward momentum");
-						initialForce = head.forward * deltaVelo;
-						//rigidbody.AddForce (head.forward * deltaVelo, ForceMode.Acceleration);
-					} else {
-						Debug.Log ("Adding forward force");
-						initialForce = head.forward * deltaVelo;
-						//rigidbody.AddForce (rigidbody.velocity.normalized * deltaVelo, ForceMode.Acceleration);
-					}
+					rigidbody.AddForce (veloVector, ForceMode.Acceleration);
+					rigidbody.velocity = rigidbody.velocity.normalized * rigidbody.velocity.magnitude;
 					
 					// Velocity Limiter
 					if (rigidbody.velocity.magnitude > maxSpeed) {
 						Debug.Log ("LIMITING SPEED");
 						float oppositeF = maxSpeed - rigidbody.velocity.magnitude;
-						rigidbody.AddForce (rigidbody.velocity.normalized * oppositeF, ForceMode.VelocityChange);
+						//rigidbody.AddForce (rigidbody.velocity.normalized * oppositeF, ForceMode.VelocityChange);
+						rigidbody.velocity = rigidbody.velocity.normalized * maxSpeed;
+						//rigidbody.AddForce (veloVector, ForceMode.Acceleration);
 						//modifiedThrust = (modifiedThrust + rigidbody.velocity.normalized).normalized;
 						//rigidbody.AddForce (rigidbody.velocity * -1f, ForceMode.VelocityChange);
 						//rigidbody.AddForce (modifiedThrust * maxSpeed, ForceMode.VelocityChange); 
 					} else if (Vector3.Angle (head.forward, rigidbody.velocity.normalized) > 90f) {
 						Debug.Log ("GOING BACKWARDS");
 						//rigidbody.AddForce (-rigidbody.velocity * 0.7f, ForceMode.VelocityChange);
-						//rigidbody.AddForce (-rigidbody.velocity * 0.7f, ForceMode.Acceleration);
+						rigidbody.AddForce (rigidbody.velocity * -0.8f, ForceMode.VelocityChange);
 					}
 					
 					//Debug.Log ("Current Velocity: "+rigidbody.velocity.magnitude);
 					//Debug.Log ("Time.deltaTime: "+Time.deltaTime);
-					float currVelocity = rigidbody.velocity.magnitude;
-					Vector3 currVeloVector = rigidbody.velocity.normalized * (currVelocity) + initialForce;
-					Vector3 turnVector = Vector3.Cross (rigidbody.velocity.normalized, head.forward); 
-					turnVector = Vector3.Cross (turnVector, rigidbody.velocity.normalized) * lateralGs * Time.deltaTime;
-					Vector3 veloVector = (currVeloVector + turnVector).normalized * currVelocity;
-					if (throttleOn) {
-						//Debug.Log ("Rigidbody Velocity Vec = "+rigidbody.velocity.x+", "+rigidbody.velocity.y+", "+rigidbody.velocity.z);
-						//rigidbody.AddForce (transform.TransformDirection(turnVector), ForceMode.Acceleration);
-						//rigidbody.AddForce (turnVector, ForceMode.VelocityChange);
-						//rigidbody.velocity = rigidbody.velocity.normalized;
-						//rigidbody.velocity = rigidbody.velocity * currVelocity;
-						rigidbody.AddForce (veloVector, ForceMode.Acceleration);
-						//Debug.Log ("Rigidbody Velocity Vec = "+rigidbody.velocity.x+", "+rigidbody.velocity.y+", "+rigidbody.velocity.z);
-						//veloVector = veloVector - transform.worldToLocalMatrix;		// converts the WC vector to LC vector
-						//rigidbody.AddForce (-rigidbody.velocity, ForceMode.Acceleration);
-						//rigidbody.AddForce (veloVector, ForceMode.Acceleration);
-					} else {
-						rigidbody.AddForce (-veloVector, ForceMode.Acceleration);
-					}
+					//Debug.Log ("Rigidbody Velocity Vec = "+rigidbody.velocity.x+", "+rigidbody.velocity.y+", "+rigidbody.velocity.z);
+					//rigidbody.AddForce (transform.TransformDirection(turnVector), ForceMode.Acceleration);
+					//rigidbody.AddForce (turnVector, ForceMode.VelocityChange);
+					//rigidbody.velocity = rigidbody.velocity.normalized;
+					//rigidbody.velocity = rigidbody.velocity * currVelocity;
+					//Debug.Log ("Rigidbody Velocity Vec = "+rigidbody.velocity.x+", "+rigidbody.velocity.y+", "+rigidbody.velocity.z);
+					//veloVector = veloVector - transform.worldToLocalMatrix;		// converts the WC vector to LC vector
+					//rigidbody.AddForce (-rigidbody.velocity, ForceMode.Acceleration);
+					//rigidbody.AddForce (veloVector, ForceMode.Acceleration);
 					
 					// Jumping "Mechanic"
 					if (canJump) rigidbody.AddForce (Vector3.up * jumpPower * 100f, ForceMode.VelocityChange);
@@ -264,11 +283,18 @@ public class EtherealMove : MonoBehaviour {
 				} else if (!throttleOn && rigidbody.velocity.magnitude < 0.5f) {
 					transform.rotation = Quaternion.RotateTowards (flattenRotation, head.rotation, 0.8f);
 				} else {
-					Debug.Log ("Clamping to velocity vector");
+					transform.rotation = Quaternion.RotateTowards (flattenRotation, head.rotation, 0.9f);
 					//Quaternion veloQuatty = Quaternion.FromToRotation (transform.forward, rigidbody.velocity.normalized);
 					//transform.rotation = Quaternion.RotateTowards (flattenRotation, veloQuatty, 0.8f);
-					Vector3 clampVeloVector = Vector3.RotateTowards (transform.forward, rigidbody.velocity.normalized, 0.8f, 0f);
-					transform.rotation = Quaternion.LookRotation(clampVeloVector);
+					//Vector3 clampVeloVector = Vector3.RotateTowards (transform.forward, rigidbody.velocity.normalized, 0.8f, 0f);
+					//transform.rotation = Quaternion.LookRotation(clampVeloVector);
+					/*
+					Vector3 bullshit = transform.forward;
+					bullshit.z = 0f;
+					transform.rotation = Quaternion.FromToRotation (bullshit, rigidbody.velocity.normalized);
+					*/
+					//transform.rotation = Quaternion.RotateTowards (flattenRotation, Quaternion.FromToRotation (bullshit, rigidbody.velocity), 0.8f);
+					//Debug.Log ("Clamping to velocity vector");
 				}
 				//transform.rotation = Quaternion.RotateTowards (flattenRotation, head.rotation, Time.deltaTime * 50f);
 				//Debug.Log ("Normal rotation");
