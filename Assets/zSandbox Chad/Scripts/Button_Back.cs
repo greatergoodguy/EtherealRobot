@@ -4,13 +4,20 @@ using System.Collections;
 public class Button_Back : MonoBehaviour {
 	
 	public static float BACK_HIT_PRESSES = 0;
-	public GameObject head;
-	public GameObject levelMenu;
-	public GameObject settingsMenu;
-	public Vector3 headPos;
-	public Vector3 headForward;
+	private GameObject head;
+	private GameObject levelMenu;
+	private GameObject settingsMenu;
+	private Vector3 headPos;
+	private Vector3 headForward;
+	private Color startColor;
+	private Color endColor;
+	private float duration;
+	
 	// Use this for initialization
 	void Start () {
+		startColor = renderer.material.color;
+		endColor = new Color(startColor.r, startColor.g, startColor.b, 0);
+		
 		head = GameObject.FindGameObjectWithTag("Head");
 		levelMenu = GameObject.FindGameObjectWithTag("LevelMenu");
 		settingsMenu = GameObject.FindGameObjectWithTag("SettingsMenu");
@@ -24,16 +31,27 @@ public class Button_Back : MonoBehaviour {
 		if(renderer.enabled){
 			BACK_HIT_PRESSES = 1;
 		}
+		
 		if(Physics.Raycast(headPos, headForward, out hit, 20f)){
-			if(Input.GetKeyDown(KeyCode.Return) && hit.collider.tag == "BackButton"){
-				BACK_HIT_PRESSES -= 1;
+			if(hit.collider.tag == "BackButton"){
+				renderer.material.color = Color.Lerp(renderer.material.color, endColor, Time.deltaTime);
+				if(renderer.material.color.a < 0.05f){
+					renderer.enabled = false;
+					collider.enabled = false;
+					BACK_HIT_PRESSES = 0;
+				}
+			}
+			else{
+				renderer.material.color = startColor;
 			}
 		}
-		if(BACK_HIT_PRESSES == 0 && levelMenu.activeInHierarchy){
+		
+		/*
+		if(BACK_HIT_PRESSES == 0){
 			renderer.enabled = false;
 			collider.enabled = false;
-			levelMenu.SetActive(false);
 		}
+		*/
 	
 	}
 	

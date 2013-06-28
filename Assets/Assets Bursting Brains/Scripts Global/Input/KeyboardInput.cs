@@ -27,7 +27,7 @@ public class KeyboardInput : Input_BB {
 	public override bool GetButtonDown_CycleActiveEnvironment() {	return Input.GetKeyDown(KeyCode.V); }
 	public override bool GetButtonDown_CycleActivePlayer() {		return Input.GetKeyDown(KeyCode.M); }
 	// Game flow, etc.	
-	public override bool GetButtonDown_Pause() {					return Input.GetKeyDown(KeyCode.P); }
+	public override bool GetButtonDown_Pause() {					return Input.GetKeyDown(KeyCode.Alpha9); }
 	public override bool GetButtonDown_Debug() {					return Input.GetKeyDown(KeyCode.O); }
 	public override float GetAxis_MouseX() {						return Input.GetAxis("Mouse X"); }
 	public override float GetAxis_MouseY() {						return Input.GetAxis("Mouse Y"); }

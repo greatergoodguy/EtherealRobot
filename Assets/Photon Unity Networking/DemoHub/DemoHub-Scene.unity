@@ -356,7 +356,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9b53cc9db43d39428412f981834d9c1, type: 3}
   m_Name: 
   ResourceTypeToLoad: 0
-  ResourceToLoad: DemoFriends-Scene
+  ResourceToLoad: 44656d6f467269656e64732d5363656e65
 --- !u!1 &705677232
 GameObject:
   m_ObjectHideFlags: 0
@@ -447,7 +447,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9b53cc9db43d39428412f981834d9c1, type: 3}
   m_Name: 
   ResourceTypeToLoad: 0
-  ResourceToLoad: DemoWorker-Scene
+  ResourceToLoad: 44656d6f576f726b65722d5363656e65
 --- !u!1 &908903461
 GameObject:
   m_ObjectHideFlags: 0
@@ -706,7 +706,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9b53cc9db43d39428412f981834d9c1, type: 3}
   m_Name: 
   ResourceTypeToLoad: 0
-  ResourceToLoad: DemoSynchronization-Scene
+  ResourceToLoad: 44656d6f53796e6368726f6e697a6174696f6e2d5363656e65
 --- !u!1 &1511970264
 GameObject:
   m_ObjectHideFlags: 0
@@ -987,7 +987,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9b53cc9db43d39428412f981834d9c1, type: 3}
   m_Name: 
   ResourceTypeToLoad: 0
-  ResourceToLoad: MarcoPolo-Scene
+  ResourceToLoad: 4d6172636f506f6c6f2d5363656e65
 --- !u!1 &1812057376
 GameObject:
   m_ObjectHideFlags: 0
@@ -1078,7 +1078,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9b53cc9db43d39428412f981834d9c1, type: 3}
   m_Name: 
   ResourceTypeToLoad: 0
-  ResourceToLoad: DemoBoxes-Scene
+  ResourceToLoad: 44656d6f426f7865732d5363656e65
 --- !u!1 &1888583506
 GameObject:
   m_ObjectHideFlags: 0
