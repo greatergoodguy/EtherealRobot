@@ -5,6 +5,7 @@ public class Button_Levels : MonoBehaviour {
 	
 	private GameObject head;
 	private GameObject backButton;
+	private GameObject settingsButton;
 	private GameObject levelMenu;
 	private Vector3 headPos;
 	private Vector3 headForward;
@@ -24,6 +25,7 @@ public class Button_Levels : MonoBehaviour {
 		
 		head = GameObject.FindGameObjectWithTag("Head");
 		backButton = GameObject.FindGameObjectWithTag("BackButton");
+		settingsButton = GameObject.FindGameObjectWithTag("SettingsButton");
 		levelMenu = GameObject.FindGameObjectWithTag("LevelMenu");
 		backHits = backButton.GetComponent<Button_Back>();
 		levelMenu.SetActive(false);
@@ -42,13 +44,20 @@ public class Button_Levels : MonoBehaviour {
 			levelMenu.SetActive(false);
 		}
 		
+		if(backHitAmount == 1){
+			renderer.enabled = false;
+			collider.enabled = false;
+		}
+		
 		if(Physics.Raycast(headPos, headForward, out hit, 15f)){
 			//duration = 0;
 			if(hit.collider.tag == "MenuButton"){
 				renderer.material.color = Color.Lerp(renderer.material.color, endColor, Time.deltaTime);
-				if(renderer.material.color.a < 0.05f){
+				if(renderer.material.color.a < 0.025f){
 					backButton.renderer.enabled = true;
 					backButton.collider.enabled = true;
+					settingsButton.renderer.enabled = false;
+					settingsButton.renderer.enabled = false;
 					levelMenu.SetActive(true);
 				}
 			}
