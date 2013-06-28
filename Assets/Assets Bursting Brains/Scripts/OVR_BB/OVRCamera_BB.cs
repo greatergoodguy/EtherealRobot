@@ -247,11 +247,12 @@ public class OVRCamera_BB : OVRComponent_BB{
 			// of the head.
 			
 			/* MODIFIED BY OLIVER FOR LOOK MECHANIC */
+			/* jk.. it's back to normal */
 			// TODO: Future support for x and z, and possibly change to a quaternion
-			if(CameraController.TrackerRotatesY == true)
+			if(CameraController.TrackerRotatesY == false)
 			{
 				Vector3 a = gameObject.camera.transform.rotation.eulerAngles;
-				//a.x = 0; 
+				a.x = 0; 
 				a.z = 0;
 				gameObject.transform.parent.transform.eulerAngles = a;
 				Debug.Log ("Assigning to OVR eulerAngles: "+a.x+", "+a.y+", "+a.z);

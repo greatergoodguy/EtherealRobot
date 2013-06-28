@@ -1930,6 +1930,10 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400052, guid: 291d77721f76848149eb3edb0866c2e6, type: 2}
+      propertyPath: TrackerRotatesY
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 291d77721f76848149eb3edb0866c2e6, type: 2}
   m_RootGameObject: {fileID: 1432115419}
@@ -2525,8 +2529,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02f82ef18118147898101f21d3e0f901, type: 3}
   m_Name: 
   axes: 0
-  sensitivityX: 4
-  sensitivityY: 4
+  sensitivityX: 2
+  sensitivityY: 2
   maxAngleVert: 80
   maxAngleHori: 80
   maxAngle: 80
@@ -4356,7 +4360,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a948764320eca47f48c8ef3b842eabb6, type: 3}
   m_Name: 
   acceleration: 50
-  lateralGs: 150
+  lateralGs: 100
   brakeSpeed: 1
   maxSpeed: 147
   jumpPower: 5
@@ -5125,7 +5129,7 @@ MonoBehaviour:
   NeckPosition: {x: 0, y: .699999988, z: 0}
   EyeCenterPosition: {x: 0, y: .150000006, z: .0900000036}
   FollowOrientation: {fileID: 821816607}
-  TrackerRotatesY: 0
+  TrackerRotatesY: 1
   CallInPreRender: 0
   WireMode: 0
   LensCorrection: 1
