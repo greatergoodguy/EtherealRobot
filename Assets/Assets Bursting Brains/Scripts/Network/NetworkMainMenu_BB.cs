@@ -67,7 +67,20 @@ public class NetworkMainMenu_BB : MonoBehaviour {
         GUILayout.BeginArea(new Rect((Screen.width - 400) / 2, (Screen.height - 350) / 2, 400, 300));
 
         GUILayout.Space(25);
-
+		
+		if (GUILayout.Button("Obstacle Terrain", GUILayout.Width(400))){
+			Application.LoadLevel ("ObstacleScene"); 
+        }
+        if (GUILayout.Button("TechBuild Finalv3 (May run really really slow)", GUILayout.Width(400))) {
+			Application.LoadLevel ("Oculus_TechBuild_finalv03"); 
+        }
+		if (GUILayout.Button("Hover Obstacle Course", GUILayout.Width(400))) {
+			Application.LoadLevel ("HoverGameScene"); 
+        }
+		if (GUILayout.Button("Warehouse", GUILayout.Width(400))) {
+			Application.LoadLevel ("WarehouseScene"); 
+        }
+		
         // Player name
         GUILayout.BeginHorizontal();
         GUILayout.Label("Player name:", GUILayout.Width(100));
@@ -126,8 +139,9 @@ public class NetworkMainMenu_BB : MonoBehaviour {
         }
 
         GUILayout.EndHorizontal();
-
-        GUILayout.Space(15);
+		
+		GUILayout.Space(15);
+		
         if (PhotonNetwork.GetRoomList().Length == 0)
         {
             GUILayout.Label("Currently no games are available.");

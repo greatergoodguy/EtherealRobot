@@ -668,7 +668,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2785d30e7ae02bc4a980eb481e1c7611, type: 3}
   m_Name: 
-  PrefabToInstantiate: TestPrefab
+  PrefabToInstantiate: 54657374507265666162
   HideUI: 0
   GuiSpace: 0
 --- !u!1 &1511970264
