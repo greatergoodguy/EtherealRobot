@@ -1,0 +1,41 @@
+using UnityEngine;
+using System.Collections;
+
+public class MechPlayerGrab : MonoBehaviour {
+	
+	GameObject player;
+	
+	private bool isGrabbed = false;
+	private int grabDistance = 10;
+	
+	
+	// Use this for initialization
+	void Start () {
+		player = GameObject.Find("Ethereal");
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		if(!isGrabbed)
+			grabPlayer();
+		else{
+			Debug.Log("Player's been grabbed");
+		}
+		
+	}
+	
+	void grabPlayer(){
+		Vector3 handPos = this.transform.position;
+		Vector3 playerPos = player.transform.position;
+		float xDif = Mathf.Abs(handPos.x - playerPos.x);
+		float yDif = Mathf.Abs(handPos.y - playerPos.y);
+		float zDif = Mathf.Abs(handPos.z - playerPos.z);
+		if(xDif < grabDistance && yDif < grabDistance && zDif < grabDistance){
+			isGrabbed = true;	
+			Debug.Log("Player's been grabbed");
+		}
+
+		
+	}
+	
+}

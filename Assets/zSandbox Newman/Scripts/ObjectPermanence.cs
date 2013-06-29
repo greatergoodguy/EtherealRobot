@@ -16,6 +16,8 @@ public class ObjectPermanence : MonoBehaviour {
 	private bool objectStillExists = true;
 	private bool isFading = false;
 	
+	private float transparency = 1.0f;
+	
 	
 	// Use this for initialization
 	void Start () {
@@ -47,18 +49,16 @@ public class ObjectPermanence : MonoBehaviour {
 				objectStillExists = false;	
 				isFading = false;
 			}
-			
-			Debug.Log ("color.a: " + phaseObject.renderer.material.color.a);
-			//Debug.Log ("Ray hitting LookIcon");
-
 		}
 		else{
 			if(isFading){
 				phaseObject.renderer.material.color = Color.Lerp(phaseObject.renderer.material.color, startColor, Time.deltaTime * 3);  // .a = tranzColor;
 			}
-			
-			//phaseObject.SetActive(true);	
 		}	
+	}
+	
+	void TransparencyOverTime(){
+		// Possibly add better time functionality of disappearance	
 	}
 	
 }

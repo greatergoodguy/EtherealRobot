@@ -38,7 +38,7 @@ public class Button_Back : MonoBehaviour {
 				if(renderer.material.color.a < 0.05f){
 					renderer.enabled = false;
 					collider.enabled = false;
-					BACK_HIT_PRESSES = 0;
+					BACK_HIT_PRESSES -= 1;
 				}
 			}
 			else{
