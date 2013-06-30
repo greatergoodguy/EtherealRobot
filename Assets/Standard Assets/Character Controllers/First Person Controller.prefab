@@ -34,7 +34,7 @@ GameObject:
   - 114: {fileID: 11400004}
   m_Layer: 0
   m_Name: First Person Controller
-  m_TagString: Head
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -57,7 +57,7 @@ GameObject:
   - 81: {fileID: 8100000}
   m_Layer: 0
   m_Name: Main Camera
-  m_TagString: MainCamera
+  m_TagString: Head
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -85,8 +85,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100002}
-  m_LocalRotation: {x: 0, y: .707106829, z: 0, w: .707106829}
-  m_LocalPosition: {x: 63.8373108, y: 76.8996353, z: -135.629074}
+  m_LocalRotation: {x: 0, y: -.314495027, z: 0, w: -.949259162}
+  m_LocalPosition: {x: 13.0424385, y: 2, z: -3.36688113}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400000}
