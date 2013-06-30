@@ -48,7 +48,7 @@ public class ObjPermAppear : MonoBehaviour {
 			phaseInObject.renderer.material.color = Color.Lerp(phaseInObject.renderer.material.color, endColor, Time.deltaTime);  // .a = tranzColor;
 			isFadingIn = true;
 			
-			if(phaseInObject.renderer.material.color.a > 0.95f){
+			if(phaseInObject.renderer.material.color.a > 0.87f){
 				//phaseObject.SetActive(false);
 				phaseInObject.renderer.material.color = endColor;
 				phaseInObject.collider.isTrigger = false;
