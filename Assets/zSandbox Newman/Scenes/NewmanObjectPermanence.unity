@@ -4300,6 +4300,10 @@ Prefab:
       propertyPath: subId
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 5fa239dc902776240b919279dd6748f5, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5fa239dc902776240b919279dd6748f5, type: 2}
   m_RootGameObject: {fileID: 1677818746}
@@ -5589,11 +5593,11 @@ GameObject:
   - 20: {fileID: 544765309}
   m_Layer: 0
   m_Name: Ethereal
-  m_TagString: Player
+  m_TagString: Head
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &544765308
 Transform:
   m_ObjectHideFlags: 0
@@ -5601,7 +5605,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 544765307}
   m_LocalRotation: {x: 0, y: .999600887, z: 0, w: .0282511041}
-  m_LocalPosition: {x: 5.69067192, y: 1.96809006, z: -4.73747158}
+  m_LocalPosition: {x: 2.68258142, y: 1.96809006, z: 14.0818748}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1561915326}
@@ -5668,8 +5672,10 @@ MonoBehaviour:
   jumpPower: 5
   hoverHeight: 10
   grav: 30
-  RotationAmount: 1.5
+  lookAngleX: 0
+  lookAngleY: 0
   mouseLook: {fileID: 0}
+  etherealMove: {fileID: 0}
 --- !u!114 &544765312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5683,7 +5689,8 @@ MonoBehaviour:
   m_Name: 
   color1: {r: 1, g: 0, b: 0, a: 1}
   color2: {r: 1, g: 0, b: 0, a: 1}
-  lineRenderer: {fileID: 0}
+  lrHead: {fileID: 0}
+  lrVelo: {fileID: 0}
 --- !u!114 &544765313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7504,6 +7511,7 @@ GameObject:
   - 135: {fileID: 713748545}
   - 23: {fileID: 713748544}
   - 114: {fileID: 713748548}
+  - 114: {fileID: 713748549}
   m_Layer: 0
   m_Name: LookAtObject
   m_TagString: LookIcon
@@ -7567,9 +7575,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 713748543}
   m_Enabled: 1
   m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6075ad30d2f6edb42b7af934fdd8f23a, type: 3}
+  m_Name: 
+  phaseInObject: {fileID: 1248245070}
+--- !u!114 &713748549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 713748543}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8331ea655ede00148b91a5f3dce7fc0d, type: 3}
   m_Name: 
-  phaseObject: {fileID: 1248245070}
+  phaseOutObject: {fileID: 1248245070}
 --- !u!1 &714451155
 GameObject:
   m_ObjectHideFlags: 0
@@ -10696,19 +10715,19 @@ GameObject:
   - 114: {fileID: 1040207676}
   m_Layer: 0
   m_Name: First Person Controller
-  m_TagString: Untagged
+  m_TagString: Head
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1040207675
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 400002, guid: 9d4133d5d30b644bd87802a347eaccbe, type: 2}
   m_PrefabInternal: {fileID: 1548329991}
   m_GameObject: {fileID: 1040207674}
-  m_LocalRotation: {x: 0, y: -.978754103, z: 0, w: -.205037683}
-  m_LocalPosition: {x: 17.2928448, y: 2, z: -20.1318798}
+  m_LocalRotation: {x: 0, y: -.314495027, z: 0, w: -.949259162}
+  m_LocalPosition: {x: 13.0424385, y: 2, z: -3.36688113}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 458485926}
@@ -12988,7 +13007,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1248245070}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -13008,7 +13027,7 @@ Transform:
   m_GameObject: {fileID: 1248245070}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -11.3074598, y: 3.94974136, z: 0}
-  m_LocalScale: {x: 1, y: 8, z: 14}
+  m_LocalScale: {x: 8.32340717, y: 8, z: 14}
   m_Children: []
   m_Father: {fileID: 0}
 --- !u!1 &1253534669
@@ -16512,7 +16531,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400002, guid: 9d4133d5d30b644bd87802a347eaccbe, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 17.2928448
+      value: 13.0424385
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 9d4133d5d30b644bd87802a347eaccbe, type: 2}
       propertyPath: m_LocalPosition.y
@@ -16520,7 +16539,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 9d4133d5d30b644bd87802a347eaccbe, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -20.1318798
+      value: -3.36688113
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 9d4133d5d30b644bd87802a347eaccbe, type: 2}
       propertyPath: m_LocalRotation.x
@@ -16528,7 +16547,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 9d4133d5d30b644bd87802a347eaccbe, type: 2}
       propertyPath: m_LocalRotation.y
-      value: -.978754103
+      value: -.314495027
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 9d4133d5d30b644bd87802a347eaccbe, type: 2}
       propertyPath: m_LocalRotation.z
@@ -16536,11 +16555,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 9d4133d5d30b644bd87802a347eaccbe, type: 2}
       propertyPath: m_LocalRotation.w
-      value: -.205037683
+      value: -.949259162
       objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: 9d4133d5d30b644bd87802a347eaccbe, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 9d4133d5d30b644bd87802a347eaccbe, type: 2}
+      propertyPath: m_TagString
+      value: Head
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9d4133d5d30b644bd87802a347eaccbe, type: 2}
@@ -16726,7 +16749,8 @@ MonoBehaviour:
   m_Name: 
   color1: {r: 1, g: .418803453, b: .965301752, a: 1}
   color2: {r: 1, g: 0, b: .940298557, a: 1}
-  lineRenderer: {fileID: 0}
+  lrHead: {fileID: 0}
+  lrVelo: {fileID: 0}
 --- !u!114 &1561915328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16743,6 +16767,7 @@ MonoBehaviour:
   sensitivityY: 4
   maxAngleVert: 80
   maxAngleHori: 42
+  maxAngle: 80
 --- !u!81 &1561915329
 AudioListener:
   m_ObjectHideFlags: 0
@@ -17748,7 +17773,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1677818747
 Transform:
   m_ObjectHideFlags: 0
