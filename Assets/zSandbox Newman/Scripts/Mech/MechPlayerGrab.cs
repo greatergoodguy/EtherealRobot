@@ -1,11 +1,11 @@
 using UnityEngine;
 using System.Collections;
 
-public class MechPlayerGrab : MonoBehaviour {
+public class MechPlayerGrab : MechInfo {
 	
 	GameObject player;
 	
-	private bool playerIsGrabbed = false;
+	//private bool playerIsGrabbed = false;
 	//private int grabDistance = 10;
 	
 	
@@ -16,21 +16,16 @@ public class MechPlayerGrab : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	/*void Update () {
+		
+		
 		
 		if(playerIsGrabbed){
 			Vector3 handPos = this.transform.position;
 			player.transform.position = handPos;
 		}
 		
-		/*
-		if(!isGrabbed)
-			grabPlayer();
-		else{
-			Debug.Log("Player's been grabbed");
-		}*/
-		
-	}
+	}*/
 	
 	void OnTriggerStay(Collider other){
 		if(!playerIsGrabbed && other.tag.Equals("Player")){
