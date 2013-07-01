@@ -3,7 +3,7 @@ guid: 99267cd9ef908d8469ef526e479775a6
 SubstanceImporter:
   serializedVersion: 5
   materialInstances:
-  - serializedVersion: 7
+  - serializedVersion: 6
     name: Pavement_01
     prototypeName: Pavement_01
     shaderName: Bumped Specular

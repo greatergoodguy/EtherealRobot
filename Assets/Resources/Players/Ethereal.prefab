@@ -104,7 +104,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &100010
 GameObject:
   m_ObjectHideFlags: 1
@@ -123,7 +123,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &100012
 GameObject:
   m_ObjectHideFlags: 1
@@ -145,7 +145,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &400000
 Transform:
   m_ObjectHideFlags: 1
@@ -199,9 +199,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100008}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -.00048169517, y: -.979637086, z: .000554965518, w: -.20077531}
+  m_LocalPosition: {x: 2205.07788, y: 318.88916, z: 1043.6792}
+  m_LocalScale: {x: .0490471981, y: .0593215227, z: .0593215227}
   m_Children:
   - {fileID: 400004}
   m_Father: {fileID: 0}
@@ -583,7 +583,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41397b9747d3440e28b993b13e922f4d, type: 3}
   m_Name: 
   PredictionOn: 1
-  NeckPosition: {x: 0, y: .699999988, z: 0}
+  NeckPosition: {x: 0, y: 0, z: 0}
   EyeCenterPosition: {x: 0, y: .150000006, z: .0900000036}
   FollowOrientation: {fileID: 0}
   TrackerRotatesY: 0
@@ -986,7 +986,7 @@ MonoBehaviour:
   grav: 30
   warpRatio: .5
   inputDeadZone: 13
-  corneringThrustRatio: .5
+  corneringThrustRatio: 0
   maxVeloCornerAngle: 35
 --- !u!114 &11400052
 MonoBehaviour:
@@ -999,8 +999,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 815a39e147ca14991a05b48d9da33d2c, type: 3}
   m_Name: 
   PredictionOn: 1
-  NeckPosition: {x: 0, y: .699999988, z: 0}
-  EyeCenterPosition: {x: 0, y: .150000006, z: .0900000036}
+  NeckPosition: {x: 0, y: 0, z: 0}
+  EyeCenterPosition: {x: 0, y: 0, z: .0900000036}
   FollowOrientation: {fileID: 400004}
   TrackerRotatesY: 0
   CallInPreRender: 0
