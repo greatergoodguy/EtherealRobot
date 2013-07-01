@@ -4,13 +4,13 @@ using System.Collections;
 public class EtherealMove : MonoBehaviour {
 
 	// Public Tunable Movement Vars
-	public float acceleration = 88.0f;
-	public float lateralGs = 100.0f;
+	public float acceleration = 30.0f;
+	public float lateralGs = 90.0f;
 	// public float turnSensitivity = 5f;
 	public float brakeSpeed = 1.0f;				// Don´t make larger than max speed
-	public float maxSpeed = 147.0f;
+	public float maxSpeed = 90.0f;
 	public float jumpPower = 5.0f;
-	public float hoverHeight = 29.0f;
+	public float hoverHeight = 99.0f;
 	public float grav = 30.0f;
 	public float warpRatio = 0.5f;				// 0..1: percent of FOV increase at max speed
 	public float inputDeadZone = 13.0f;			// Input deadzone in degrees from origin
@@ -68,7 +68,7 @@ public class EtherealMove : MonoBehaviour {
 		//rigidbody.useGravity = !theFinalFrontier; 
 		// Set Us up the Bomb	
 		float altitude = 0f;
-		float currVelo = 0f;
+		float currVelo = rigidbody.velocity.magnitude;
 		Vector3 thrust = Vector3.zero;
 		Vector3 turnVector = Vector3.zero;
 		Vector3 veloVector = Vector3.zero;
@@ -93,6 +93,7 @@ public class EtherealMove : MonoBehaviour {
 			if (Physics.Raycast (transform.position, -Vector3.up, out ground)) {
 				altitude = ground.distance;
 				if (altitude > hoverHeight)	{			// Exiting Hover Zone: Thrust Disabled
+					// TODO: Implement steering
 					rigidbody.useGravity = true;
 					Vector3 pullDown = new Vector3 (0f, -rigidbody.velocity.y, 0f);
 					rigidbody.AddForce (pullDown * 0.7f, ForceMode.Acceleration);
@@ -102,55 +103,30 @@ public class EtherealMove : MonoBehaviour {
 		
 					// Accel/Decel and Cornering "Physics"
 					// TODO: Consider ForceMode.Velocity with analog controls using deltaTime
-					/*
-					if (angleLook > angleVelo && potentAngle > angleVelo) {
-						Vector3 orthoVec = Vector3.zero;
-						Vector3 ptVelocity = rigidbody.GetPointVelocity (transform.position);		// Velocity at world pos
-						//Debug.Log ("Current World Position is: "+transform.position.x+", "+transform.position.y+", "+transform.position.z);
-						//Debug.Log ("Rigidbody Velocity Vec = "+rigidbody.velocity.x+", "+rigidbody.velocity.y+", "+rigidbody.velocity.z);
-						//Vector3 localVelocity = transform.InverseTransformDirection (ptVelocity);	// Converts world to local
-						//Debug.Log ("Point Velocity Vec = "+ptVelocity.x+", "+ptVelocity.y+", "+ptVelocity.z);
-						//Debug.Log ("Local Velocity Vec = "+localVelocity.x+", "+localVelocity.y+", "+localVelocity.z);
-						if (turnSig == -1f) {				// Turning CCW
-							orthoVec = Vector3.Cross (head.forward, ptVelocity);
-						} else if (turnSig == 1f) {			// Turning CW
-							orthoVec = Vector3.Cross (ptVelocity, head.forward);
-						}
-						//fullGripAngleVec = Quaternion.AngleAxis ((potentAngle-angleVelo)*turnSig, orthoVec) * localVelocity;
-						//fullGripAngleVec = transform.TransformDirection (fullGripAngleVec);			// Back to world coord
-						fullGripAngleVec = Quaternion.AngleAxis ((potentAngle-angleVelo)*turnSig, orthoVec) * rigidbody.velocity;
-						modifiedThrust = (modifiedThrust + fullGripAngleVec.normalized).normalized; // * thrust;
-						//modifiedThrust = (modifiedThrust + fullGripAngleVec).normalized; // * thrust;
-						//Debug.Log ("Turn Signal is: "+ turnSig);
-						//Debug.Log ("Potential Turn Angle is: "+potentAngle+", Velocity Angle is: "+angleVelo);
-						//Debug.Log ("Decrease Turn Radius by: "+ (turnSig * (potentAngle-angleVelo)));
-						//Debug.Log ("Full Grip Vec = "+fullGripAngleVec.x+", "+fullGripAngleVec.y+", "+fullGripAngleVec.z);
-					}
-					*/
 					// Velocity Limiter
 					if (rigidbody.velocity.magnitude > maxSpeed) {
 						Debug.Log ("LIMITING SPEED");
 						float oppositeF = maxSpeed - rigidbody.velocity.magnitude;
-						//rigidbody.AddForce (rigidbody.velocity.normalized * oppositeF, ForceMode.VelocityChange);
-						rigidbody.velocity = rigidbody.velocity.normalized * maxSpeed;
+						rigidbody.AddForce (rigidbody.velocity.normalized * oppositeF, ForceMode.VelocityChange);
+						//rigidbody.velocity = rigidbody.velocity.normalized * maxSpeed;
 						//rigidbody.AddForce (veloVector, ForceMode.Acceleration);
 						//modifiedThrust = (modifiedThrust + rigidbody.velocity.normalized).normalized;
 						//rigidbody.AddForce (rigidbody.velocity * -1f, ForceMode.VelocityChange);
 						//rigidbody.AddForce (modifiedThrust * maxSpeed, ForceMode.VelocityChange); 
-					} else if (Vector3.Angle (head.forward, rigidbody.velocity.normalized) > 90f) {
+					} else if (Vector3.Angle (transform.forward, rigidbody.velocity.normalized) > 90f) {
 						Debug.Log ("GOING BACKWARDS");
 						//rigidbody.AddForce (-rigidbody.velocity * 0.7f, ForceMode.VelocityChange);
 						rigidbody.AddForce (rigidbody.velocity * -0.8f, ForceMode.VelocityChange);
 					}
 					// Update Velocity
-					if (throttleOn) { 
+					if (throttleOn) {
 						Debug.Log ("GO TIME");
 						//rigidbody.AddForce (modifiedThrust * thrust, ForceMode.Acceleration); 
 						//deltaVelo = acceleration * Time.deltaTime;
 						if (rigidbody.velocity.magnitude == 0f) {
 							Debug.Log ("Starting forward momentum");
 							thrust = head.forward * acceleration;
-							currVelo = thrust.magnitude;
+							//currVelo = thrust.magnitude;
 							//turnVector = Vector3.Cross (thrust.normalized, head.forward); 
 							//turnVector = Vector3.Cross (turnVector, thrust.normalized) * lateralGs;// * Time.deltaTime;
 							//if (rigidbody.velocity.magnitude > 0f) currVelo = rigidbody.velocity.magnitude;
@@ -162,38 +138,44 @@ public class EtherealMove : MonoBehaviour {
 							Debug.Log ("Adding forward force");
 							//thrust = rigidbody.velocity.normalized * acceleration;
 							//currVelo = rigidbody.velocity.magnitude;
-							rigidbody.AddForce (rigidbody.velocity.normalized * acceleration);
+							//rigidbody.AddForce (rigidbody.velocity.normalized * acceleration);
+							rigidbody.AddForce (head.forward * acceleration);
 							turnVector = Vector3.Cross (rigidbody.velocity.normalized, head.forward); 
-							turnVector = Vector3.Cross (turnVector, rigidbody.velocity.normalized) * lateralGs;// * Time.deltaTime;
+							turnVector = Vector3.Cross (turnVector, head.forward) * lateralGs;// * Time.deltaTime;
+							//turnVector = Vector3.Cross (turnVector, rigidbody.velocity.normalized) * lateralGs;// * Time.deltaTime;
 							//if (rigidbody.velocity.magnitude > 0f) currVelo = rigidbody.velocity.magnitude;
 							//veloVector = (thrust + turnVector).normalized * acceleration;
 							veloVector = turnVector;
 							//initialForce = rigidbody.velocity * deltaVelo;
 							//rigidbody.AddForce (rigidbody.velocity.normalized * deltaVelo, ForceMode.Acceleration);
 						}
+						rigidbody.AddForce (veloVector, ForceMode.Acceleration);
+						rigidbody.velocity = rigidbody.velocity.normalized * rigidbody.velocity.magnitude;
 					} else if (brakeOn) {
 						Debug.Log ("NO GO TIME");
 						//deltaVelo += -acceleration * Time.deltaTime * 2.5f;
 					} else { 
-						Debug.Log ("SLOW GO TIME");
+						Debug.Log ("SLOW GO TIME 1");
 						//float v = rigidbody.velocity.magnitude;
 						//thrust = rigidbody.velocity.normalized * v * 0.2f;
 						//currVelo = thrust.magnitude;
 						turnVector = Vector3.Cross (rigidbody.velocity.normalized, head.forward); 
-						turnVector = Vector3.Cross (turnVector, rigidbody.velocity.normalized) * lateralGs;// * Time.deltaTime;
+						turnVector = Vector3.Cross (turnVector, head.forward) * lateralGs;// * Time.deltaTime;
+						//turnVector = Vector3.Cross (turnVector, rigidbody.velocity.normalized) * lateralGs;// * Time.deltaTime;
 						//if (rigidbody.velocity.magnitude > 0f) currVelo = rigidbody.velocity.magnitude;
 						//veloVector = (thrust + turnVector).normalized * currVelo;
 						veloVector = turnVector;
-						rigidbody.AddForce (rigidbody.velocity * -1f, ForceMode.VelocityChange);
+						//rigidbody.AddForce (rigidbody.velocity * -0.5f, ForceMode.VelocityChange);
 						//rigidbody.AddForce (modifiedThrust * v * 0.5f, ForceMode.Acceleration); 
 						//deltaVelo += -acceleration * Time.deltaTime * 0.7f;
 						//deltaVelo = -deltaVelo;
+						rigidbody.AddForce (veloVector, ForceMode.Acceleration);
+						rigidbody.velocity = rigidbody.velocity.normalized * (currVelo * 0.95f);
+						//Debug.Log ("Velocity = "+rigidbody.velocity.magnitude);
+						if (rigidbody.velocity.magnitude < 0.5f) {
+							rigidbody.AddForce (rigidbody.velocity * -1f, ForceMode.VelocityChange);
+						}
 					}
-					
-					rigidbody.AddForce (veloVector, ForceMode.Acceleration);
-					rigidbody.velocity = rigidbody.velocity.normalized * rigidbody.velocity.magnitude;
-					
-					
 					//Debug.Log ("Current Velocity: "+rigidbody.velocity.magnitude);
 					//Debug.Log ("Time.deltaTime: "+Time.deltaTime);
 					//Debug.Log ("Rigidbody Velocity Vec = "+rigidbody.velocity.x+", "+rigidbody.velocity.y+", "+rigidbody.velocity.z);
@@ -211,7 +193,7 @@ public class EtherealMove : MonoBehaviour {
 					
 					// Dampen Rough Terrain: Counters negative velocity.y forces when at certain height
 					// TODO: Consider using constant minimal hover height
-					if (altitude < (0.23f * hoverHeight) && rigidbody.velocity.y < 0f) {
+					if (altitude < (0.01f * hoverHeight) && rigidbody.velocity.y < 0f) {
 						float dampY = Mathf.SmoothDamp (rigidbody.velocity.y, 0f, ref veloY, 0.01f);
 						rigidbody.velocity = new Vector3 (rigidbody.velocity.x, dampY, rigidbody.velocity.z);	
 						//Debug.Log ("Current Y-Axis Velocity = "+dampY);
