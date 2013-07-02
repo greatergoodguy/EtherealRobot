@@ -41,10 +41,10 @@ public class ObjPermDisappear : MonoBehaviour {
 		seesAnObject = Physics.Raycast(headPos, headFor, out hit, Mathf.Infinity);
 		if(seesAnObject && hit.collider.CompareTag("LookIcon")){
 			
-			phaseOutObject.renderer.material.color = Color.Lerp(phaseOutObject.renderer.material.color, transColor, Time.deltaTime);  // .a = tranzColor;
+			phaseOutObject.renderer.material.color = Color.Lerp(phaseOutObject.renderer.material.color, transColor, Time.deltaTime * 1.2f);  // .a = tranzColor;
 			isFadingOut = true;
-			
-			if(phaseOutObject.renderer.material.color.a < 0.05){
+			Debug.Log ("Alpha: " + phaseOutObject.renderer.material.color.a);
+			if(phaseOutObject.renderer.material.color.a < 0.07){
 				phaseOutObject.SetActive(false);	
 				objectStillExists = false;	
 				isFadingOut = false;

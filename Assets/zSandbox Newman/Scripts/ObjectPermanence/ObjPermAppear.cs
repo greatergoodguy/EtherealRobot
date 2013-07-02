@@ -45,10 +45,10 @@ public class ObjPermAppear : MonoBehaviour {
 			
 			Debug.Log ("is reappearing");
 			
-			phaseInObject.renderer.material.color = Color.Lerp(phaseInObject.renderer.material.color, endColor, Time.deltaTime);  // .a = tranzColor;
+			phaseInObject.renderer.material.color = Color.Lerp(phaseInObject.renderer.material.color, endColor, Time.deltaTime * 1.2f);  // .a = tranzColor;
 			isFadingIn = true;
 			
-			if(phaseInObject.renderer.material.color.a > 0.87f){
+			if(phaseInObject.renderer.material.color.a > 0.89f){
 				//phaseObject.SetActive(false);
 				phaseInObject.renderer.material.color = endColor;
 				phaseInObject.collider.isTrigger = false;
