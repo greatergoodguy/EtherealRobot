@@ -39,7 +39,7 @@ public class ObjPermDisappear : MonoBehaviour {
 		Vector3 headFor = head.transform.forward;
 		
 		seesAnObject = Physics.Raycast(headPos, headFor, out hit, Mathf.Infinity);
-		if(seesAnObject && hit.collider.CompareTag("LookIcon")){
+		if(seesAnObject && hit.collider.gameObject == gameObject){
 			
 			phaseOutObject.renderer.material.color = Color.Lerp(phaseOutObject.renderer.material.color, transColor, Time.deltaTime * 1.2f);  // .a = tranzColor;
 			isFadingOut = true;

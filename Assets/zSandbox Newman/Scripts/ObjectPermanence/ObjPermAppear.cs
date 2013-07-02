@@ -41,7 +41,7 @@ public class ObjPermAppear : MonoBehaviour {
 		Vector3 headFor = head.transform.forward;	
 		
 		seesAnObject = Physics.Raycast(headPos, headFor, out hit, Mathf.Infinity);
-		if(seesAnObject && hit.collider.CompareTag("LookIcon")){
+		if(seesAnObject && hit.collider.gameObject == gameObject){
 			
 			Debug.Log ("is reappearing");
 			
