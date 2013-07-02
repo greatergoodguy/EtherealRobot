@@ -15,9 +15,9 @@ public class MechRightHand : MonoBehaviour {
 	
 	}
 	
-	void OnTriggerStay(Collider other){	
+	void OnTriggerEnter(Collider other){	
 		if(!RightGrabbed && other.tag.Equals("Player")){
 			RightGrabbed = true;	
 		}
-	}
+	}	
 }

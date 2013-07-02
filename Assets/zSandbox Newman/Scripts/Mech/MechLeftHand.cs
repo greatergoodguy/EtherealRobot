@@ -3,7 +3,6 @@ using System.Collections;
 
 public class MechLeftHand : MonoBehaviour {
 	
-	
 	public bool LeftGrabbed = false;
 	
 	// Use this for initialization
@@ -16,7 +15,7 @@ public class MechLeftHand : MonoBehaviour {
 	
 	}
 
-	void OnTriggerStay(Collider other){	
+	void OnTriggerEnter(Collider other){	
 		if(!LeftGrabbed && other.tag.Equals("Player")){
 			LeftGrabbed = true;	
 		}

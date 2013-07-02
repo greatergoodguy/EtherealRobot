@@ -3,7 +3,6 @@ using System.Collections;
 
 public class Mech : MonoBehaviour {
 	
-	
 	GameObject player;
 	GameObject LeftHand;
 	GameObject RightHand;
@@ -25,28 +24,27 @@ public class Mech : MonoBehaviour {
 		if(!playerIsGrabbed){
 			if(LeftHand.GetComponent<MechLeftHand>().LeftGrabbed){
 				LeftGrab = true;
-				playerIsGrabbed = true;
-				
+				playerIsGrabbed = true;			
 			}
 			else if(RightHand.GetComponent<MechRightHand>().RightGrabbed){
 				RightGrab = true;	
-				playerIsGrabbed = true;
+				playerIsGrabbed = true;			
 			}
 		}
 		else if(playerIsGrabbed){
 			MechHoldingPlayer();
 		}
-
 	}
-	
-	
+		
 	void MechHoldingPlayer(){
 		Vector3 handPos;
-		if(LeftGrab)
+		if(LeftGrab){
 			handPos = LeftHand.transform.position;
-		else if(RightGrab){
-			handPos = RightHand.transform.position;
-		player.transform.position = handPos;
 		}
+		else{  //RightGrab
+		//else if(RightGrab){
+			handPos = RightHand.transform.position;
+		}	
+		player.transform.position = handPos;		
 	}
 }
