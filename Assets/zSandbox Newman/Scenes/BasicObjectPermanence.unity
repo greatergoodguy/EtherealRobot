@@ -403,7 +403,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1070164538}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -632,9 +632,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1663623642}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8331ea655ede00148b91a5f3dce7fc0d, type: 3}
+  m_Script: {fileID: 11500000, guid: c8481740fc0c9594f9182df14b482765, type: 3}
   m_Name: 
   phaseOutObject: {fileID: 1803077520}
+  DisappearSpeed: 2
+  AppearSpeed: 2
+  ActivateObject: .949999988
 --- !u!1 &1803077520
 GameObject:
   m_ObjectHideFlags: 0
@@ -776,6 +779,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2103090424}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6075ad30d2f6edb42b7af934fdd8f23a, type: 3}
+  m_Script: {fileID: 11500000, guid: f3aa3090547cfad40b2636da44d72f84, type: 3}
   m_Name: 
   phaseInObject: {fileID: 1070164538}
+  AppearSpeed: 2
+  DisappearSpeed: 1
+  ActivateObjectParamater: .0500000007

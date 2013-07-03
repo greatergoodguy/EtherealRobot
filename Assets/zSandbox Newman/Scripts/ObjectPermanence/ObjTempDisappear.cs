@@ -3,9 +3,13 @@ using System.Collections;
 
 // Requires an attached gameobject and correct material
 
-public class ObjPermDisappear : MonoBehaviour {
+public class ObjTempDisappear : MonoBehaviour {
 	
 	public GameObject phaseOutObject;
+	
+	public float DisappearSpeed = 2.0f;
+	public float AppearSpeed = 1.5f;
+	public float ActivateObject = 0.95f;
 	
 	private GameObject head;
 	private bool seesAnObject;
@@ -41,23 +45,23 @@ public class ObjPermDisappear : MonoBehaviour {
 		seesAnObject = Physics.Raycast(headPos, headFor, out hit, Mathf.Infinity);
 		if(seesAnObject && hit.collider.gameObject == gameObject){
 			
-			phaseOutObject.renderer.material.color = Color.Lerp(phaseOutObject.renderer.material.color, transColor, Time.deltaTime * 1.2f);  // .a = tranzColor;
+			phaseOutObject.renderer.material.color = Color.Lerp(phaseOutObject.renderer.material.color, transColor, Time.deltaTime * DisappearSpeed);  // .a = tranzColor;
 			isFadingOut = true;
-			if(phaseOutObject.renderer.material.color.a < 0.07){
-				phaseOutObject.SetActive(false);	
-				objectStillExists = false;	
-				isFadingOut = false;
+			
+			if(phaseOutObject.renderer.material.color.a < ActivateObject){
+				//phaseOutObject.SetActive(false);
+				phaseOutObject.collider.isTrigger = true;
 			}
 		}
 		else{
 			if(isFadingOut){
-				phaseOutObject.renderer.material.color = Color.Lerp(phaseOutObject.renderer.material.color, startColor, Time.deltaTime * 3);  // .a = tranzColor;
+				phaseOutObject.renderer.material.color = Color.Lerp(phaseOutObject.renderer.material.color, startColor, Time.deltaTime * AppearSpeed);  // .a = tranzColor;
+			}
+			if(phaseOutObject.renderer.material.color.a >= ActivateObject){
+				//phaseOutObject.SetActive(true);
+				phaseOutObject.collider.isTrigger = false;
 			}
 		}	
-	}
-	
-	void TransparencyOverTime(){
-		// Possibly add better time functionality of disappearance	
 	}
 	
 }

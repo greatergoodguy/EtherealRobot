@@ -1,9 +1,13 @@
 using UnityEngine;
 using System.Collections;
 
-public class ObjPermAppear : MonoBehaviour {
+public class ObjTempAppear : MonoBehaviour {
 	
 	public GameObject phaseInObject;
+
+	public float AppearSpeed = 2.0f;
+	public float DisappearSpeed = 1.0f;
+	public float ActivateObjectParamater = 0.05f;	
 	
 	private GameObject head;
 	private bool seesAnObject;
@@ -20,8 +24,6 @@ public class ObjPermAppear : MonoBehaviour {
 		head = GameObject.FindGameObjectWithTag("Head");	
 		endColor = phaseInObject.renderer.material.color;
 		
-		//Color tempColor = phaseInObject.renderer.material.color;
-		
 		startColor = new Color (endColor.r, endColor.g, endColor.b, 0);		
 		phaseInObject.renderer.material.color = startColor;			
 	}
@@ -31,9 +33,9 @@ public class ObjPermAppear : MonoBehaviour {
 		if(objectDoesntExist){
 			isBeingLookedAt();
 		}
-		else if(!objectDoesntExist){
+		//else if(!objectDoesntExist){
 			//set collider to true;    Use isTrigger?
-		}
+		//}
 	}
 	
 	void isBeingLookedAt(){
@@ -43,21 +45,22 @@ public class ObjPermAppear : MonoBehaviour {
 		seesAnObject = Physics.Raycast(headPos, headFor, out hit, Mathf.Infinity);
 		if(seesAnObject && hit.collider.gameObject == gameObject){
 			
-			phaseInObject.renderer.material.color = Color.Lerp(phaseInObject.renderer.material.color, endColor, Time.deltaTime * 1.2f);  // .a = tranzColor;
+			phaseInObject.renderer.material.color = Color.Lerp(phaseInObject.renderer.material.color, endColor, Time.deltaTime * AppearSpeed);  // .a = tranzColor;
 			isFadingIn = true;
 			
-			if(phaseInObject.renderer.material.color.a > 0.89f){
+			if(phaseInObject.renderer.material.color.a > ActivateObjectParamater){
 				//phaseObject.SetActive(false);
-				phaseInObject.renderer.material.color = endColor;
 				phaseInObject.collider.isTrigger = false;
-				objectDoesntExist = false;	
-				isFadingIn = false;
-			}
+			}			
 		}
 		else{
 			if(isFadingIn){
-				phaseInObject.renderer.material.color = Color.Lerp(phaseInObject.renderer.material.color, startColor, Time.deltaTime * 3);  // .a = tranzColor;
+				phaseInObject.renderer.material.color = Color.Lerp(phaseInObject.renderer.material.color, startColor, Time.deltaTime * DisappearSpeed);  // .a = tranzColor;
 			}
+			if(phaseInObject.renderer.material.color.a <= ActivateObjectParamater){
+				//phaseOutObject.SetActive(true);
+				phaseInObject.collider.isTrigger = true;
+			}				
 		}	
 	}
 }
